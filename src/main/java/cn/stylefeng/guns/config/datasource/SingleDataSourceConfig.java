@@ -47,7 +47,6 @@ public class SingleDataSourceConfig {
     public DruidProperties druidProperties() {
         return new DruidProperties();
     }
-
     /**
      * 单数据源连接池配置
      */
