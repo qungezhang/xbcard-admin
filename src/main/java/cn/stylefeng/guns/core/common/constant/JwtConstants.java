@@ -15,6 +15,10 @@
  */
 package cn.stylefeng.guns.core.common.constant;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
 /**
  * jwt相关配置
  *
@@ -29,6 +33,9 @@ public interface JwtConstants {
 
     Long EXPIRATION = 604800L;
 
-    String AUTH_PATH = "/gunsApi/auth";
+    String AUTH_PATH = "/api/auth";
+    List<String> LIST = Lists.newArrayList(
+            "/api/auth",""
+    );
 
 }

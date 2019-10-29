@@ -15,6 +15,8 @@
  */
 package cn.stylefeng.guns.modular.api;
 
+import cn.stylefeng.guns.config.properties.GunsProperties;
+import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
@@ -22,18 +24,30 @@ import cn.stylefeng.guns.modular.system.dao.UserMapper;
 import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.UUID;
+
+import static cn.stylefeng.guns.core.util.JwtTokenUtil.getUserId;
 
 /**
  * 接口控制器提供
@@ -42,16 +56,19 @@ import java.util.HashMap;
  * @Date 2018/7/20 23:39
  */
 @RestController
-@RequestMapping("/gunsApi")
+@RequestMapping("/api")
+@Api(tags = "登录")
 public class ApiController extends BaseController {
 
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private GunsProperties gunsProperties;
     /**
      * api登录接口，通过账号密码获取token
      */
-    @RequestMapping("/auth")
+    @PostMapping("/auth")
+    @ApiOperation("api登录接口")
     public Object auth(@RequestParam("username") String username,
                        @RequestParam("password") String password) {
 
@@ -86,9 +103,14 @@ public class ApiController extends BaseController {
     /**
      * 测试接口是否走鉴权
      */
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @GetMapping(value = "/test")
+    @ApiOperation("测试接口是否走鉴权")
     public Object test() {
-        return SUCCESS_TIP;
+        SuccessResponseData successResponseData = new SuccessResponseData();
+        String name = getUserId();
+        User user = userMapper.selectById(name);
+        successResponseData.setData(user);
+        return successResponseData;
     }
 
 }

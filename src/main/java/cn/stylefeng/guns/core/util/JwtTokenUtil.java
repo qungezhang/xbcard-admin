@@ -18,7 +18,11 @@ package cn.stylefeng.guns.core.util;
 import cn.stylefeng.guns.core.common.constant.JwtConstants;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import io.jsonwebtoken.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +50,15 @@ public class JwtTokenUtil {
      */
     public static String getUsernameFromToken(String token) {
         return getClaimFromToken(token).getSubject();
+    }
+    /**
+     * 获取用户名从token中
+     */
+    public static String getUserId() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        final String requestHeader = request.getHeader(JwtConstants.AUTH_HEADER);
+        return requestHeader != null ? getClaimFromToken(requestHeader.substring(7)).getSubject() : null;
     }
 
     /**
