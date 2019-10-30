@@ -20,6 +20,7 @@ import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.modular.Dto.TestDto;
 import cn.stylefeng.guns.modular.system.dao.UserMapper;
 import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -37,6 +38,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -103,9 +105,9 @@ public class ApiController extends BaseController {
     /**
      * 测试接口是否走鉴权
      */
-    @GetMapping(value = "/test")
+    @PostMapping(value = "/test")
     @ApiOperation("测试接口是否走鉴权")
-    public Object test() {
+    public Object test(@RequestBody TestDto testDto) {
         SuccessResponseData successResponseData = new SuccessResponseData();
         String name = getUserId();
         User user = userMapper.selectById(name);

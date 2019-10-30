@@ -2,7 +2,6 @@ package cn.stylefeng.guns.core.service.impl;
 
 import cn.stylefeng.guns.config.properties.QiniuProperties;
 import cn.stylefeng.guns.core.service.QiniuService;
-import cn.stylefeng.roses.core.util.ToolUtil;
 import com.alibaba.fastjson.JSON;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -12,6 +11,8 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,12 +20,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.UUID;
 
-@Slf4j
 @Service
 @EnableConfigurationProperties(QiniuProperties.class)
 public class QiniuServiceImpl implements QiniuService, InitializingBean {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private QiniuProperties qiniuProperties;

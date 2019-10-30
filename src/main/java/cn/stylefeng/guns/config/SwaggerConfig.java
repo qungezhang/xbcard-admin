@@ -62,11 +62,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Guns Doc")
-                .description("Guns Api文档")
-                .termsOfServiceUrl("https://gitee.com/stylefeng/guns")
-                .contact("stylefeng")
-                .version("2.0")
+                .title("XBCARD-ADMIN")
+                .description("XBCARD Api文档")
+//                .termsOfServiceUrl("https://gitee.com/stylefeng/guns")
+                .contact("QUNGE")
+                .version("1.0")
                 .build();
     }
 
