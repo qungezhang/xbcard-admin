@@ -1,7 +1,12 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.service.QiniuService;
+import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.qiniu.http.Response;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/qiniu")
+@Api(tags = "七牛云")
 public class QiniuController {
 
     @Autowired
@@ -28,8 +35,12 @@ public class QiniuController {
      * @throws IOException
      */
     @PostMapping("upload")
-    public String uploadFile(@RequestParam(value = "file") MultipartFile file) throws IOException {
-        return qiniuService.uploadFile(file.getInputStream());
+    @ApiOperation("文件上传")
+    public Object uploadFile(@RequestParam(value = "file") MultipartFile file) throws IOException {
+        SuccessResponseData successResponseData = new SuccessResponseData();
+//        String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(file.getOriginalFilename());
+        successResponseData.setData(qiniuService.uploadFile(file.getInputStream(), null));
+        return successResponseData;
     }
 
     /**

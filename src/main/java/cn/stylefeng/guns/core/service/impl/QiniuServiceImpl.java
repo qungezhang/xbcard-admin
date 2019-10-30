@@ -2,6 +2,7 @@ package cn.stylefeng.guns.core.service.impl;
 
 import cn.stylefeng.guns.config.properties.QiniuProperties;
 import cn.stylefeng.guns.core.service.QiniuService;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.alibaba.fastjson.JSON;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -48,11 +50,11 @@ public class QiniuServiceImpl implements QiniuService, InitializingBean {
      * @throws QiniuException
      */
     @Override
-    public String uploadFile(File file) throws QiniuException {
-        Response response = this.uploadManager.put(file, null, getUploadToken());
+    public String uploadFile(File file, String key) throws QiniuException {
+        Response response = this.uploadManager.put(file, key, getUploadToken());
         int retry = 0;
         while (response.needRetry() && retry < 3) {
-            response = this.uploadManager.put(file, null, getUploadToken());
+            response = this.uploadManager.put(file, key, getUploadToken());
             retry++;
         }
         //解析结果
@@ -70,11 +72,11 @@ public class QiniuServiceImpl implements QiniuService, InitializingBean {
      * @throws QiniuException
      */
     @Override
-    public String uploadFile(InputStream inputStream) throws QiniuException {
-        Response response = this.uploadManager.put(inputStream, null, getUploadToken(), null, null);
+    public String uploadFile(InputStream inputStream, String key) throws QiniuException {
+        Response response = this.uploadManager.put(inputStream, key, getUploadToken(), null, null);
         int retry = 0;
         while (response.needRetry() && retry < 3) {
-            response = this.uploadManager.put(inputStream, null, getUploadToken(), null, null);
+            response = this.uploadManager.put(inputStream, key, getUploadToken(), null, null);
             retry++;
         }
         //解析结果
