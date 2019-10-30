@@ -35,6 +35,18 @@ mybatis-plus:
 log:
   path: guns-logs
 
+#七牛的配置
+#qiniu:
+#  accessKey: xxx
+#  secretKey: yyy
+#  bucketName: bucket1
+#  fileDomain: file.aaa.com #文件访问域名前缀
+qiniu:
+  accessKey: 个人中心-->秘钥管理-->AccessKey
+  secretKey: 个人中心-->秘钥管理-->SecretKey
+  bucket: 存储空间名称
+  prefix: 访问域名file.aaa.com
+
 ---
 
 spring:
