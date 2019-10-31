@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50645
  Source Host           : localhost:3306
- Source Schema         : guns
+ Source Schema         : xbcard
 
  Target Server Type    : MySQL
  Target Server Version : 50645
  File Encoding         : 65001
 
- Date: 30/10/2019 23:20:47
+ Date: 31/10/2019 11:38:20
 */
 
 SET NAMES utf8mb4;

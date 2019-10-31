@@ -1,9 +1,7 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.service.QiniuService;
-import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
-import cn.stylefeng.roses.core.util.ToolUtil;
 import com.qiniu.http.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/qiniu")
