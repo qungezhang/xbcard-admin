@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.service.QiniuService;
+import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import com.qiniu.http.Response;
 import io.swagger.annotations.Api;

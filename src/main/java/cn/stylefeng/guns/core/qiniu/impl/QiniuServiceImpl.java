@@ -1,7 +1,7 @@
-package cn.stylefeng.guns.core.service.impl;
+package cn.stylefeng.guns.core.qiniu.impl;
 
 import cn.stylefeng.guns.config.properties.QiniuProperties;
-import cn.stylefeng.guns.core.service.QiniuService;
+import cn.stylefeng.guns.core.qiniu.QiniuService;
 import com.alibaba.fastjson.JSON;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -10,7 +10,6 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

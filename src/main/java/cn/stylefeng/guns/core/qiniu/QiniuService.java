@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.core.service;
+package cn.stylefeng.guns.core.qiniu;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
