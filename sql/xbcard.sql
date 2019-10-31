@@ -11,7 +11,7 @@
  Target Server Version : 50645
  File Encoding         : 65001
 
- Date: 31/10/2019 11:38:20
+ Date: 31/10/2019 20:04:24
 */
 
 SET NAMES utf8mb4;
@@ -430,5 +430,91 @@ CREATE TABLE `wx_card`  (
   `flag4` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '名片基础信息' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for wx_category
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_category`;
+CREATE TABLE `wx_category`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `pid` int(11) NULL DEFAULT NULL COMMENT '父部门id',
+  `pids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父级ids',
+  `simplename` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '简称',
+  `fullname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '全称',
+  `tips` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '提示',
+  `version` int(11) NULL DEFAULT NULL COMMENT '版本（乐观锁保留字段）',
+  `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
+  `card_id` int(11) NULL DEFAULT NULL COMMENT '名片id',
+  `is_deleted` tinyint(3) NULL DEFAULT NULL COMMENT '是否删除（0否，1是）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
+  `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '类别' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of wx_category
+-- ----------------------------
+INSERT INTO `wx_category` VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for wx_material
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_material`;
+CREATE TABLE `wx_material`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片地址',
+  `simplename` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '简称',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
+  `card_id` int(11) NULL DEFAULT NULL COMMENT '名片id',
+  `category_id` int(11) NULL DEFAULT NULL COMMENT '类别id',
+  `is_deleted` tinyint(3) NULL DEFAULT NULL COMMENT '是否删除（0否，1是）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
+  `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for wx_user
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_user`;
+CREATE TABLE `wx_user`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `openid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信openid',
+  `wechat_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信号',
+  `unionid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信unionid',
+  `qrcode` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信二维码',
+  `nick_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
+  `headimgurl` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户头像',
+  `sex` tinyint(3) NULL DEFAULT NULL COMMENT '性别：（1:男性；2:女性；0:未知）',
+  `channel` tinyint(4) NULL DEFAULT NULL COMMENT '渠道（0自主 ）',
+  `country` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '国家',
+  `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '省份',
+  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '城市',
+  `area` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地区',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址详情',
+  `language` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户的语言，简体中文为zh_CN',
+  `is_deleted` tinyint(3) NULL DEFAULT NULL COMMENT '是否删除（0否，1是）',
+  `freeze` tinyint(3) NULL DEFAULT 0 COMMENT '冻结 0未冻结 1已冻结',
+  `last_login_time` datetime(0) NULL DEFAULT NULL COMMENT '最后登录时间',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
+  `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信用户' ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;

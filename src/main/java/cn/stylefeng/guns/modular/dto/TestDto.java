@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.modular.Dto;
+package cn.stylefeng.guns.modular.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
