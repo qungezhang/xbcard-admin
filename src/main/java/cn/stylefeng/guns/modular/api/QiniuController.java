@@ -27,6 +27,7 @@ public class QiniuController {
     @Autowired
     private QiniuService qiniuService;
 
+
     /**
      * 以流的形式上传图片
      *
