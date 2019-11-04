@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.core.common.constant.factory;
 
 import cn.stylefeng.guns.core.common.constant.state.Order;
+import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.roses.core.util.HttpContext;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -42,6 +43,38 @@ public class PageFactory<T> {
             return page;
         } else {
             Page<T> page = new Page<>((offset / limit + 1), limit, sort);
+            if (Order.ASC.getDes().equals(order)) {
+                page.setAsc(true);
+            } else {
+                page.setAsc(false);
+            }
+            return page;
+        }
+    }
+
+    /**
+     * @param limit  每页多少条数据
+     * @param offset 每页的偏移量(本页当前有多少条)
+     * @param sort   排序字段名称
+     * @param order  asc或desc(升序或降序)
+     * @return
+     */
+    public Page<T> defaultPage(Integer pageNum, Integer pageSize, String sort, String order) {
+//        HttpServletRequest request = HttpContext.getRequest();
+//        int limit = Integer.valueOf(request.getParameter("limit"));     //每页多少条数据
+//        int offset = Integer.valueOf(request.getParameter("offset"));   //每页的偏移量(本页当前有多少条)
+//        String sort = request.getParameter("sort");         //排序字段名称
+//        String order = request.getParameter("order");       //asc或desc(升序或降序)
+        if (ToolUtil.isEmpty(pageNum) || ToolUtil.isEmpty(pageSize)) {
+            pageNum = 1;
+            pageSize = 20;
+        }
+        if (ToolUtil.isEmpty(sort)) {
+            Page<T> page = new Page<>(pageNum, pageSize);
+            page.setOpenSort(false);
+            return page;
+        } else {
+            Page<T> page = new Page<>(pageNum, pageSize, sort);
             if (Order.ASC.getDes().equals(order)) {
                 page.setAsc(true);
             } else {

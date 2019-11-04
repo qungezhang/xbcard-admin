@@ -1,0 +1,45 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" underline="true"/>
+                            <#input id="name" name="姓名" underline="true"/>
+                            <#input id="mobile" name="电话" underline="true"/>
+                            <#input id="company" name="公司" underline="true"/>
+                            <#input id="position" name="职位" underline="true"/>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <#input id="address" name="地址" underline="true"/>
+                    <#input id="email" name="邮箱" underline="true"/>
+                    <#input id="fax" name="传真" underline="true"/>
+                    <#input id="logo" name="logo" underline="true"/>
+                    <#input id="userId" name="用户id"/>
+<!--                            <#input id="isDeleted" name="是否删除（0否，1是）" underline="true"/>-->
+<!--                            <#input id="createTime" name="创建时间" underline="true"/>-->
+<!--                            <#input id="createBy" name="创建人" underline="true"/>-->
+<!--                            <#input id="updateTime" name="修改时间" underline="true"/>-->
+<!--                            <#input id="updateBy" name="修改人" underline="true"/>-->
+<!--                            <#input id="flag1" name="预留字段" underline="true"/>-->
+<!--                            <#input id="flag2" name="预留字段" underline="true"/>-->
+<!--                            <#input id="flag3" name="预留字段" underline="true"/>-->
+<!--                            <#input id="flag4" name="预留字段" underline="true"/>-->
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="CardInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="CardInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/card/card_info.js"></script>
+@}
