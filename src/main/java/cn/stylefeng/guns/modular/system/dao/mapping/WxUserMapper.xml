@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.WxUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.WxUser">
+        <id column="id" property="id" />
+        <result column="mobile" property="mobile" />
+        <result column="openid" property="openid" />
+        <result column="wechat_number" property="wechatNumber" />
+        <result column="unionid" property="unionid" />
+        <result column="qrcode" property="qrcode" />
+        <result column="nick_name" property="nickName" />
+        <result column="headimgurl" property="headimgurl" />
+        <result column="sex" property="sex" />
+        <result column="channel" property="channel" />
+        <result column="country" property="country" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="area" property="area" />
+        <result column="address" property="address" />
+        <result column="language" property="language" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="freeze" property="freeze" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="flag1" property="flag1" />
+        <result column="flag2" property="flag2" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, mobile, openid, wechat_number, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language, is_deleted, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
+    </sql>
+
+</mapper>
