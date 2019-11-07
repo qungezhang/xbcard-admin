@@ -54,7 +54,8 @@ public class CategoryApiController extends BaseController {
      */
     @PostMapping(value = "/add")
     @ResponseBody
-    public Object add(Category category) {
+    @ApiOperation("新增")
+    public Object add(@RequestBody Category category) {
         categoryService.insert(category);
         return SUCCESS_TIP;
     }
@@ -64,6 +65,7 @@ public class CategoryApiController extends BaseController {
      */
     @GetMapping(value = "/delete")
     @ResponseBody
+    @ApiOperation("删除")
     public Object delete(@RequestParam Integer categoryId) {
         categoryService.deleteById(categoryId);
         return SUCCESS_TIP;
@@ -74,7 +76,8 @@ public class CategoryApiController extends BaseController {
      */
     @PostMapping(value = "/update")
     @ResponseBody
-    public Object update(Category category) {
+    @ApiOperation("修改")
+    public Object update(@RequestBody Category category) {
         categoryService.updateById(category);
         return SUCCESS_TIP;
     }
@@ -84,6 +87,7 @@ public class CategoryApiController extends BaseController {
      */
     @GetMapping(value = "/detail/{categoryId}")
     @ResponseBody
+    @ApiOperation("详情")
     public Object detail(@PathVariable("categoryId") Integer categoryId) {
         return categoryService.selectById(categoryId);
     }

@@ -55,7 +55,7 @@ import java.util.Date;
 /**
  * @author Binary Wang
  */
-@Api("微信支付")
+@Api(tags = "微信支付")
 @RestController
 @RequestMapping("/pay")
 @AllArgsConstructor

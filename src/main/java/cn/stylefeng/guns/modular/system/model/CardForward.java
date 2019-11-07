@@ -1,0 +1,174 @@
+package cn.stylefeng.guns.modular.system.model;
+
+import com.baomidou.mybatisplus.enums.IdType;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
+
+/**
+ * <p>
+ * 名片转发打开记录
+ * </p>
+ *
+ * @author qunge
+ * @since 2019-11-07
+ */
+@TableName("wx_card_forward")
+public class CardForward extends Model<CardForward> {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 主键ID
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
+    /**
+     * 名片ID
+     */
+    @TableField("card_id")
+    private Long cardId;
+    /**
+     * 类型 1转发 2进入
+     */
+    private Integer type;
+    /**
+     * 转发/进入ID
+     */
+    @TableField("user_id")
+    private Long userId;
+    /**
+     * 参与人头像
+     */
+    @TableField("head_img")
+    private String headImg;
+    /**
+     * 参与人昵称
+     */
+    private String nickname;
+    /**
+     * 转发者ID
+     */
+    @TableField("forwarder_id")
+    private Long forwarderId;
+    /**
+     * 导购ID
+     */
+    @TableField("emp_id")
+    private Long empId;
+    /**
+     * 公司ID
+     */
+    @TableField("company_id")
+    private Long companyId;
+    /**
+     * 创建时间
+     */
+    @TableField("create_time")
+    private Date createTime;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Long getForwarderId() {
+        return forwarderId;
+    }
+
+    public void setForwarderId(Long forwarderId) {
+        this.forwarderId = forwarderId;
+    }
+
+    public Long getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Long empId) {
+        this.empId = empId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "CardForward{" +
+        ", id=" + id +
+        ", cardId=" + cardId +
+        ", type=" + type +
+        ", userId=" + userId +
+        ", headImg=" + headImg +
+        ", nickname=" + nickname +
+        ", forwarderId=" + forwarderId +
+        ", empId=" + empId +
+        ", companyId=" + companyId +
+        ", createTime=" + createTime +
+        "}";
+    }
+}
