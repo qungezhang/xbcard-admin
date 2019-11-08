@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
 
 guns:
   swagger-open: true              #是否开启swagger (true/false)
@@ -82,9 +82,9 @@ guns:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/xbcard?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://39.106.95.230:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
-    password: root
+    password: xbcard8888
     filters: wall,mergeStat
 
 ---
@@ -92,9 +92,9 @@ spring:
 spring:
   profiles: test
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/xbcard?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://172.24.34.247:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
-    password: root
+    password: xbcard8888
     filters: wall,mergeStat
 
 ---
