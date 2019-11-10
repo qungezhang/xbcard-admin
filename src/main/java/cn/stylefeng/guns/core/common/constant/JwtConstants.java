@@ -34,6 +34,7 @@ public interface JwtConstants {
     Long EXPIRATION = 604800L;
 
     String AUTH_PATH = "/api/auth";
+    String WX_LOGIN_PATH = "/api/wxuser/login";
     List<String> LIST = Lists.newArrayList(
             "/api/auth",""
     );

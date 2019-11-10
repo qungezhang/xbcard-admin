@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.hutool.core.util.IdUtil;
+import cn.stylefeng.guns.core.util.OrderNumUtils;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryRequest;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryResult;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponSendRequest;
@@ -145,7 +146,7 @@ public class WxPayController {
     request.setNotifyUrl("www.baidu.com");
     request.setTradeType(WxPayConstants.TradeType.JSAPI);
     request.setOpenid("dddddccvcv");
-    request.setOutTradeNo(IdUtil.fastSimpleUUID());
+    request.setOutTradeNo(new OrderNumUtils().nextId());
     request.setSignType(WxPayConstants.SignType.HMAC_SHA256);
 
     return this.wxService.unifiedOrder(request);

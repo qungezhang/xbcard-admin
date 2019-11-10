@@ -45,7 +45,7 @@ public class RestApiInteceptor extends HandlerInterceptorAdapter {
 
     private boolean check(HttpServletRequest request, HttpServletResponse response) {
         String servletPath = request.getServletPath();
-        if (servletPath.equals(JwtConstants.AUTH_PATH)) {
+        if (servletPath.equals(JwtConstants.AUTH_PATH) || servletPath.equals(JwtConstants.WX_LOGIN_PATH)) {
             return true;
         }
         if (servletPath.startsWith("/api/file/read/")) {
