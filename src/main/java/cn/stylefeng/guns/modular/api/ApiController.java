@@ -25,6 +25,7 @@ import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import com.github.binarywang.wxpay.util.SignUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static cn.stylefeng.guns.core.util.JwtTokenUtil.getUserId;
 
@@ -114,6 +116,23 @@ public class ApiController extends BaseController {
         SuccessResponseData successResponseData = new SuccessResponseData();
         successResponseData.setData(JwtTokenUtil.generateToken(String.valueOf(userId)));
         return successResponseData;
+    }
+
+    @GetMapping("/sign")
+    @ApiOperation("sign")
+    public Object sign() {
+
+        Map<String, String> configMap = new HashMap<>();
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+        String nonceStr = String.valueOf(System.currentTimeMillis());
+        String packageValue = "prepay_id=wx2017033010242291fcfe0db70013231072";
+        configMap.put("timestamp", timestamp);
+        configMap.put("noncestr", nonceStr);
+        configMap.put("appid", "appId");
+        configMap.put("package", packageValue);
+
+        String sign = SignUtils.createSign(configMap, "SignType", "mchKey", null);
+        return sign;
     }
 
 }
