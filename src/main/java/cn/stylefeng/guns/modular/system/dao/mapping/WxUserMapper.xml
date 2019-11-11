@@ -20,6 +20,8 @@
         <result column="area" property="area" />
         <result column="address" property="address" />
         <result column="language" property="language" />
+        <result column="isvip" property="isvip" />
+        <result column="emp_id" property="empId" />
         <result column="is_deleted" property="isDeleted" />
         <result column="freeze" property="freeze" />
         <result column="last_login_time" property="lastLoginTime" />
@@ -33,7 +35,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, mobile, openid, wechat_number, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language, is_deleted, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
+        id, mobile, openid, wechat_number, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language,isvip,emp_id is_deleted, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
     </sql>
 
 </mapper>

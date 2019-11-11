@@ -9,5 +9,6 @@ public class WXLoginDTO {
     private String rawData;
     private String encryptedData;
     private String iv;
+    private Integer empId;
 
 }

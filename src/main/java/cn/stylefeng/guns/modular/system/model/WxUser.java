@@ -89,6 +89,15 @@ public class WxUser extends Model<WxUser> {
      */
     private String language;
     /**
+     * 是否是会员（0否，1是）
+     */
+    private Integer isvip;
+    /**
+     * 导购用户id
+     */
+    @TableField("emp_id")
+    private Integer empId;
+    /**
      * 是否删除（0否，1是）
      */
     @TableField("is_deleted")
@@ -330,6 +339,22 @@ public class WxUser extends Model<WxUser> {
 
     public void setFlag2(String flag2) {
         this.flag2 = flag2;
+    }
+
+    public Integer getIsvip() {
+        return isvip;
+    }
+
+    public void setIsvip(Integer isvip) {
+        this.isvip = isvip;
+    }
+
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 
     @Override

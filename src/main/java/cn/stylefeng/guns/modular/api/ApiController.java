@@ -110,8 +110,10 @@ public class ApiController extends BaseController {
 
     @GetMapping("/auth")
     @ApiOperation("api临时token")
-    public Object devAuth() {
-        return JwtTokenUtil.generateToken("88888888");
+    public Object devAuth(Integer userId) {
+        SuccessResponseData successResponseData = new SuccessResponseData();
+        successResponseData.setData(JwtTokenUtil.generateToken(String.valueOf(userId)));
+        return successResponseData;
     }
 
 }

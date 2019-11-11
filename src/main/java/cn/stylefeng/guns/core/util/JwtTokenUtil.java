@@ -54,11 +54,11 @@ public class JwtTokenUtil {
     /**
      * 获取用户名从token中
      */
-    public static String getUserId() {
+    public static Integer getUserId() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         final String requestHeader = request.getHeader(JwtConstants.AUTH_HEADER);
-        return requestHeader != null ? getClaimFromToken(requestHeader.substring(7)).getSubject() : null;
+        return requestHeader != null ? Integer.valueOf(getClaimFromToken(requestHeader.substring(7)).getSubject()) : null;
     }
 
     /**

@@ -12,6 +12,9 @@ import cn.stylefeng.guns.modular.dto.WXLoginDTO;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -19,14 +22,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * 微信小程序用户接口
@@ -54,7 +57,7 @@ public class WxMaUserController extends BaseController {
      */
     @PostMapping("/login")
     @ApiOperation("登陆接口")
-    public String login(@RequestBody WXLoginDTO loginDTO) {
+    public Object login(@RequestBody WXLoginDTO loginDTO) {
         if (StringUtils.isBlank(loginDTO.getCode())) {
             return "empty jscode";
         }
@@ -67,19 +70,48 @@ public class WxMaUserController extends BaseController {
             }
             // 解密用户信息
             WxMaUserInfo userInfo = wxService.getUserService().getUserInfo(session.getSessionKey(), loginDTO.getEncryptedData(), loginDTO.getIv());
-
-            WxUser wxUser = new WxUser();// TODO: 2019/11/11 补充
-            wxUser.setHeadimgurl(userInfo.getAvatarUrl());
-            wxUser.setOpenid(userInfo.getOpenId());
-            wxUser.setSex(Integer.valueOf(userInfo.getGender()));
-            wxUserService.insert(wxUser);
-            //TODO 可以增加自己的逻辑，关联业务相关数据
-            return JwtTokenUtil.generateToken(wxUser.getOpenid());
+            // 解密手机
+            WxMaPhoneNumberInfo phoneNoInfo = wxService.getUserService().getPhoneNoInfo(session.getSessionKey(), loginDTO.getEncryptedData(), loginDTO.getIv());
+            WxUser wxUser = null;
+            EntityWrapper<WxUser> wrapper = new EntityWrapper<>();
+            wrapper.eq("openid", userInfo.getOpenId()).orderBy("create_time", false).last("limit 1");
+            wxUser = wxUserService.selectOne(wrapper);
+            if (wxUser != null) {
+                setUser(userInfo, phoneNoInfo, wxUser);
+                wxUserService.updateById(wxUser);
+            } else {
+                wxUser = new WxUser();
+                setUser(userInfo, phoneNoInfo, wxUser);
+                wxUser.setCreateTime(new Date());
+                wxUser.setIsvip(0);//是否是会员（0否，1是）
+                wxUser.setEmpId(loginDTO.getEmpId() == null ? 0 : loginDTO.getEmpId());//0自主创建
+                wxUserService.insert(wxUser);
+            }
+            SuccessResponseData responseData = new SuccessResponseData();
+            responseData.setData(JwtTokenUtil.generateToken(String.valueOf(wxUser.getId())));
+            return responseData;
         } catch (WxErrorException e) {
+            ErrorResponseData errorResponseData = new ErrorResponseData(e.toString());
             this.logger.error(e.getMessage(), e);
-            return e.toString();
+            return errorResponseData;
         }
-//        return JwtTokenUtil.generateToken("123456");
+    }
+
+    private void setUser(WxMaUserInfo userInfo, WxMaPhoneNumberInfo phoneNoInfo, WxUser wxUser) {
+        if (phoneNoInfo != null) {
+            wxUser.setMobile(phoneNoInfo.getPhoneNumber());
+        }
+        wxUser.setHeadimgurl(userInfo.getAvatarUrl());
+        wxUser.setOpenid(userInfo.getOpenId());
+        wxUser.setNickName(userInfo.getNickName());
+        wxUser.setLanguage(userInfo.getLanguage());
+        wxUser.setSex(Integer.valueOf(userInfo.getGender()));
+        wxUser.setUnionid(userInfo.getUnionId());
+        wxUser.setCountry(userInfo.getCountry());
+        wxUser.setCity(userInfo.getCity());
+        wxUser.setProvince(userInfo.getProvince());
+        wxUser.setLastLoginTime(new Date());
+        wxUser.setUpdateTime(new Date());
     }
 
     /**
