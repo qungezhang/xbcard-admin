@@ -77,7 +77,7 @@ public class CardApiController extends BaseController {
         }
         CardDTO cardDto = new CardDTO();
         EntityWrapper<Card> wrapper = new EntityWrapper<>();
-        wrapper.eq("user_id", user.getId());
+        wrapper.eq("user_id", user.getId()).orderBy("create_time",false).last("limit 1");
         Card card = cardService.selectOne(wrapper);
         List<Material> materials = new ArrayList<>();
         if (card != null) {
@@ -98,8 +98,14 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增")
     public Object add(@RequestBody CardAddDTO addDTO) {
+        Integer userId = JwtTokenUtil.getUserId();
+//        EntityWrapper<Card> wrapper = new EntityWrapper<>();
+//        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
+//        if (cardService.selectOne(wrapper) != null) {
+//            return new ErrorResponseData("不可重复创建名片");
+//        }
         Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
-        card.setUserId(JwtTokenUtil.getUserId());
+        card.setUserId(userId);
         card.setIsDeleted(0);//是否删除（0否，1是）
         card.setCreateTime(new Date());
         card.setUpdateTime(new Date());
