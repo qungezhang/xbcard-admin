@@ -49,6 +49,10 @@ public class CardAddDTO{
      * logo
      */
     private String logo;
+    /**
+     * 模版类型
+     */
+    private Integer type;
 
     private List<MaterialDTO> materials;
 

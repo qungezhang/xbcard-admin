@@ -59,6 +59,10 @@ public class Card extends Model<Card> {
      */
     private String logo;
     /**
+     * 模版类型
+     */
+    private Integer type;
+    /**
      * 用户id
      */
     @TableField("user_id")
@@ -88,10 +92,7 @@ public class Card extends Model<Card> {
      */
     @TableField("update_by")
     private Date updateBy;
-    /**
-     * 预留字段
-     */
-    private String flag1;
+
     /**
      * 预留字段
      */
@@ -226,12 +227,12 @@ public class Card extends Model<Card> {
         this.updateBy = updateBy;
     }
 
-    public String getFlag1() {
-        return flag1;
+    public Integer getType() {
+        return type;
     }
 
-    public void setFlag1(String flag1) {
-        this.flag1 = flag1;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getFlag2() {
@@ -281,7 +282,7 @@ public class Card extends Model<Card> {
         ", createBy=" + createBy +
         ", updateTime=" + updateTime +
         ", updateBy=" + updateBy +
-        ", flag1=" + flag1 +
+        ", flag1=" + type +
         ", flag2=" + flag2 +
         ", flag3=" + flag3 +
         ", flag4=" + flag4 +
