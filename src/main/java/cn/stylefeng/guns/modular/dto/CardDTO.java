@@ -4,6 +4,7 @@ import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.model.Material;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * Date : 2019/11/11 14:58
  */
 @Data
-public class CardDTO {
+public class CardDTO  implements Serializable {
     private Card card;
     private Integer isVip;
     private List<Material> materialList;

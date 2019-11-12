@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.modular.api;
 
-import cn.stylefeng.guns.config.properties.WxPayProperties;
+import cn.hutool.core.util.IdUtil;
 import cn.stylefeng.guns.core.util.OrderNumUtils;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryRequest;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryResult;
@@ -32,6 +32,7 @@ import com.github.binarywang.wxpay.bean.result.WxPayRefundQueryResult;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
 import com.github.binarywang.wxpay.bean.result.WxPaySendRedpackResult;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
+import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
@@ -50,22 +51,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
  * @author Binary Wang
  */
-
+@Api(tags = "微信支付")
 @RestController
 @RequestMapping("/pay")
 @AllArgsConstructor
-public class WxPayController {
+public class WxPayDemoController {
   @Autowired
   private WxPayService wxService;
-  @Autowired
-  private WxPayProperties wxPayProperties;
+
   /**
    * <pre>
    * 查询订单(详见https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_2)
@@ -88,6 +86,12 @@ public class WxPayController {
     return this.wxService.queryOrder(transactionId, outTradeNo);
   }
 
+  @ApiOperation(value = "查询订单")
+  @PostMapping("/queryOrder")
+  public WxPayOrderQueryResult queryOrder(@RequestBody WxPayOrderQueryRequest wxPayOrderQueryRequest) throws WxPayException {
+    return this.wxService.queryOrder(wxPayOrderQueryRequest);
+  }
+
   /**
    * <pre>
    * 关闭订单
@@ -108,6 +112,11 @@ public class WxPayController {
     return this.wxService.closeOrder(outTradeNo);
   }
 
+  @ApiOperation(value = "关闭订单")
+  @PostMapping("/closeOrder")
+  public WxPayOrderCloseResult closeOrder(@RequestBody WxPayOrderCloseRequest wxPayOrderCloseRequest) throws WxPayException {
+    return this.wxService.closeOrder(wxPayOrderCloseRequest);
+  }
 
   /**
    * 调用统一下单接口，并组装生成支付所需参数对象.
@@ -120,21 +129,6 @@ public class WxPayController {
   @PostMapping("/createOrder")
   public <T> T createOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
     return this.wxService.createOrder(request);
-  }
-
-  @GetMapping("/sign")
-  @ApiOperation("签名")
-  public Object sign(@RequestBody Map<String, String> params) {
-
-    Map<String, String> configMap = new HashMap<>();
-    String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-    String nonceStr = String.valueOf(System.currentTimeMillis());
-    String packageValue = "prepay_id=wx2017033010242291fcfe0db70013231072";
-    configMap.put("timestamp", timestamp);
-    configMap.put("noncestr", nonceStr);
-    configMap.put("appid", "appId");
-    configMap.put("package", packageValue);
-    return SignUtils.createSign(configMap, WxPayConstants.SignType.HMAC_SHA256, wxPayProperties.getMchKey(), null);
   }
 
   /**
@@ -201,30 +195,35 @@ public class WxPayController {
     return this.wxService.refundQuery(transactionId, outTradeNo, outRefundNo, refundId);
   }
 
+  @ApiOperation(value = "退款查询")
+  @PostMapping("/refundQuery")
+  public WxPayRefundQueryResult refundQuery(@RequestBody WxPayRefundQueryRequest wxPayRefundQueryRequest) throws WxPayException {
+    return this.wxService.refundQuery(wxPayRefundQueryRequest);
+  }
 
-//  @ApiOperation(value = "支付回调通知处理")
-//  @PostMapping("/notify/order")
-//  public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
-//    final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
-//    // TODO 根据自己业务场景需要构造返回对象
-//    return WxPayNotifyResponse.success("成功");
-//  }
+  @ApiOperation(value = "支付回调通知处理")
+  @PostMapping("/notify/order")
+  public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
+    final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
+    // TODO 根据自己业务场景需要构造返回对象
+    return WxPayNotifyResponse.success("成功");
+  }
 
-//  @ApiOperation(value = "退款回调通知处理")
-//  @PostMapping("/notify/refund")
-//  public String parseRefundNotifyResult(@RequestBody String xmlData) throws WxPayException {
-//    final WxPayRefundNotifyResult result = this.wxService.parseRefundNotifyResult(xmlData);
-//    // TODO 根据自己业务场景需要构造返回对象
-//    return WxPayNotifyResponse.success("成功");
-//  }
-//
-//  @ApiOperation(value = "扫码支付回调通知处理")
-//  @PostMapping("/notify/scanpay")
-//  public String parseScanPayNotifyResult(String xmlData) throws WxPayException {
-//    final WxScanPayNotifyResult result = this.wxService.parseScanPayNotifyResult(xmlData);
-//    // TODO 根据自己业务场景需要构造返回对象
-//    return WxPayNotifyResponse.success("成功");
-//  }
+  @ApiOperation(value = "退款回调通知处理")
+  @PostMapping("/notify/refund")
+  public String parseRefundNotifyResult(@RequestBody String xmlData) throws WxPayException {
+    final WxPayRefundNotifyResult result = this.wxService.parseRefundNotifyResult(xmlData);
+    // TODO 根据自己业务场景需要构造返回对象
+    return WxPayNotifyResponse.success("成功");
+  }
+
+  @ApiOperation(value = "扫码支付回调通知处理")
+  @PostMapping("/notify/scanpay")
+  public String parseScanPayNotifyResult(String xmlData) throws WxPayException {
+    final WxScanPayNotifyResult result = this.wxService.parseScanPayNotifyResult(xmlData);
+    // TODO 根据自己业务场景需要构造返回对象
+    return WxPayNotifyResponse.success("成功");
+  }
 
   /**
    * 发送微信红包给个人用户
@@ -323,11 +322,11 @@ public class WxPayController {
    * 是否需要证书：不需要
    * </pre>
    */
-//  @ApiOperation(value = "提交交易保障数据")
-//  @PostMapping("/report")
-//  public void report(@RequestBody WxPayReportRequest request) throws WxPayException {
-//    this.wxService.report(request);
-//  }
+  @ApiOperation(value = "提交交易保障数据")
+  @PostMapping("/report")
+  public void report(@RequestBody WxPayReportRequest request) throws WxPayException {
+    this.wxService.report(request);
+  }
 
   /**
    * <pre>
@@ -348,18 +347,18 @@ public class WxPayController {
    * @param deviceInfo 设备号	device_info	非必传参数，终端设备号
    * @return 保存到本地的临时文件
    */
-//  @ApiOperation(value = "下载对账单")
-//  @GetMapping("/downloadBill/{billDate}/{billType}/{tarType}/{deviceInfo}")
-//  public WxPayBillResult downloadBill(@PathVariable String billDate, @PathVariable String billType,
-//                                      @PathVariable String tarType, @PathVariable String deviceInfo) throws WxPayException {
-//    return this.wxService.downloadBill(billDate, billType, tarType, deviceInfo);
-//  }
+  @ApiOperation(value = "下载对账单")
+  @GetMapping("/downloadBill/{billDate}/{billType}/{tarType}/{deviceInfo}")
+  public WxPayBillResult downloadBill(@PathVariable String billDate, @PathVariable String billType,
+                                      @PathVariable String tarType, @PathVariable String deviceInfo) throws WxPayException {
+    return this.wxService.downloadBill(billDate, billType, tarType, deviceInfo);
+  }
 
-//  @ApiOperation(value = "下载对账单")
-//  @PostMapping("/downloadBill")
-//  public WxPayBillResult downloadBill(WxPayDownloadBillRequest wxPayDownloadBillRequest) throws WxPayException {
-//    return this.wxService.downloadBill(wxPayDownloadBillRequest);
-//  }
+  @ApiOperation(value = "下载对账单")
+  @PostMapping("/downloadBill")
+  public WxPayBillResult downloadBill(WxPayDownloadBillRequest wxPayDownloadBillRequest) throws WxPayException {
+    return this.wxService.downloadBill(wxPayDownloadBillRequest);
+  }
 
   /**
    * <pre>
@@ -373,11 +372,11 @@ public class WxPayController {
    * 是否需要证书：不需要。
    * </pre>
    */
-//  @ApiOperation(value = "提交刷卡支付")
-//  @PostMapping("/micropay")
-//  public WxPayMicropayResult micropay(@RequestBody WxPayMicropayRequest request) throws WxPayException {
-//    return this.wxService.micropay(request);
-//  }
+  @ApiOperation(value = "提交刷卡支付")
+  @PostMapping("/micropay")
+  public WxPayMicropayResult micropay(@RequestBody WxPayMicropayRequest request) throws WxPayException {
+    return this.wxService.micropay(request);
+  }
 
   /**
    * <pre>
@@ -391,41 +390,41 @@ public class WxPayController {
    *  是否需要证书：请求需要双向证书。
    * </pre>
    */
-//  @ApiOperation(value = "撤销订单")
-//  @PostMapping("/reverseOrder")
-//  public WxPayOrderReverseResult reverseOrder(@RequestBody WxPayOrderReverseRequest request) throws WxPayException {
-//    return this.wxService.reverseOrder(request);
-//  }
+  @ApiOperation(value = "撤销订单")
+  @PostMapping("/reverseOrder")
+  public WxPayOrderReverseResult reverseOrder(@RequestBody WxPayOrderReverseRequest request) throws WxPayException {
+    return this.wxService.reverseOrder(request);
+  }
 
-//  @ApiOperation(value = "获取沙箱环境签名key")
-//  @GetMapping("/getSandboxSignKey")
-//  public String getSandboxSignKey() throws WxPayException {
-//    return this.wxService.getSandboxSignKey();
-//  }
+  @ApiOperation(value = "获取沙箱环境签名key")
+  @GetMapping("/getSandboxSignKey")
+  public String getSandboxSignKey() throws WxPayException {
+    return this.wxService.getSandboxSignKey();
+  }
 
-//  @ApiOperation(value = "发放代金券")
-//  @PostMapping("/sendCoupon")
-//  public WxPayCouponSendResult sendCoupon(@RequestBody WxPayCouponSendRequest request) throws WxPayException {
-//    return this.wxService.sendCoupon(request);
-//  }
-//
-//  @ApiOperation(value = "查询代金券批次")
-//  @PostMapping("/queryCouponStock")
-//  public WxPayCouponStockQueryResult queryCouponStock(@RequestBody WxPayCouponStockQueryRequest request) throws WxPayException {
-//    return this.wxService.queryCouponStock(request);
-//  }
-//
-//  @ApiOperation(value = "查询代金券信息")
-//  @PostMapping("/queryCouponInfo")
-//  public WxPayCouponInfoQueryResult queryCouponInfo(@RequestBody WxPayCouponInfoQueryRequest request) throws WxPayException {
-//    return this.wxService.queryCouponInfo(request);
-//  }
-//
-//  @ApiOperation(value = "拉取订单评价数据")
-//  @PostMapping("/queryComment")
-//  public String queryComment(Date beginDate, Date endDate, Integer offset, Integer limit) throws WxPayException {
-//    return this.wxService.queryComment(beginDate, endDate, offset, limit);
-//  }
+  @ApiOperation(value = "发放代金券")
+  @PostMapping("/sendCoupon")
+  public WxPayCouponSendResult sendCoupon(@RequestBody WxPayCouponSendRequest request) throws WxPayException {
+    return this.wxService.sendCoupon(request);
+  }
+
+  @ApiOperation(value = "查询代金券批次")
+  @PostMapping("/queryCouponStock")
+  public WxPayCouponStockQueryResult queryCouponStock(@RequestBody WxPayCouponStockQueryRequest request) throws WxPayException {
+    return this.wxService.queryCouponStock(request);
+  }
+
+  @ApiOperation(value = "查询代金券信息")
+  @PostMapping("/queryCouponInfo")
+  public WxPayCouponInfoQueryResult queryCouponInfo(@RequestBody WxPayCouponInfoQueryRequest request) throws WxPayException {
+    return this.wxService.queryCouponInfo(request);
+  }
+
+  @ApiOperation(value = "拉取订单评价数据")
+  @PostMapping("/queryComment")
+  public String queryComment(Date beginDate, Date endDate, Integer offset, Integer limit) throws WxPayException {
+    return this.wxService.queryComment(beginDate, endDate, offset, limit);
+  }
 
 }
 

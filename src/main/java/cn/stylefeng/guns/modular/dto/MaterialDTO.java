@@ -2,6 +2,9 @@ package cn.stylefeng.guns.modular.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
 /**
  * <p>
  * 素材
@@ -11,13 +14,14 @@ import lombok.Data;
  * @since 2019-11-04
  */
 @Data
-public class MaterialDTO  {
+public class MaterialDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 图片地址
      */
+    @NotNull(message = "图片地址不可为空")
     private String imgUrl;
     /**
      * 简称
@@ -34,6 +38,7 @@ public class MaterialDTO  {
     /**
      * 名片id
      */
+    @NotNull(message = "名片id不可为空")
      private Integer cardId;
     /**
      * 类别id

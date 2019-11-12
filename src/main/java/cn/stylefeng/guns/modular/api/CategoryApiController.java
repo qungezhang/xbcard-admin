@@ -1,8 +1,10 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
+import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
+import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Category;
 import cn.stylefeng.guns.modular.system.model.User;
@@ -27,7 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 控制器
@@ -112,4 +118,45 @@ public class CategoryApiController extends BaseController {
     public Object detail(@PathVariable("categoryId") Integer categoryId) {
         return categoryService.selectById(categoryId);
     }
+
+    @GetMapping("getTreeList")
+    @ResponseBody
+    @ApiOperation("结构列表")
+    public Object getTreeList(@RequestParam("cardId") Integer cardId) {
+        if (cardId == null) {
+            return new ErrorResponseData("名片id不可为空");
+        }
+        Category category = new Category();
+        category.setCardId(cardId);
+        category.setIsDeleted(0);
+        List<Category> categories = categoryService.selectList(new EntityWrapper<>(category));
+        List<CategoryTreeDTO> categoryTreeDTOS = treeList(BeanMapperUtil.mapList(categories, CategoryTreeDTO.class), 0);
+        return categoryTreeDTOS;
+    }
+
+
+    /**
+     * explain: 遍历递归
+     * @param list 遍历的集合
+     * @param pid 关联父集合的id(当然也按照你们公司的规定)
+     * @return
+     */
+    public static List<CategoryTreeDTO> treeList(List<CategoryTreeDTO> list, int pid){
+        List<CategoryTreeDTO> pList = new ArrayList<>();
+        List<CategoryTreeDTO> otherList = new ArrayList<>();
+        for(CategoryTreeDTO treeDTO :list) {
+            if (treeDTO.getPid().equals(pid)) {//首先先找到一级集合
+                pList.add(treeDTO);
+            } else {
+                otherList.add(treeDTO);
+            }
+        }
+        List<CategoryTreeDTO> result = new ArrayList<>();
+        for(CategoryTreeDTO treeDTO :pList) {//循环遍历归属一级集合的子集
+            treeDTO.setChildList(treeList(otherList,treeDTO.getId()));//通过反复调用自身方法循环输出归属上级集合的下级集合
+            result.add(treeDTO);
+        }
+        return result;
+    }
+
 }

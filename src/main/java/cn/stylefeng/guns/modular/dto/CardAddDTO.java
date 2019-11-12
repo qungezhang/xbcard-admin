@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @since 2019-11-04
  */
 @Data
-public class CardAddDTO{
+public class CardAddDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
