@@ -76,7 +76,7 @@ public class CardApiController extends BaseController {
     @GetMapping(value = "/indexCard")
     @ApiOperation("首页名片")
     public ResponseData indexCard() {
-        WxUser user = wxUserService.getWxUserByToken();
+        WxUser user = wxUserService.getLoginWxUser();
         if (user == null) {
             return new ErrorResponseData("未授权登录");
         }
@@ -180,7 +180,7 @@ public class CardApiController extends BaseController {
         CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
         if (card != null) {
             SuccessResponseData responseData = new SuccessResponseData();
-            WxUser user = wxUserService.getWxUserByToken();
+            WxUser user = wxUserService.getLoginWxUser();
             Integer isvip = user.getIsvip();
             boolean isMaterialList = false;
             if (isvip != null && isvip.equals(1)) {//是vip

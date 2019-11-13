@@ -13,5 +13,9 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IWxUserService extends IService<WxUser> {
 
-    WxUser getWxUserByToken();
+    /**
+     * 获取小程序登录者
+     * @return
+     */
+    WxUser getLoginWxUser();
 }

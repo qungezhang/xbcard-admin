@@ -20,7 +20,7 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
 
 
     @Override
-    public WxUser getWxUserByToken() {
+    public WxUser getLoginWxUser() {
         return this.selectById(JwtTokenUtil.getUserId());
     }
 }

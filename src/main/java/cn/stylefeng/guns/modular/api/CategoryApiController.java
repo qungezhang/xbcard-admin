@@ -4,6 +4,7 @@ import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
+import cn.stylefeng.guns.modular.dto.CategoryAddDto;
 import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Category;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,19 +71,22 @@ public class CategoryApiController extends BaseController {
     @PostMapping(value = "/add")
     @ResponseBody
     @ApiOperation("新增")
-    public Object add(@RequestBody Category category) {
+    public Object add(@RequestBody @Valid CategoryAddDto addDto) {
         Integer userId = JwtTokenUtil.getUserId();
         WxUser wxUser = wxUserService.selectById(userId);
         if (wxUser == null || wxUser.getIsvip() == 0) {
             return new ErrorResponseData("用户异常或不是VIP，不可分类");
         }
+        Category category = BeanMapperUtil.objConvert(addDto, Category.class);
         category.setUserId(userId);
         category.setPid(category.getPid() == null ? 0 : category.getPid());
         category.setIsDeleted(0);//是否删除（0否，1是）
         category.setCreateTime(new Date());
         category.setUpdateTime(new Date());
         categoryService.insert(category);
-        return SUCCESS_TIP;
+        SuccessResponseData successTip = SUCCESS_TIP;
+        successTip.setData(category);
+        return successTip;
     }
 
 

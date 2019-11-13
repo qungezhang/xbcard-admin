@@ -1,7 +1,6 @@
 package cn.stylefeng.guns.modular.dto;
 
 import cn.stylefeng.guns.modular.system.model.Material;
-import com.baomidou.mybatisplus.annotations.TableField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -59,7 +58,6 @@ public class CardInfoDTO implements Serializable {
     /**
      * 是否删除（0否，1是）
      */
-    @TableField("is_deleted")
     private Integer isDeleted;
     private Integer isVip;
     private List<Material> materialList;

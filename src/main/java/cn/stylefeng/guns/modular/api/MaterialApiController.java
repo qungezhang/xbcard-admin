@@ -131,4 +131,24 @@ public class MaterialApiController extends BaseController {
         return SUCCESS_TIP;
     }
 
+//    /**
+//     * 获取分类下的素材
+//     *
+//     * @param cardId
+//     * @param categoryId
+//     * @return
+//     */
+//    @GetMapping("getByCategory")
+//    @ResponseBody
+//    @ApiOperation("获取分类下的素材")
+//    public ResponseData getByCategory(@RequestParam("cardId") Integer cardId, @RequestParam("categoryId") Integer categoryId) {
+//        Material material = new Material();
+//        material.setCardId(cardId);
+//        material.setCategoryId(categoryId);
+//        material.setIsDeleted(0);
+//        List<Material> materialList = materialService.selectList(new EntityWrapper<>(material).orderBy("create_time", false));
+//        SuccessResponseData responseData = new SuccessResponseData();
+//        responseData.setData(materialList);
+//        return responseData;
+//    }
 }
