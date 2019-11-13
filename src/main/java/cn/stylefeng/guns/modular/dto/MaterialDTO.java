@@ -24,25 +24,27 @@ public class MaterialDTO implements Serializable {
     @NotNull(message = "图片地址不可为空")
     private String imgUrl;
     /**
-     * 简称
-     */
-    private String simplename;
-    /**
      * 描述
      */
     private String description;
     /**
-     * 排序
-     */
-    private Integer num;
-    /**
-     * 名片id
-     */
-    @NotNull(message = "名片id不可为空")
-     private Integer cardId;
-    /**
      * 类别id
      */
-     private Integer categoryId;
+    private Integer categoryId;
+//    /**
+//     * 简称
+//     */
+//    private String simplename;
+
+//    /**
+//     * 排序
+//     */
+//    private Integer num;
+//    /**
+//     * 名片id
+//     */
+//    @NotNull(message = "名片id不可为空")
+//     private Integer cardId;
+
 
 }

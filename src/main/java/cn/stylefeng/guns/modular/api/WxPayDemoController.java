@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.api;
 
-import cn.hutool.core.util.IdUtil;
 import cn.stylefeng.guns.core.util.OrderNumUtils;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryRequest;
 import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryResult;
@@ -32,11 +31,9 @@ import com.github.binarywang.wxpay.bean.result.WxPayRefundQueryResult;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
 import com.github.binarywang.wxpay.bean.result.WxPaySendRedpackResult;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
-import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import com.github.binarywang.wxpay.util.SignUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -58,7 +55,7 @@ import java.util.Date;
  */
 @Api(tags = "微信支付")
 @RestController
-@RequestMapping("/pay")
+@RequestMapping("/payDemo")
 @AllArgsConstructor
 public class WxPayDemoController {
   @Autowired

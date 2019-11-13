@@ -59,7 +59,8 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/pay")
+@RequestMapping("/api/pay")
+@Api(tags = "微信支付")
 @AllArgsConstructor
 public class WxPayController {
   @Autowired

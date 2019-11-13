@@ -131,7 +131,9 @@ public class CategoryApiController extends BaseController {
         category.setIsDeleted(0);
         List<Category> categories = categoryService.selectList(new EntityWrapper<>(category));
         List<CategoryTreeDTO> categoryTreeDTOS = treeList(BeanMapperUtil.mapList(categories, CategoryTreeDTO.class), 0);
-        return categoryTreeDTOS;
+        SuccessResponseData responseData = new SuccessResponseData();
+        responseData.setData(categoryTreeDTOS);
+        return responseData;
     }
 
 
