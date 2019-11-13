@@ -126,39 +126,10 @@ public class CategoryApiController extends BaseController {
         if (cardId == null) {
             return new ErrorResponseData("名片id不可为空");
         }
-        Category category = new Category();
-        category.setCardId(cardId);
-        category.setIsDeleted(0);
-        List<Category> categories = categoryService.selectList(new EntityWrapper<>(category));
-        List<CategoryTreeDTO> categoryTreeDTOS = treeList(BeanMapperUtil.mapList(categories, CategoryTreeDTO.class), 0);
         SuccessResponseData responseData = new SuccessResponseData();
-        responseData.setData(categoryTreeDTOS);
+        responseData.setData(categoryService.getTreeList(cardId));
         return responseData;
     }
 
-
-    /**
-     * explain: 遍历递归
-     * @param list 遍历的集合
-     * @param pid 关联父集合的id(当然也按照你们公司的规定)
-     * @return
-     */
-    public static List<CategoryTreeDTO> treeList(List<CategoryTreeDTO> list, int pid){
-        List<CategoryTreeDTO> pList = new ArrayList<>();
-        List<CategoryTreeDTO> otherList = new ArrayList<>();
-        for(CategoryTreeDTO treeDTO :list) {
-            if (treeDTO.getPid().equals(pid)) {//首先先找到一级集合
-                pList.add(treeDTO);
-            } else {
-                otherList.add(treeDTO);
-            }
-        }
-        List<CategoryTreeDTO> result = new ArrayList<>();
-        for(CategoryTreeDTO treeDTO :pList) {//循环遍历归属一级集合的子集
-            treeDTO.setChildList(treeList(otherList,treeDTO.getId()));//通过反复调用自身方法循环输出归属上级集合的下级集合
-            result.add(treeDTO);
-        }
-        return result;
-    }
 
 }

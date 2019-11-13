@@ -6,12 +6,15 @@ import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.modular.dto.CardAddDTO;
 import cn.stylefeng.guns.modular.dto.CardDTO;
+import cn.stylefeng.guns.modular.dto.CardInfoDTO;
+import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.MaterialDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.ICardService;
+import cn.stylefeng.guns.modular.system.service.ICategoryService;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -54,6 +57,8 @@ public class CardApiController extends BaseController {
     private IWxUserService wxUserService;
     @Autowired
     private IMaterialService materialService;
+    @Autowired
+    private ICategoryService categoryService;
     /**
      * 获取列表
      */
@@ -171,6 +176,34 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("详情")
     public Object detail(@PathVariable("cardId") Integer cardId) {
-        return cardService.selectById(cardId);
+        Card card = cardService.selectById(cardId);
+        CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
+        if (card != null) {
+            SuccessResponseData responseData = new SuccessResponseData();
+            WxUser user = wxUserService.getWxUserByToken();
+            Integer isvip = user.getIsvip();
+            boolean isMaterialList = false;
+            if (isvip != null && isvip.equals(1)) {//是vip
+                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
+                if (!CollectionUtils.isEmpty(treeList)) {
+                    cardInfoDTO.setCategoryTrees(treeList);
+                } else {
+                    isMaterialList = true;
+                }
+            } else {
+                isMaterialList = true;
+            }
+            if (isMaterialList) {
+                EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
+                materialEntityWrapper.eq("card_id", card.getId());
+                List<Material> materials = materialService.selectList(materialEntityWrapper);
+                cardInfoDTO.setMaterialList(materials);
+            }
+            cardInfoDTO.setIsVip(isvip);
+            responseData.setData(cardInfoDTO);
+            return responseData;
+        } else {
+            return new ErrorResponseData("未查到有效名片");
+        }
     }
 }

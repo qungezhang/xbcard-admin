@@ -1,7 +1,11 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.system.model.Category;
 import com.baomidou.mybatisplus.service.IService;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,7 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2019-11-04
  */
 public interface ICategoryService extends IService<Category> {
+
+    public List<CategoryTreeDTO> getTreeList(Integer cardId);
 
 }
