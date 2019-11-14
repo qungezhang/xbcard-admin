@@ -164,9 +164,31 @@ public class CardApiController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     @ApiOperation("修改")
-    public Object update(@RequestBody Card card) {
+    public Object update(@RequestBody CardAddDTO addDTO) {
+        Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
+        Integer cardId = card.getId();
+        if (card.getId() == null) {
+            return new ErrorResponseData("名片Id不可为空");
+        }
+        card.setUpdateTime(new Date());
         cardService.updateById(card);
-        return SUCCESS_TIP;
+        EntityWrapper<Material> wrapper = new EntityWrapper<>();
+        wrapper.eq("card_id", cardId);
+        materialService.delete(wrapper);//先删除
+        List<MaterialDTO> materials = addDTO.getMaterials();
+        if (!CollectionUtils.isEmpty(materials)) {
+            for (MaterialDTO materialDTO : materials) {
+                Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
+                material.setUserId(card.getUserId());
+                material.setCardId(cardId);
+                material.setIsDeleted(0);//是否删除（0否，1是）
+                material.setCreateTime(new Date());
+                material.setUpdateTime(new Date());
+                materialService.insert(material);
+            }
+        }
+
+        return new SuccessResponseData(card);
     }
 
     /**

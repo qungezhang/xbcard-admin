@@ -31,6 +31,12 @@ public class MaterialDTO implements Serializable {
      * 类别id
      */
     private Integer categoryId;
+    /**
+     * 名片id
+     */
+     private Integer cardId;
+
+
 //    /**
 //     * 简称
 //     */

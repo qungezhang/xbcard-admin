@@ -9,6 +9,7 @@ import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -130,6 +131,31 @@ public class MaterialApiController extends BaseController {
         materialService.updateById(material);
         return SUCCESS_TIP;
     }
+
+    /**
+     * 分类中加素材
+     *
+     * @param materialDTO
+     * @return
+     */
+    @PostMapping("addInCategory")
+    @ResponseBody
+    @ApiOperation("分类中加素材")
+    public Object addMaterial(@RequestBody MaterialDTO materialDTO) {
+        if (materialDTO == null || materialDTO.getCardId() == null || materialDTO.getCategoryId() == null || materialDTO.getImgUrl() == null) {
+            return new ErrorResponseData("参数异常 图片地址、名片id、类别id 不可为空");
+        }
+        Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
+        material.setUserId(JwtTokenUtil.getUserId());
+        material.setIsDeleted(0);//是否删除（0否，1是）
+        material.setCreateTime(new Date());
+        material.setUpdateTime(new Date());
+        materialService.insert(material);
+        SuccessResponseData responseData = new SuccessResponseData();
+        responseData.setData(material);
+        return responseData;
+    }
+
 
 //    /**
 //     * 获取分类下的素材
