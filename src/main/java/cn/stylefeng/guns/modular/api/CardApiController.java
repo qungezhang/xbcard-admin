@@ -7,6 +7,7 @@ import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.modular.dto.CardAddDTO;
 import cn.stylefeng.guns.modular.dto.CardDTO;
 import cn.stylefeng.guns.modular.dto.CardInfoDTO;
+import cn.stylefeng.guns.modular.dto.CardUpdateDTO;
 import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.MaterialDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
@@ -164,8 +165,8 @@ public class CardApiController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     @ApiOperation("修改")
-    public Object update(@RequestBody CardAddDTO addDTO) {
-        Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
+    public Object update(@RequestBody CardUpdateDTO updateDTO) {
+        Card card = BeanMapperUtil.objConvert(updateDTO, Card.class);
         Integer cardId = card.getId();
         if (card.getId() == null) {
             return new ErrorResponseData("名片Id不可为空");
@@ -175,7 +176,7 @@ public class CardApiController extends BaseController {
         EntityWrapper<Material> wrapper = new EntityWrapper<>();
         wrapper.eq("card_id", cardId);
         materialService.delete(wrapper);//先删除
-        List<MaterialDTO> materials = addDTO.getMaterials();
+        List<MaterialDTO> materials = updateDTO.getMaterials();
         if (!CollectionUtils.isEmpty(materials)) {
             for (MaterialDTO materialDTO : materials) {
                 Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
@@ -204,23 +205,33 @@ public class CardApiController extends BaseController {
             SuccessResponseData responseData = new SuccessResponseData();
             WxUser user = wxUserService.getLoginWxUser();
             Integer isvip = user.getIsvip();
-            boolean isMaterialList = false;
+//            boolean isMaterialList = false;
+//            if (isvip != null && isvip.equals(1)) {//是vip
+//                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
+//                if (!CollectionUtils.isEmpty(treeList)) {
+//                    cardInfoDTO.setCategoryTrees(treeList);
+//                } else {
+//                    isMaterialList = true;
+//                }
+//            } else {
+//                isMaterialList = true;
+//            }
+//            if (isMaterialList) {
+//                EntityWrapper<Material> wrapper = new EntityWrapper<>();
+//                wrapper.eq("card_id", card.getId());
+//                List<Material> materials = materialService.selectList(wrapper);
+//                cardInfoDTO.setMaterialList(materials);
+//            }
             if (isvip != null && isvip.equals(1)) {//是vip
                 List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
                 if (!CollectionUtils.isEmpty(treeList)) {
                     cardInfoDTO.setCategoryTrees(treeList);
-                } else {
-                    isMaterialList = true;
                 }
-            } else {
-                isMaterialList = true;
             }
-            if (isMaterialList) {
-                EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
-                materialEntityWrapper.eq("card_id", card.getId());
-                List<Material> materials = materialService.selectList(materialEntityWrapper);
-                cardInfoDTO.setMaterialList(materials);
-            }
+            EntityWrapper<Material> wrapper = new EntityWrapper<>();
+            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
+            List<Material> materials = materialService.selectList(wrapper);
+            cardInfoDTO.setMaterialList(materials);
             cardInfoDTO.setIsVip(isvip);
             responseData.setData(cardInfoDTO);
             return responseData;
