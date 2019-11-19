@@ -6,6 +6,7 @@ import cn.stylefeng.guns.modular.dto.BannerAddDto;
 import cn.stylefeng.guns.modular.system.model.Banner;
 import cn.stylefeng.guns.modular.system.service.IBannerService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.swagger.annotations.Api;
@@ -83,7 +84,10 @@ public class BannerApiController extends BaseController {
      */
     @PostMapping(value = "/update")
     @ApiOperation("修改")
-    public Object update(Banner banner) {
+    public Object update(@RequestBody Banner banner) {
+        if (banner.getId() == null || banner.getCardId() == null) {
+            return new ErrorResponseData("id和cardId不可为空");
+        }
         bannerService.updateById(banner);
         return SUCCESS_TIP;
     }

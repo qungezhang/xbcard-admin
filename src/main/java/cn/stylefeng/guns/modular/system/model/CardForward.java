@@ -32,7 +32,7 @@ public class CardForward extends Model<CardForward> {
     @TableField("card_id")
     private Long cardId;
     /**
-     * 类型 1转发 2进入
+     * 类型 1转发 2进入 3收藏
      */
     private Integer type;
     /**
