@@ -42,11 +42,10 @@ log:
 #  bucketName: bucket1
 #  fileDomain: file.aaa.com #文件访问域名前缀
 qiniu:
-
-  accessKey: VRHIz5RLCYWGyYHylJRh5RUJT6Lx5nt9Ay7MQSG7 #  个人中心-->秘钥管理-->AccessKey
-  secretKey: h6hDvbVgIU0mji4n5a-VVkPPHepcZfjHqDDRWAX1 #个人中心-->秘钥管理-->SecretKey
-  bucket: qunge #存储空间名称
-  prefix: q06g5vrn3.bkt.clouddn.com #访问域名file.aaa.com
+  accessKey: Y_dzjupIsvX_luR9pkSFpYQHDi7zdeAlh-WRtT8H #  个人中心-->秘钥管理-->AccessKey
+  secretKey: UfFtqg5qdMPGbqGNPi-ACb_F7AdivFjz8Wl-ASpv #个人中心-->秘钥管理-->SecretKey
+  bucket: xbcard #存储空间名称
+  prefix: http://img.xbdzmp.com #访问域名file.aaa.com
 
 wx:
   pay:

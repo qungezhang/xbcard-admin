@@ -114,7 +114,7 @@ public class ApiController extends BaseController {
     @ApiOperation("api临时token")
     public Object devAuth(Integer userId) {
         SuccessResponseData successResponseData = new SuccessResponseData();
-        successResponseData.setData(JwtTokenUtil.generateToken(String.valueOf(userId)));
+        successResponseData.setData("Bearer " + JwtTokenUtil.generateToken(String.valueOf(userId)));
         return successResponseData;
     }
 

@@ -14,7 +14,7 @@ public class UUIDUtill {
     }
 
     public static void main(String[] args) {
-        System.out.println(IdUtil.fastSimpleUUID());
+        System.out.println(IdUtil.objectId());
 
     }
 }

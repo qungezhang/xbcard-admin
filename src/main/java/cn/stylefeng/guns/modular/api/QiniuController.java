@@ -1,7 +1,9 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.qiniu.QiniuService;
+import cn.stylefeng.guns.core.util.DateUtils;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.qiniu.http.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/qiniu")
@@ -36,8 +40,9 @@ public class QiniuController {
     @ApiOperation("文件上传")
     public Object uploadFile(@RequestParam(value = "file") MultipartFile file) throws IOException {
         SuccessResponseData successResponseData = new SuccessResponseData();
-//        String pictureName = UUID.randomUUID().toString() + "." + ToolUtil.getFileSuffix(file.getOriginalFilename());
-        successResponseData.setData(qiniuService.uploadFile(file.getInputStream(), null));
+        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
+        String pictureName = dateToStr + UUID.randomUUID().toString().split("-")[4] + "." + ToolUtil.getFileSuffix(file.getOriginalFilename());
+        successResponseData.setData(qiniuService.uploadFile(file.getInputStream(), pictureName));
         return successResponseData;
     }
 

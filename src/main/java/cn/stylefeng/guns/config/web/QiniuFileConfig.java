@@ -19,11 +19,11 @@ public class QiniuFileConfig {
     private QiniuProperties qiniuProperties;
 
     /**
-     * 华东机房,配置自己空间所在的区域
+     * 华南机房,配置自己空间所在的区域
      */
     @Bean
     public com.qiniu.storage.Configuration qiniuConfig() {
-        return new com.qiniu.storage.Configuration(Zone.zone0());
+        return new com.qiniu.storage.Configuration(Zone.zone2());
     }
  
     /**
