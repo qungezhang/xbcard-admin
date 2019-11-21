@@ -4,8 +4,11 @@ import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.CardForward;
+import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.ICardForwardService;
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -33,7 +36,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CardForwardApiController extends BaseController {
     @Autowired
     private ICardForwardService cardForwardService;
-
+    @Autowired
+    private IWxUserService wxUserService;
     /**
      * 获取列表
      */
@@ -54,6 +58,16 @@ public class CardForwardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增")
     public Object add(@RequestBody CardForward cardForward) {
+        if (cardForward.getCardId() == null || cardForward.getForwarderId() == null || cardForward.getType() == null) {
+            return new ErrorResponseData("名片ID,转发者ID,类型 不可为空");
+        }
+        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (loginWxUser == null) {
+            return new ErrorResponseData("请授权登录");
+        }
+        cardForward.setUserId(Long.valueOf(loginWxUser.getId()));
+        cardForward.setHeadImg(loginWxUser.getHeadimgurl());
+        cardForward.setNickname(loginWxUser.getNickName());
         cardForwardService.insert(cardForward);
         return SUCCESS_TIP;
     }

@@ -56,6 +56,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private GunsProperties gunsProperties;
 
+    @Autowired
+    private RestApiInteceptor restApiInteceptor;
     /**
      * 增加swagger的支持
      */
@@ -72,7 +74,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RestApiInteceptor()).addPathPatterns("/api/**");
+        registry.addInterceptor(restApiInteceptor).addPathPatterns("/api/**");
     }
 
     /**

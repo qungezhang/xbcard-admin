@@ -18,9 +18,12 @@ package cn.stylefeng.guns.core.interceptor;
 import cn.stylefeng.guns.core.common.constant.JwtConstants;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.util.RenderUtil;
 import io.jsonwebtoken.JwtException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +36,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author stylefeng
  * @Date 2018/7/20 23:11
  */
+@Component
 public class RestApiInteceptor extends HandlerInterceptorAdapter {
-
+    @Autowired
+    private IWxUserService iWxUserService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof org.springframework.web.servlet.resource.ResourceHttpRequestHandler) {
@@ -63,6 +68,11 @@ public class RestApiInteceptor extends HandlerInterceptorAdapter {
                     RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
                     return false;
                 }
+//                WxUser loginWxUser = iWxUserService.getLoginWxUser();
+//                if (loginWxUser == null) {
+//                    RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.NO_THIS_USER.getCode(), BizExceptionEnum.NO_THIS_USER.getMessage()));
+//                    return false;
+//                }
             } catch (JwtException e) {
                 //有异常就是token解析失败
                 RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
