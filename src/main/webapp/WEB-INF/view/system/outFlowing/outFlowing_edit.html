@@ -1,0 +1,40 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" value="${item.id}" underline="true"/>
+                            <#input id="outFee" name="支出金额（分）" value="${item.outFee}" underline="true"/>
+                            <#input id="cardId" name="名片id" value="${item.cardId}" underline="true"/>
+                            <#input id="userId" name="用户id" value="${item.userId}" underline="true"/>
+                            <#input id="openid" name="微信用户标识" value="${item.openid}" underline="true"/>
+                            <#input id="description" name="支出描述" value="${item.description}" underline="true"/>
+                            <#input id="partnerTradeNo" name="支出订单号" value="${item.partnerTradeNo}" underline="true"/>
+                            <#input id="spbillCreateIp" name="提现机器Ip地址" value="${item.spbillCreateIp}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="payType" name="支出类型（1微信，2支付宝，3银联）" value="${item.payType}" underline="true"/>
+                            <#input id="payStatus" name="支付状态（1成功，2失败，3进行中）" value="${item.payStatus}" underline="true"/>
+                            <#input id="isDeleted" name="是否删除（0否，1是）" value="${item.isDeleted}" underline="true"/>
+                            <#input id="createTime" name="创建时间" value="${item.createTime}" underline="true"/>
+                            <#input id="createBy" name="创建人" value="${item.createBy}" underline="true"/>
+                            <#input id="updateTime" name="修改时间" value="${item.updateTime}" underline="true"/>
+                            <#input id="updateBy" name="修改人" value="${item.updateBy}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OutFlowingInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OutFlowingInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/outFlowing/outFlowing_info.js"></script>
+@}

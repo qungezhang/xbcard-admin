@@ -1,19 +1,15 @@
 package cn.stylefeng.guns.modular.api;
 
-import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
 import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2019-11-22 15:01:30
  */
 @RestController
-@RequestMapping("/incomeFlowing")
+@RequestMapping("/api/incomeFlowing")
 public class IncomeFlowingApiController extends BaseController {
 
     @Autowired

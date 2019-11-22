@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.OutFlowingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.OutFlowing">
+        <id column="id" property="id" />
+        <result column="out_fee" property="outFee" />
+        <result column="card_id" property="cardId" />
+        <result column="user_id" property="userId" />
+        <result column="openid" property="openid" />
+        <result column="description" property="description" />
+        <result column="partner_trade_no" property="partnerTradeNo" />
+        <result column="spbill_create_ip" property="spbillCreateIp" />
+        <result column="pay_type" property="payType" />
+        <result column="pay_status" property="payStatus" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_by" property="updateBy" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, out_fee, card_id, user_id, openid, description, partner_trade_no, spbill_create_ip, pay_type, pay_status, is_deleted, create_time, create_by, update_time, update_by
+    </sql>
+
+</mapper>

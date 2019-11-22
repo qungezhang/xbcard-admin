@@ -7,8 +7,10 @@ import cn.stylefeng.guns.core.util.OrderNumUtils;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
+import cn.stylefeng.guns.modular.system.service.IOutFlowingService;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
+import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.binarywang.wxpay.bean.entpay.EntPayQueryResult;
@@ -57,6 +59,8 @@ public class WxPayController {
   private IWxUserService wxUserService;
   @Autowired
   private IIncomeFlowingService incomeFlowingService;
+  @Autowired
+  private IOutFlowingService outFlowingService;
   /**
    * <pre>
    * 查询订单(详见https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_2)
@@ -90,7 +94,7 @@ public class WxPayController {
   @ApiOperation(value = "小程序支付的统一下单接口")
   @PostMapping("/unifiedOrder")
   @Transactional
-  public Object unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
+  public ResponseData unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
     try {
 //      Assert.notNull(request.getAppid(), "appid不能为空");
 //      Assert.notNull(request.getMchId(), "商户号不能为空");
@@ -169,7 +173,7 @@ public class WxPayController {
    */
   @ApiOperation(value = "企业付款到零钱")
   @PostMapping("/entPay")
-  public EntPayResult entPay(@RequestBody EntPayRequest request) throws WxPayException {
+  public ResponseData entPay(@RequestBody EntPayRequest request) throws WxPayException {
     request.setPartnerTradeNo("Eb6Aep7uVTdbkJqrP4");
     request.setOpenid("ojOQA0y9o-Eb6Aep7uVTdbkJqrP5");
     request.setAmount(100);
@@ -177,7 +181,14 @@ public class WxPayController {
     request.setCheckName(WxPayConstants.CheckNameOption.NO_CHECK);
     request.setDescription("描述信息");
     // TODO: 2019/11/21 以上请求实例
-    return this.wxService.getEntPayService().entPay(request);
+    EntPayResult entPayResult = this.wxService.getEntPayService().entPay(request);
+    if (entPayResult.getResultCode().equals("SUCCESS")) {
+      // TODO: 2019/11/22
+
+    } else {
+      return new ErrorResponseData("提现失败");
+    }
+    return new SuccessResponseData(entPayResult);
   }
 
   /**

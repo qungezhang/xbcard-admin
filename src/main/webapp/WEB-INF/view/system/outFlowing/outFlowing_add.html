@@ -1,0 +1,40 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" underline="true"/>
+                            <#input id="outFee" name="支出金额（分）" underline="true"/>
+                            <#input id="cardId" name="名片id" underline="true"/>
+                            <#input id="userId" name="用户id" underline="true"/>
+                            <#input id="openid" name="微信用户标识" underline="true"/>
+                            <#input id="description" name="支出描述" underline="true"/>
+                            <#input id="partnerTradeNo" name="支出订单号" underline="true"/>
+                            <#input id="spbillCreateIp" name="提现机器Ip地址"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="payType" name="支出类型（1微信，2支付宝，3银联）" underline="true"/>
+                            <#input id="payStatus" name="支付状态（1成功，2失败，3进行中）" underline="true"/>
+                            <#input id="isDeleted" name="是否删除（0否，1是）" underline="true"/>
+                            <#input id="createTime" name="创建时间" underline="true"/>
+                            <#input id="createBy" name="创建人" underline="true"/>
+                            <#input id="updateTime" name="修改时间" underline="true"/>
+                            <#input id="updateBy" name="修改人" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OutFlowingInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OutFlowingInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/outFlowing/outFlowing_info.js"></script>
+@}
