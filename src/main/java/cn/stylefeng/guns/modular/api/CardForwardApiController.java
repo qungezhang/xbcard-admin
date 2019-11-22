@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * 名片转发打开记录
  *
@@ -38,17 +40,27 @@ public class CardForwardApiController extends BaseController {
     private ICardForwardService cardForwardService;
     @Autowired
     private IWxUserService wxUserService;
+//    /**
+//     * 获取列表
+//     */
+//    @PostMapping(value = "/pList")
+//    @ResponseBody
+//    @ApiOperation("获取分页列表")
+//    public ResponseData pList(@RequestBody PageListDTO<CardForward> pageListDTO) {
+//        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
+//        Page<CardForward> pageList = cardForwardService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()).orderBy("create_time", false));
+//        PageUtils pageUtils = new PageUtils(pageList);
+//        return new SuccessResponseData(pageUtils);
+//    }
     /**
      * 获取列表
      */
-    @PostMapping(value = "/pList")
+    @PostMapping(value = "/List")
     @ResponseBody
-    @ApiOperation("获取分页列表")
-    public ResponseData pList(@RequestBody PageListDTO<CardForward> pageListDTO) {
-        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
-        Page<CardForward> pageList = cardForwardService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()));
-        PageUtils pageUtils = new PageUtils(pageList);
-        return new SuccessResponseData(pageUtils);
+    @ApiOperation("获取列表")
+    public ResponseData List(@RequestBody CardForward cardForward) {
+        List<CardForward> cardForwards = cardForwardService.selectList(new EntityWrapper<>(cardForward).orderBy("create_time", false));
+        return new SuccessResponseData(cardForwards);
     }
 
     /**
