@@ -9,6 +9,7 @@ import cn.stylefeng.guns.config.properties.WxMaProperties;
 import cn.stylefeng.guns.core.util.JsonUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.modular.dto.WXLoginDTO;
+import cn.stylefeng.guns.modular.dto.WXLoginResultDTO;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 微信小程序用户接口
@@ -88,7 +91,10 @@ public class WxMaUserController extends BaseController {
                 wxUserService.insert(wxUser);
             }
             SuccessResponseData responseData = new SuccessResponseData();
-            responseData.setData(JwtTokenUtil.generateToken(String.valueOf(wxUser.getId())));
+            WXLoginResultDTO resultDTO = new WXLoginResultDTO();
+            resultDTO.setToken(JwtTokenUtil.generateToken(String.valueOf(wxUser.getId())));
+            resultDTO.setUser(wxUser);
+            responseData.setData(resultDTO);
             return responseData;
         } catch (WxErrorException e) {
             ErrorResponseData errorResponseData = new ErrorResponseData(e.toString());

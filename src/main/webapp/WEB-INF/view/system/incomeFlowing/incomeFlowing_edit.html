@@ -1,0 +1,45 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="id" value="${item.id}" underline="true"/>
+                            <#input id="merchantFee" name="商户收入金额（分）" value="${item.merchantFee}" underline="true"/>
+                            <#input id="merchantTotalFee" name="商户收入总金额（分）" value="${item.merchantTotalFee}" underline="true"/>
+                            <#input id="myselfFee" name="个人收入金额（分）" value="${item.myselfFee}" underline="true"/>
+                            <#input id="myselfTotalFee" name="个人收入总金额（分）" value="${item.myselfTotalFee}" underline="true"/>
+                            <#input id="cardId" name="名片id" value="${item.cardId}" underline="true"/>
+                            <#input id="userId" name="用户id" value="${item.userId}" underline="true"/>
+                            <#input id="customerId" name="客户id" value="${item.customerId}" underline="true"/>
+                            <#input id="openid" name="微信用户标识" value="${item.openid}" underline="true"/>
+                            <#input id="body" name="支付描述" value="${item.body}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="outTradeNo" name="内部订单号" value="${item.outTradeNo}" underline="true"/>
+                            <#input id="notifyUrl" name="通知地址" value="${item.notifyUrl}" underline="true"/>
+                            <#input id="packageValue" name="支付数据包" value="${item.packageValue}" underline="true"/>
+                            <#input id="payType" name="支付类型（1微信，2支付宝，3银联）" value="${item.payType}" underline="true"/>
+                            <#input id="payStatus" name="支付状态（1成功，2失败，3进行中）" value="${item.payStatus}" underline="true"/>
+                            <#input id="isDeleted" name="是否删除（0否，1是）" value="${item.isDeleted}" underline="true"/>
+                            <#input id="createTime" name="创建时间" value="${item.createTime}" underline="true"/>
+                            <#input id="createBy" name="创建人" value="${item.createBy}" underline="true"/>
+                            <#input id="updateTime" name="修改时间" value="${item.updateTime}" underline="true"/>
+                            <#input id="updateBy" name="修改人" value="${item.updateBy}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="IncomeFlowingInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="IncomeFlowingInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/incomeFlowing/incomeFlowing_info.js"></script>
+@}

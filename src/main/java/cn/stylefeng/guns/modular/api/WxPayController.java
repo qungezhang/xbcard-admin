@@ -1,49 +1,33 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.config.properties.WxPayProperties;
-import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import cn.stylefeng.guns.core.util.BeanMapperUtil;
+import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.OrderNumUtils;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryRequest;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryResult;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponSendRequest;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponSendResult;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponStockQueryRequest;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponStockQueryResult;
+import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
+import cn.stylefeng.guns.modular.system.model.WxUser;
+import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
+import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.binarywang.wxpay.bean.entpay.EntPayQueryResult;
 import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
 import com.github.binarywang.wxpay.bean.entpay.EntPayResult;
-import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
-import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyResult;
-import com.github.binarywang.wxpay.bean.notify.WxScanPayNotifyResult;
-import com.github.binarywang.wxpay.bean.request.WxPayDownloadBillRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayMicropayRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayOrderCloseRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayOrderQueryRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayOrderReverseRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayRefundQueryRequest;
+import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
-import com.github.binarywang.wxpay.bean.request.WxPayReportRequest;
-import com.github.binarywang.wxpay.bean.request.WxPaySendRedpackRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.github.binarywang.wxpay.bean.result.WxPayBillResult;
-import com.github.binarywang.wxpay.bean.result.WxPayMicropayResult;
-import com.github.binarywang.wxpay.bean.result.WxPayOrderCloseResult;
 import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryResult;
-import com.github.binarywang.wxpay.bean.result.WxPayOrderReverseResult;
-import com.github.binarywang.wxpay.bean.result.WxPayRedpackQueryResult;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundQueryResult;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
-import com.github.binarywang.wxpay.bean.result.WxPaySendRedpackResult;
-import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import com.github.binarywang.wxpay.util.SignUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,10 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -72,6 +53,10 @@ public class WxPayController {
   private WxPayService wxService;
   @Autowired
   private WxPayProperties wxPayProperties;
+  @Autowired
+  private IWxUserService wxUserService;
+  @Autowired
+  private IIncomeFlowingService incomeFlowingService;
   /**
    * <pre>
    * 查询订单(详见https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_2)
@@ -104,6 +89,7 @@ public class WxPayController {
    */
   @ApiOperation(value = "小程序支付的统一下单接口")
   @PostMapping("/unifiedOrder")
+  @Transactional
   public Object unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
     try {
 //      Assert.notNull(request.getAppid(), "appid不能为空");
@@ -129,20 +115,45 @@ public class WxPayController {
     request.setOutTradeNo(new OrderNumUtils().nextId());
     request.setSignType(WxPayConstants.SignType.MD5);
     // TODO: 2019/11/21 以上请求实例
-    Map<String, String> order = this.wxService.createOrder(request);
+    WxPayMpOrderResult wxPayOrderResult = this.wxService.createOrder(request);
+    if (wxPayOrderResult != null) {
+      Integer userId = JwtTokenUtil.getUserId();
+      WxUser wxUser = wxUserService.selectById(userId);
+      if (wxUser == null) {
+        return new ErrorResponseData("用户登录异常");
+      }
+      //将用户设为vip
+      wxUser.setIsvip(1);
+      wxUser.setUpdateTime(new Date());
+      wxUserService.updateById(wxUser);
+      //记录收入表
+      EntityWrapper<IncomeFlowing> wrapper = new EntityWrapper<>();
+      wrapper.setSqlSelect("myself_total_fee").eq("user_id", wxUser.getEmpId()).eq("is_deleted", 0).orderBy("create_time", false);
+      IncomeFlowing flowinged = incomeFlowingService.selectOne(wrapper);
+      IncomeFlowing flowing = BeanMapperUtil.objConvert(request, IncomeFlowing.class);
+      flowing.setUserId(wxUser.getEmpId());
+      flowing.setCustomerId(wxUser.getId());
+      flowing.setMyselfFee(2000);//20元
+      flowing.setMyselfTotalFee(2000 + (flowinged != null ? flowinged.getMyselfTotalFee() : 0));
+      flowing.setMerchantFee(request.getTotalFee());
+      flowing.setPackageValue(wxPayOrderResult.getPackageValue());
+      flowing.setCreateTime(new Date());
+      flowing.setUpdateTime(new Date());
+      incomeFlowingService.insert(flowing);
+    } else {
+      return new ErrorResponseData("支付失败");
+    }
 
-//    WxPayUnifiedOrderResult wxPayUnifiedOrderResult = this.wxService.unifiedOrder(request);
-//    String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-//    String nonceStr = String.valueOf(System.currentTimeMillis());
+
 //    Map<String, String> payInfo = new HashMap<>();
-//    payInfo.put("appId", wxPayUnifiedOrderResult.getAppid());
-//    // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-//    payInfo.put("timeStamp", timestamp);
-//    payInfo.put("nonceStr", nonceStr);
-//    payInfo.put("package", "prepay_id=" + wxPayUnifiedOrderResult.getPrepayId());
-//    payInfo.put("signType", request.getSignType());
-//    payInfo.put("paySign", SignUtils.createSign(payInfo, request.getSignType(), wxPayProperties.getMchKey(), null));
-    return order;
+//    payInfo.put("appId", wxPayOrderResult.getAppId());
+//    payInfo.put("timeStamp", wxPayOrderResult.getTimeStamp());
+//    payInfo.put("nonceStr", wxPayOrderResult.getNonceStr());
+//    payInfo.put("package", wxPayOrderResult.getPackageValue());
+//    payInfo.put("signType", wxPayOrderResult.getSignType());
+//    payInfo.put("paySign",wxPayOrderResult.getPaySign());
+
+    return new SuccessResponseData(wxPayOrderResult);
   }
   /**
    * <pre>
