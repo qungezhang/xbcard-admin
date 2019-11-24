@@ -16,4 +16,6 @@ import java.util.Map;
  */
 public interface ICardService extends IService<Card> {
     PageUtils queryPage(Map<String, Object> params);
+
+    public Card getOneByUserId(Integer userId);
 }

@@ -1,6 +1,9 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.warpper.WxUserWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
- * 控制器
+ * 小程序用户控制器
  *
  * @author fengshuonan
- * @Date 2019-11-04 21:57:52
+ * @Date 2019-11-23 20:10:42
  */
 @Controller
 @RequestMapping("/wxUser")
@@ -28,7 +35,7 @@ public class WxUserController extends BaseController {
     private IWxUserService wxUserService;
 
     /**
-     * 跳转到首页
+     * 跳转到小程序用户首页
      */
     @RequestMapping("")
     public String index() {
@@ -36,7 +43,7 @@ public class WxUserController extends BaseController {
     }
 
     /**
-     * 跳转到添加
+     * 跳转到添加小程序用户
      */
     @RequestMapping("/wxUser_add")
     public String wxUserAdd() {
@@ -44,7 +51,7 @@ public class WxUserController extends BaseController {
     }
 
     /**
-     * 跳转到修改
+     * 跳转到修改小程序用户
      */
     @RequestMapping("/wxUser_update/{wxUserId}")
     public String wxUserUpdate(@PathVariable Integer wxUserId, Model model) {
@@ -55,16 +62,39 @@ public class WxUserController extends BaseController {
     }
 
     /**
-     * 获取列表
+     * 获取小程序用户列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
-        return wxUserService.selectList(null);
+    public Object list(String mobile,String nickName) {
+        Object wrap = null;
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        if (ToolUtil.isNotEmpty(mobile) || ToolUtil.isNotEmpty(nickName)) {
+            EntityWrapper<WxUser> wrapper = new EntityWrapper<>();
+            wrapper.eq(ToolUtil.isNotEmpty(mobile), "mobile", mobile);
+            wrapper.like(ToolUtil.isNotEmpty(nickName), "nick_name", nickName);
+            Map<String, Object> map = wxUserService.selectMap(wrapper);
+            if (ToolUtil.isNotEmpty(map)) {
+                mapList.add(map);
+                String pCode = "[" + map.get("id") + "]";
+                EntityWrapper<WxUser> entityWrapper = new EntityWrapper<>();
+                entityWrapper.like(ToolUtil.isNotEmpty(pCode), "flag1", pCode);
+                entityWrapper.orderBy("update_time",false);
+                List<Map<String, Object>> maps = wxUserService.selectMaps(entityWrapper);
+                if (ToolUtil.isNotEmpty(maps)) {
+                    mapList.addAll(maps);
+                }
+                wrap = new WxUserWarpper(mapList).wrap();
+            }
+        } else {
+            wrap = new WxUserWarpper(wxUserService.selectMaps(new EntityWrapper<WxUser>().orderBy("update_time",false))).wrap();
+        }
+
+        return wrap;
     }
 
     /**
-     * 新增
+     * 新增小程序用户
      */
     @RequestMapping(value = "/add")
     @ResponseBody
@@ -74,7 +104,7 @@ public class WxUserController extends BaseController {
     }
 
     /**
-     * 删除
+     * 删除小程序用户
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
@@ -84,7 +114,7 @@ public class WxUserController extends BaseController {
     }
 
     /**
-     * 修改
+     * 修改小程序用户
      */
     @RequestMapping(value = "/update")
     @ResponseBody
@@ -94,7 +124,7 @@ public class WxUserController extends BaseController {
     }
 
     /**
-     * 详情
+     * 小程序用户详情
      */
     @RequestMapping(value = "/detail/{wxUserId}")
     @ResponseBody

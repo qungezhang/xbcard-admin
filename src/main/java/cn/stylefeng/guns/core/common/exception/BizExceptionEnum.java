@@ -75,6 +75,7 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
      */
     TOKEN_EXPIRED(700, "token过期"),
     TOKEN_ERROR(700, "token验证失败"),
+    TOKEN_USER_ERROR(700, "user不存在"),
 
     /**
      * 签名异常

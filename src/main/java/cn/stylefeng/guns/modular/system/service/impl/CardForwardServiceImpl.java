@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author qunge
- * @since 2019-11-07
+ * @since 2019-11-23
  */
 @Service
 public class CardForwardServiceImpl extends ServiceImpl<CardForwardMapper, CardForward> implements ICardForwardService {

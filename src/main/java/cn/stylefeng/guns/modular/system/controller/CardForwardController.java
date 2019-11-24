@@ -13,10 +13,10 @@ import cn.stylefeng.guns.modular.system.model.CardForward;
 import cn.stylefeng.guns.modular.system.service.ICardForwardService;
 
 /**
- * 控制器
+ * 名片转发打开记录控制器
  *
  * @author fengshuonan
- * @Date 2019-11-07 22:00:14
+ * @Date 2019-11-23 23:24:33
  */
 @Controller
 @RequestMapping("/cardForward")
@@ -28,7 +28,7 @@ public class CardForwardController extends BaseController {
     private ICardForwardService cardForwardService;
 
     /**
-     * 跳转到首页
+     * 跳转到名片转发打开记录首页
      */
     @RequestMapping("")
     public String index() {
@@ -36,7 +36,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 跳转到添加
+     * 跳转到添加名片转发打开记录
      */
     @RequestMapping("/cardForward_add")
     public String cardForwardAdd() {
@@ -44,7 +44,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 跳转到修改
+     * 跳转到修改名片转发打开记录
      */
     @RequestMapping("/cardForward_update/{cardForwardId}")
     public String cardForwardUpdate(@PathVariable Integer cardForwardId, Model model) {
@@ -55,7 +55,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 获取列表
+     * 获取名片转发打开记录列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
@@ -64,7 +64,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 新增
+     * 新增名片转发打开记录
      */
     @RequestMapping(value = "/add")
     @ResponseBody
@@ -74,7 +74,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 删除
+     * 删除名片转发打开记录
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
@@ -84,7 +84,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 修改
+     * 修改名片转发打开记录
      */
     @RequestMapping(value = "/update")
     @ResponseBody
@@ -94,7 +94,7 @@ public class CardForwardController extends BaseController {
     }
 
     /**
-     * 详情
+     * 名片转发打开记录详情
      */
     @RequestMapping(value = "/detail/{cardForwardId}")
     @ResponseBody

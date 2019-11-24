@@ -1,8 +1,8 @@
 package cn.stylefeng.guns.modular.system.service.impl;
 
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
-import cn.stylefeng.guns.modular.system.dao.WxUserMapper;
 import cn.stylefeng.guns.modular.system.model.WxUser;
+import cn.stylefeng.guns.modular.system.dao.WxUserMapper;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-11-23
  */
 @Service
 public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> implements IWxUserService {

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-11-23
  */
 @TableName("wx_user")
 public class WxUser extends Model<WxUser> {
@@ -89,10 +89,6 @@ public class WxUser extends Model<WxUser> {
      */
     private String language;
     /**
-     * 是否是会员（0否，1是）
-     */
-    private Integer isvip;
-    /**
      * 导购用户id
      */
     @TableField("emp_id")
@@ -102,6 +98,10 @@ public class WxUser extends Model<WxUser> {
      */
     @TableField("is_deleted")
     private Integer isDeleted;
+    /**
+     * 是否是会员（0否，1是）
+     */
+    private Integer isvip;
     /**
      * 冻结 0未冻结 1已冻结
      */
@@ -269,12 +269,28 @@ public class WxUser extends Model<WxUser> {
         this.language = language;
     }
 
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
+    }
+
     public Integer getIsDeleted() {
         return isDeleted;
     }
 
     public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public Integer getIsvip() {
+        return isvip;
+    }
+
+    public void setIsvip(Integer isvip) {
+        this.isvip = isvip;
     }
 
     public Integer getFreeze() {
@@ -341,22 +357,6 @@ public class WxUser extends Model<WxUser> {
         this.flag2 = flag2;
     }
 
-    public Integer getIsvip() {
-        return isvip;
-    }
-
-    public void setIsvip(Integer isvip) {
-        this.isvip = isvip;
-    }
-
-    public Integer getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Integer empId) {
-        this.empId = empId;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -381,7 +381,9 @@ public class WxUser extends Model<WxUser> {
         ", area=" + area +
         ", address=" + address +
         ", language=" + language +
+        ", empId=" + empId +
         ", isDeleted=" + isDeleted +
+        ", isvip=" + isvip +
         ", freeze=" + freeze +
         ", lastLoginTime=" + lastLoginTime +
         ", createTime=" + createTime +

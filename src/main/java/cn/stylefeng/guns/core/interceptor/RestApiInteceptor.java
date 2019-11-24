@@ -70,7 +70,7 @@ public class RestApiInteceptor extends HandlerInterceptorAdapter {
                 }
 //                WxUser loginWxUser = iWxUserService.getLoginWxUser();
 //                if (loginWxUser == null) {
-//                    RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.NO_THIS_USER.getCode(), BizExceptionEnum.NO_THIS_USER.getMessage()));
+//                    RenderUtil.renderJson(response, new ErrorResponseData(BizExceptionEnum.TOKEN_USER_ERROR.getCode(), BizExceptionEnum.TOKEN_USER_ERROR.getMessage()));
 //                    return false;
 //                }
             } catch (JwtException e) {

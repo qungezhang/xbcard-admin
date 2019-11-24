@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author qunge
- * @since 2019-11-07
+ * @since 2019-11-23
  */
 public interface CardForwardMapper extends BaseMapper<CardForward> {
 

@@ -2,9 +2,11 @@ package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.config.properties.WxPayProperties;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
+import cn.stylefeng.guns.core.util.IPUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.OrderNumUtils;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
+import cn.stylefeng.guns.modular.system.model.OutFlowing;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
 import cn.stylefeng.guns.modular.system.service.IOutFlowingService;
@@ -39,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 
@@ -106,7 +109,7 @@ public class WxPayController {
 //      Assert.notNull(request.getTradeType(), "交易类型不能为空");
 //      Assert.notNull(request.gets(), "支付秘钥不能为空");
     } catch (Exception e) {
-      throw new RuntimeException(String.format("信息：%s。", e.getMessage()));
+      throw new RuntimeException(String.format("异常信息：%s。", e.getMessage()));
     }
     if(request.getTotalFee() < 1) {
       throw new RuntimeException("支付金额不能小于1分");
@@ -131,9 +134,7 @@ public class WxPayController {
       wxUser.setUpdateTime(new Date());
       wxUserService.updateById(wxUser);
       //记录收入表
-      EntityWrapper<IncomeFlowing> wrapper = new EntityWrapper<>();
-      wrapper.setSqlSelect("myself_total_fee").eq("user_id", wxUser.getEmpId()).eq("is_deleted", 0).orderBy("create_time", false);
-      IncomeFlowing flowinged = incomeFlowingService.selectOne(wrapper);
+      IncomeFlowing flowinged = incomeFlowingService.getOneIncomeFlowingDesc(wxUser.getEmpId());
       IncomeFlowing flowing = BeanMapperUtil.objConvert(request, IncomeFlowing.class);
       flowing.setUserId(wxUser.getEmpId());
       flowing.setCustomerId(wxUser.getId());
@@ -171,41 +172,69 @@ public class WxPayController {
    *
    * @param request 请求对象
    */
-  @ApiOperation(value = "企业付款到零钱")
+  @ApiOperation(value = "提现")
   @PostMapping("/entPay")
-  public ResponseData entPay(@RequestBody EntPayRequest request) throws WxPayException {
-    request.setPartnerTradeNo("Eb6Aep7uVTdbkJqrP4");
-    request.setOpenid("ojOQA0y9o-Eb6Aep7uVTdbkJqrP5");
-    request.setAmount(100);
-    request.setSpbillCreateIp("10.10.10.10");
+  @Transactional
+  public ResponseData entPay(@RequestBody EntPayRequest request, HttpServletRequest servletRequest) throws WxPayException {
+    try {
+      Assert.notNull(request.getDescription(), "商品描述不能为空");
+      Assert.notNull(request.getOpenid(), "openId不能为空");
+      Assert.isTrue((request.getAmount() != null && request.getAmount() > 0), "提取金额不能为空");
+    } catch (Exception e) {
+      throw new RuntimeException(String.format("异常信息：%s。", e.getMessage()));
+    }
+    Integer userId = JwtTokenUtil.getUserId();
+    WxUser wxUser = wxUserService.selectById(userId);
+    if (wxUser == null) {
+      return new ErrorResponseData("用户登录异常");
+    }
+    //收入记录
+    IncomeFlowing incomeFlowing = incomeFlowingService.getOneIncomeFlowingDesc(wxUser.getId());
+    if (incomeFlowing == null || request.getAmount() > incomeFlowing.getMyselfTotalFee()) {
+      return new ErrorResponseData("提取金额不能大于总提成金额");
+    }
+    request.setPartnerTradeNo(new OrderNumUtils().nextId());
+    request.setOpenid(request.getOpenid());
+    request.setAmount(request.getAmount());
+    request.setSpbillCreateIp(IPUtils.getIpAddr(servletRequest));
     request.setCheckName(WxPayConstants.CheckNameOption.NO_CHECK);
-    request.setDescription("描述信息");
+    request.setDescription(request.getDescription());
     // TODO: 2019/11/21 以上请求实例
     EntPayResult entPayResult = this.wxService.getEntPayService().entPay(request);
     if (entPayResult.getResultCode().equals("SUCCESS")) {
-      // TODO: 2019/11/22
+      //添加支出记录
+      OutFlowing outFlowing = BeanMapperUtil.objConvert(request, OutFlowing.class);
+      outFlowing.setUserId(userId);
+      outFlowing.setOutFee(request.getAmount());
+      outFlowing.setUpdateTime(new Date());
+      outFlowing.setCreateTime(new Date());
+      outFlowingService.insert(outFlowing);
 
+      //更新收入总金额
+      incomeFlowing.setMyselfTotalFee(incomeFlowing.getMyselfTotalFee() - outFlowing.getOutFee());
+      incomeFlowing.setUpdateTime(new Date());
+      incomeFlowingService.updateById(incomeFlowing);
     } else {
       return new ErrorResponseData("提现失败");
     }
     return new SuccessResponseData(entPayResult);
   }
 
-  /**
-   * <pre>
-   * 查询企业付款API
-   * 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
-   * 文档详见:https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_3
-   * 接口链接：https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo
-   * </pre>
-   *
-   * @param partnerTradeNo 商户订单号
-   */
-  @ApiOperation(value = "查询企业付款到零钱的结果")
-  @GetMapping("/queryEntPay/{partnerTradeNo}")
-  public EntPayQueryResult queryEntPay(@PathVariable String partnerTradeNo) throws WxPayException {
-    return this.wxService.getEntPayService().queryEntPay(partnerTradeNo);
-  }
+//  /**
+//   * <pre>
+//   * 查询企业付款API
+//   * 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+//   * 文档详见:https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_3
+//   * 接口链接：https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo
+//   * </pre>
+//   *
+//   * @param partnerTradeNo 商户订单号
+//   */
+//  @ApiOperation(value = "查询企业付款到零钱的结果")
+//  @GetMapping("/queryEntPay/{partnerTradeNo}")
+//  public EntPayQueryResult queryEntPay(@PathVariable String partnerTradeNo) throws WxPayException {
+//    return this.wxService.getEntPayService().queryEntPay(partnerTradeNo);
+//  }
 
   /**
    * <pre>

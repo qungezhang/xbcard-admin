@@ -21,7 +21,6 @@
         </div>
     </div>
     <input type="hidden" id="${id}" value="${avatarImg!}"/>
-</div>
 @if(isNotEmpty(underline) && underline == 'true'){
     <div class="hr-line-dashed"></div>
 @}

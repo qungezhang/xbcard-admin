@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/cardForward")
 @Api(tags = "名片转发打开记录")
+@Slf4j
 public class CardForwardApiController extends BaseController {
     @Autowired
     private ICardForwardService cardForwardService;
@@ -77,10 +79,23 @@ public class CardForwardApiController extends BaseController {
         if (loginWxUser == null) {
             return new ErrorResponseData("请授权登录");
         }
-        cardForward.setUserId(Long.valueOf(loginWxUser.getId()));
-        cardForward.setHeadImg(loginWxUser.getHeadimgurl());
-        cardForward.setNickname(loginWxUser.getNickName());
-        cardForwardService.insert(cardForward);
+        Long userId = Long.valueOf(loginWxUser.getId());
+        CardForward forward = new CardForward();
+        forward.setUserId(userId);
+        forward.setCardId(cardForward.getCardId());
+        forward.setForwarderId(cardForward.getForwarderId());
+        forward.setType(cardForward.getType());
+        CardForward selectOne = cardForwardService.selectOne(new EntityWrapper<>(forward).orderBy("create_time", false).last("limit 1"));
+        if (selectOne != null) {
+            log.info(String.format("浏览收藏记录已存在：%s。", selectOne));
+        } else {
+            cardForward.setUserId(userId);
+            cardForward.setHeadImg(loginWxUser.getHeadimgurl());
+            cardForward.setNickname(loginWxUser.getNickName());
+            cardForward.setOpenid(loginWxUser.getOpenid());
+            cardForwardService.insert(cardForward);
+        }
+
         return SUCCESS_TIP;
     }
 

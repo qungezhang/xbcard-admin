@@ -20,9 +20,9 @@
         <result column="area" property="area" />
         <result column="address" property="address" />
         <result column="language" property="language" />
-        <result column="isvip" property="isvip" />
         <result column="emp_id" property="empId" />
         <result column="is_deleted" property="isDeleted" />
+        <result column="isvip" property="isvip" />
         <result column="freeze" property="freeze" />
         <result column="last_login_time" property="lastLoginTime" />
         <result column="create_time" property="createTime" />
@@ -35,7 +35,27 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, mobile, openid, wechat_number, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language,isvip,emp_id is_deleted, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
+        id, mobile, openid, wechat_number, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language, emp_id, is_deleted, isvip, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
     </sql>
+    <select id="getMaps" resultType="java.util.Map">
+        SELECT
+            b.mobile,
+            b.nick_name,
+            b.sex,
+            b.country,
+            b.province,
+            b.city,
+            b.isvip,
+            b.emp_id,
+            b.headimgurl
+        FROM
+            wx_user a
+            INNER JOIN wx_user b ON b.emp_id = a.id
+            OR b.id = a.id
+        WHERE
+            a.nick_name = '算了吧！'
+        ORDER BY
+            b.create_time ASC
+    </select>
 
 </mapper>

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author qunge
- * @since 2019-11-07
+ * @since 2019-11-23
  */
 @TableName("wx_card_forward")
 public class CardForward extends Model<CardForward> {
@@ -55,10 +55,9 @@ public class CardForward extends Model<CardForward> {
     @TableField("forwarder_id")
     private Long forwarderId;
     /**
-     * 导购ID
+     * 微信openid
      */
-    @TableField("emp_id")
-    private Long empId;
+    private String openid;
     /**
      * 公司ID
      */
@@ -127,12 +126,12 @@ public class CardForward extends Model<CardForward> {
         this.forwarderId = forwarderId;
     }
 
-    public Long getEmpId() {
-        return empId;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setEmpId(Long empId) {
-        this.empId = empId;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public Long getCompanyId() {
@@ -166,7 +165,7 @@ public class CardForward extends Model<CardForward> {
         ", headImg=" + headImg +
         ", nickname=" + nickname +
         ", forwarderId=" + forwarderId +
-        ", empId=" + empId +
+        ", openid=" + openid +
         ", companyId=" + companyId +
         ", createTime=" + createTime +
         "}";

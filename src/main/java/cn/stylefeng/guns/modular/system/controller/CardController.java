@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ import cn.stylefeng.guns.modular.system.service.ICardService;
 public class CardController extends BaseController {
 
     private String PREFIX = "/system/card/";
+    private String PREFIX_user = "/system/wxUser/";
 
     @Autowired
     private ICardService cardService;
@@ -52,6 +54,18 @@ public class CardController extends BaseController {
         model.addAttribute("item",card);
         LogObjectHolder.me().set(card);
         return PREFIX + "card_edit.html";
+    }
+
+    /**
+     * 跳转到修改
+     */
+    @RequestMapping("/card_info/{userId}")
+    public String cardinfo(@PathVariable Integer userId, Model model) {
+        Card card = cardService.getOneByUserId(userId);
+        card.setLogo(card.getLogo() == null ? null : "http://" + card.getLogo());
+        model.addAttribute("item",card);
+        LogObjectHolder.me().set(card);
+        return PREFIX_user + "card_info.html";
     }
 
     /**

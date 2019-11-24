@@ -1,0 +1,51 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#img id="headimgurl" name="用户头像" imgUrl="${item.headimgurl}" underline="true"/>
+                            <#input id="mobile" name="手机号" value="${item.mobile}" underline="true"/>
+                            <#input id="openid" name="微信openid" value="${item.openid}" underline="true"/>
+                            <#input id="wechatNumber" name="微信号" value="${item.wechatNumber}" underline="true"/>
+                            <#input id="unionid" name="微信unionid" value="${item.unionid}" underline="true"/>
+                            <#input id="qrcode" name="微信二维码" value="${item.qrcode}" underline="true"/>
+                            <#input id="nickName" name="昵称" value="${item.nickName}" underline="true"/>
+                            <#input id="sex" name="性别：（1:男性；2:女性；0:未知）" value="${item.sex}" underline="true"/>
+                            <#input id="channel" name="渠道（0自主 ）" value="${item.channel}" underline="true"/>
+                            <#input id="country" name="国家" value="${item.country}" underline="true"/>
+                            <#input id="province" name="省份" value="${item.province}" underline="true"/>
+                            <#input id="city" name="城市" value="${item.city}" underline="true"/>
+                            <#input id="area" name="地区" value="${item.area}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="address" name="地址详情" value="${item.address}" underline="true"/>
+                            <#input id="language" name="用户的语言，简体中文为zh_CN" value="${item.language}" underline="true"/>
+                            <#input id="empId" name="导购用户id" value="${item.empId}" underline="true"/>
+                            <#input id="isDeleted" name="是否删除（0否，1是）" value="${item.isDeleted}" underline="true"/>
+                            <#input id="isvip" name="是否是会员（0否，1是）" value="${item.isvip}" underline="true"/>
+                            <#input id="freeze" name="冻结 0未冻结 1已冻结" value="${item.freeze}" underline="true"/>
+                            <#input id="lastLoginTime" name="最后登录时间" value="${item.lastLoginTime}" underline="true"/>
+                            <#input id="createTime" name="创建时间" value="${item.createTime}" underline="true"/>
+                            <#input id="createBy" name="创建人" value="${item.createBy}" underline="true"/>
+                            <#input id="updateTime" name="修改时间" value="${item.updateTime}" underline="true"/>
+                            <#input id="updateBy" name="修改人" value="${item.updateBy}" underline="true"/>
+                            <#input id="flag1" name="预留字段" value="${item.flag1}" underline="true"/>
+                            <#input id="flag2" name="预留字段" value="${item.flag2}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="WxUserInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="WxUserInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/wxUser/wxUser_info.js"></script>
+@}

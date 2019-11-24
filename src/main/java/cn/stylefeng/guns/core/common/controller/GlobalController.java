@@ -40,13 +40,13 @@ public class GlobalController {
     }
 
     /**
-     * 跳转到session超时页面
+     * 跳转到登录超时页面
      *
      * @author fengshuonan
      */
     @RequestMapping(path = "/sessionError")
     public String errorPageInfo(Model model) {
-        model.addAttribute("tips", "session超时");
+        model.addAttribute("tips", "登录超时");
         return "/login.html";
     }
 }

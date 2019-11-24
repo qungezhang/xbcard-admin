@@ -11,14 +11,14 @@
         <result column="head_img" property="headImg" />
         <result column="nickname" property="nickname" />
         <result column="forwarder_id" property="forwarderId" />
-        <result column="emp_id" property="empId" />
+        <result column="openid" property="openid" />
         <result column="company_id" property="companyId" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, card_id, type, user_id, head_img, nickname, forwarder_id, emp_id, company_id, create_time
+        id, card_id, type, user_id, head_img, nickname, forwarder_id, openid, company_id, create_time
     </sql>
 
 </mapper>

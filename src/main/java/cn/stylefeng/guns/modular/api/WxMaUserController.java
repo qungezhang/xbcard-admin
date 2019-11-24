@@ -15,6 +15,7 @@ import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -88,6 +89,7 @@ public class WxMaUserController extends BaseController {
                 wxUser.setCreateTime(new Date());
                 wxUser.setIsvip(0);//是否是会员（0否，1是）
                 wxUser.setEmpId(loginDTO.getEmpId() == null ? 0 : loginDTO.getEmpId());//0自主创建
+                wxUserSetPids(wxUser);
                 wxUserService.insert(wxUser);
             }
             SuccessResponseData responseData = new SuccessResponseData();
@@ -119,7 +121,18 @@ public class WxMaUserController extends BaseController {
         wxUser.setLastLoginTime(new Date());
         wxUser.setUpdateTime(new Date());
     }
-
+    private void wxUserSetPids(WxUser wxUser) {
+        Integer pid = wxUser.getEmpId();
+        if (ToolUtil.isEmpty(pid) || pid.equals(0)) {
+            wxUser.setEmpId(0);
+            wxUser.setFlag1("[0],");
+        } else {
+            WxUser pWxUser = wxUserService.selectById(pid);
+            String pids = pWxUser.getFlag1();
+            wxUser.setEmpId(pid);
+            wxUser.setFlag1(pids + "[" + pid + "],");
+        }
+    }
     /**
      * <pre>
      * 获取用户绑定手机号信息

@@ -82,9 +82,7 @@ public class CardApiController extends BaseController {
             return new ErrorResponseData("未授权登录");
         }
         CardDTO cardDto = new CardDTO();
-        EntityWrapper<Card> wrapper = new EntityWrapper<>();
-        wrapper.eq("user_id", user.getId()).orderBy("create_time",false).last("limit 1");
-        Card card = cardService.selectOne(wrapper);
+        Card card = cardService.getOneByUserId(user.getId());
         List<Material> materials = new ArrayList<>();
         if (card != null) {
             EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
@@ -104,18 +102,24 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增")
     public Object add(@RequestBody CardAddDTO addDTO) {
-        Integer userId = JwtTokenUtil.getUserId();
+//        Integer userId = JwtTokenUtil.getUserId();
 //        EntityWrapper<Card> wrapper = new EntityWrapper<>();
 //        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
 //        if (cardService.selectOne(wrapper) != null) {
 //            return new ErrorResponseData("不可重复创建名片");
 //        }
+        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (loginWxUser == null) {
+            return new ErrorResponseData("用户授权异常");
+        }
         Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
-        card.setUserId(userId);
+        card.setUserId(loginWxUser.getId());
         card.setIsDeleted(0);//是否删除（0否，1是）
         card.setCreateTime(new Date());
         card.setUpdateTime(new Date());
         cardService.insert(card);
+        loginWxUser.setMobile(card.getMobile());
+        wxUserService.updateById(loginWxUser);
         return new SuccessResponseData(card);
     }
 
@@ -126,13 +130,19 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增全部")
     public Object addAll(@RequestBody CardAddDTO addDTO) {
-        Integer userId = JwtTokenUtil.getUserId();
+        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (loginWxUser == null) {
+            return new ErrorResponseData("用户授权异常");
+        }
         Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
+        Integer userId = loginWxUser.getId();
         card.setUserId(userId);
         card.setIsDeleted(0);//是否删除（0否，1是）
         card.setCreateTime(new Date());
         card.setUpdateTime(new Date());
         cardService.insert(card);
+        loginWxUser.setMobile(card.getMobile());
+        wxUserService.updateById(loginWxUser);
         List<MaterialDTO> materials = addDTO.getMaterials();
         if (!CollectionUtils.isEmpty(materials)) {
             for (MaterialDTO materialDTO : materials) {
@@ -166,6 +176,10 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("修改")
     public Object update(@RequestBody CardUpdateDTO updateDTO) {
+        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (loginWxUser == null) {
+            return new ErrorResponseData("用户授权异常");
+        }
         Card card = BeanMapperUtil.objConvert(updateDTO, Card.class);
         Integer cardId = card.getId();
         if (card.getId() == null) {
@@ -173,6 +187,8 @@ public class CardApiController extends BaseController {
         }
         card.setUpdateTime(new Date());
         cardService.updateById(card);
+        loginWxUser.setMobile(card.getMobile());
+        wxUserService.updateById(loginWxUser);
         EntityWrapper<Material> wrapper = new EntityWrapper<>();
         wrapper.eq("card_id", cardId);
         materialService.delete(wrapper);//先删除

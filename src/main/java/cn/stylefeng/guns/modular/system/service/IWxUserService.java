@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.service.IService;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-11-23
  */
 public interface IWxUserService extends IService<WxUser> {
 

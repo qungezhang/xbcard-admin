@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2019-11-22
  */
 public interface IIncomeFlowingService extends IService<IncomeFlowing> {
+    public IncomeFlowing getOneIncomeFlowingDesc(Integer userId);
 
 }

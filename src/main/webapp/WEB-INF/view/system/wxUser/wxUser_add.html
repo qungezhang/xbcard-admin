@@ -1,0 +1,52 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="mobile" name="手机号" underline="true"/>
+                            <#input id="openid" name="微信openid" underline="true"/>
+                            <#input id="wechatNumber" name="微信号" underline="true"/>
+                            <#input id="unionid" name="微信unionid" underline="true"/>
+                            <#input id="qrcode" name="微信二维码" underline="true"/>
+                            <#input id="nickName" name="昵称" underline="true"/>
+                            <#input id="headimgurl" name="用户头像" underline="true"/>
+                            <#input id="sex" name="性别：（1:男性；2:女性；0:未知）" underline="true"/>
+                            <#input id="channel" name="渠道（0自主 ）" underline="true"/>
+                            <#input id="country" name="国家" underline="true"/>
+                            <#input id="province" name="省份" underline="true"/>
+                            <#input id="city" name="城市" underline="true"/>
+                            <#input id="area" name="地区"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="address" name="地址详情" underline="true"/>
+                            <#input id="language" name="用户的语言，简体中文为zh_CN" underline="true"/>
+                            <#input id="empId" name="导购用户id" underline="true"/>
+                            <#input id="isDeleted" name="是否删除（0否，1是）" underline="true"/>
+                            <#input id="isvip" name="是否是会员（0否，1是）" underline="true"/>
+                            <#input id="freeze" name="冻结 0未冻结 1已冻结" underline="true"/>
+                            <#input id="lastLoginTime" name="最后登录时间" underline="true"/>
+                            <#input id="createTime" name="创建时间" underline="true"/>
+                            <#input id="createBy" name="创建人" underline="true"/>
+                            <#input id="updateTime" name="修改时间" underline="true"/>
+                            <#input id="updateBy" name="修改人" underline="true"/>
+                            <#input id="flag1" name="预留字段" underline="true"/>
+                            <#input id="flag2" name="预留字段" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="WxUserInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="WxUserInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/wxUser/wxUser_info.js"></script>
+@}

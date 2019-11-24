@@ -32,4 +32,11 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
 //        Page<Card> cardPage = this.selectPage(objectEntityWrapper);
         return new PageUtils(null);
     }
+
+    @Override
+    public Card getOneByUserId(Integer userId) {
+        EntityWrapper<Card> wrapper = new EntityWrapper<>();
+        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
+        return this.selectOne(wrapper);
+    }
 }

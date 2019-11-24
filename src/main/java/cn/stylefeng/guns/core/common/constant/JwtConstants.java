@@ -31,7 +31,9 @@ public interface JwtConstants {
 
     String SECRET = "defaultSecret";
 
-    Long EXPIRATION = 604800L;
+//    Long EXPIRATION = 604800L;
+    //一年
+    Long EXPIRATION = 3600*24*366L;
 
     String AUTH_PATH = "/api/auth";
     String WX_LOGIN_PATH = "/api/wxuser/login";
