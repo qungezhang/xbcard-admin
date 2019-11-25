@@ -42,6 +42,10 @@ public class WxUserController extends BaseController {
         return PREFIX + "wxUser.html";
     }
 
+    @RequestMapping("demo_v4")
+    public String demo_v4() {
+        return PREFIX + "demo_v4.html";
+    }
     /**
      * 跳转到添加小程序用户
      */
@@ -87,7 +91,8 @@ public class WxUserController extends BaseController {
                 wrap = new WxUserWarpper(mapList).wrap();
             }
         } else {
-            wrap = new WxUserWarpper(wxUserService.selectMaps(new EntityWrapper<WxUser>().orderBy("update_time",false))).wrap();
+            List<Map<String, Object>> selectMaps = wxUserService.selectMaps(new EntityWrapper<WxUser>().orderBy("update_time", false));
+            wrap = new WxUserWarpper(selectMaps).wrap();
         }
 
         return wrap;
