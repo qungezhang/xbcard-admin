@@ -14,7 +14,7 @@ var WxUser = {
 WxUser.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '用户头像', field: 'headimgurl', visible: true, align: 'center', valign: 'middle',
+            {title: '用户头像', field: 'headimgurl', visible: true, align: 'center', width:'70px',valign: 'middle',
                 formatter:function(value,row,index){//显示图片
                     var s;
                     if(row.headimgurl!=null){
@@ -25,24 +25,25 @@ WxUser.initColumn = function () {
                 },
 
             },
-            {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle',width:'150px'},
+            {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle',width:'260px'},
             // {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '手机号', field: 'mobile', visible: true, align: 'center', valign: 'middle'},
+            {title: '手机号', field: 'mobile', visible: true, align: 'center', width:'150px',valign: 'middle'},
             // {title: '微信openid', field: 'openid', visible: true, align: 'center', valign: 'middle'},
             // {title: '微信号', field: 'wechatNumber', visible: true, align: 'center', valign: 'middle'},
             // {title: '微信unionid', field: 'unionid', visible: true, align: 'center', valign: 'middle'},
             // {title: '微信二维码', field: 'qrcode', visible: true, align: 'center', valign: 'middle'},
             {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle',width:'50px'},
             // {title: '渠道（0自主 ）', field: 'channel', visible: true, align: 'center', valign: 'middle'},
-            {title: '国家', field: 'country', visible: true, align: 'center', valign: 'middle'},
-            {title: '省份', field: 'province', visible: true, align: 'center', valign: 'middle'},
-            {title: '城市', field: 'city', visible: true, align: 'center', valign: 'middle'},
+            {title: '地址', field: 'addressAll', visible: true, align: 'center', width:'200px', valign: 'middle'},
+            // {title: '国家', field: 'country', visible: true, align: 'center', width:'60px', valign: 'middle'},
+            // {title: '省份', field: 'province', visible: true, align: 'center', valign: 'middle'},
+            // {title: '城市', field: 'city', visible: true, align: 'center', valign: 'middle'},
             // {title: '地区', field: 'area', visible: true, align: 'center', valign: 'middle'},
             // {title: '地址详情', field: 'address', visible: true, align: 'center', valign: 'middle'},
             // {title: '用户的语言，简体中文为zh_CN', field: 'language', visible: true, align: 'center', valign: 'middle'},
-            {title: '导购用户id', field: 'empId', visible: true, align: 'center', valign: 'middle'},
+            // {title: '导购用户id', field: 'empId', visible: true, align: 'center', valign: 'middle'},
             // {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否是会员', field: 'isvip', visible: true, align: 'center', valign: 'middle',
+            {title: '是否是会员', field: 'isvip', visible: true, align: 'center',width:'100px', valign: 'middle',
                 formatter:function(value,row,index){
                     var s;
                     if(row.isvip!=null){
@@ -131,6 +132,23 @@ WxUser.openWxUserCardDetail = function () {
     }
     this.layerIndex = index;
 };
+/**
+ * 打开查看用户素材详情
+ */
+WxUser.openWxUserMaterialDetail = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '用户商品详情',
+            area: ['1000px', '500px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/wxUser/material_info/' + WxUser.seItem.id
+        });
+        layer.full(index);
+    }
+    this.layerIndex = index;
+};
 
 /**
  * 删除小程序用户
@@ -183,7 +201,7 @@ WxUser.resetSearch = function () {
 $(function () {
     var defaultColunms = WxUser.initColumn();
     var table = new BSTreeTable(WxUser.id, "/wxUser/list",defaultColunms);
-    table.setExpandColumn(1);
+    table.setExpandColumn(2);
     table.setIdField("id");
     table.setCodeField("id");
     table.setParentCodeField("empId");

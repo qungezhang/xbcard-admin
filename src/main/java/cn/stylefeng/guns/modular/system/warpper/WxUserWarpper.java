@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.modular.system.warpper;
 
 import cn.stylefeng.roses.core.base.warpper.BaseControllerWrapper;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.baomidou.mybatisplus.plugins.Page;
 
@@ -52,6 +53,17 @@ public class WxUserWarpper extends BaseControllerWrapper {
         map.put("sexName", sex == 1 ? "男" : "女");
         Integer isvip = (Integer) map.get("isvip");
         map.put("isVipName", isvip == 1 ? "是" : "否");
+        String addressAll = "";
+        if (ToolUtil.isNotEmpty(map.get("country"))) {
+            addressAll = addressAll + map.get("country") + "-";
+        }
+        if (ToolUtil.isNotEmpty(map.get("province"))) {
+            addressAll = addressAll + map.get("province") + "-";
+        }
+        if (ToolUtil.isNotEmpty(map.get("city"))) {
+            addressAll = addressAll + map.get("city");
+        }
+        map.put("addressAll", addressAll);
 
     }
 

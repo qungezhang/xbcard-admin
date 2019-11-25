@@ -1,7 +1,9 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
+import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
+import cn.stylefeng.guns.modular.dto.ForwardPageDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.CardForward;
 import cn.stylefeng.guns.modular.system.model.WxUser;
@@ -42,28 +44,46 @@ public class CardForwardApiController extends BaseController {
     private ICardForwardService cardForwardService;
     @Autowired
     private IWxUserService wxUserService;
-//    /**
-//     * 获取列表
-//     */
-//    @PostMapping(value = "/pList")
-//    @ResponseBody
-//    @ApiOperation("获取分页列表")
-//    public ResponseData pList(@RequestBody PageListDTO<CardForward> pageListDTO) {
-//        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
-//        Page<CardForward> pageList = cardForwardService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()).orderBy("create_time", false));
-//        PageUtils pageUtils = new PageUtils(pageList);
-//        return new SuccessResponseData(pageUtils);
-//    }
     /**
      * 获取列表
      */
-    @PostMapping(value = "/List")
+    @PostMapping(value = "/pList")
     @ResponseBody
-    @ApiOperation("获取列表")
-    public ResponseData List(@RequestBody CardForward cardForward) {
-        List<CardForward> cardForwards = cardForwardService.selectList(new EntityWrapper<>(cardForward).orderBy("create_time", false));
-        return new SuccessResponseData(cardForwards);
+    @ApiOperation("获取分页列表")
+    public ResponseData pList(@RequestBody ForwardPageDTO dto) {
+        if (dto.getType() == null) {
+            return new ErrorResponseData("类型不可为空（1查看我 2收藏我 3我收藏）");
+        }
+        Integer userId = JwtTokenUtil.getUserId();
+        EntityWrapper<CardForward> wrapper = new EntityWrapper<>();
+        switch (dto.getType()) {
+            case 1 :
+                wrapper.eq("type",2).eq("forwarder_id", userId);
+                break;
+            case 2 :
+                wrapper.eq("type",3).eq("forwarder_id", userId);
+                break;
+            case 3 :
+                wrapper.eq("type",3).eq("user_id", userId);
+                break;
+            default: break;
+        }
+
+        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), "create_time", "desc");
+        Page<CardForward> pageList = cardForwardService.selectPage(page, wrapper);
+        PageUtils pageUtils = new PageUtils(pageList);
+        return new SuccessResponseData(pageUtils);
     }
+//    /**
+//     * 获取列表
+//     */
+//    @PostMapping(value = "/List")
+//    @ResponseBody
+//    @ApiOperation("获取列表")
+//    public ResponseData List(@RequestBody CardForward cardForward) {
+//        List<CardForward> cardForwards = cardForwardService.selectList(new EntityWrapper<>(cardForward).orderBy("create_time", false));
+//        return new SuccessResponseData(cardForwards);
+//    }
 
     /**
      * 新增

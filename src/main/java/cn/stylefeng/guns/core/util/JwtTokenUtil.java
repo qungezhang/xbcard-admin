@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.core.util;
 
 import cn.stylefeng.guns.core.common.constant.JwtConstants;
+import cn.stylefeng.guns.core.common.exception.InvalidRestLoginException;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import io.jsonwebtoken.*;
 import org.springframework.web.context.request.RequestAttributes;
@@ -58,7 +59,11 @@ public class JwtTokenUtil {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         final String requestHeader = request.getHeader(JwtConstants.AUTH_HEADER);
-        return requestHeader != null ? Integer.valueOf(getClaimFromToken(requestHeader.substring(7)).getSubject()) : null;
+        Integer userId = requestHeader != null ? Integer.valueOf(getClaimFromToken(requestHeader.substring(7)).getSubject()) : null;
+        if (userId == null) {
+            throw new InvalidRestLoginException();
+        }
+        return userId;
     }
 
     /**

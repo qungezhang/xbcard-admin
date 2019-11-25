@@ -1,36 +1,15 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
 	<div class="ibox-content">
-		<div class="form-horizontal">
-			<div class="row">
-				@for(notice in noticeList){
-				<div class="alert alert-success alert-dismissable">
-					<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-					${notice.content}
-				</div>
-				@}
-
-				<div class="col-sm-6 b-r">
-					<#img id="logo" name="logo" imgUrl="${item.logo}" underline="true"/>
-					<#p id="name" name="姓名" value="${item.name}" underline="true"/>
-					<#p id="mobile" name="电话" value="${item.mobile}" underline="true"/>
-					<#p id="address" name="地址" value="${item.address}" underline="true"/>
-
-				</div>
-
-				<div class="col-sm-6">
-					<#p id="company" name="公司" value="${item.company}" underline="true"/>
-					<#p id="position" name="职位" value="${item.position}" underline="true"/>
-					<#p id="email" name="邮箱" value="${item.email}" underline="true"/>
-					<#p id="fax" name="传真" value="${item.fax}" underline="true"/>
-
-				</div>
-			</div>
-
-
+		<div class="row">
+			@for(material in materials){
+			<#imgs content="${material.description}" imgUrl="${material.imgUrl}" underline="false"/>
+			@}
 		</div>
 
 	</div>
 </div>
-<script src="${ctxPath}/static/modular/system/wxUser/wxUser_info.js"></script>
+<script src="${ctxPath}/static/modular/system/wxUser/wxUser_info.js">
+
+</script>
 @}

@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.model.Material;
+import cn.stylefeng.guns.modular.system.service.IMaterialService;
 import cn.stylefeng.guns.modular.system.warpper.WxUserWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
@@ -33,6 +35,8 @@ public class WxUserController extends BaseController {
 
     @Autowired
     private IWxUserService wxUserService;
+    @Autowired
+    private IMaterialService materialService;
 
     /**
      * 跳转到小程序用户首页
@@ -63,6 +67,18 @@ public class WxUserController extends BaseController {
         model.addAttribute("item",wxUser);
         LogObjectHolder.me().set(wxUser);
         return PREFIX + "wxUser_edit.html";
+    }
+    /**
+     * 素材详情
+     */
+    @RequestMapping("/material_info/{wxUserId}")
+    public String materialInfo(@PathVariable Integer wxUserId, Model model) {
+        EntityWrapper<Material> wrapper = new EntityWrapper<>();
+        wrapper.eq("user_id", wxUserId).orderBy("create_time", false);
+        List<Material> materials = materialService.selectList(wrapper);
+        model.addAttribute("materials",materials);
+        LogObjectHolder.me().set(materials);
+        return PREFIX + "material_info.html";
     }
 
     /**

@@ -17,6 +17,7 @@ package cn.stylefeng.guns.core.aop;
 
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.exception.InvalidKaptchaException;
+import cn.stylefeng.guns.core.common.exception.InvalidRestLoginException;
 import cn.stylefeng.guns.core.log.LogManager;
 import cn.stylefeng.guns.core.log.factory.LogTaskFactory;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
@@ -121,6 +122,17 @@ public class GlobalExceptionHandler {
         getRequest().setAttribute("tip", "权限异常");
         log.error("权限异常!", e);
         return new ErrorResponseData(BizExceptionEnum.NO_PERMITION.getCode(), BizExceptionEnum.NO_PERMITION.getMessage());
+    }
+    /**
+     * Rest接口用户token错误异常
+     */
+    @ExceptionHandler(InvalidRestLoginException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorResponseData invalidRestLogin(InvalidRestLoginException e) {
+        getRequest().setAttribute("tip", "Rest接口用户token错误异常");
+        log.error("Rest接口用户token错误异常!", e);
+        return new ErrorResponseData(BizExceptionEnum.REST_TOKEN_REG.getCode(), BizExceptionEnum.REST_TOKEN_REG.getMessage());
     }
 
     /**
