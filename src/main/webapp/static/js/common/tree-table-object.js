@@ -19,7 +19,6 @@
         this.toolbarId = bstableId + "Toolbar";
         this.height = 665;						//默认表格高度665
     };
-
     BSTreeTable.prototype = {
         /**
          * 初始化bootstrap table
@@ -128,7 +127,20 @@
             } else {
                 this.btInstance.bootstrapTreeTable('refresh');
             }
+        },
+        /**
+         * 展开
+         */
+        expandAllBtn: function () {
+            this.btInstance.bootstrapTreeTable('expandAll');
+        },
+        /**
+         * 折叠
+         */
+        collapseAllBtn: function () {
+            this.btInstance.bootstrapTreeTable('collapseAll');
         }
+
     };
 
     window.BSTreeTable = BSTreeTable;

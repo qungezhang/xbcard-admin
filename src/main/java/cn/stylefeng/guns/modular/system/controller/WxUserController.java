@@ -79,6 +79,7 @@ public class WxUserController extends BaseController {
             wrapper.like(ToolUtil.isNotEmpty(nickName), "nick_name", nickName);
             Map<String, Object> map = wxUserService.selectMap(wrapper);
             if (ToolUtil.isNotEmpty(map)) {
+                map.put("empId", 0);
                 mapList.add(map);
                 String pCode = "[" + map.get("id") + "]";
                 EntityWrapper<WxUser> entityWrapper = new EntityWrapper<>();

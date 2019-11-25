@@ -163,6 +163,16 @@ WxUser.resetSearch = function () {
     WxUser.search();
 };
 
+// var _expandFlag_all = false;
+// WxUser.expandAllBtn = function () {
+//     if (_expandFlag_all) {
+//         WxUser.table.expandAllBtn();
+//     } else {
+//         WxUser.table.collapseAllBtn();
+//     }
+//     _expandFlag_all = !_expandFlag_all;
+// };
+
 
 // $(function () {
 //     var defaultColunms = WxUser.initColumn();

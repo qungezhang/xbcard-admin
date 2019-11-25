@@ -57,8 +57,8 @@ wx:
     keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
   miniapp:
     configs:
-      - appid: wx68642dce2b8ccbe7 #微信小程序的appid
-        secret: 661336367c9eb9e98aa329eff180d231 #微信小程序的Secret
+      - appid: wxec750306fedcd06c #微信小程序的appid
+        secret: ebdfeffa96c50fd9a1e313d373090eea #微信小程序的Secret
 #        token: #微信小程序消息服务器配置的token
 #        aesKey: #微信小程序消息服务器配置的EncodingAESKey
         msgDataFormat: JSON
