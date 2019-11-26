@@ -4,8 +4,14 @@ import cn.binarywang.wx.miniapp.api.WxMaQrcodeService;
 import cn.binarywang.wx.miniapp.bean.WxMaCodeLineColor;
 import cn.stylefeng.guns.config.WxMaConfiguration;
 import cn.stylefeng.guns.config.properties.WxMaProperties;
+import cn.stylefeng.guns.core.qiniu.QiniuService;
+import cn.stylefeng.guns.core.util.DateUtils;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,20 +19,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * 微信小程序二维码
  *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
-@Controller
+@RestController
 @RequestMapping("/api/WxCode")
 @Api(tags = "微信小程序二维码")
 public class WxCodeUnilimitController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    @Autowired
+    private QiniuService qiniuService;
     private String appid;
     @Autowired
     public WxCodeUnilimitController(WxMaProperties properties) {
@@ -52,12 +69,38 @@ public class WxCodeUnilimitController extends BaseController {
      * @return 文件对象
      * @throws WxErrorException 异常
      */
+//    @GetMapping("/unlimitCreate")
+//    @ApiOperation("接口B: 获取小程序码")
+//    public Object createWxaCodeUnlimitQiniu(String scene, String page, int width) throws WxErrorException, QiniuException {
+//        final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
+////        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
+//
+//        InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
+//        SuccessResponseData successResponseData = new SuccessResponseData();
+//        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
+//        String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
+//        successResponseData.setData(qiniuService.uploadFile(inputStream, pictureName));
+//        return successResponseData;
+//    }
+
     @GetMapping("/unlimitCreate")
-    public File createWxaCodeUnlimit(String scene, String page, int width, boolean autoColor,
-                                       WxMaCodeLineColor lineColor, boolean isHyaline) throws WxErrorException {
+    @ApiOperation("接口B: 获取小程序码")
+    public void createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException {
         final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
-        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width, autoColor, lineColor, isHyaline);
-        return codeUnlimit;
+        // 生成二维码图片字节流
+        byte[] qrCodeBytes = null;
+        try{
+            qrCodeBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
+        } catch(Exception e){
+            logger.error("生成小程序码出错", e);
+        }
+        // 设置contentType
+        response.setContentType("image/png");
+        // 写入response的输出流中
+        OutputStream stream = response.getOutputStream();
+        stream.write(Objects.requireNonNull(qrCodeBytes));
+        stream.flush();
+        stream.close();
     }
 
 }

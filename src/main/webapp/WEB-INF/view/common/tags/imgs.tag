@@ -6,7 +6,7 @@ content : 文字
 
 <div class="col-sm-6 col-md-3">
     <div class="thumbnail">
-        <img src="${imgUrl}" alt="http://img.xbdzmp.com/20191125101420fbbad2a8d560.jpeg">
+        <img src="${imgUrl}" alt="${imgUrl}">
         <div class="caption">
             @if(isNotEmpty(content)){
             <h3>商品描述</h3>
