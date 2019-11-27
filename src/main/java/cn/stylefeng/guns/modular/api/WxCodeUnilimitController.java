@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -85,22 +87,27 @@ public class WxCodeUnilimitController extends BaseController {
 
     @GetMapping("/unlimitCreate")
     @ApiOperation("接口B: 获取小程序码")
-    public void createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException {
+    public void createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException, WxErrorException {
         final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
         // 生成二维码图片字节流
-        byte[] qrCodeBytes = null;
-        try{
-            qrCodeBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
-        } catch(Exception e){
-            logger.error("生成小程序码出错", e);
-        }
-        // 设置contentType
+//        byte[] qrCodeBytes = null;
+//        try{
+//            qrCodeBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
+//        } catch(Exception e){
+//            logger.error("生成小程序码出错", e);
+//        }
+//        // 设置contentType
+//        response.setContentType("image/png");
+//        // 写入response的输出流中
+//        OutputStream stream = response.getOutputStream();
+//        stream.write(Objects.requireNonNull(qrCodeBytes));
+//        stream.flush();
+//        stream.close();
+
+        byte[] wxaCodeUnlimitBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
+        // 设返回的contentType
         response.setContentType("image/png");
-        // 写入response的输出流中
-        OutputStream stream = response.getOutputStream();
-        stream.write(Objects.requireNonNull(qrCodeBytes));
-        stream.flush();
-        stream.close();
+        FileCopyUtils.copy(new ByteArrayInputStream(wxaCodeUnlimitBytes), response.getOutputStream());
     }
 
 }
