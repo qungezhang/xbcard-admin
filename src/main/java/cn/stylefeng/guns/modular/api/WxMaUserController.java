@@ -108,6 +108,20 @@ public class WxMaUserController extends BaseController {
         }
     }
 
+    /**
+     * <pre>
+     * 获取用户
+     * </pre>
+     */
+    @GetMapping("/getInfo")
+    @ApiOperation("获取用户")
+    public Object getInfo() {
+        SuccessResponseData responseData = new SuccessResponseData();
+        responseData.setData(wxUserService.getLoginWxUser());
+        return responseData;
+    }
+
+
     private void setUser(WxMaUserInfo userInfo, WxMaPhoneNumberInfo phoneNoInfo, WxUser wxUser) {
         if (phoneNoInfo != null) {
             wxUser.setMobile(phoneNoInfo.getPhoneNumber());

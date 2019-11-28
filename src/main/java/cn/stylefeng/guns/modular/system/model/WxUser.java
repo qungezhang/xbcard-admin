@@ -44,7 +44,7 @@ public class WxUser extends Model<WxUser> {
      */
     private String unionid;
     /**
-     * 微信二维码
+     * 微信小程序二维码
      */
     private String qrcode;
     /**

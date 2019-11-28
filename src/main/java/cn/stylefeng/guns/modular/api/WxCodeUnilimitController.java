@@ -6,32 +6,28 @@ import cn.stylefeng.guns.config.WxMaConfiguration;
 import cn.stylefeng.guns.config.properties.WxMaProperties;
 import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.DateUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
+import cn.stylefeng.guns.modular.system.model.WxUser;
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -46,6 +42,8 @@ public class WxCodeUnilimitController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private QiniuService qiniuService;
+    @Autowired
+    private IWxUserService wxUserService;
     private String appid;
     @Autowired
     public WxCodeUnilimitController(WxMaProperties properties) {
@@ -65,49 +63,48 @@ public class WxCodeUnilimitController extends BaseController {
      *                  其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）
      * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
      * @param width     默认false 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-     * @param autoColor 默认true 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-     * @param lineColor auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}
-     * @param isHyaline 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+//     * @param autoColor 默认true 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+//     * @param lineColor auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}
+//     * @param isHyaline 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
      * @return 文件对象
      * @throws WxErrorException 异常
      */
-//    @GetMapping("/unlimitCreate")
-//    @ApiOperation("接口B: 获取小程序码")
-//    public Object createWxaCodeUnlimitQiniu(String scene, String page, int width) throws WxErrorException, QiniuException {
-//        final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
-////        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
-//
-//        InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
-//        SuccessResponseData successResponseData = new SuccessResponseData();
-//        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
-//        String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
-//        successResponseData.setData(qiniuService.uploadFile(inputStream, pictureName));
-//        return successResponseData;
-//    }
-
     @GetMapping("/unlimitCreate")
     @ApiOperation("接口B: 获取小程序码")
-    public void createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException, WxErrorException {
+    public Object createWxaCodeUnlimitQiniu(String scene, String page, int width) throws WxErrorException, QiniuException {
         final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
-        // 生成二维码图片字节流
-//        byte[] qrCodeBytes = null;
-//        try{
-//            qrCodeBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
-//        } catch(Exception e){
-//            logger.error("生成小程序码出错", e);
-//        }
-//        // 设置contentType
-//        response.setContentType("image/png");
-//        // 写入response的输出流中
-//        OutputStream stream = response.getOutputStream();
-//        stream.write(Objects.requireNonNull(qrCodeBytes));
-//        stream.flush();
-//        stream.close();
+//        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
+        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (ToolUtil.isNotEmpty(loginWxUser)) {
+            String qrcodeUrl = loginWxUser.getQrcode();
+            if (ToolUtil.isNotEmpty(qrcodeUrl)) {
+                String qiniKeyByUrl = StringUtil.getQiniKeyByUrl(qrcodeUrl);
+                qiniuService.delete(qiniKeyByUrl);
 
-        byte[] wxaCodeUnlimitBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
-        // 设返回的contentType
-        response.setContentType("image/png");
-        FileCopyUtils.copy(new ByteArrayInputStream(wxaCodeUnlimitBytes), response.getOutputStream());
+            }
+        } else {
+            return new ErrorResponseData("用户登录异常");
+        }
+        InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
+        SuccessResponseData successResponseData = new SuccessResponseData();
+        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
+        String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
+        String qrcodeUrl = qiniuService.uploadFile(inputStream, pictureName);
+        successResponseData.setData(qrcodeUrl);
+        loginWxUser.setQrcode(qrcodeUrl);
+        wxUserService.updateById(loginWxUser);
+        return successResponseData;
     }
+
+//    @GetMapping("/unlimitCreate")
+//    @ApiOperation("接口B: 获取小程序码")
+//    public void createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException, WxErrorException {
+//        final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
+//        // 生成二维码图片字节流
+//        byte[] wxaCodeUnlimitBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
+//        // 设返回的contentType
+//        response.setContentType("image/png");
+//        FileCopyUtils.copy(new ByteArrayInputStream(wxaCodeUnlimitBytes), response.getOutputStream());
+//    }
 
 }

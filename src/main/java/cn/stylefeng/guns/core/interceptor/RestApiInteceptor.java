@@ -56,9 +56,9 @@ public class RestApiInteceptor extends HandlerInterceptorAdapter {
         if (servletPath.startsWith("/api/file/read/")) {
             return true;
         }
-        if (servletPath.startsWith("/api/WxCode/")) {
-            return true;
-        }
+//        if (servletPath.startsWith("/api/WxCode/")) {
+//            return true;
+//        }
         final String requestHeader = request.getHeader(JwtConstants.AUTH_HEADER);
         String authToken;
         if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
