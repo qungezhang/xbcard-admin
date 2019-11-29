@@ -22,6 +22,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
@@ -212,7 +213,6 @@ public class CardApiController extends BaseController {
      * 详情
      */
     @GetMapping(value = "/detail/{cardId}")
-    @ResponseBody
     @ApiOperation("详情")
     public Object detail(@PathVariable("cardId") Integer cardId) {
         Card card = cardService.selectById(cardId);
@@ -255,4 +255,61 @@ public class CardApiController extends BaseController {
             return new ErrorResponseData("未查到有效名片");
         }
     }
+    /**
+     * 根据用户id获取首页名片
+     */
+    @GetMapping(value = "/indexCardByUserId")
+    @ApiOperation("根据用户id获取首页名片")
+    public ResponseData indexCardByUserId(@RequestParam("userId") Integer userId) {
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("用户id不可为空");
+        }
+//        WxUser wxUser = wxUserService.selectById(userId);
+//        if (ToolUtil.isEmpty(wxUser)) {
+//            return new ErrorResponseData("用户不存在");
+//        }
+        CardDTO cardDto = new CardDTO();
+        Card card = cardService.getOneByUserId(userId);
+//        cardDto.setIsVip(wxUser.getIsvip());
+        cardDto.setCard(card);
+        return new SuccessResponseData(cardDto);
+    }
+
+    /**
+     * 根据用户id获取名片详情
+     */
+    @GetMapping(value = "/detailCardByUserId")
+    @ApiOperation("根据用户id获取名片详情")
+    public ResponseData detailCardByUserId(@RequestParam("userId") Integer userId) {
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("用户id不可为空");
+        }
+        WxUser wxUser = wxUserService.selectById(userId);
+        if (ToolUtil.isEmpty(wxUser)) {
+            return new ErrorResponseData("用户不存在");
+        }
+        Card card = cardService.getOneByUserId(wxUser.getId());
+        CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
+        if (card != null) {
+            SuccessResponseData responseData = new SuccessResponseData();
+            WxUser user = wxUserService.getLoginWxUser();
+            Integer isvip = user.getIsvip();
+            if (isvip != null && isvip.equals(1)) {//是vip
+                List<CategoryTreeDTO> treeList = categoryService.getTreeList(card.getId());
+                if (!CollectionUtils.isEmpty(treeList)) {
+                    cardInfoDTO.setCategoryTrees(treeList);
+                }
+            }
+            EntityWrapper<Material> wrapper = new EntityWrapper<>();
+            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
+            List<Material> materials = materialService.selectList(wrapper);
+            cardInfoDTO.setMaterialList(materials);
+            cardInfoDTO.setIsVip(isvip);
+            responseData.setData(cardInfoDTO);
+            return responseData;
+        } else {
+            return new ErrorResponseData("未查到有效名片");
+        }
+    }
+
 }
