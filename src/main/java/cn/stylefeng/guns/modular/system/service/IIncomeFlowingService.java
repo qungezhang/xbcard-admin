@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.stylefeng.guns.modular.dto.IncomeFlowingDto;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,5 +14,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IIncomeFlowingService extends IService<IncomeFlowing> {
     public IncomeFlowing getOneIncomeFlowingDesc(Integer userId);
+
+    IncomeFlowingDto byUserId(Integer userId);
 
 }

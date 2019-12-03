@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Data
 public class CardDTO  implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Card card;
     private Integer isVip;
     private List<Material> materialList;
