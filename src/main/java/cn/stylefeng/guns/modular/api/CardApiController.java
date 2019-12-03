@@ -1,9 +1,11 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
+import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.dto.CardAddDTO;
 import cn.stylefeng.guns.modular.dto.CardDTO;
 import cn.stylefeng.guns.modular.dto.CardInfoDTO;
@@ -25,6 +27,7 @@ import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +64,8 @@ public class CardApiController extends BaseController {
     private IMaterialService materialService;
     @Autowired
     private ICategoryService categoryService;
+    @Autowired
+    private QiniuService qiniuService;
     /**
      * 获取列表
      */
@@ -176,7 +181,7 @@ public class CardApiController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     @ApiOperation("修改")
-    public Object update(@RequestBody CardUpdateDTO updateDTO) {
+    public Object update(@RequestBody CardUpdateDTO updateDTO) throws QiniuException {
         WxUser loginWxUser = wxUserService.getLoginWxUser();
         if (loginWxUser == null) {
             return new ErrorResponseData("用户授权异常");
@@ -186,6 +191,19 @@ public class CardApiController extends BaseController {
         if (card.getId() == null) {
             return new ErrorResponseData("名片Id不可为空");
         }
+        String logo = card.getLogo();
+        if (ToolUtil.isNotEmpty(logo)) {
+            Card selectById = cardService.selectById(cardId);
+            if (ToolUtil.isNotEmpty(selectById)) {
+                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getLogo());
+                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(logo))) {
+                    qiniuService.delete(qiniKeyByUrled);
+                }
+            } else {
+                return new ErrorResponseData("信息不存在");
+            }
+        }
+
         card.setUpdateTime(new Date());
         cardService.updateById(card);
         loginWxUser.setMobile(card.getMobile());

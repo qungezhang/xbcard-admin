@@ -1,14 +1,19 @@
 package cn.stylefeng.guns.modular.api;
 
+import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.dto.BannerAddDto;
 import cn.stylefeng.guns.modular.system.model.Banner;
+import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.service.IBannerService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +40,8 @@ import java.util.Date;
 public class BannerApiController extends BaseController {
     @Autowired
     private IBannerService bannerService;
-
+    @Autowired
+    private QiniuService qiniuService;
     /**
      * 获取首页轮播列表
      */
@@ -84,10 +90,25 @@ public class BannerApiController extends BaseController {
      */
     @PostMapping(value = "/update")
     @ApiOperation("修改")
-    public Object update(@RequestBody Banner banner) {
-        if (banner.getId() == null || banner.getCardId() == null) {
+    public Object update(@RequestBody Banner banner) throws QiniuException {
+        Integer id = banner.getId();
+        if (id == null || banner.getCardId() == null) {
             return new ErrorResponseData("id和cardId不可为空");
         }
+
+        String imgUrl = banner.getImgUrl();
+        if (ToolUtil.isNotEmpty(imgUrl)) {
+            Banner selectById = bannerService.selectById(id);
+            if (ToolUtil.isNotEmpty(selectById)) {
+                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getImgUrl());
+                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(imgUrl))) {
+                    qiniuService.delete(qiniKeyByUrled);
+                }
+            } else {
+                return new ErrorResponseData("信息不存在");
+            }
+        }
+
         bannerService.updateById(banner);
         return SUCCESS_TIP;
     }

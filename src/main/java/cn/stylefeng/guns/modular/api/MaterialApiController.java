@@ -1,9 +1,12 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
+import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
+import cn.stylefeng.guns.core.util.StringUtil;
+import cn.stylefeng.guns.core.util.UUIDUtill;
 import cn.stylefeng.guns.modular.dto.MaterialDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Material;
@@ -12,8 +15,10 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +49,8 @@ public class MaterialApiController extends BaseController {
 
     @Autowired
     private IMaterialService materialService;
-
+    @Autowired
+    private QiniuService qiniuService;
     /**
      * 获取列表
      */
@@ -102,7 +108,23 @@ public class MaterialApiController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     @ApiOperation("修改")
-    public Object update(@RequestBody Material material) {
+    public Object update(@RequestBody Material material) throws QiniuException {
+        Integer id = material.getId();
+        String materialImgUrl = material.getImgUrl();
+        if (ToolUtil.isEmpty(id)) {
+            return new ErrorResponseData("素材id不可为空");
+        }
+        if (ToolUtil.isNotEmpty(materialImgUrl)) {
+            Material selectById = materialService.selectById(id);
+            if (ToolUtil.isNotEmpty(selectById)) {
+                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getImgUrl());
+                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(materialImgUrl))) {
+                    qiniuService.delete(qiniKeyByUrled);
+                }
+            } else {
+                return new ErrorResponseData("素材信息不存在");
+            }
+        }
         materialService.updateById(material);
         return SUCCESS_TIP;
     }
