@@ -12,11 +12,11 @@ public class IncomeFlowingDto implements Serializable {
     private Integer inTotal;
     //已提现金额
     private Integer outTotal;
-    //余款金额
+    //总余额
     private Integer restTotal;
-    //预备金额
+    //预备金额(7天内总金额)
     private Integer preTotal;
-    //可提现金额
+    //可提现金额(7天后未提现总金额)
     private Integer validRestTotal;
 
 }
