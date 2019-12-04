@@ -201,7 +201,7 @@ body.body-small .navbar-top-links li:last-child {
 }
 
 .nav-header {
-    padding: 33px 25px;
+    padding: 5px 30px;
     background: url("patterns/header-profile.png") no-repeat;
 }
 
@@ -4527,7 +4527,7 @@ a.close-canvas-menu:hover {
 }
 
 .m-t-xs {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .m-t-sm {
