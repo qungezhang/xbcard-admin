@@ -27,35 +27,42 @@ public class CallCenter extends Model<CallCenter> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 内容
+     * 问题内容
      */
     private String content;
     /**
-     * 描述
+     * 电话
      */
-    private String description;
+    private String mobile;
     /**
-     * 顺序
+     * 内容图片
      */
-    private Integer rank;
+    @TableField("content_img")
+    private String contentImg;
+    /**
+     * 回复内容
+     */
+    @TableField("reply_content")
+    private String replyContent;
+    /**
+     * 回复时间
+     */
+    @TableField("reply_time")
+    private Date replyTime;
     /**
      * 用户id
      */
     @TableField("user_id")
     private Integer userId;
     /**
-     * 身份类型（0客户，1平台客服）
+     * 状态（0处理中，1已处理）
      */
-    private Integer type;
+    private Integer status;
     /**
-     * 头像
+     * 评估等级
      */
-    @TableField("head_img")
-    private String headImg;
-    /**
-     * 昵称
-     */
-    private String nickname;
+    @TableField("valuation_level")
+    private Integer valuationLevel;
     /**
      * 是否删除（0否，1是）
      */
@@ -99,20 +106,36 @@ public class CallCenter extends Model<CallCenter> {
         this.content = content;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public Integer getRank() {
-        return rank;
+    public String getContentImg() {
+        return contentImg;
     }
 
-    public void setRank(Integer rank) {
-        this.rank = rank;
+    public void setContentImg(String contentImg) {
+        this.contentImg = contentImg;
+    }
+
+    public String getReplyContent() {
+        return replyContent;
+    }
+
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
+    }
+
+    public Date getReplyTime() {
+        return replyTime;
+    }
+
+    public void setReplyTime(Date replyTime) {
+        this.replyTime = replyTime;
     }
 
     public Integer getUserId() {
@@ -123,28 +146,20 @@ public class CallCenter extends Model<CallCenter> {
         this.userId = userId;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public String getHeadImg() {
-        return headImg;
+    public Integer getValuationLevel() {
+        return valuationLevel;
     }
 
-    public void setHeadImg(String headImg) {
-        this.headImg = headImg;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setValuationLevel(Integer valuationLevel) {
+        this.valuationLevel = valuationLevel;
     }
 
     public Integer getIsDeleted() {
@@ -197,12 +212,13 @@ public class CallCenter extends Model<CallCenter> {
         return "CallCenter{" +
         ", id=" + id +
         ", content=" + content +
-        ", description=" + description +
-        ", rank=" + rank +
+        ", mobile=" + mobile +
+        ", contentImg=" + contentImg +
+        ", replyContent=" + replyContent +
+        ", replyTime=" + replyTime +
         ", userId=" + userId +
-        ", type=" + type +
-        ", headImg=" + headImg +
-        ", nickname=" + nickname +
+        ", status=" + status +
+        ", valuationLevel=" + valuationLevel +
         ", isDeleted=" + isDeleted +
         ", createTime=" + createTime +
         ", createBy=" + createBy +

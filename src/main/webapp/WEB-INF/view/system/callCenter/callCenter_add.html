@@ -6,16 +6,17 @@
             <div class="row">
                 <div class="col-sm-6 b-r">
                             <#input id="id" name="主键id" underline="true"/>
-                            <#input id="content" name="内容" underline="true"/>
-                            <#input id="description" name="描述" underline="true"/>
-                            <#input id="rank" name="顺序" underline="true"/>
-                            <#input id="userId" name="用户id" underline="true"/>
-                            <#input id="type" name="身份类型（0客户，1平台客服）" underline="true"/>
-                            <#input id="headImg" name="头像"/>
+                            <#input id="content" name="问题内容" underline="true"/>
+                            <#input id="mobile" name="电话" underline="true"/>
+                            <#input id="contentImg" name="内容图片" underline="true"/>
+                            <#input id="replyContent" name="回复内容" underline="true"/>
+                            <#input id="replyTime" name="回复时间" underline="true"/>
+                            <#input id="userId" name="用户id"/>
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="nickname" name="昵称" underline="true"/>
+                            <#input id="status" name="状态（0处理中，1已处理）" underline="true"/>
+                            <#input id="valuationLevel" name="评估等级" underline="true"/>
                             <#input id="isDeleted" name="是否删除（0否，1是）" underline="true"/>
                             <#input id="createTime" name="创建时间" underline="true"/>
                             <#input id="createBy" name="创建人" underline="true"/>

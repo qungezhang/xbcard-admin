@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns.core.aop;
 
+import cn.stylefeng.guns.core.common.exception.ArgumentInvalidResult;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.exception.InvalidKaptchaException;
 import cn.stylefeng.guns.core.common.exception.InvalidRestLoginException;
@@ -31,12 +32,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static cn.stylefeng.roses.core.util.HttpContext.getIp;
 import static cn.stylefeng.roses.core.util.HttpContext.getRequest;
@@ -133,6 +138,26 @@ public class GlobalExceptionHandler {
         getRequest().setAttribute("tip", "Rest接口用户token错误异常");
         log.error("Rest接口用户token错误异常!", e);
         return new ErrorResponseData(BizExceptionEnum.REST_TOKEN_REG.getCode(), BizExceptionEnum.REST_TOKEN_REG.getMessage());
+    }
+
+    /**
+     * validation 异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponseData validation(MethodArgumentNotValidException e) {
+        //按需重新封装需要返回的错误信息
+        List<ArgumentInvalidResult> invalidArguments = new ArrayList<>();
+        //解析原错误信息，封装后返回，此处返回非法的字段名称，原始值，错误信息
+        for (FieldError error : e.getBindingResult().getFieldErrors()) {
+            ArgumentInvalidResult invalidArgument = new ArgumentInvalidResult();
+            invalidArgument.setDefaultMessage(error.getDefaultMessage());
+            invalidArgument.setField(error.getField());
+            invalidArgument.setRejectedValue(error.getRejectedValue());
+            invalidArguments.add(invalidArgument);
+        }
+        return new ErrorResponseData(400, "Bad Request",invalidArguments);
     }
 
     /**

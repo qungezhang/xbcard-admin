@@ -6,12 +6,13 @@
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.CallCenter">
         <id column="id" property="id" />
         <result column="content" property="content" />
-        <result column="description" property="description" />
-        <result column="rank" property="rank" />
+        <result column="mobile" property="mobile" />
+        <result column="content_img" property="contentImg" />
+        <result column="reply_content" property="replyContent" />
+        <result column="reply_time" property="replyTime" />
         <result column="user_id" property="userId" />
-        <result column="type" property="type" />
-        <result column="head_img" property="headImg" />
-        <result column="nickname" property="nickname" />
+        <result column="status" property="status" />
+        <result column="valuation_level" property="valuationLevel" />
         <result column="is_deleted" property="isDeleted" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
@@ -21,7 +22,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, content, description, rank, user_id, type, head_img, nickname, is_deleted, create_time, create_by, update_time, update_by
+        id, content, mobile, content_img, reply_content, reply_time, user_id, status, valuation_level, is_deleted, create_time, create_by, update_time, update_by
     </sql>
 
 </mapper>
