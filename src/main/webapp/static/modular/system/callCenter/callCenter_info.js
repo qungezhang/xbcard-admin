@@ -81,6 +81,20 @@ CallCenterInfoDlg.addSubmit = function() {
     ajax.start();
 }
 
+CallCenterInfoDlg.bigImage = function(url) {
+    layer.open({
+        type: 1,
+        title: false,
+        closeBtn: 1,
+        area: ['1000px', 'auto'],
+        skin: 'layui-layer-nobg', //没有背景色
+        shadeClose: true,
+        content: '<img  style="max-width:1000px;height:auto;" src="'+url+'"/>',
+        success: function(layero, index) {
+            layer.iframeAuto(index);
+        }
+    });
+}
 /**
  * 提交修改
  */
