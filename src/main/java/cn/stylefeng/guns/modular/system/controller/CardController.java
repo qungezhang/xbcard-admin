@@ -59,9 +59,9 @@ public class CardController extends BaseController {
     /**
      * 跳转到修改
      */
-    @RequestMapping("/card_info/{userId}")
-    public String cardinfo(@PathVariable Integer userId, Model model) {
-        Card card = cardService.getOneByUserId(userId);
+    @RequestMapping("/card_info/{id}")
+    public String cardinfo(@PathVariable Integer id, Model model) {
+        Card card = cardService.selectById(id);// TODO: 2019/12/6
         card.setLogo(card.getLogo() == null ? null : "http://" + card.getLogo());
         model.addAttribute("item",card);
         LogObjectHolder.me().set(card);

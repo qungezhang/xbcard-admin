@@ -35,10 +35,10 @@ public class WxUser extends Model<WxUser> {
      */
     private String openid;
     /**
-     * 微信号
+     * 当前绑定的名片id
      */
-    @TableField("wechat_number")
-    private String wechatNumber;
+    @TableField("card_id")
+    private Integer cardId;
     /**
      * 微信unionid
      */
@@ -165,12 +165,12 @@ public class WxUser extends Model<WxUser> {
         this.openid = openid;
     }
 
-    public String getWechatNumber() {
-        return wechatNumber;
+    public Integer getCardId() {
+        return cardId;
     }
 
-    public void setWechatNumber(String wechatNumber) {
-        this.wechatNumber = wechatNumber;
+    public void setCardId(Integer cardId) {
+        this.cardId = cardId;
     }
 
     public String getUnionid() {
@@ -368,7 +368,7 @@ public class WxUser extends Model<WxUser> {
         ", id=" + id +
         ", mobile=" + mobile +
         ", openid=" + openid +
-        ", wechatNumber=" + wechatNumber +
+        ", cardId=" + cardId +
         ", unionid=" + unionid +
         ", qrcode=" + qrcode +
         ", nickName=" + nickName +

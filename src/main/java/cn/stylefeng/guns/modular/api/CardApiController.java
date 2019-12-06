@@ -1,10 +1,7 @@
 package cn.stylefeng.guns.modular.api;
 
-import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
-import cn.stylefeng.guns.core.util.JwtTokenUtil;
-import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.dto.CardAddDTO;
 import cn.stylefeng.guns.modular.dto.CardDTO;
@@ -12,7 +9,6 @@ import cn.stylefeng.guns.modular.dto.CardInfoDTO;
 import cn.stylefeng.guns.modular.dto.CardUpdateDTO;
 import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.MaterialDTO;
-import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.model.WxUser;
@@ -26,7 +22,6 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -66,17 +61,47 @@ public class CardApiController extends BaseController {
     private ICategoryService categoryService;
     @Autowired
     private QiniuService qiniuService;
+//    /**
+//     * 获取列表
+//     */
+//    @PostMapping(value = "/pList")
+//    @ApiOperation("获取分页列表")
+//    public ResponseData pList(@RequestBody PageListDTO<Card> pageListDTO) {
+//        Page<Card> page = new PageFactory<Card>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
+//        Page<Card> cardPage = cardService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()));
+//        PageUtils pageUtils = new PageUtils(cardPage);
+//        return new SuccessResponseData(pageUtils);
+//    }
     /**
      * 获取列表
      */
-    @PostMapping(value = "/pList")
-    @ApiOperation("获取分页列表")
-    public ResponseData pList(@RequestBody PageListDTO<Card> pageListDTO) {
-        Page<Card> page = new PageFactory<Card>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
-        Page<Card> cardPage = cardService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()));
-        PageUtils pageUtils = new PageUtils(cardPage);
-        return new SuccessResponseData(pageUtils);
+    @GetMapping(value = "/list")
+    @ApiOperation("获取列表")
+    public ResponseData list() {
+        WxUser user = wxUserService.getLoginWxUser();
+        if (user == null) {
+            return new ErrorResponseData("未授权登录");
+        }
+        EntityWrapper<Card> wrapper = new EntityWrapper<>();
+        wrapper.eq("user_id", user.getId()).orderBy("create_time", false);
+        List<Card> cards = cardService.selectList(wrapper);
+        return new SuccessResponseData(cards);
     }
+
+    /**
+     * 选择名片
+     */
+    @GetMapping(value = "/bindingUser")
+    @ApiOperation("选择名片")
+    public ResponseData bindingUser(@RequestParam("cardId") Integer cardId) {
+        WxUser user = wxUserService.getLoginWxUser();
+        if (user == null) {
+            return new ErrorResponseData("未授权登录");
+        }
+        user.setCardId(cardId);
+        return new SuccessResponseData(wxUserService.updateById(user));
+    }
+
     /**
      * 首页名片
      */
@@ -88,7 +113,7 @@ public class CardApiController extends BaseController {
             return new ErrorResponseData("未授权登录");
         }
         CardDTO cardDto = new CardDTO();
-        Card card = cardService.getOneByUserId(user.getId());
+        Card card = cardService.getOneByCardId(user.getCardId());
         List<Material> materials = new ArrayList<>();
         if (card != null) {
             EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
@@ -101,33 +126,33 @@ public class CardApiController extends BaseController {
         return new SuccessResponseData(cardDto);
     }
 
-    /**
-     * 新增
-     */
-    @PostMapping(value = "/add")
-    @ResponseBody
-    @ApiOperation("新增")
-    public Object add(@RequestBody CardAddDTO addDTO) {
-//        Integer userId = JwtTokenUtil.getUserId();
-//        EntityWrapper<Card> wrapper = new EntityWrapper<>();
-//        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
-//        if (cardService.selectOne(wrapper) != null) {
-//            return new ErrorResponseData("不可重复创建名片");
+//    /**
+//     * 新增
+//     */
+//    @PostMapping(value = "/add")
+//    @ResponseBody
+//    @ApiOperation("新增")
+//    public Object add(@RequestBody CardAddDTO addDTO) {
+////        Integer userId = JwtTokenUtil.getUserId();
+////        EntityWrapper<Card> wrapper = new EntityWrapper<>();
+////        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
+////        if (cardService.selectOne(wrapper) != null) {
+////            return new ErrorResponseData("不可重复创建名片");
+////        }
+//        WxUser loginWxUser = wxUserService.getLoginWxUser();
+//        if (loginWxUser == null) {
+//            return new ErrorResponseData("用户授权异常");
 //        }
-        WxUser loginWxUser = wxUserService.getLoginWxUser();
-        if (loginWxUser == null) {
-            return new ErrorResponseData("用户授权异常");
-        }
-        Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
-        card.setUserId(loginWxUser.getId());
-        card.setIsDeleted(0);//是否删除（0否，1是）
-        card.setCreateTime(new Date());
-        card.setUpdateTime(new Date());
-        cardService.insert(card);
-        loginWxUser.setMobile(card.getMobile());
-        wxUserService.updateById(loginWxUser);
-        return new SuccessResponseData(card);
-    }
+//        Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
+//        card.setUserId(loginWxUser.getId());
+//        card.setIsDeleted(0);//是否删除（0否，1是）
+//        card.setCreateTime(new Date());
+//        card.setUpdateTime(new Date());
+//        cardService.insert(card);
+//        loginWxUser.setMobile(card.getMobile());
+//        wxUserService.updateById(loginWxUser);
+//        return new SuccessResponseData(card);
+//    }
 
     /**
      * 新增全部
@@ -140,6 +165,12 @@ public class CardApiController extends BaseController {
         if (loginWxUser == null) {
             return new ErrorResponseData("用户授权异常");
         }
+        EntityWrapper<Card> wrapper = new EntityWrapper<>();
+        wrapper.eq("user_id", loginWxUser.getId());
+        List<Card> cards = cardService.selectList(wrapper);
+        if (cards.size() >= 5) {
+            return new ErrorResponseData("每人最多可建5张名片");
+        }
         Card card = BeanMapperUtil.objConvert(addDTO, Card.class);
         Integer userId = loginWxUser.getId();
         card.setUserId(userId);
@@ -148,6 +179,7 @@ public class CardApiController extends BaseController {
         card.setUpdateTime(new Date());
         cardService.insert(card);
         loginWxUser.setMobile(card.getMobile());
+        loginWxUser.setCardId(card.getId());
         wxUserService.updateById(loginWxUser);
         List<MaterialDTO> materials = addDTO.getMaterials();
         if (!CollectionUtils.isEmpty(materials)) {
@@ -276,18 +308,18 @@ public class CardApiController extends BaseController {
     /**
      * 根据用户id获取首页名片
      */
-    @GetMapping(value = "/indexCardByUserId")
-    @ApiOperation("根据用户id获取首页名片")
-    public ResponseData indexCardByUserId(@RequestParam("userId") Integer userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            return new ErrorResponseData("用户id不可为空");
+    @GetMapping(value = "/indexCardByCardId")
+    @ApiOperation("根据cardId获取首页名片")
+    public ResponseData indexCardByUserId(@RequestParam("cardId") Integer cardId) {
+        if (ToolUtil.isEmpty(cardId)) {
+            return new ErrorResponseData("名片id不可为空");
         }
 //        WxUser wxUser = wxUserService.selectById(userId);
 //        if (ToolUtil.isEmpty(wxUser)) {
 //            return new ErrorResponseData("用户不存在");
 //        }
         CardDTO cardDto = new CardDTO();
-        Card card = cardService.getOneByUserId(userId);
+        Card card = cardService.getOneByCardId(cardId);
 //        cardDto.setIsVip(wxUser.getIsvip());
         cardDto.setCard(card);
         return new SuccessResponseData(cardDto);
@@ -296,17 +328,17 @@ public class CardApiController extends BaseController {
     /**
      * 根据用户id获取名片详情
      */
-    @GetMapping(value = "/detailCardByUserId")
+    @GetMapping(value = "/detailCardByCardId")
     @ApiOperation("根据用户id获取名片详情")
-    public ResponseData detailCardByUserId(@RequestParam("userId") Integer userId) {
-        if (ToolUtil.isEmpty(userId)) {
-            return new ErrorResponseData("用户id不可为空");
+    public ResponseData detailCardByUserId(@RequestParam("cardId") Integer cardId) {
+        if (ToolUtil.isEmpty(cardId)) {
+            return new ErrorResponseData("名片id不可为空");
         }
-        WxUser wxUser = wxUserService.selectById(userId);
-        if (ToolUtil.isEmpty(wxUser)) {
-            return new ErrorResponseData("用户不存在");
-        }
-        Card card = cardService.getOneByUserId(wxUser.getId());
+//        WxUser wxUser = wxUserService.selectById(cardId);
+//        if (ToolUtil.isEmpty(wxUser)) {
+//            return new ErrorResponseData("用户不存在");
+//        }
+        Card card = cardService.getOneByCardId(cardId);
         CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
         if (card != null) {
             SuccessResponseData responseData = new SuccessResponseData();

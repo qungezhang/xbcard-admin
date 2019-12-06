@@ -34,9 +34,9 @@ public class CardServiceImpl extends ServiceImpl<CardMapper, Card> implements IC
     }
 
     @Override
-    public Card getOneByUserId(Integer userId) {
-        EntityWrapper<Card> wrapper = new EntityWrapper<>();
-        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
-        return this.selectOne(wrapper);
+    public Card getOneByCardId(Integer cardId) {
+//        EntityWrapper<Card> wrapper = new EntityWrapper<>();
+//        wrapper.eq("user_id", userId).orderBy("create_time",false).last("limit 1");
+        return this.selectById(cardId);
     }
 }
