@@ -5,6 +5,8 @@ import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.IPUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.OrderNumUtils;
+import cn.stylefeng.guns.modular.dto.IncomeFlowingCallbackDto;
+import cn.stylefeng.guns.modular.dto.WxPayOrderResultDto;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
 import cn.stylefeng.guns.modular.system.model.OutFlowing;
 import cn.stylefeng.guns.modular.system.model.WxUser;
@@ -30,6 +32,7 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -42,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 
 
@@ -52,6 +56,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api/pay")
 @Api(tags = "微信支付")
+@Slf4j
 @AllArgsConstructor
 public class WxPayController {
   @Autowired
@@ -97,7 +102,7 @@ public class WxPayController {
   @ApiOperation(value = "小程序支付的统一下单接口")
   @PostMapping("/unifiedOrder")
   @Transactional
-  public ResponseData unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request) throws WxPayException {
+  public ResponseData unifiedOrder(@RequestBody WxPayUnifiedOrderRequest request,HttpServletRequest servletRequest) throws WxPayException {
     try {
 //      Assert.notNull(request.getAppid(), "appid不能为空");
 //      Assert.notNull(request.getMchId(), "商户号不能为空");
@@ -121,32 +126,38 @@ public class WxPayController {
     request.setOpenid(request.getOpenid());
     request.setOutTradeNo(new OrderNumUtils().nextId());
     request.setSignType(WxPayConstants.SignType.MD5);
-    // TODO: 2019/11/21 以上请求实例
+    request.setSpbillCreateIp(IPUtils.getIpAddr(servletRequest));
+    log.info("预支付参数：" + request);
+
     WxPayMpOrderResult wxPayOrderResult = this.wxService.createOrder(request);
-    if (wxPayOrderResult != null) {
-      Integer userId = JwtTokenUtil.getUserId();
-      WxUser wxUser = wxUserService.selectById(userId);
-      if (wxUser == null) {
-        return new ErrorResponseData("用户登录异常");
-      }
-      //将用户设为vip
-      wxUser.setIsvip(1);
-      wxUser.setUpdateTime(new Date());
-      wxUserService.updateById(wxUser);
-      //记录收入表
-      IncomeFlowing flowinged = incomeFlowingService.getOneIncomeFlowingDesc(wxUser.getEmpId());
-      IncomeFlowing flowing = BeanMapperUtil.objConvert(request, IncomeFlowing.class);
-      flowing.setUserId(wxUser.getEmpId());
-      flowing.setCustomerId(wxUser.getId());
-      flowing.setMyselfFee(2000);//20元
-      flowing.setMyselfTotalFee(2000 + (flowinged != null ? flowinged.getMyselfTotalFee() : 0));
-      flowing.setMerchantFee(request.getTotalFee());
-      flowing.setPackageValue(wxPayOrderResult.getPackageValue());
-      flowing.setCreateTime(new Date());
-      flowing.setUpdateTime(new Date());
-      incomeFlowingService.insert(flowing);
-    } else {
+    if (wxPayOrderResult == null) {
       return new ErrorResponseData("支付失败");
+    } else {
+      WxPayOrderResultDto resultDto = BeanMapperUtil.objConvert(wxPayOrderResult, WxPayOrderResultDto.class);
+      resultDto.setOutTradeNo(request.getOutTradeNo());
+      log.info("预支付成功结果：" + resultDto);
+      return new SuccessResponseData(resultDto);
+//      Integer userId = JwtTokenUtil.getUserId();
+//      WxUser wxUser = wxUserService.selectById(userId);
+//      if (wxUser == null) {
+//        return new ErrorResponseData("用户登录异常");
+//      }
+//      //将用户设为vip
+//      wxUser.setIsvip(1);
+//      wxUser.setUpdateTime(new Date());
+//      wxUserService.updateById(wxUser);
+//      //记录收入表
+//      IncomeFlowing flowinged = incomeFlowingService.getOneIncomeFlowingDesc(wxUser.getEmpId());
+//      IncomeFlowing flowing = BeanMapperUtil.objConvert(request, IncomeFlowing.class);
+//      flowing.setUserId(wxUser.getEmpId());
+//      flowing.setCustomerId(wxUser.getId());
+//      flowing.setMyselfFee(2000);//20元
+//      flowing.setMyselfTotalFee(2000 + (flowinged != null ? flowinged.getMyselfTotalFee() : 0));
+//      flowing.setMerchantFee(request.getTotalFee());
+//      flowing.setPackageValue(wxPayOrderResult.getPackageValue());
+//      flowing.setCreateTime(new Date());
+//      flowing.setUpdateTime(new Date());
+//      incomeFlowingService.insert(flowing);
     }
 
 
@@ -158,7 +169,37 @@ public class WxPayController {
 //    payInfo.put("signType", wxPayOrderResult.getSignType());
 //    payInfo.put("paySign",wxPayOrderResult.getPaySign());
 
-    return new SuccessResponseData(wxPayOrderResult);
+  }
+
+  @ApiOperation(value = "支付成功回调")
+  @PostMapping("/okPayCallback")
+  @Transactional
+  public ResponseData okPayCallback(@RequestBody @Valid IncomeFlowingCallbackDto callbackDto) {
+    Integer userId = JwtTokenUtil.getUserId();
+    WxUser wxUser = wxUserService.selectById(userId);
+    if (wxUser == null) {
+      return new ErrorResponseData("用户登录异常");
+    }
+    //将用户设为vip
+    wxUser.setIsvip(1);
+    wxUser.setUpdateTime(new Date());
+    wxUserService.updateById(wxUser);
+    //记录收入表
+    Integer empId = wxUser.getEmpId();
+    IncomeFlowing flowing = BeanMapperUtil.objConvert(callbackDto, IncomeFlowing.class);
+    flowing.setUserId(empId);
+    flowing.setCustomerId(wxUser.getId());
+    if (!empId.equals(0)) {
+      IncomeFlowing flowinged = incomeFlowingService.getOneIncomeFlowingDesc(empId);
+      flowing.setMyselfFee(2000);//20元
+      flowing.setMyselfTotalFee(2000 + (flowinged != null ? flowinged.getMyselfTotalFee() : 0));
+    }
+    flowing.setMerchantFee(Integer.valueOf(callbackDto.getTotalFee()));
+    flowing.setPackageValue(callbackDto.getPackageValue());
+    flowing.setCreateTime(new Date());
+    flowing.setUpdateTime(new Date());
+    incomeFlowingService.insert(flowing);
+    return new SuccessResponseData(flowing);
   }
   /**
    * <pre>

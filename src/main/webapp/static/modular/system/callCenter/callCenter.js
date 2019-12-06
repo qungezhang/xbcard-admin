@@ -37,11 +37,11 @@ CallCenter.initColumn = function () {
 function operateFormatter(value, row, index) {
     if (row.status == 0) {
         return [
-            '<input type="button" value="编辑" id="Ofedit" class="btn btn-primary btn-sm"   data-toggle="modal" style="display:inline">'
+            '<input type="button" value="编辑" id="Ofedit" class="btn btn-primary btn-sm"  " data-toggle="modal" style="display:inline">'
         ].join('');
     } else {
         return [
-            '<input type="button" value="查看" id="Ofinfo" class="btn btn-primary btn-sm"   data-toggle="modal" style="display:inline"> ',
+            '<input type="button" value="查看" id="Ofinfo" class="btn btn-primary btn-sm" "  data-toggle="modal" style="display:inline"> ',
         ].join('');
     }
 
@@ -49,26 +49,30 @@ function operateFormatter(value, row, index) {
 
 window.operateEvents = {
     'click #Ofinfo': function (e, value, row, index) {
-        var index = layer.open({
-            type: 2,
-            title: '客服中心记录详情',
-            area: ['800px', '420px'], //宽高
-            fix: false, //不固定
-            maxmin: true,
-            content: Feng.ctxPath + '/callCenter/callCenter_update/' + row.id
-        });
-        this.layerIndex = index;
+        // var index = layer.open({
+        //     type: 2,
+        //     title: '客服中心记录详情',
+        //     area: ['800px', '420px'], //宽高
+        //     fix: false, //不固定
+        //     maxmin: true,
+        //     content: Feng.ctxPath + '/callCenter/callCenter_update/' + row.id
+        // });
+        // this.layerIndex = index;
+
+
+        CallCenter.openCallCenterDetail(row)
     },
     'click #Ofedit': function (e, value, row, index) {
-        var index = layer.open({
-            type: 2,
-            title: '客服中心记录详情',
-            area: ['800px', '420px'], //宽高
-            fix: false, //不固定
-            maxmin: true,
-            content: Feng.ctxPath + '/callCenter/callCenter_update/' + row.id
-        });
-        this.layerIndex = index;
+        // var index = layer.open({
+        //     type: 2,
+        //     title: '客服中心记录详情',
+        //     area: ['800px', '420px'], //宽高
+        //     fix: false, //不固定
+        //     maxmin: true,
+        //     content: Feng.ctxPath + '/callCenter/callCenter_update/' + row.id
+        // });
+        // this.layerIndex = index;
+        CallCenter.openCallCenterDetail(row)
     }
 };
 
@@ -104,18 +108,17 @@ CallCenter.openAddCallCenter = function () {
 /**
  * 打开查看客服中心记录详情
  */
-CallCenter.openCallCenterDetail = function () {
-    if (this.check()) {
-        var index = layer.open({
-            type: 2,
-            title: '客服中心记录详情',
-            area: ['800px', '420px'], //宽高
-            fix: false, //不固定
-            maxmin: true,
-            content: Feng.ctxPath + '/callCenter/callCenter_update/' + CallCenter.seItem.id
-        });
-        this.layerIndex = index;
-    }
+CallCenter.openCallCenterDetail = function (row) {
+
+    var index = layer.open({
+        type: 2,
+        title: '客服中心记录详情',
+        area: ['800px', '420px'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/callCenter/callCenter_update/' +row.id
+    });
+    this.layerIndex = index;
 };
 
 /**

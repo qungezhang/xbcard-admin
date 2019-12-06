@@ -4,24 +4,60 @@
         <div class="form-horizontal">
 
             <div class="row">
+
                 <div class="col-sm-6 b-r">
-                    <#input id="mobile" name="电话" value="${item.mobile}" underline="true"/>
-                    <#input id="content" name="问题内容" value="${item.content}" underline="true"/>
-                    <#input id="contentImg" name="内容图片" value="${item.contentImg}" underline="true"/>
-                    <#input id="replyContent" name="回复内容" value="${item.replyContent}" underline="true"/>
-                    <#input id="replyTime" name="回复时间" value="${item.replyTime}" underline="true"/>
-                    <#input id="userId" name="用户id" value="${item.userId}" />
+                    <input type="hidden" id="id" value="${item.id}">
+                    <#p id="" name="电话" value="${item.mobile}" underline="true"/>
+                    <#p id="" name="创建时间" value="${item.createTime}" underline="true"/>
+                    @if(item.status==1){
+                    <#p id="" name="回复时间" value="${item.replyTime}" underline="true"/>
+
+                    @}
                 </div>
 
                 <div class="col-sm-6">
-                    <#input id="status" name="状态（0处理中，1已处理）" value="${item.status}" underline="true"/>
-                    <#input id="valuationLevel" name="评估等级" value="${item.valuationLevel}" underline="true"/>
-                    <#input id="isDeleted" name="是否删除（0否，1是）" value="${item.isDeleted}" underline="true"/>
-                    <#input id="createTime" name="创建时间" value="${item.createTime}" underline="true"/>
-                    <#input id="createBy" name="创建人" value="${item.createBy}" underline="true"/>
-                    <#input id="updateTime" name="修改时间" value="${item.updateTime}" underline="true"/>
-                    <#input id="updateBy" name="修改人" value="${item.updateBy}" />
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label head-scu-label">内容图片</label>
+                        <div class="col-sm-7">
+                            <div id="">
+                                <div><img width="110px" height="110px" src="${item.contentImg}" onclick="CallCenterInfoDlg.bigImage('${item.contentImg}')"/>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    @if(item.status==1){
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">评估等级</label>
+                        <div class="col-sm-9" >
+                            <input class="rating rating1"   min="0" max="5" step="1" data-size="xs" value="${item.valuationLevel}" >
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    @}
                 </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">问题描述</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" readonly >${item.content}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">回复内容</label>
+                        <div class="col-sm-8">
+                            <textarea id="replyContent" class="form-control" rows="3" >${item.replyContent}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
             <div class="row btn-group-m-t">
@@ -34,5 +70,27 @@
 
     </div>
 </div>
-<script src="${ctxPath}/static/modular/system/callCenter/callCenter_info.js"></script>
+<script src="${ctxPath}/static/modular/system/callCenter/callCenter_info.js">
+
+</script>
+<script>
+    $('.rating').rating({
+        min: 0, /*星星的最小数值*/
+        max: 5, /*星星的最大数值*/
+        step: 1, /*表示增加减少的数量*/
+        size: 'xs', /*星星的大小 有lg,sm,xl,xs*/
+        showClear: false, /*是否显示清除按钮*/
+        disabled: false, /*不可用设置 默认false可以点击  true禁止点击*/
+        readonly:true,  /*只读模式 跟上面一样效果，不知道啥区别*/
+        // starCaptions: {1: '1分 太坑', 2: '2分 凑合', 3: '3分 一般', 4: '4分 很好', 5: '5分 非常好'},
+        starCaptions: {1: '1星', 2: '2星', 3: '3星 ', 4: '4星', 5: '5星'},
+        starCaptionClasses: {1: 'text-danger', 2: 'text-warning', 3: 'text-info', 4: 'text-primary', 5: 'text-success'}
+    });
+
+    /*这里是更改评分后，星星的打分显示 .rating('update',3)这样*/
+    // $('.rating1').rating({ }).rating('update',3);
+    // $('.rating2').rating({ }).rating('update',2);
+    // $('.rating3').rating({ }).rating('update',4);
+    // $('.rating4').rating({ }).rating('update',5);
+</script>
 @}
