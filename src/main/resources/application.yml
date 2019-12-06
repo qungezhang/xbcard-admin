@@ -54,7 +54,7 @@ wx:
     mchKey: 2dcc0edb2ea442d2879f8b85983b24ef #微信支付商户密钥
     subAppId: #服务商模式下的子商户公众账号ID
     subMchId: #服务商模式下的子商户号
-    keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    keyPath: /opt/xbcard/p12/apiclient_cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
   miniapp:
     configs:
       - appid: wxec750306fedcd06c #微信小程序的appid
