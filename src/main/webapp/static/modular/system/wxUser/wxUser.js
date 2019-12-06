@@ -115,23 +115,25 @@ WxUser.openWxUserDetail = function () {
     }
 };
 
+
 /**
- * 打开查看用户名片详情
- */
-WxUser.openWxUserCardDetail = function () {
+* 打开查看用户名片详情
+*/
+WxUser.openWxUserCardList = function () {
     if (this.check()) {
         var index = layer.open({
             type: 2,
-            title: '用户名片详情',
+            title: '用户名片列表详情',
             area: ['1000px', '500px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/card/card_info/' + WxUser.seItem.id
+            content: Feng.ctxPath + '/card?userId=' + WxUser.seItem.id,
         });
-        // layer.full(index);
+        layer.full(index);
     }
     this.layerIndex = index;
 };
+
 /**
  * 打开查看用户素材详情
  */

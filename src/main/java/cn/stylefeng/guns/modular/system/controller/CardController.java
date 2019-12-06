@@ -33,7 +33,8 @@ public class CardController extends BaseController {
      * 跳转到首页
      */
     @RequestMapping("")
-    public String index() {
+    public String index(Integer userId, Model model) {
+        model.addAttribute("userId", userId);
         return PREFIX + "card.html";
     }
 
@@ -73,8 +74,11 @@ public class CardController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
-        return cardService.selectList(null);
+    public Object list(String mobile, Integer userId) {
+        Card card = new Card();
+        card.setUserId(userId);
+        card.setMobile(mobile);
+        return cardService.selectList(new EntityWrapper<>(card).orderBy("create_time",false));
     }
 
     /**

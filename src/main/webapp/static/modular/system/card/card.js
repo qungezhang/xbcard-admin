@@ -14,25 +14,25 @@ var Card = {
 Card.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: 'id', field: 'id', visible: true, align: 'center', valign: 'middle'},
-            {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
-            {title: '电话', field: 'mobile', visible: true, align: 'center', valign: 'middle'},
-            {title: '公司', field: 'company', visible: true, align: 'center', valign: 'middle'},
-            {title: '职位', field: 'position', visible: true, align: 'center', valign: 'middle'},
-            {title: '地址', field: 'address', visible: true, align: 'center', valign: 'middle'},
-            {title: '邮箱', field: 'email', visible: true, align: 'center', valign: 'middle'},
-            {title: '传真', field: 'fax', visible: true, align: 'center', valign: 'middle'},
-            {title: 'logo', field: 'logo', visible: true, align: 'center', valign: 'middle'},
-            {title: '用户id', field: 'userId', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建人', field: 'createBy', visible: true, align: 'center', valign: 'middle'},
-            {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'},
-            {title: '预留字段', field: 'flag1', visible: true, align: 'center', valign: 'middle'},
-            {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'},
-            {title: '预留字段', field: 'flag3', visible: true, align: 'center', valign: 'middle'},
-            {title: '预留字段', field: 'flag4', visible: true, align: 'center', valign: 'middle'}
+        {
+            title: 'logo', field: 'logo', visible: true, align: 'center', width: '70px', valign: 'middle',
+            formatter: function (value, row, index) {//显示图片
+                var s;
+                if (row.logo != null) {
+                    var url = "http://" + row.logo;
+                    s = '<img style="width:50px;height:50px;" src="' + url + '" />';
+                }
+                return s;
+            }
+        },
+        {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
+        {title: '电话', field: 'mobile', visible: true, align: 'center', valign: 'middle'},
+        {title: '公司', field: 'company', visible: true, align: 'center', valign: 'middle'},
+        {title: '职位', field: 'position', visible: true, align: 'center', valign: 'middle'},
+        {title: '地址', field: 'address', visible: true, align: 'center', valign: 'middle'},
+        {title: '邮箱', field: 'email', visible: true, align: 'center', valign: 'middle'},
+        {title: '传真', field: 'fax', visible: true, align: 'center', valign: 'middle'},
+
     ];
 };
 
@@ -81,7 +81,23 @@ Card.openCardDetail = function () {
         this.layerIndex = index;
     }
 };
-
+/**
+ * 打开查看用户名片详情
+ */
+Card.openWxUserCardDetail = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '名片详情',
+            area: ['1000px', '500px'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '/card/card_info/' + Card.seItem.id
+        });
+        // layer.full(index);
+    }
+    this.layerIndex = index;
+};
 /**
  * 删除
  */
@@ -103,13 +119,17 @@ Card.delete = function () {
  */
 Card.search = function () {
     var queryData = {};
-    queryData['condition'] = $("#condition").val();
+    queryData['mobile'] = $("#mobile").val();
     Card.table.refresh({query: queryData});
 };
 
 $(function () {
+    var queryData = {
+        "userId": $("#userId").val()
+    };
     var defaultColunms = Card.initColumn();
     var table = new BSTable(Card.id, "/card/list", defaultColunms);
     table.setPaginationType("client");
+    table.setQueryParams(queryData);
     Card.table = table.init();
 });

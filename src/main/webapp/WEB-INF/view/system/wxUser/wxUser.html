@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="hidden-xs" id="WxUserTableToolbar" role="group">
-                            <#button name="查看名片" btnCss="info" icon="fa-address-card-o" clickFun="WxUser.openWxUserCardDetail()" />
+                            <#button name="查看名片" btnCss="info" icon="fa-address-card-o" clickFun="WxUser.openWxUserCardList()" />
                             <#button name="查看商品图片" btnCss="success" icon="fa-camera" clickFun="WxUser.openWxUserMaterialDetail()" space="true"/>
 
 
@@ -33,19 +33,17 @@
         </div>
     </div>
 </div>
-<script src="${ctxPath}/static/modular/system/wxUser/wxUser.js">
-
-</script>
+<script src="${ctxPath}/static/modular/system/wxUser/wxUser.js"></script>
 <script type="text/javascript">
              // <button id="expandAllBtn" type="button" class="btn btn-default">展开/折叠 所有</button>
-    var _expandFlag_all = false;
-    $("#expandAllBtn").click(function(){
-        if(_expandFlag_all){
-            $('#WxUserTable').bootstrapTreeTable('expandAll');
-        }else{
-            $('#WxUserTable').bootstrapTreeTable('collapseAll');
-        }
-        _expandFlag_all = !_expandFlag_all;
-    })
+    // var _expandFlag_all = false;
+    // $("#expandAllBtn").click(function(){
+    //     if(_expandFlag_all){
+    //         $('#WxUserTable').bootstrapTreeTable('expandAll');
+    //     }else{
+    //         $('#WxUserTable').bootstrapTreeTable('collapseAll');
+    //     }
+    //     _expandFlag_all = !_expandFlag_all;
+    // })
 </script>
 @}
