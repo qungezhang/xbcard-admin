@@ -85,14 +85,14 @@ CallCenterInfoDlg.bigImage = function(url) {
     layer.open({
         type: 1,
         title: false,
-        closeBtn: 1,
-        area: ['1000px', 'auto'],
+        closeBtn: 0,
+        area: ['auto', 'auto'],
         skin: 'layui-layer-nobg', //没有背景色
         shadeClose: true,
         content: '<img  style="max-width:1000px;height:auto;" src="'+url+'"/>',
-        success: function(layero, index) {
-            layer.iframeAuto(index);
-        }
+            success: function(layero, index) {
+                layer.iframeAuto(index);
+            }
     });
 }
 /**

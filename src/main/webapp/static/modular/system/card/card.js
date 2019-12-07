@@ -20,22 +20,39 @@ Card.initColumn = function () {
                 var s;
                 if (row.logo != null) {
                     var url = "http://" + row.logo;
-                    s = '<img style="width:50px;height:50px;" src="' + url + '" />';
+                    s = '<a class = "view"  href="javascript:void(0)"> <img style="width:50px;height:50px;" src="' + url + '" /></a>';
                 }
                 return s;
-            }
+            }, events: 'operateEvents'
         },
-        {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
-        {title: '电话', field: 'mobile', visible: true, align: 'center', valign: 'middle'},
-        {title: '公司', field: 'company', visible: true, align: 'center', valign: 'middle'},
+        {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle',width:'100px'},
+        {title: '电话', field: 'mobile', visible: true, align: 'center', valign: 'middle',width:'120px'},
+        {title: '公司', field: 'company', visible: true, align: 'center', valign: 'middle',width:'300px'},
         {title: '职位', field: 'position', visible: true, align: 'center', valign: 'middle'},
-        {title: '地址', field: 'address', visible: true, align: 'center', valign: 'middle'},
+        {title: '地址', field: 'address', visible: true, align: 'center', valign: 'middle',width:'300px'},
         {title: '邮箱', field: 'email', visible: true, align: 'center', valign: 'middle'},
         {title: '传真', field: 'fax', visible: true, align: 'center', valign: 'middle'},
+        {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle',width:'150px'},
 
     ];
 };
-
+window.operateEvents = {
+    'click .view': function (e, value, row, index) {
+        var url = "http://" + row.logo;
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: ['auto', 'auto'],
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: '<img style="max-width:600px;height:auto;" src="'+url+'"/>',
+            success: function(layero, index) {
+                layer.iframeAuto(index);
+            }
+        });
+    },
+};
 /**
  * 检查是否选中
  */
@@ -122,7 +139,10 @@ Card.search = function () {
     queryData['mobile'] = $("#mobile").val();
     Card.table.refresh({query: queryData});
 };
-
+Card.resetSearch = function () {
+    $("#mobile").val("");
+    Card.search();
+};
 $(function () {
     var queryData = {
         "userId": $("#userId").val()

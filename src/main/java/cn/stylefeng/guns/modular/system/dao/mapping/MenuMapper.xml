@@ -171,6 +171,7 @@
         )
         ) m3 ON m1.id = m3.id
         where m1.ismenu = 1
+        and m1.status=1
         order by levels,num asc
     </select>
 

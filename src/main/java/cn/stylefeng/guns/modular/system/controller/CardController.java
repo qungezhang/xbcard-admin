@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,8 +77,12 @@ public class CardController extends BaseController {
     @ResponseBody
     public Object list(String mobile, Integer userId) {
         Card card = new Card();
-        card.setUserId(userId);
-        card.setMobile(mobile);
+        if (ToolUtil.isNotEmpty(userId)) {
+            card.setUserId(userId);
+        }
+        if (ToolUtil.isNotEmpty(mobile)) {
+            card.setMobile(mobile);
+        }
         return cardService.selectList(new EntityWrapper<>(card).orderBy("create_time",false));
     }
 

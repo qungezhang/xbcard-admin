@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,7 +62,9 @@ public class OutFlowingController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return outFlowingService.selectList(null);
+        EntityWrapper<OutFlowing> wrapper = new EntityWrapper<>();
+        wrapper.eq(ToolUtil.isNotEmpty(condition), "create_by", condition);
+        return outFlowingService.selectList(wrapper);
     }
 
     /**

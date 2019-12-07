@@ -19,10 +19,10 @@ WxUser.initColumn = function () {
                     var s;
                     if(row.headimgurl!=null){
                         var url = row.headimgurl;
-                        s = '<img style="width:50px;height:50px;"   src="'+url+'" />';
+                        s = '<a class = "view"  href="javascript:void(0)"><img style="width:50px;height:50px;"   src="'+url+'" /></a>';
                     }
                     return s;
-                },
+                },events: 'operateEvents'
 
             },
             {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle',width:'260px'},
@@ -68,7 +68,23 @@ WxUser.initColumn = function () {
             // {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'}
     ];
 };
-
+window.operateEvents = {
+    'click .view': function (e, value, row, index) {
+        var url =  row.headimgurl;
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: ['auto', 'auto'],
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: '<img style="max-width:600px;height:auto;" src="'+url+'"/>',
+            success: function(layero, index) {
+                layer.iframeAuto(index);
+            }
+        });
+    },
+};
 /**
  * 检查是否选中
  */
@@ -124,12 +140,12 @@ WxUser.openWxUserCardList = function () {
         var index = layer.open({
             type: 2,
             title: '用户名片列表详情',
-            area: ['1000px', '500px'], //宽高
+            area: ['1300px', '600px'], //宽高
             fix: false, //不固定
             maxmin: true,
             content: Feng.ctxPath + '/card?userId=' + WxUser.seItem.id,
         });
-        layer.full(index);
+        // layer.full(index);
     }
     this.layerIndex = index;
 };

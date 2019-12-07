@@ -197,6 +197,7 @@ public class WxPayController {
     flowing.setMerchantFee(Integer.valueOf(callbackDto.getTotalFee()));
     flowing.setPackageValue(callbackDto.getPackageValue());
     flowing.setCreateTime(new Date());
+    flowing.setCreateBy(wxUser.getMobile());
     flowing.setUpdateTime(new Date());
     incomeFlowingService.insert(flowing);
     return new SuccessResponseData(flowing);

@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +13,9 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.CallCenter;
 import cn.stylefeng.guns.modular.system.service.ICallCenterService;
+
+import java.util.Date;
+import java.util.Map;
 
 /**
  * 客服中心记录控制器
@@ -48,9 +53,22 @@ public class CallCenterController extends BaseController {
      */
     @RequestMapping("/callCenter_update/{callCenterId}")
     public String callCenterUpdate(@PathVariable Integer callCenterId, Model model) {
-        CallCenter callCenter = callCenterService.selectById(callCenterId);
-        model.addAttribute("item",callCenter);
-        LogObjectHolder.me().set(callCenter);
+        CallCenter center = new CallCenter();
+        center.setId(callCenterId);
+        Map<String, Object> map = callCenterService.selectMap(new EntityWrapper<>(center));
+        Object createTime = map.get("createTime");
+        Object replyTime = map.get("replyTime");
+        if (ToolUtil.isNotEmpty(createTime)) {
+            String s = createTime + "";
+            map.put("createTime", s.substring(0, s.length() - 2));
+        }
+        if (ToolUtil.isNotEmpty(replyTime)) {
+            String s = replyTime + "";
+            map.put("replyTime", s.substring(0, s.length() - 2));
+        }
+//        CallCenter callCenter = callCenterService.selectById(callCenterId);
+        model.addAttribute("item",map);
+        LogObjectHolder.me().set(map);
         return PREFIX + "callCenter_edit.html";
     }
 
@@ -60,7 +78,11 @@ public class CallCenterController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return callCenterService.selectList(null);
+        CallCenter callCenter = new CallCenter();
+        if (ToolUtil.isNotEmpty(condition)) {
+            callCenter.setMobile(condition);
+        }
+        return callCenterService.selectList(new EntityWrapper<>(callCenter));
     }
 
     /**
@@ -89,6 +111,8 @@ public class CallCenterController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(CallCenter callCenter) {
+        callCenter.setStatus(1);
+        callCenter.setReplyTime(new Date());
         callCenterService.updateById(callCenter);
         return SUCCESS_TIP;
     }

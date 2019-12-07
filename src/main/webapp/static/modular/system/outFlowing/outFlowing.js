@@ -14,21 +14,21 @@ var OutFlowing = {
 OutFlowing.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: 'id', field: 'id', visible: true, align: 'center', valign: 'middle'},
-            {title: '支出金额（分）', field: 'outFee', visible: true, align: 'center', valign: 'middle'},
-            {title: '名片id', field: 'cardId', visible: true, align: 'center', valign: 'middle'},
-            {title: '用户id', field: 'userId', visible: true, align: 'center', valign: 'middle'},
-            {title: '微信用户标识', field: 'openid', visible: true, align: 'center', valign: 'middle'},
-            {title: '支出描述', field: 'description', visible: true, align: 'center', valign: 'middle'},
-            {title: '支出订单号', field: 'partnerTradeNo', visible: true, align: 'center', valign: 'middle'},
-            {title: '提现机器Ip地址', field: 'spbillCreateIp', visible: true, align: 'center', valign: 'middle'},
-            {title: '支出类型（1微信，2支付宝，3银联）', field: 'payType', visible: true, align: 'center', valign: 'middle'},
-            {title: '支付状态（1成功，2失败，3进行中）', field: 'payStatus', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '创建人', field: 'createBy', visible: true, align: 'center', valign: 'middle'},
-            {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'}
+        // {title: 'id', field: 'id', visible: true, align: 'center', valign: 'middle'},
+        {title: '提现订单号', field: 'partnerTradeNo', visible: true, align: 'center', valign: 'middle'},
+        {title: '提现人电话', field: 'createBy', visible: true, align: 'center', valign: 'middle',width: '120px'},
+        {title: '提现金额', field: 'outFee', visible: true, align: 'center', valign: 'middle',width: '100px'},
+        {title: '微信用户标识', field: 'openid', visible: true, align: 'center', valign: 'middle'},
+        {title: '支出描述', field: 'description', visible: true, align: 'center', valign: 'middle'},
+        {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle'},
+        // {title: '名片id', field: 'cardId', visible: true, align: 'center', valign: 'middle'},
+        // {title: '用户id', field: 'userId', visible: true, align: 'center', valign: 'middle'},
+        // {title: '提现机器Ip地址', field: 'spbillCreateIp', visible: true, align: 'center', valign: 'middle'},
+        // {title: '支出类型（1微信，2支付宝，3银联）', field: 'payType', visible: true, align: 'center', valign: 'middle'},
+        // {title: '支付状态（1成功，2失败，3进行中）', field: 'payStatus', visible: true, align: 'center', valign: 'middle'},
+        // {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
+        // {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
+        // {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -102,7 +102,10 @@ OutFlowing.search = function () {
     queryData['condition'] = $("#condition").val();
     OutFlowing.table.refresh({query: queryData});
 };
-
+OutFlowing.resetSearch = function () {
+    $("#condition").val("");
+    OutFlowing.search();
+};
 $(function () {
     var defaultColunms = OutFlowing.initColumn();
     var table = new BSTable(OutFlowing.id, "/outFlowing/list", defaultColunms);

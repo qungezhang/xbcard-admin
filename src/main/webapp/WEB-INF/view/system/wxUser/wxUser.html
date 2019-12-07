@@ -10,19 +10,19 @@
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="col-sm-3">
-                                <#NameCon id="mobile" name="手机号" />
+                                <#NameCon id="nickName" name="昵称" />
                             </div>
                             <div class="col-sm-3">
-                                <#NameCon id="nickName" name="昵称" />
+                                <#NameCon id="mobile" name="手机号" />
                             </div>
                             <div class="col-sm-6">
                                 <#button name="搜索" icon="fa-search" clickFun="WxUser.search()"/>
-                                <#button name="刷新" btnCss="warning" icon="fa-refresh" clickFun="WxUser.resetSearch()" space="true"/>
+                                <#button name="刷新" btnCss="danger" icon="fa-refresh" clickFun="WxUser.resetSearch()" space="true"/>
                             </div>
                         </div>
                         <div class="hidden-xs" id="WxUserTableToolbar" role="group">
-                            <#button name="查看名片" btnCss="info" icon="fa-address-card-o" clickFun="WxUser.openWxUserCardList()" />
-                            <#button name="查看商品图片" btnCss="success" icon="fa-camera" clickFun="WxUser.openWxUserMaterialDetail()" space="true"/>
+                            <#button name="查看名片" btnCss="success" icon="fa-address-card-o" clickFun="WxUser.openWxUserCardList()" />
+                            <#button name="查看商品图片" btnCss="success" icon="fa-picture-o" clickFun="WxUser.openWxUserMaterialDetail()" space="true"/>
 
 
                         </div>
