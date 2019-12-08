@@ -187,12 +187,13 @@ public class WxPayController {
     //记录收入表
     Integer empId = wxUser.getEmpId();
     IncomeFlowing flowing = BeanMapperUtil.objConvert(callbackDto, IncomeFlowing.class);
+    flowing.setMyselfFee(Integer.parseInt(callbackDto.getTotalFee())/100);
     flowing.setUserId(empId);
     flowing.setCustomerId(wxUser.getId());
     if (!empId.equals(0)) {
       IncomeFlowing flowinged = incomeFlowingService.getOneIncomeFlowingDesc(empId);
-      flowing.setMyselfFee(2000);//20元
-      flowing.setMyselfTotalFee(2000 + (flowinged != null ? flowinged.getMyselfTotalFee() : 0));
+      flowing.setMyselfFee(20);//20元
+      flowing.setMyselfTotalFee(20 + (flowinged != null ? flowinged.getMyselfTotalFee() : 0));
     }
     flowing.setMerchantFee(Integer.valueOf(callbackDto.getTotalFee()));
     flowing.setPackageValue(callbackDto.getPackageValue());
@@ -247,9 +248,10 @@ public class WxPayController {
       //添加支出记录
       OutFlowing outFlowing = BeanMapperUtil.objConvert(request, OutFlowing.class);
       outFlowing.setUserId(userId);
-      outFlowing.setOutFee(request.getAmount());
+      outFlowing.setOutFee(request.getAmount()/100);
       outFlowing.setUpdateTime(new Date());
       outFlowing.setCreateTime(new Date());
+      outFlowing.setCreateBy(wxUser.getMobile());
       outFlowingService.insert(outFlowing);
 
       //更新收入总金额

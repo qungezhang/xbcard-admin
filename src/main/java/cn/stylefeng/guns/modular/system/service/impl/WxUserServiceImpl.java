@@ -7,6 +7,9 @@ import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 微信用户 服务实现类
@@ -23,4 +26,11 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
     public WxUser getLoginWxUser() {
         return this.selectById(JwtTokenUtil.getUserId());
     }
+
+    @Override
+    public List<Map<String, Object>> selectUsers(String pCode ,Integer id) {
+
+        return this.baseMapper.selectUsers(pCode,id);
+    }
+
 }

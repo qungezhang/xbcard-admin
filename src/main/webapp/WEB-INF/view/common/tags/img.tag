@@ -9,7 +9,7 @@ imgUrl : 按钮的id
     <label class="col-sm-3 control-label head-scu-label">${name}</label>
         <div class="col-sm-7">
             <div id="${id}PreId">
-                <div><img width="110px" height="110px"
+                <div><img width="110px" height="110px" onclick="Feng.bigImage2('${imgUrl}')"
                           src="${imgUrl}"></div>
             </div>
         </div>

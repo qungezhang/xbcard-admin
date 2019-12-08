@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.system.dao;
 
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -18,5 +19,7 @@ public interface WxUserMapper extends BaseMapper<WxUser> {
 
     // TODO: 2019/11/24
     List<Map<String, Object>> getMaps();
+
+    List<Map<String, Object>> selectUsers(@Param("pCode") String pCode,@Param("id") Integer id);
 
 }

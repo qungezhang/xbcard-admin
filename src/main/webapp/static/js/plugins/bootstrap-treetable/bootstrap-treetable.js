@@ -346,8 +346,8 @@ function extracted($, item, target, globalCollapsedFlag, options) {
         columns: [],
         toolbar: null,//顶部工具条
         height: 0,
-        expanderExpandedClass: 'glyphicon glyphicon-chevron-down',// 展开的按钮的图标
-        expanderCollapsedClass: 'glyphicon glyphicon-chevron-right'// 缩起的按钮的图标
+        expanderExpandedClass: 'glyphicon glyphicon-menu-down',// 展开的按钮的图标
+        expanderCollapsedClass: 'glyphicon glyphicon-triangle-right'// 缩起的按钮的图标
 
     };
 })(jQuery);

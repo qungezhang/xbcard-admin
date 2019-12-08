@@ -35,7 +35,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, mobile, openid, wechat_number, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language, emp_id, is_deleted, isvip, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
+        id, emp_id,mobile, openid, card_id, unionid, qrcode, nick_name, headimgurl, sex, channel, country, province, city, area, address, language,  is_deleted, isvip, freeze, last_login_time, create_time, create_by, update_time, update_by, flag1, flag2
     </sql>
     <select id="getMaps" resultType="java.util.Map">
         SELECT
@@ -56,6 +56,37 @@
             a.nick_name = '算了吧！'
         ORDER BY
             b.create_time ASC
+    </select>
+    <select id="selectUsers" resultType="map">
+        SELECT
+        u1.id,
+        u1.emp_id empId,
+        u1.mobile,
+        u1.openid,
+        u1.card_id cardId,
+        u1.nick_name nickName,
+        u1.headimgurl,
+        u1.sex,
+        u1.is_deleted isDeleted,
+        u1.isvip,
+        u1.freeze,
+        u1.last_login_time lastLoginTime,
+        u1.create_time createTime,
+        u1.create_by createBy,
+        u1.update_time updateTime,
+        u1.update_by updateBy,
+        u1.flag1,
+        u1.flag2,
+        COUNT( u2.id ) childCount,
+        group_concat( u2.isvip ) concatIsVip
+        FROM
+        wx_user u1
+        LEFT JOIN wx_user u2 ON u2.flag1 LIKE CONCAT( "%[", u1.id, "]%" )
+        <if test="pCode != null and pCode != ''">
+            WHERE  u1.flag1 like CONCAT('%',#{pCode},'%') OR u1.id =#{id}
+        </if>
+        GROUP BY
+        u1.id;
     </select>
 
 </mapper>

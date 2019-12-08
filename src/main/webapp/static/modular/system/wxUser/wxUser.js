@@ -14,58 +14,69 @@ var WxUser = {
 WxUser.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '用户头像', field: 'headimgurl', visible: true, align: 'center', width:'70px',valign: 'middle',
-                formatter:function(value,row,index){//显示图片
-                    var s;
-                    if(row.headimgurl!=null){
-                        var url = row.headimgurl;
-                        s = '<a class = "view"  href="javascript:void(0)"><img style="width:50px;height:50px;"   src="'+url+'" /></a>';
-                    }
-                    return s;
-                },events: 'operateEvents'
+        // {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+        {
+            title: '用户头像', field: 'headimgurl', visible: true, align: 'center', width: '70px', valign: 'middle',
+            formatter: function (value, row, index) {//显示图片
+                var s;
+                if (row.headimgurl != null) {
+                    var url = row.headimgurl;
+                    s = '<a class = "view"  href="javascript:void(0)"><img style="width:50px;height:50px;"   src="' + url + '" /></a>';
+                }
+                return s;
+            }, events: 'operateEvents'
 
-            },
-            {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle',width:'260px'},
-            // {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '手机号', field: 'mobile', visible: true, align: 'center', width:'150px',valign: 'middle'},
-            // {title: '微信openid', field: 'openid', visible: true, align: 'center', valign: 'middle'},
-            // {title: '微信号', field: 'wechatNumber', visible: true, align: 'center', valign: 'middle'},
-            // {title: '微信unionid', field: 'unionid', visible: true, align: 'center', valign: 'middle'},
-            // {title: '微信二维码', field: 'qrcode', visible: true, align: 'center', valign: 'middle'},
-            {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle',width:'50px'},
-            // {title: '渠道（0自主 ）', field: 'channel', visible: true, align: 'center', valign: 'middle'},
-            {title: '地址', field: 'addressAll', visible: true, align: 'center', width:'200px', valign: 'middle'},
-            // {title: '国家', field: 'country', visible: true, align: 'center', width:'60px', valign: 'middle'},
-            // {title: '省份', field: 'province', visible: true, align: 'center', valign: 'middle'},
-            // {title: '城市', field: 'city', visible: true, align: 'center', valign: 'middle'},
-            // {title: '地区', field: 'area', visible: true, align: 'center', valign: 'middle'},
-            // {title: '地址详情', field: 'address', visible: true, align: 'center', valign: 'middle'},
-            // {title: '用户的语言，简体中文为zh_CN', field: 'language', visible: true, align: 'center', valign: 'middle'},
-            // {title: '导购用户id', field: 'empId', visible: true, align: 'center', valign: 'middle'},
-            // {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否是会员', field: 'isvip', visible: true, align: 'center',width:'100px', valign: 'middle',
-                formatter:function(value,row,index){
-                    var s;
-                    if(row.isvip!=null){
-                        var temp = row.isvip;
-                        if (temp == 1) {
-                            s = '<div style="color: #f5ff78;background: #A60000"  >是 </div>';
-                        } else {
-                            s = '<div > 否</div>';
-                        }
-                    }
-                    return s;
-                },
+        },
+        {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle', width: '260px'},
 
+        {title: '手机号', field: 'mobile', visible: true, align: 'center', width: '120px', valign: 'middle'},
+        // {title: '微信openid', field: 'openid', visible: true, align: 'center', valign: 'middle'},
+        // {title: '微信号', field: 'wechatNumber', visible: true, align: 'center', valign: 'middle'},
+        // {title: '微信unionid', field: 'unionid', visible: true, align: 'center', valign: 'middle'},
+        // {title: '微信二维码', field: 'qrcode', visible: true, align: 'center', valign: 'middle'},
+        {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '吸粉数', field: 'childCount', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: 'VIP数', field: 'vipNum', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '免费数', field: 'notVipNum', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '总提成', field: 'inTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '已提现', field: 'outTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '预备金', field: 'preTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '可提现', field: 'validRestTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        // {title: '渠道（0自主 ）', field: 'channel', visible: true, align: 'center', valign: 'middle'},
+        // {title: '地址', field: 'addressAll', visible: true, align: 'center', width: '200px', valign: 'middle'},
+        // {title: '国家', field: 'country', visible: true, align: 'center', width:'60px', valign: 'middle'},
+        // {title: '省份', field: 'province', visible: true, align: 'center', valign: 'middle'},
+        // {title: '城市', field: 'city', visible: true, align: 'center', valign: 'middle'},
+        // {title: '地区', field: 'area', visible: true, align: 'center', valign: 'middle'},
+        // {title: '地址详情', field: 'address', visible: true, align: 'center', valign: 'middle'},
+        // {title: '用户的语言，简体中文为zh_CN', field: 'language', visible: true, align: 'center', valign: 'middle'},
+        // {title: '导购用户id', field: 'empId', visible: true, align: 'center', valign: 'middle'},
+        // {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+        // {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
+        {
+            title: '是否VIP', field: 'isvip', visible: true, align: 'center', width: '80px', valign: 'middle',
+            formatter: function (value, row, index) {
+                var s;
+                if (row.isvip != null) {
+                    var temp = row.isvip;
+                    if (temp == 1) {
+                        s = '<div style="color: #f5ff78;background: #A60000"  >是 </div>';
+                    } else {
+                        s = '<div > 否</div>';
+                    }
+                }
+                return s;
             },
-            // {title: '冻结 0未冻结 1已冻结', field: 'freeze', visible: true, align: 'center', valign: 'middle'},
-            {title: '最后登录时间', field: 'lastLoginTime', visible: true, align: 'center', valign: 'middle',width:'150px'},
-            {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle',width:'150px'},
-            // {title: '创建人', field: 'createBy', visible: true, align: 'center', valign: 'middle'},
-            // {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
-            // {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'},
-            // {title: '预留字段', field: 'flag1', visible: true, align: 'center', valign: 'middle'},
-            // {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'}
+
+        },
+        // {title: '冻结 0未冻结 1已冻结', field: 'freeze', visible: true, align: 'center', valign: 'middle'},
+        // {title: '最后登录时间', field: 'lastLoginTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
+        // {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
+        // {title: '创建人', field: 'createBy', visible: true, align: 'center', valign: 'middle'},
+        // {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
+        // {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'},
+        // {title: '预留字段', field: 'flag1', visible: true, align: 'center', valign: 'middle'},
+        // {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 window.operateEvents = {
@@ -217,15 +228,26 @@ WxUser.resetSearch = function () {
 //     WxUser.table = table.init();
 // });
 $(function () {
+    // var defaultColunms = WxUser.initColumn();
+    // var table = new BSTreeTable(WxUser.id, "/wxUser/list",defaultColunms);
+    // table.setExpandColumn(2);
+    // table.setIdField("id");
+    // table.setCodeField("id");
+    // table.setParentCodeField("empId");
+    // table.setExpandAll(true);
+    // // table.set("mobile", "18838214579");
+    // // table.setPaginationType("client");
+    // table.init();
+    // WxUser.table= table;
     var defaultColunms = WxUser.initColumn();
-    var table = new BSTreeTable(WxUser.id, "/wxUser/list",defaultColunms);
+    var table = new BSTreeTable(WxUser.id, "/wxUser/list", defaultColunms);
     table.setExpandColumn(2);
     table.setIdField("id");
     table.setCodeField("id");
     table.setParentCodeField("empId");
-    table.setExpandAll(true);
-    // table.set("mobile", "18838214579");
-    // table.setPaginationType("client");
+    table.setExpandAll(false);
+    table.setExpandFirst(true);
     table.init();
-    WxUser.table= table;
+    WxUser.table = table;
+
 });

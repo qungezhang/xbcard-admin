@@ -5,6 +5,34 @@ var Feng = {
             this.ctxPath = ctx;
         }
     },
+    bigImage2: function(url) {
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: ['auto', 'auto'],
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: '<img  style="max-width:600px;height:auto;" src="'+url+'"/>',
+            success: function(layero, index) {
+                layer.iframeAuto(index);
+            }
+        });
+    },
+    bigImage: function(url) {
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: ['auto', 'auto'],
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: '<img  style="max-width:1000px;height:auto;" src="'+url+'"/>',
+            success: function(layero, index) {
+                layer.iframeAuto(index);
+            }
+        });
+    },
     confirm: function (tip, ensure) {//询问框
         parent.layer.confirm(tip, {
             btn: ['确定', '取消']

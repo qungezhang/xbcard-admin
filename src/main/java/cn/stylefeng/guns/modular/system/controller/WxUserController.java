@@ -1,7 +1,10 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.dto.IncomeFlowingDto;
 import cn.stylefeng.guns.modular.system.model.Material;
+import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
+import cn.stylefeng.guns.modular.system.warpper.MenuWarpper;
 import cn.stylefeng.guns.modular.system.warpper.WxUserWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
@@ -37,6 +40,8 @@ public class WxUserController extends BaseController {
     private IWxUserService wxUserService;
     @Autowired
     private IMaterialService materialService;
+    @Autowired
+    private IIncomeFlowingService incomeFlowingService;
 
     /**
      * 跳转到小程序用户首页
@@ -87,32 +92,76 @@ public class WxUserController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String mobile,String nickName) {
-        Object wrap = null;
-        List<Map<String, Object>> mapList = new ArrayList<>();
+//        WxUserWarpper wrap = null;
+        List<Map<String, Object>> resultMapList = new ArrayList<>();
         if (ToolUtil.isNotEmpty(mobile) || ToolUtil.isNotEmpty(nickName)) {
             EntityWrapper<WxUser> wrapper = new EntityWrapper<>();
             wrapper.eq(ToolUtil.isNotEmpty(mobile), "mobile", mobile);
             wrapper.like(ToolUtil.isNotEmpty(nickName), "nick_name", nickName);
-            Map<String, Object> map = wxUserService.selectMap(wrapper);
-            if (ToolUtil.isNotEmpty(map)) {
-                map.put("empId", 0);
-                mapList.add(map);
-                String pCode = "[" + map.get("id") + "]";
-                EntityWrapper<WxUser> entityWrapper = new EntityWrapper<>();
-                entityWrapper.like(ToolUtil.isNotEmpty(pCode), "flag1", pCode);
-                entityWrapper.orderBy("update_time",false);
-                List<Map<String, Object>> maps = wxUserService.selectMaps(entityWrapper);
-                if (ToolUtil.isNotEmpty(maps)) {
-                    mapList.addAll(maps);
+            WxUser selectOne = wxUserService.selectOne(wrapper);
+            if (ToolUtil.isNotEmpty(selectOne)) {
+                selectOne.setEmpId(0);
+//
+//                map.put("empId", 0);
+//                mapList.add(map);
+                Integer id = selectOne.getId();
+                String pCode = "[" + id + "]";
+//                EntityWrapper<WxUser> entityWrapper = new EntityWrapper<>();
+//                entityWrapper.like(ToolUtil.isNotEmpty(pCode), "flag1", pCode);
+//                entityWrapper.orderBy("update_time",false);
+//                List<Map<String, Object>> maps = wxUserService.selectMaps(entityWrapper);
+                resultMapList= wxUserService.selectUsers(pCode, id);
+                for (Map<String, Object> map : resultMapList) {
+                    if (map.get("id").equals(id)) {
+                        map.put("empId", 0);
+                    }
                 }
-                wrap = new WxUserWarpper(mapList).wrap();
+//                wrap = new WxUserWarpper(mapList);
             }
         } else {
-            List<Map<String, Object>> selectMaps = wxUserService.selectMaps(new EntityWrapper<WxUser>().orderBy("update_time", false));
-            wrap = new WxUserWarpper(selectMaps).wrap();
+//            List<Map<String, Object>> selectMaps = wxUserService.selectMaps(new EntityWrapper<WxUser>());
+            resultMapList= wxUserService.selectUsers(null, null);
+//            wrap = new WxUserWarpper(selectMaps);
         }
 
-        return wrap;
+        if (ToolUtil.isNotEmpty(resultMapList)) {
+            for (Map<String, Object> map : resultMapList) {
+                Object concatIsVip = map.get("concatIsVip");
+                Integer vipNum =0;
+                if (ToolUtil.isNotEmpty(concatIsVip)) {
+                    String[] isVips = String.valueOf(concatIsVip).split(",");
+                    for (String s : isVips) {
+                        if (s.equals("1")) {
+                            vipNum++;
+                        }
+                    }
+                }
+                Integer childCount = Integer.valueOf(map.get("childCount") + "");
+                map.put("vipNum", vipNum);
+                map.put("notVipNum", childCount - vipNum);
+                Integer inTotal = 0;
+                Integer outTotal = 0;
+                Integer restTotal = 0;
+                Integer preTotal = 0;
+                Integer validRestTotal = 0;
+                if (vipNum > 0) {
+                    IncomeFlowingDto incomeFlowingDto = incomeFlowingService.byUserId((Integer) map.get("id"));
+                    inTotal = incomeFlowingDto.getInTotal();
+                    outTotal = incomeFlowingDto.getOutTotal();
+                    restTotal = incomeFlowingDto.getRestTotal();
+                    preTotal = incomeFlowingDto.getPreTotal();
+                    validRestTotal = incomeFlowingDto.getValidRestTotal();
+                }
+                map.put("inTotal", inTotal);
+                map.put("outTotal", outTotal);
+                map.put("restTotal", restTotal);
+                map.put("preTotal", preTotal);
+                map.put("validRestTotal", validRestTotal);
+            }
+            return super.warpObject(new WxUserWarpper(resultMapList));
+        } else {
+            return null;
+        }
     }
 
     /**

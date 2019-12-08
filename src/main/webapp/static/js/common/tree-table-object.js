@@ -16,6 +16,7 @@
         this.code = 'code';// 用于设置父子关系
         this.parentCode = 'pcode';// 用于设置父子关系
         this.expandAll = false;// 是否默认全部展开
+        this.expandFirst = false;// 是否默认第一级展开--expandAll为false时生效
         this.toolbarId = bstableId + "Toolbar";
         this.height = 665;						//默认表格高度665
     };
@@ -38,6 +39,7 @@
                     expandColumn: this.expandColumn,//在哪一列上面显示展开按钮,从0开始
                     striped: true,   //是否各行渐变色
                     expandAll: this.expandAll,  //是否全部展开
+                    expandFirst: this.expandFirst, // 是否默认第一级展开--expandAll为false时生效
                     columns: this.columns,		//列数组
                     toolbar: "#" + this.toolbarId,//顶部工具条
                     height: this.height,
@@ -80,6 +82,12 @@
          */
         setExpandAll: function (expandAll) {
         	this.expandAll = expandAll;
+        },
+        /**
+         * 设置是否默认全部展开
+         */
+        setExpandFirst: function (expandFirst) {
+            this.expandFirst = expandFirst;
         },
         /**
          * 设置表格高度
