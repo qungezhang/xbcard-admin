@@ -22,6 +22,7 @@ function extracted($, item, target, globalCollapsedFlag, options) {
         if (!globalCollapsedFlag) {
             var hasExpander = expander.hasClass(options.expanderExpandedClass);
             if (hasExpander) {
+                $(pItem).css("background", '#ffeb3b');
                 $(pItem).css("display", "table");
             } else {
                 $(pItem).css("display", "none");
@@ -260,6 +261,8 @@ function extracted($, item, target, globalCollapsedFlag, options) {
                                 extracted($, item, target, _flag, options);
 
                                 $(item).css("display", _flag ? "none" : "table");
+                                $(item).css("background", '#ffeb3b');
+
                             });
                             if (_flag) {
                                 $(this).removeClass(options.expanderExpandedClass)
