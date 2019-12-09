@@ -54,6 +54,10 @@ public class CardAddDTO implements Serializable {
      * 模版类型
      */
     private Integer type;
+    /**
+     * 名片二维码
+     */
+    private String flag2;
 
     private List<MaterialDTO> materials;
 

@@ -53,7 +53,7 @@ public class RestApiInteceptor extends HandlerInterceptorAdapter {
         if (servletPath.equals(JwtConstants.AUTH_PATH) || servletPath.equals(JwtConstants.WX_LOGIN_PATH)) {
             return true;
         }
-        if (servletPath.startsWith("/api/file/read/")) {
+        if (servletPath.startsWith("/api/file/")) {
             return true;
         }
 //        if (servletPath.startsWith("/api/WxCode/")) {
