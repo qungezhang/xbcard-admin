@@ -24,7 +24,7 @@ WxUser.initColumn = function () {
                     s = '<a class = "view"  href="javascript:void(0)"><img style="width:50px;height:50px;"   src="' + url + '" /></a>';
                 }
                 return s;
-            }, events: 'operateEvents'
+            }, events: 'operateEvents', cellStyle: cellStylesales
 
         },
         {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle', width: '260px'},
@@ -79,6 +79,26 @@ WxUser.initColumn = function () {
         // {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'}
     ];
 };
+
+function cellStylesales(value, row, index) {
+    var gmt_mondified = row.gmt_mondified ? row.gmt_mondified : '-';
+    var gmt_create = row.gmt_create;
+    if (gmt_mondified == '-') {
+        gmt_mondified = new Date();
+    }
+    var data_strat = Date.parse(gmt_create);
+    var data_end = Date.parse(gmt_mondified);
+    var times = Math.abs(data_end - data_strat);
+    var days = times / (1000 * 60 * 60 * 24);
+    if (days >= 3 && days < 6) {
+        return {css: {background: '#ffeb3b', color: '#000'}};
+    } else if (days >= 6) {
+        return {css: {background: '#f44336', color: '#000'}};
+    } else {
+        return {css: {background: '#8bc34a', color: '#000'}};
+    }
+}
+
 window.operateEvents = {
     'click .view': function (e, value, row, index) {
         var url =  row.headimgurl;
