@@ -77,48 +77,48 @@ public class WxCodeUnilimitController extends BaseController {
      * @return 文件对象
      * @throws WxErrorException 异常
      */
-//    @GetMapping("/unlimitCreate")
-//    @ApiOperation("接口B: 获取小程序码")
-//    public Object createWxaCodeUnlimitQiniu(String scene, String page, int width) throws WxErrorException, QiniuException {
-//        final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
-////        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
-//        WxUser loginWxUser = wxUserService.getLoginWxUser();
-//        if (ToolUtil.isNotEmpty(loginWxUser)) {
-//            String qrcodeUrl = loginWxUser.getQrcode();
-//            if (ToolUtil.isNotEmpty(qrcodeUrl)) {
-//                String qiniKeyByUrl = StringUtil.getQiniKeyByUrl(qrcodeUrl);
-//                qiniuService.delete(qiniKeyByUrl);
-//
-//            }
-//        } else {
-//            return new ErrorResponseData("用户登录异常");
-//        }
-//        InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
-//        SuccessResponseData successResponseData = new SuccessResponseData();
-//        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
-//        String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
-//        String qrcodeUrl = qiniuService.uploadFile(inputStream, pictureName);
-//        successResponseData.setData(qrcodeUrl);
-//        loginWxUser.setQrcode(qrcodeUrl);
-//        wxUserService.updateById(loginWxUser);
-//        return successResponseData;
-//    }
-
     @GetMapping("/unlimitCreate")
     @ApiOperation("接口B: 获取小程序码")
-    public Object createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException, WxErrorException {
+    public Object createWxaCodeUnlimitQiniu(String scene, String page, int width) throws WxErrorException, QiniuException {
         final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
-        // 生成二维码图片字节流
-        byte[] wxaCodeUnlimitBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
-        String pictureName = UUID.randomUUID().toString() + ".jpg" ;
-        File file = new File(gunsProperties.getFileUploadPath() + pictureName);
-        FileOutputStream fops = new FileOutputStream(file);
-        fops.write(wxaCodeUnlimitBytes);
-        fops.flush();
-        fops.close();
+//        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
+        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (ToolUtil.isNotEmpty(loginWxUser)) {
+            String qrcodeUrl = loginWxUser.getQrcode();
+            if (ToolUtil.isNotEmpty(qrcodeUrl)) {
+                String qiniKeyByUrl = StringUtil.getQiniKeyByUrl(qrcodeUrl);
+                qiniuService.delete(qiniKeyByUrl);
+
+            }
+        } else {
+            return new ErrorResponseData("用户登录异常");
+        }
+        InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
         SuccessResponseData successResponseData = new SuccessResponseData();
-        successResponseData.setData("https://www.xbdzmp.com/api/file/" + pictureName);
+        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
+        String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
+        String qrcodeUrl = qiniuService.uploadFile(inputStream, pictureName);
+        successResponseData.setData(qrcodeUrl);
+        loginWxUser.setQrcode(qrcodeUrl);
+        wxUserService.updateById(loginWxUser);
         return successResponseData;
     }
+
+//    @GetMapping("/unlimitCreate")
+//    @ApiOperation("接口B: 获取小程序码")
+//    public Object createWxaCodeUnlimit(String scene, String page, int width, HttpServletResponse response) throws IOException, WxErrorException {
+//        final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
+//        // 生成二维码图片字节流
+//        byte[] wxaCodeUnlimitBytes = qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false);
+//        String pictureName = UUID.randomUUID().toString() + ".jpg" ;
+//        File file = new File(gunsProperties.getFileUploadPath() + pictureName);
+//        FileOutputStream fops = new FileOutputStream(file);
+//        fops.write(wxaCodeUnlimitBytes);
+//        fops.flush();
+//        fops.close();
+//        SuccessResponseData successResponseData = new SuccessResponseData();
+//        successResponseData.setData("https://www.xbdzmp.com/api/file/" + pictureName);
+//        return successResponseData;
+//    }
 
 }

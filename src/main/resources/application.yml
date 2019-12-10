@@ -5,7 +5,7 @@ guns:
   swagger-open: true              #是否开启swagger (true/false)
   kaptcha-open: false             #是否开启登录时验证码 (true/false)
 #  file-upload-path: D:/xbcard/file     #文件上传目录(不配置的话为java.io.tmpdir目录)
-  file-upload-path: /opt/xbcard/image    #文件上传目录(不配置的话为java.io.tmpdir目录)
+#  file-upload-path: /opt/xbcard/image    #文件上传目录(不配置的话为java.io.tmpdir目录)
   spring-session-open: false      #是否开启spring session,如果是多机环境需要开启(true/false)
   session-invalidate-time: 1800     #session失效时间(只在单机环境下生效，多机环境在SpringSessionConfig类中配置) 单位：秒
   session-validation-interval: 900  #多久检测一次失效的session(只在单机环境下生效) 单位：秒
@@ -46,7 +46,7 @@ qiniu:
   accessKey: Y_dzjupIsvX_luR9pkSFpYQHDi7zdeAlh-WRtT8H #  个人中心-->秘钥管理-->AccessKey
   secretKey: UfFtqg5qdMPGbqGNPi-ACb_F7AdivFjz8Wl-ASpv #个人中心-->秘钥管理-->SecretKey
   bucket: xbcard #存储空间名称
-  prefix: img.xbdzmp.com #访问域名file.aaa.com
+  prefix: https://img.xbdzmp.com #访问域名file.aaa.com
 
 wx:
   pay:
