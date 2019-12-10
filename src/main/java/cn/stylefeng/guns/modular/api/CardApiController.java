@@ -113,16 +113,18 @@ public class CardApiController extends BaseController {
             return new ErrorResponseData("未授权登录");
         }
         CardDTO cardDto = new CardDTO();
-        Card card = cardService.getOneByCardId(user.getCardId());
-        List<Material> materials = new ArrayList<>();
-        if (card != null) {
-            EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
-            materialEntityWrapper.eq("card_id", card.getId());
-            materialService.selectList(materialEntityWrapper);
+        Integer cardId = user.getCardId();
+        if (ToolUtil.isNotEmpty(cardId)) {
+            Card card = cardService.getOneByCardId(cardId);
+//            if (card != null) {
+//                EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
+//                materialEntityWrapper.eq("card_id", card.getId());
+//                List<Material> materialList = materialService.selectList(materialEntityWrapper);
+//                cardDto.setMaterialList(materialList);
+//            }
+            cardDto.setCard(card);
         }
         cardDto.setIsVip(user.getIsvip());
-        cardDto.setCard(card);
-        cardDto.setMaterialList(materials);
         return new SuccessResponseData(cardDto);
     }
 

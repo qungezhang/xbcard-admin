@@ -19,7 +19,7 @@ Card.initColumn = function () {
             formatter: function (value, row, index) {//显示图片
                 var s;
                 if (row.logo != null) {
-                    var url = "http://" + row.logo;
+                    var url =  row.logo;
                     s = '<a class = "view"  href="javascript:void(0)"> <img style="width:50px;height:50px;" src="' + url + '" /></a>';
                 }
                 return s;
@@ -38,7 +38,7 @@ Card.initColumn = function () {
 };
 window.operateEvents = {
     'click .view': function (e, value, row, index) {
-        var url = "http://" + row.logo;
+        var url =  row.logo;
         layer.open({
             type: 1,
             title: false,

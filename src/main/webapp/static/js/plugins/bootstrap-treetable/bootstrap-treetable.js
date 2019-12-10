@@ -15,6 +15,7 @@ function extracted($, item, target, globalCollapsedFlag, options) {
             extracted($, nItem, target, globalCollapsedFlag, options);
         });
     }
+    // $(subItems).css("background", '#ffeb3b');
     $.each(subItems, function (pIndex, pItem) {
 
         //如果是展开,判断当前箭头是开启还是关闭
@@ -22,7 +23,6 @@ function extracted($, item, target, globalCollapsedFlag, options) {
         if (!globalCollapsedFlag) {
             var hasExpander = expander.hasClass(options.expanderExpandedClass);
             if (hasExpander) {
-                $(pItem).css("background", '#ffeb3b');
                 $(pItem).css("display", "table");
             } else {
                 $(pItem).css("display", "none");
@@ -261,7 +261,11 @@ function extracted($, item, target, globalCollapsedFlag, options) {
                                 extracted($, item, target, _flag, options);
 
                                 $(item).css("display", _flag ? "none" : "table");
-                                $(item).css("background", '#ffeb3b');
+                                // if (!_flag) {
+                                //     $(item).css("background", '#ffeb3b');
+                                // } else {
+                                //     $(item).css("background", '');
+                                // }
 
                             });
                             if (_flag) {
