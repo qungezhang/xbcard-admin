@@ -68,8 +68,8 @@ function init(data) {
         //nodes or edges
         Node: {
             height: 100,
-            width: 60,
-            type: 'rectangle',
+            width: 150,
+            type: 'ellipse',
             color: '#aaaaaa',
             overridable: true
         },
@@ -84,7 +84,7 @@ function init(data) {
         },
 
         onAfterCompute: function () {
-            Log.write("done");
+            Log.write("ok");
         },
 
         //This method is called on DOM label creation.
@@ -93,14 +93,18 @@ function init(data) {
         onCreateLabel: function (label, node) {
             label.id = node.id;
             var level = ['第一层','第二层','第三层','第四层','第五层','第六层'];
-            var wrap = '<div class="wrap">'+
-                          '<div class="level"></div>'+
-                          '<div class="secondLevel"></div>'+
-                          '<div class="level"></div>'+ 
-                        '</div>'
+            var wrap =
+                '<div class="wrap">'+
+                '<img class="imgssss img-rounded" />'+
+                '<div class="secondLevel"></div>'+
+                '<div class="level"></div>'+
+                '</div>'
             var $wrap = $(wrap);
-            $wrap.find('.secondLevel').text(node.name);
-            $wrap.find('.level').text(level[node._depth])            
+            $wrap.find('.imgssss').attr("src",node.data.headimgurl)
+            $wrap.find('.level').text(node.name)
+            $wrap.find('.secondLevel').text(
+                "All:"+node.data.childCount+"  VIP:"+node.data.vipNum+"  OP:"+node.data.opNum
+            );
             $(label).append($wrap);
             label.onclick = function () {
                 if (normal.checked) {
@@ -111,14 +115,19 @@ function init(data) {
             };
             //set label styles
 
-            // var style = label.style;
-            // if(node.id=='node02'){
-            //     style.backgroundColor = '#ff2218';
-            // }
+            var style = label.style;
+            style.textAlign= 'center';
+            style.fontWeight= 'bold';
+            if (node.id== 0) {
+                style.color = '#f6faff';
+            } else if (node.data.isvip == 1) {
+                style.color = '#f7ff24';
+                // style.backgroundColor = '#25b426';
+            }
             //
-            // //style.color = '#ff2218';
+
             // style.fontSize = '0.8em';
-            // style.textAlign= 'center';
+            // style.type= 'ellipse';
             // style.paddingTop = '3px';
         },
 
@@ -130,16 +139,21 @@ function init(data) {
         onBeforePlotNode: function (node) {
             //add some color to the nodes in the path between the
             //root node and the selected node.
-            if (node.selected) {
-                node.data.$color = "#ff7";
-            }
-            else {
+            if (node.id==0) {
+                node.data.$color = "#241294";
+            }  else if (node.data.isvip == 1) {
+                node.data.$color = "#d62915";
+            } else if (node.selected) {
+                node.data.$color = "#25b426";
+            }else {
                 delete node.data.$color;
                 //if the node belongs to the last plotted level
                 if (!node.anySubnode("exist")) {
                     //count children number
                     var count = 0;
-                    node.eachSubnode(function (n) { count++; });
+                    node.eachSubnode(function (n) {
+                        count++;
+                    });
                     //assign a node color based on
                     //how many children it has
                     node.data.$color = ['#aaa', '#baa', '#caa', '#daa', '#eaa', '#faa'][count];
@@ -154,8 +168,8 @@ function init(data) {
         //override the Edge global style properties.
         onBeforePlotLine: function (adj) {
             if (adj.nodeFrom.selected && adj.nodeTo.selected) {
-                adj.data.$color = "#333";
-                adj.data.$lineWidth = 3;
+                adj.data.$color = "#25b426";
+                adj.data.$lineWidth = 5;
             }
             else {
                 delete adj.data.$color;

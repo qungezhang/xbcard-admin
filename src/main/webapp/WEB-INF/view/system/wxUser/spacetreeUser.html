@@ -1,71 +1,62 @@
 @layout("/common/_container.html"){
-<div class="ibox float-e-margins">
-    <div class="ibox-content">
-        <div class="container">
-            <div id="log"></div>
-            <div id="infovis">
+<div class="row">
+    <div class="col-md-1 right-container">
+        <h4>树状方向</h4>
+        <table>
+            <tr>
+                <td>
+                    <label for="r-bottom">上 </label>
+                </td>
+                <td>
+                    <input type="radio" id="r-bottom" name="orientation" value="bottom"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="r-top">下 </label>
+                </td>
+                <td>
+                    <input type="radio" id="r-top" name="orientation" checked="checked" value="top"/>
+                </td>
+            </tr>
 
-            </div>
-            <div class="right-container">
-                <h4>Tree Orientation</h4>
-                <table>
-                    <tr>
-                        <td>
-                            <label for="r-left">Left </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="r-left" name="orientation" value="left"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="r-top">Top </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="r-top" name="orientation" checked="checked" value="top"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="r-bottom">Bottom </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="r-bottom" name="orientation" value="bottom"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="r-right">Right </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="r-right" name="orientation" value="right"/>
-                        </td>
-                    </tr>
-                </table>
+            <tr>
+                <td>
+                    <label for="r-left">左 </label>
+                </td>
+                <td>
+                    <input type="radio" id="r-left" name="orientation" value="left"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="r-right">右 </label>
+                </td>
+                <td>
+                    <input type="radio" id="r-right" name="orientation" value="right"/>
+                </td>
+            </tr>
+        </table>
 
-                <h4>Selection Mode</h4>
-                <table>
-                    <tr>
-                        <td>
-                            <label for="s-normal">Normal </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="s-normal" name="selection" checked="checked" value="normal"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="s-root">Set as Root </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="s-root" name="selection" value="root"/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <table>
+            <tr>
+
+                <td>
+                    <input  type="hidden" type="radio" id="s-normal" name="selection" checked="checked" value="normal"/>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="col-md-11 container">
+        <div id="log"></div>
+        <div id="infovis">
+
         </div>
+
     </div>
 </div>
+
 <script src="${ctxPath}/static/modular/system/wxUser/wxUser_info.js"></script>
 <script language="javascript" type="text/javascript" src="../../../../static/spacetree/js/excanvas.js"></script>
 <![endif]-->

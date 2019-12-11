@@ -47,11 +47,42 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
     public WxUserTreeDto spacetreeUsers() {
         WxUserTreeDto treeDto = new WxUserTreeDto();
         treeDto.setId(0);
-        treeDto.setName("顶级");
+        treeDto.setName("销帮总部");
+        WxUserDto userDto = new WxUserDto();
+        Map<String, Object> statistics = this.baseMapper.selectStatistics();
+        Object concatIsVipP = statistics.get("concatIsVip");
+        Integer vipNumP =0;
+        if (ToolUtil.isNotEmpty(concatIsVipP)) {
+            String[] isVips = String.valueOf(concatIsVipP).split(",");
+            for (String s : isVips) {
+                if (s.equals("1")) {
+                    vipNumP++;
+                }
+            }
+        }
+        Integer total = Integer.valueOf(statistics.get("total") + "");
+        userDto.setChildCount(total);
+        userDto.setVipNum(vipNumP);
+        userDto.setOpNum(total - vipNumP);
+        userDto.setHeadimgurl("https://img.xbdzmp.com/201912120156008d2a5bbcdba1.jpg");
+        treeDto.setData(userDto);
+
         List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj();
         if (ToolUtil.isNotEmpty(wxUserDtos)) {
             List<WxUserTreeDto> wxUserTreeDtos = new ArrayList<>();
             for (WxUserDto wxUserDto : wxUserDtos) {
+                String concatIsVip = wxUserDto.getConcatIsVip();
+                Integer vipNum =0;
+                if (ToolUtil.isNotEmpty(concatIsVip)) {
+                    String[] isVips = concatIsVip.split(",");
+                    for (String s : isVips) {
+                        if (s.equals("1")) {
+                            vipNum++;
+                        }
+                    }
+                }
+                wxUserDto.setVipNum(vipNum);
+                wxUserDto.setOpNum(wxUserDto.getChildCount()-vipNum);
                 WxUserTreeDto userTreeDto = new WxUserTreeDto();
                 userTreeDto.setId(wxUserDto.getId());
                 userTreeDto.setName(wxUserDto.getMobile());

@@ -116,5 +116,12 @@
         GROUP BY
         u1.id;
     </select>
+    <select id="selectStatistics" resultType="java.util.Map">
+        SELECT
+            COUNT( id ) total,
+            group_concat( isvip ) concatIsVip
+        FROM
+            wx_user
+    </select>
 
 </mapper>

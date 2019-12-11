@@ -119,7 +119,10 @@ public class WxUserDto implements Serializable {
      * 预留字段
      */
     private String flag2;
-    private Integer childCount;
     private String concatIsVip;
+    private Integer childCount;
+    private Integer vipNum;
+    private Integer opNum;
+
 
 }

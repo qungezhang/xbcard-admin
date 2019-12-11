@@ -23,5 +23,6 @@ public interface WxUserMapper extends BaseMapper<WxUser> {
 
     List<Map<String, Object>> selectUsers(@Param("pCode") String pCode,@Param("id") Integer id);
     List<WxUserDto> selectUsersObj();
+    Map<String, Object> selectStatistics();
 
 }
