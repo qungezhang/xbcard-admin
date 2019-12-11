@@ -34,7 +34,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/blackboard")
 public class BlackboardController extends BaseController {
-
+    private String PREFIX = "/system/wxUser/";
     @Autowired
     private INoticeService noticeService;
 
@@ -43,8 +43,9 @@ public class BlackboardController extends BaseController {
      */
     @RequestMapping("")
     public String blackboard(Model model) {
-        List<Map<String, Object>> notices = noticeService.list(null);
-        model.addAttribute("noticeList", notices);
-        return "/blackboard.html";
+//        List<Map<String, Object>> notices = noticeService.list(null);
+//        model.addAttribute("noticeList", notices);
+//        return "/blackboard.html";
+        return "/system/wxUser/spacetreeUser.html";
     }
 }
