@@ -29,6 +29,19 @@
            memoryStoreEvictionPolicy="LFU"
            transactionalMode="off">
     </cache>
+    <!-- token：-->
+<!--    <cache name="TOKEN"-->
+<!--           maxElementsInMemory="50000"-->
+<!--           eternal="false"-->
+<!--           clearOnFlush="false"-->
+<!--           overflowToDisk="true"-->
+<!--           diskSpoolBufferSizeMB="1024"-->
+<!--           maxElementsOnDisk="100000"-->
+<!--           diskPersistent="false"-->
+<!--           diskExpiryThreadIntervalSeconds="120"-->
+<!--           memoryStoreEvictionPolicy="LFU"-->
+<!--           transactionalMode="off">-->
+<!--    </cache>-->
 
 </ehcache>
 

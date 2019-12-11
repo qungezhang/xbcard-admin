@@ -8,8 +8,10 @@ import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import cn.stylefeng.guns.config.WxMaConfiguration;
 import cn.stylefeng.guns.config.properties.WxMaProperties;
+import cn.stylefeng.guns.core.common.constant.RedisConstant;
 import cn.stylefeng.guns.core.util.JsonUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.core.util.RedisUtil;
 import cn.stylefeng.guns.modular.dto.WXLoginDTO;
 import cn.stylefeng.guns.modular.dto.WXLoginResultDTO;
 import cn.stylefeng.guns.modular.system.model.WxUser;
@@ -18,6 +20,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +40,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 微信小程序用户接口
@@ -50,7 +55,8 @@ public class WxMaUserController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private IWxUserService wxUserService;
-
+    @Autowired
+    private RedisUtil redisUtil;
     private String appid;
     @Autowired
     public WxMaUserController(WxMaProperties properties) {
@@ -97,6 +103,20 @@ public class WxMaUserController extends BaseController {
             }
             SuccessResponseData responseData = new SuccessResponseData();
             WXLoginResultDTO resultDTO = new WXLoginResultDTO();
+//            String idkey = RedisConstant.USER_ID + wxUser.getId();
+//            String token = redisUtil.getString(idkey);
+//            String redisUserId = String.valueOf(wxUser.getId());
+//            if(StringUtils.isEmpty(token)) {
+//                token = UUID.randomUUID().toString();
+//                preLogin(redisUserId);
+//                cacheToken(redisUserId, token, wxUser);
+//                resultDTO.setToken(token);
+//            }else {//如果缓存key不发生变化，直接变更缓存值
+//                cacheToken(redisUserId, token, wxUser);
+//                resultDTO.setToken(token);
+//            }
+
+
             resultDTO.setToken(JwtTokenUtil.generateToken(String.valueOf(wxUser.getId())));
             resultDTO.setUser(wxUser);
             responseData.setData(resultDTO);
@@ -107,7 +127,21 @@ public class WxMaUserController extends BaseController {
             return errorResponseData;
         }
     }
-
+    public void preLogin(String idKey) {
+        String userIdKey = redisUtil.getString(RedisConstant.USER_ID + idKey);
+        if (userIdKey != null) {
+            redisUtil.del(RedisConstant.USER_ID + idKey);
+            redisUtil.del(RedisConstant.USER_TOKEN + userIdKey);
+        }
+    }
+    private void cacheToken(String idKey, String token, WxUser userDTO) {
+        String idkey = RedisConstant.USER_ID + idKey;
+        String toKey = RedisConstant.USER_TOKEN + token;
+        redisUtil.setString(idkey, token);
+        redisUtil.setString(toKey, JSONObject.toJSONString(userDTO));
+        redisUtil.expire(idkey, RedisConstant.TOKNE_TIMEOUT, TimeUnit.DAYS);
+        redisUtil.expire(toKey, RedisConstant.TOKNE_TIMEOUT, TimeUnit.DAYS);
+    }
     /**
      * <pre>
      * 获取用户

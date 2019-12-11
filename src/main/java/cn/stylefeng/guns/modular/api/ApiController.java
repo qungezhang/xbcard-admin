@@ -16,9 +16,13 @@
 package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
+import cn.stylefeng.guns.core.common.constant.cache.Cache;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
+import cn.stylefeng.guns.core.util.CacheUtil;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.core.util.RedisUtil;
+import cn.stylefeng.guns.core.util.UUIDUtill;
 import cn.stylefeng.guns.modular.dto.TestDto;
 import cn.stylefeng.guns.modular.system.dao.UserMapper;
 import cn.stylefeng.guns.modular.system.model.User;
@@ -56,6 +60,8 @@ import static cn.stylefeng.guns.core.util.JwtTokenUtil.getUserId;
 @RequestMapping("/api")
 @Api(tags = "api临时token")
 public class ApiController extends BaseController {
+    @Autowired
+    RedisUtil redisUtil;
 
 //    @Autowired
 //    private UserMapper userMapper;
@@ -118,22 +124,32 @@ public class ApiController extends BaseController {
         return successResponseData;
     }
 
-    @GetMapping("/sign")
-    @ApiOperation("sign")
-    public Object sign() {
+//    @GetMapping("/sign")
+//    @ApiOperation("sign")
+//    public Object sign() {
+//
+//        Map<String, String> configMap = new HashMap<>();
+//        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+//        String nonceStr = String.valueOf(System.currentTimeMillis());
+//        String packageValue = "prepay_id=wx2017033010242291fcfe0db70013231072";
+//        configMap.put("timestamp", timestamp);
+//        configMap.put("noncestr", nonceStr);
+//        configMap.put("appid", "appId");
+//        configMap.put("package", packageValue);
+//
+//        String sign = SignUtils.createSign(configMap, "SignType", "mchKey", null);
+//        return sign;
+//    }
 
-        Map<String, String> configMap = new HashMap<>();
-        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-        String nonceStr = String.valueOf(System.currentTimeMillis());
-        String packageValue = "prepay_id=wx2017033010242291fcfe0db70013231072";
-        configMap.put("timestamp", timestamp);
-        configMap.put("noncestr", nonceStr);
-        configMap.put("appid", "appId");
-        configMap.put("package", packageValue);
-
-        String sign = SignUtils.createSign(configMap, "SignType", "mchKey", null);
-        return sign;
-    }
+//    @GetMapping("/cache")
+//    @ApiOperation("cache")
+//    public Object cache() {
+//        String s = "2222ssss";
+//        redisUtil.set(s, "dhwehwwwwwwwwww2222222222222222222222222222222222222wwwwwwwwwwdddddddddddddddddddddmmccm23232k323jkjkjkj32k3jk23k23jk3kdd");
+//        Object o = redisUtil.get(s);
+//        System.out.println(o);
+//        return o;
+//    }
 
 }
 
