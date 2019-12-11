@@ -24,8 +24,10 @@ import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.RedisUtil;
 import cn.stylefeng.guns.core.util.UUIDUtill;
 import cn.stylefeng.guns.modular.dto.TestDto;
+import cn.stylefeng.guns.modular.dto.WxUserTreeDto;
 import cn.stylefeng.guns.modular.system.dao.UserMapper;
 import cn.stylefeng.guns.modular.system.model.User;
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
@@ -62,6 +64,8 @@ import static cn.stylefeng.guns.core.util.JwtTokenUtil.getUserId;
 public class ApiController extends BaseController {
     @Autowired
     RedisUtil redisUtil;
+    @Autowired
+    IWxUserService iWxUserService;
 
 //    @Autowired
 //    private UserMapper userMapper;
@@ -118,6 +122,7 @@ public class ApiController extends BaseController {
 
     @GetMapping("/auth")
     @ApiOperation("api临时token")
+
     public Object devAuth(Integer userId) {
         SuccessResponseData successResponseData = new SuccessResponseData();
         successResponseData.setData("Bearer " + JwtTokenUtil.generateToken(String.valueOf(userId)));
@@ -150,6 +155,13 @@ public class ApiController extends BaseController {
 //        System.out.println(o);
 //        return o;
 //    }
+
+    @GetMapping("/userTreeDto")
+    @ApiOperation("userTreeDto")
+    public Object cache() {
+        WxUserTreeDto userTreeDto = iWxUserService.spacetreeUsers();
+        return userTreeDto;
+    }
 
 }
 

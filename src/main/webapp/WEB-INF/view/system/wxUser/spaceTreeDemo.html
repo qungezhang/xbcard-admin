@@ -1,0 +1,250 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Spacetree - Tree Animation</title>
+
+    <!-- CSS Files -->
+    <link type="text/css" href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet"/>
+    <link type="text/css" href="http://philogb.github.io/jit/static/v20/Jit/Examples/css/base.css" rel="stylesheet"/>
+    <link type="text/css" href="http://philogb.github.io/jit/static/v20/Jit/Examples/css/Spacetree.css" rel="stylesheet"/>
+    <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-2.1.1.min.js"></script>
+    <!--[if IE]>
+    <script language="javascript" type="text/javascript"
+            src="<%=request.getContextPath() %>/js/jit2/Extras/excanvas.js"></script><![endif]-->
+    <!-- JIT Library File -->
+    <script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jit2/jit.js"></script>
+    <%-- <!-- Example File -->
+     <script language="javascript" type="text/javascript" src="example1.js"></script>--%>
+</head>
+
+<body οnlοad="init();" style="text-align: left">
+<div id="container1" class="container">
+    <row>
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-2 col-sm-2 col-md-2"></div>
+            <div class="col-lg-8 col-sm-8 col-md-8">
+                <h4>Tree Orientation</h4>
+                <table>
+                    <tr>
+                        <th class="col-md-1"><label for="r-left">Left </label></th>
+                        <td class="col-md-1" style="text-align: left"><input type="radio" id="r-left" name="orientation" checked="checked" value="left"/></td>
+                        <th class="col-md-1"><label for="r-top">Top </label></th>
+                        <td class="col-md-1"><input type="radio" id="r-top" name="orientation"  value="top"/></td>
+                        <th class="col-md-1"><label for="r-bottom">Bottom </label></th>
+                        <td class="col-md-1"><input type="radio" id="r-bottom" name="orientation" value="bottom"/></td>
+                        <th class="col-md-1"><label for="r-right">Right </label></th>
+                        <td class="col-md-1"><input type="radio" id="r-right" name="orientation" value="right"/></td>
+                    </tr>
+                </table>
+                <div style="display: none;">
+                <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-2"></div>
+        </div>
+    </row>
+</div>
+<div id="container" class="container">
+    <row>
+        <div class="col-lg-12 col-sm-12 col-md-12" style="background-color: lightgrey;text-align: left">
+            <div id="infovis" style="width:100%;height: 750px"></div>
+        </div>
+    </row>
+</div>
+
+</body>
+<%--  <div id="log"></div>--%>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#selectSeason,#selectYear").change(function () {
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "<%=request.getContextPath()%>/project/pdept/ajaxOrg" ,
+            data: {selectYear: $("#selectYear").val(),selectSeason:$("#selectSeason").val()},
+            dataType: "json",        //返回数据形式为json
+            success: function (data) {
+                var treeInfo = data.zTreeNodes;
+                //根据ID清空图表，重新加载
+                $('#infovis').html("");
+               init(treeInfo);
+            }
+        });
+
+    });
+});
+
+    var labelType, useGradients, nativeTextSupport, animate;
+
+
+    (function () {
+        var ua = navigator.userAgent,
+                iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
+                typeOfCanvas = typeof HTMLCanvasElement,
+                nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'),
+                textSupport = nativeCanvasSupport && (typeof document.createElement('canvas').getContext('2d').fillText == 'function');
+        labelType = (!nativeCanvasSupport || (textSupport && !iStuff)) ? 'Native' : 'HTML';
+        nativeTextSupport = labelType == 'Native';
+        useGradients = nativeCanvasSupport;
+        animate = !(iStuff || !nativeCanvasSupport);
+    })();
+    /*
+     var Log = {
+     elem: false,
+     write: function (text) {
+     if (!this.elem)
+     this.elem = document.getElementById('log');
+     this.elem.innerHTML = text;
+     this.elem.style.left = (500 - this.elem.offsetWidth / 2) + 'px';
+     }
+     };*/
+    function init() {
+        //init data
+        var zNodes = ${zTreeNodes};
+     /*   var tmp = [];
+        for (var key in zNodes) {
+            tmp.push(zNodes[key]);//往数组中放属性
+        }*/
+        var hh = convert(zNodes);
+        var json = eval(hh);
+
+
+        var st = new $jit.ST({
+            injectInto: 'infovis',
+            duration: 700,
+            transition: $jit.Trans.Quart.easeInOut,
+            //块之间距离
+            levelDistance: 60,
+            //距离中心点偏移量
+            offsetX:200,
+            //默认展现方向，从上往下
+            //orientation:"top",
+            //默认展现层级，左右有效，上下不生效，不知原因
+            levelsToShow: 3,
+            Navigation: {
+                enable: true,
+                panning: true
+            },
+            Node: {
+                height: 40,
+                width: 80,
+                type: 'rectangle',
+                color: '#aaa',
+                overridable: true
+            },
+            //线条类型(bezier,line,arrow,quadratic:begin,quadratic:end)样式设置
+            Edge: {
+                type: 'bezier',
+                lineWidth: 2,
+                color: 'gray',
+                overridable: true
+            },
+            onBeforeCompute: function (node) {
+                /*  Log.write("loading " + node.name);*/
+            },
+            onAfterCompute: function () {
+                /*  Log.write("done");*/
+            },
+            onCreateLabel: function (label, node) {
+                label.id = node.id;
+                label.innerHTML = node.name;
+                label.onclick = function () {
+                    if (normal.checked) {
+                        st.onClick(node.id);
+                    } else {
+                        st.setRoot(node.id, 'animate');
+                    }
+                };
+                //set label styles
+                var style = label.style;
+                style.width = 80 + 'px';
+                style.height = 40 + 'px';
+                style.cursor = 'pointer';
+                style.color = '#000000';
+                style.fontSize = '0.8em';
+                style.textAlign = 'center';
+                style.paddingTop = '10px';
+            },
+            onBeforePlotNode: function (node) {
+                if (node.selected) {
+                    node.data.$color = "#ff7";
+                }
+                else {
+                    delete node.data.$color;
+                    if (!node.anySubnode("exist")) {
+                        var count = 0;
+                        node.eachSubnode(function (n) {
+                            count++;
+                        });
+                        node.data.$color = ['#aaa', '#baa', '#caa', '#daa', '#eaa', '#faa'][count];
+                    }
+                }
+            },
+            //连线前触发事件，可以修改线条颜色等
+            onBeforePlotLine: function (adj) {
+                if (adj.nodeFrom.selected && adj.nodeTo.selected) {
+                    adj.data.$color = "blue";
+                    adj.data.$lineWidth = 4;
+                }
+                else {
+                    delete adj.data.$color;
+                    delete adj.data.$lineWidth;
+                }
+            }
+    });
+        st.loadJSON(json);
+        st.compute();
+        //st.switchPosition("top","animate");
+        st.geom.translate(new $jit.Complex(-200, 0), "current");
+        st.onClick(st.root);
+        var top = $jit.id('r-top'),
+                left = $jit.id('r-left'),
+                bottom = $jit.id('r-bottom'),
+                right = $jit.id('r-right'),
+                normal = $jit.id('s-normal');
+
+
+        function changeHandler() {
+            if (this.checked) {
+                top.disabled = bottom.disabled = right.disabled = left.disabled = true;
+                st.switchPosition(this.value, "animate", {
+                    onComplete: function () {
+                        top.disabled = bottom.disabled = right.disabled = left.disabled = false;
+                    }
+                });
+            }
+        };
+        top.onchange = left.onchange = bottom.onchange = right.onchange = changeHandler;
+    }
+
+
+    //普通json串转成树形数据串
+    function convert(source) {
+        var tmp = {}, parent, n;
+        for (n in source) {
+            var item = source[n];
+            if (item.pId == 0) {
+                parent = item.id;
+            }
+            if (!tmp[item.id]) {
+                tmp[item.id] = {};
+            }
+            tmp[item.id].id = item.id;
+            tmp[item.id].name = item.name;
+            tmp[item.id].data = {};
+            if (!("children" in tmp[item.id]))tmp[item.id].children = [];
+            if (item.id != item.pId) {
+                if (tmp[item.pId]) {
+                    tmp[item.pId].children.push(tmp[item.id]);
+                }
+                else {
+                    tmp[item.pId] = {children: [tmp[item.id]]};
+                }
+            }
+        }
+        return tmp[parent];
+    }
+</script>
+</div>
+</body>
+</html>

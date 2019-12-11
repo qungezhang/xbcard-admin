@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.stylefeng.guns.modular.dto.WxUserDto;
+import cn.stylefeng.guns.modular.dto.WxUserTreeDto;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -28,4 +30,9 @@ public interface IWxUserService extends IService<WxUser> {
      * @return
      */
     List<Map<String, Object>> selectUsers(String pCode,Integer id);
+
+    List<WxUserDto> selectUsersObj();
+
+    WxUserTreeDto spacetreeUsers();
+
 }

@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.guns.modular.dto.IncomeFlowingDto;
+import cn.stylefeng.guns.modular.dto.WxUserTreeDto;
 import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
@@ -8,6 +9,7 @@ import cn.stylefeng.guns.modular.system.warpper.MenuWarpper;
 import cn.stylefeng.guns.modular.system.warpper.WxUserWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,9 +53,13 @@ public class WxUserController extends BaseController {
         return PREFIX + "wxUser.html";
     }
 
-    @RequestMapping("demo_v4")
-    public String demo_v4() {
-        return PREFIX + "demo_v4.html";
+    @RequestMapping("spaceTreeUser")
+    public String spaceTreeUser(Model model) {
+//        WxUserTreeDto userTreeDto = wxUserService.spacetreeUsers();
+//        String o = JSONObject.toJSONString(userTreeDto);
+//        model.addAttribute("userTree", o);
+//        LogObjectHolder.me().set(userTreeDto);
+        return PREFIX + "spacetreeUser.html";
     }
     /**
      * 跳转到添加小程序用户
@@ -85,7 +91,11 @@ public class WxUserController extends BaseController {
         LogObjectHolder.me().set(materials);
         return PREFIX + "material_info.html";
     }
-
+    @RequestMapping(value = "/spaceTreeUsersData")
+    @ResponseBody
+    public Object spaceTreeUsers() {
+        return wxUserService.spacetreeUsers();
+    }
     /**
      * 获取小程序用户列表
      */

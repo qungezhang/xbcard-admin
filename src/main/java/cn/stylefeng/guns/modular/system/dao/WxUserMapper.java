@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.dao;
 
+import cn.stylefeng.guns.modular.dto.WxUserDto;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,5 +22,6 @@ public interface WxUserMapper extends BaseMapper<WxUser> {
     List<Map<String, Object>> getMaps();
 
     List<Map<String, Object>> selectUsers(@Param("pCode") String pCode,@Param("id") Integer id);
+    List<WxUserDto> selectUsersObj();
 
 }
