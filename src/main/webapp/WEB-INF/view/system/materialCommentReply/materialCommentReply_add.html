@@ -1,0 +1,43 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键id" underline="true"/>
+                            <#input id="commentId" name="评论id" underline="true"/>
+                            <#input id="userId" name="用户(回复者)id" underline="true"/>
+                            <#input id="headImg" name="回复者头像" underline="true"/>
+                            <#input id="nickname" name="回复者昵称" underline="true"/>
+                            <#input id="replyUserId" name="被回复人id（回复张三,此处即为张三id）" underline="true"/>
+                            <#input id="replyNickname" name="被回复人昵称" underline="true"/>
+                            <#input id="content" name="回复内容" underline="true"/>
+                            <#input id="praseCount" name="点赞数"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="status" name="状态（0待审核，1通过 ，2不通过）" underline="true"/>
+                            <#input id="isDeleted" name="是否删除（0否，1是）" underline="true"/>
+                            <#input id="cardId" name="名片id" underline="true"/>
+                            <#input id="createTime" name="创建时间" underline="true"/>
+                            <#input id="createBy" name="创建人" underline="true"/>
+                            <#input id="updateTime" name="修改时间" underline="true"/>
+                            <#input id="updateBy" name="修改人" underline="true"/>
+                            <#input id="flag1" name="预留字段" underline="true"/>
+                            <#input id="flag2" name="预留字段" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="MaterialCommentReplyInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MaterialCommentReplyInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/materialCommentReply/materialCommentReply_info.js"></script>
+@}
