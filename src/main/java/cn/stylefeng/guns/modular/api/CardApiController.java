@@ -183,18 +183,18 @@ public class CardApiController extends BaseController {
         loginWxUser.setMobile(card.getMobile());
         loginWxUser.setCardId(card.getId());
         wxUserService.updateById(loginWxUser);
-        List<MaterialDTO> materials = addDTO.getMaterials();
-        if (!CollectionUtils.isEmpty(materials)) {
-            for (MaterialDTO materialDTO : materials) {
-                Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
-                material.setUserId(userId);
-                material.setCardId(card.getId());
-                material.setIsDeleted(0);//是否删除（0否，1是）
-                material.setCreateTime(new Date());
-                material.setUpdateTime(new Date());
-                materialService.insert(material);
-            }
-        }
+//        List<MaterialDTO> materials = addDTO.getMaterials();
+//        if (!CollectionUtils.isEmpty(materials)) {
+//            for (MaterialDTO materialDTO : materials) {
+//                Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
+//                material.setUserId(userId);
+//                material.setCardId(card.getId());
+//                material.setIsDeleted(0);//是否删除（0否，1是）
+//                material.setCreateTime(new Date());
+//                material.setUpdateTime(new Date());
+//                materialService.insert(material);
+//            }
+//        }
         return new SuccessResponseData(card);
     }
 
@@ -226,12 +226,17 @@ public class CardApiController extends BaseController {
             return new ErrorResponseData("名片Id不可为空");
         }
         String logo = card.getLogo();
-        if (ToolUtil.isNotEmpty(logo)) {
+        String shareImgUrl = card.getShareImgUrl();
+        if (ToolUtil.isNotEmpty(logo)||ToolUtil.isNotEmpty(shareImgUrl)) {
             Card selectById = cardService.selectById(cardId);
             if (ToolUtil.isNotEmpty(selectById)) {
                 String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getLogo());
                 if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(logo))) {
                     qiniuService.delete(qiniKeyByUrled);
+                }
+                String shareImgUrlKey = StringUtil.getQiniKeyByUrl(selectById.getShareImgUrl());
+                if (ToolUtil.isNotEmpty(shareImgUrlKey) && !shareImgUrlKey.equals(StringUtil.getQiniKeyByUrl(shareImgUrl))) {
+                    qiniuService.delete(shareImgUrlKey);
                 }
             } else {
                 return new ErrorResponseData("信息不存在");
@@ -242,21 +247,21 @@ public class CardApiController extends BaseController {
         cardService.updateById(card);
         loginWxUser.setMobile(card.getMobile());
         wxUserService.updateById(loginWxUser);
-        EntityWrapper<Material> wrapper = new EntityWrapper<>();
-        wrapper.eq("card_id", cardId);
-        materialService.delete(wrapper);//先删除
-        List<MaterialDTO> materials = updateDTO.getMaterials();
-        if (!CollectionUtils.isEmpty(materials)) {
-            for (MaterialDTO materialDTO : materials) {
-                Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
-                material.setUserId(card.getUserId());
-                material.setCardId(cardId);
-                material.setIsDeleted(0);//是否删除（0否，1是）
-                material.setCreateTime(new Date());
-                material.setUpdateTime(new Date());
-                materialService.insert(material);
-            }
-        }
+//        EntityWrapper<Material> wrapper = new EntityWrapper<>();
+//        wrapper.eq("card_id", cardId);
+//        materialService.delete(wrapper);//先删除
+//        List<MaterialDTO> materials = updateDTO.getMaterials();
+//        if (!CollectionUtils.isEmpty(materials)) {
+//            for (MaterialDTO materialDTO : materials) {
+//                Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
+//                material.setUserId(card.getUserId());
+//                material.setCardId(cardId);
+//                material.setIsDeleted(0);//是否删除（0否，1是）
+//                material.setCreateTime(new Date());
+//                material.setUpdateTime(new Date());
+//                materialService.insert(material);
+//            }
+//        }
 
         return new SuccessResponseData(card);
     }
@@ -272,7 +277,7 @@ public class CardApiController extends BaseController {
         if (card != null) {
             SuccessResponseData responseData = new SuccessResponseData();
             WxUser user = wxUserService.getLoginWxUser();
-            Integer isvip = user.getIsvip();
+//            Integer isvip = user.getIsvip();
 //            boolean isMaterialList = false;
 //            if (isvip != null && isvip.equals(1)) {//是vip
 //                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
@@ -290,17 +295,17 @@ public class CardApiController extends BaseController {
 //                List<Material> materials = materialService.selectList(wrapper);
 //                cardInfoDTO.setMaterialList(materials);
 //            }
-            if (isvip != null && isvip.equals(1)) {//是vip
-                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
-                if (!CollectionUtils.isEmpty(treeList)) {
-                    cardInfoDTO.setCategoryTrees(treeList);
-                }
-            }
-            EntityWrapper<Material> wrapper = new EntityWrapper<>();
-            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
-            List<Material> materials = materialService.selectList(wrapper);
-            cardInfoDTO.setMaterialList(materials);
-            cardInfoDTO.setIsVip(isvip);
+//            if (isvip != null && isvip.equals(1)) {//是vip
+//                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
+//                if (!CollectionUtils.isEmpty(treeList)) {
+//                    cardInfoDTO.setCategoryTrees(treeList);
+//                }
+//            }
+//            EntityWrapper<Material> wrapper = new EntityWrapper<>();
+//            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
+//            List<Material> materials = materialService.selectList(wrapper);
+//            cardInfoDTO.setMaterialList(materials);
+//            cardInfoDTO.setIsVip(isvip);
             responseData.setData(cardInfoDTO);
             return responseData;
         } else {
@@ -344,19 +349,19 @@ public class CardApiController extends BaseController {
         CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
         if (card != null) {
             SuccessResponseData responseData = new SuccessResponseData();
-            WxUser user = wxUserService.getLoginWxUser();
-            Integer isvip = user.getIsvip();
-            if (isvip != null && isvip.equals(1)) {//是vip
-                List<CategoryTreeDTO> treeList = categoryService.getTreeList(card.getId());
-                if (!CollectionUtils.isEmpty(treeList)) {
-                    cardInfoDTO.setCategoryTrees(treeList);
-                }
-            }
-            EntityWrapper<Material> wrapper = new EntityWrapper<>();
-            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
-            List<Material> materials = materialService.selectList(wrapper);
-            cardInfoDTO.setMaterialList(materials);
-            cardInfoDTO.setIsVip(isvip);
+//            WxUser user = wxUserService.getLoginWxUser();
+//            Integer isvip = user.getIsvip();
+//            if (isvip != null && isvip.equals(1)) {//是vip
+//                List<CategoryTreeDTO> treeList = categoryService.getTreeList(card.getId());
+//                if (!CollectionUtils.isEmpty(treeList)) {
+//                    cardInfoDTO.setCategoryTrees(treeList);
+//                }
+//            }
+//            EntityWrapper<Material> wrapper = new EntityWrapper<>();
+//            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
+//            List<Material> materials = materialService.selectList(wrapper);
+//            cardInfoDTO.setMaterialList(materials);
+//            cardInfoDTO.setIsVip(isvip);
             responseData.setData(cardInfoDTO);
             return responseData;
         } else {

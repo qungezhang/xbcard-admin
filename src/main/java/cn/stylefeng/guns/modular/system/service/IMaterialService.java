@@ -1,7 +1,12 @@
 package cn.stylefeng.guns.modular.system.service;
 
+import cn.stylefeng.guns.modular.dto.MaterialInfoDto;
 import cn.stylefeng.guns.modular.system.model.Material;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -9,8 +14,11 @@ import com.baomidou.mybatisplus.service.IService;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-12-18
  */
 public interface IMaterialService extends IService<Material> {
+
+
+    List<MaterialInfoDto> getMaterialByPid(Integer cardId, Integer pid, Page page);
 
 }

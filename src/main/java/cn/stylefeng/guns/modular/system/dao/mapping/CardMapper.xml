@@ -14,12 +14,14 @@
         <result column="fax" property="fax" />
         <result column="logo" property="logo" />
         <result column="user_id" property="userId" />
+        <result column="type" property="type" />
+        <result column="share_img_url" property="shareImgUrl" />
+        <result column="share_title" property="shareTitle" />
         <result column="is_deleted" property="isDeleted" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
         <result column="update_time" property="updateTime" />
         <result column="update_by" property="updateBy" />
-        <result column="type" property="type" />
         <result column="flag2" property="flag2" />
         <result column="flag3" property="flag3" />
         <result column="flag4" property="flag4" />
@@ -27,7 +29,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, mobile, company, position, address, email, fax, logo, user_id, is_deleted, create_time, create_by, update_time, update_by, type, flag2, flag3, flag4
+        id, name, mobile, company, position, address, email, fax, logo, user_id, type, share_img_url, share_title, is_deleted, create_time, create_by, update_time, update_by, flag2, flag3, flag4
     </sql>
 
 </mapper>

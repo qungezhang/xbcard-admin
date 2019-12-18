@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-12-18
  */
 @TableName("wx_material")
 public class Material extends Model<Material> {
@@ -26,6 +26,10 @@ public class Material extends Model<Material> {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    /**
+     * 父级id
+     */
+    private Integer pid;
     /**
      * 图片地址
      */
@@ -58,6 +62,14 @@ public class Material extends Model<Material> {
      */
     @TableField("category_id")
     private Integer categoryId;
+    /**
+     * 编码
+     */
+    private String code;
+    /**
+     * 父级编码
+     */
+    private String pcode;
     /**
      * 是否删除（0否，1是）
      */
@@ -99,6 +111,14 @@ public class Material extends Model<Material> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public String getImgUrl() {
@@ -155,6 +175,22 @@ public class Material extends Model<Material> {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getPcode() {
+        return pcode;
+    }
+
+    public void setPcode(String pcode) {
+        this.pcode = pcode;
     }
 
     public Integer getIsDeleted() {
@@ -222,6 +258,7 @@ public class Material extends Model<Material> {
     public String toString() {
         return "Material{" +
         ", id=" + id +
+        ", pid=" + pid +
         ", imgUrl=" + imgUrl +
         ", simplename=" + simplename +
         ", description=" + description +
@@ -229,6 +266,8 @@ public class Material extends Model<Material> {
         ", userId=" + userId +
         ", cardId=" + cardId +
         ", categoryId=" + categoryId +
+        ", code=" + code +
+        ", pcode=" + pcode +
         ", isDeleted=" + isDeleted +
         ", createTime=" + createTime +
         ", createBy=" + createBy +

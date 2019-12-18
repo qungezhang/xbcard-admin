@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -58,8 +59,18 @@ public class CardAddDTO implements Serializable {
      * 名片二维码
      */
     private String flag2;
+    /**
+     * 分享图片
+     */
+    @ApiModelProperty(value = "分享图片")
+    private String shareImgUrl;
+    /**
+     * 分享标题
+     */
+    @ApiModelProperty(value = "分享标题")
+    private String shareTitle;
 
-    private List<MaterialDTO> materials;
+//    private List<MaterialDTO> materials;
 
 
 }

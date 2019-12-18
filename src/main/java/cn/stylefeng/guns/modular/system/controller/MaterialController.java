@@ -13,10 +13,10 @@ import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
 
 /**
- * 控制器
+ * 素材控制器
  *
  * @author fengshuonan
- * @Date 2019-11-04 21:58:16
+ * @Date 2019-12-18 11:38:49
  */
 @Controller
 @RequestMapping("/material")
@@ -28,7 +28,7 @@ public class MaterialController extends BaseController {
     private IMaterialService materialService;
 
     /**
-     * 跳转到首页
+     * 跳转到素材首页
      */
     @RequestMapping("")
     public String index() {
@@ -36,7 +36,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 跳转到添加
+     * 跳转到添加素材
      */
     @RequestMapping("/material_add")
     public String materialAdd() {
@@ -44,7 +44,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 跳转到修改
+     * 跳转到修改素材
      */
     @RequestMapping("/material_update/{materialId}")
     public String materialUpdate(@PathVariable Integer materialId, Model model) {
@@ -55,7 +55,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 获取列表
+     * 获取素材列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
@@ -64,7 +64,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 新增
+     * 新增素材
      */
     @RequestMapping(value = "/add")
     @ResponseBody
@@ -74,7 +74,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 删除
+     * 删除素材
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
@@ -84,7 +84,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 修改
+     * 修改素材
      */
     @RequestMapping(value = "/update")
     @ResponseBody
@@ -94,7 +94,7 @@ public class MaterialController extends BaseController {
     }
 
     /**
-     * 详情
+     * 素材详情
      */
     @RequestMapping(value = "/detail/{materialId}")
     @ResponseBody

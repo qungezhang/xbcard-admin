@@ -2,8 +2,8 @@ package cn.stylefeng.guns.modular.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -14,14 +14,12 @@ import java.util.List;
  * @since 2019-12-17
  */
 @Data
-public class MaterialCommentDto {
+public class MaterialCommentUpdateDto {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键id
-     */
+    @NotNull(message = "id不可为空")
     private Integer id;
+
     /**
      * 素材id
      */
@@ -31,14 +29,6 @@ public class MaterialCommentDto {
      */
     private Integer userId;
     /**
-     * 评论者头像
-     */
-    private String headImg;
-    /**
-     * 评论者昵称
-     */
-    private String nickname;
-    /**
      * 评论内容
      */
     private String content;
@@ -46,12 +36,8 @@ public class MaterialCommentDto {
      * 名片id
      */
     private Integer cardId;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 
-    private List<MaterialCommentReplyDto> replyList;
+
 
 }
 

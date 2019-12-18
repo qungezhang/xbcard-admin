@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Material">
         <id column="id" property="id" />
+        <result column="pid" property="pid" />
         <result column="img_url" property="imgUrl" />
         <result column="simplename" property="simplename" />
         <result column="description" property="description" />
@@ -12,6 +13,8 @@
         <result column="user_id" property="userId" />
         <result column="card_id" property="cardId" />
         <result column="category_id" property="categoryId" />
+        <result column="code" property="code" />
+        <result column="pcode" property="pcode" />
         <result column="is_deleted" property="isDeleted" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
@@ -23,7 +26,38 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, img_url, simplename, description, num, user_id, card_id, category_id, is_deleted, create_time, create_by, update_time, update_by, flag1, flag2
+        id, pid, img_url, simplename, description, num, user_id, card_id, category_id, code, pcode, is_deleted, create_time, create_by, update_time, update_by, flag1, flag2
     </sql>
+    <select id="getMaterialByPid" resultType="cn.stylefeng.guns.modular.dto.MaterialInfoDto">
+        SELECT
+            m1.id,
+            m1.pid,
+            m1.img_url imgUrl,
+            m1.simplename,
+            m1.description,
+            m1.card_id cardId,
+            m1.user_id userId,
+            m1.create_time createTime,
+            m1.create_by createBy,
+            m1.update_time updateTime,
+            m1.update_by updateBy,
+            m1.flag1,
+            m1.flag2,
+        IF
+            ( COUNT( m2.id )> 0, 1, 0 ) hasChildren
+        FROM
+            wx_material m1
+            LEFT JOIN wx_material m2 ON m2.pcode LIKE CONCAT( "%[", m1.id, "]%" )
+        WHERE
+            m1.is_deleted = 0
+            AND m1.card_id = #{cardId}
+            <if test="pid != null ">
+                AND m1.pid = #{pid}
+            </if>
+        GROUP BY
+            m1.id
+        ORDER BY
+            m1.create_time DESC
+    </select>
 
 </mapper>

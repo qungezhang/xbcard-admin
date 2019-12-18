@@ -3,18 +3,17 @@ package cn.stylefeng.guns.modular.dto;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
- * 素材评论
+ * 素材评论回复
  * </p>
  *
  * @author qunge
  * @since 2019-12-17
  */
 @Data
-public class MaterialCommentDto {
+public class MaterialCommentReplyDto  {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,25 +22,27 @@ public class MaterialCommentDto {
      */
     private Integer id;
     /**
-     * 素材id
+     * 评论id
      */
-    private Integer materialId;
+    private Integer commentId;
     /**
-     * 用户(评论者)id
+     * 用户(回复者)id
      */
     private Integer userId;
     /**
-     * 评论者头像
+     * 回复者头像
      */
     private String headImg;
     /**
-     * 评论者昵称
+     * 回复者昵称
      */
     private String nickname;
+
     /**
-     * 评论内容
+     * 回复内容
      */
     private String content;
+
     /**
      * 名片id
      */
@@ -51,8 +52,4 @@ public class MaterialCommentDto {
      */
     private Date createTime;
 
-    private List<MaterialCommentReplyDto> replyList;
-
 }
-
-

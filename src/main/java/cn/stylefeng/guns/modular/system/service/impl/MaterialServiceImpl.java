@@ -1,10 +1,14 @@
 package cn.stylefeng.guns.modular.system.service.impl;
 
+import cn.stylefeng.guns.modular.dto.MaterialInfoDto;
 import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.dao.MaterialMapper;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,9 +16,13 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-12-18
  */
 @Service
 public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material> implements IMaterialService {
 
+    @Override
+    public List<MaterialInfoDto> getMaterialByPid(Integer cardId, Integer pid, Page page) {
+        return baseMapper.getMaterialByPid(cardId, pid, page);
+    }
 }

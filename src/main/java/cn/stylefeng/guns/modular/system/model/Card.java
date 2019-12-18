@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author qunge
- * @since 2019-11-04
+ * @since 2019-12-18
  */
 @TableName("wx_card")
 public class Card extends Model<Card> {
@@ -59,14 +59,24 @@ public class Card extends Model<Card> {
      */
     private String logo;
     /**
-     * 模版类型
-     */
-    private Integer type;
-    /**
      * 用户id
      */
     @TableField("user_id")
     private Integer userId;
+    /**
+     * 模版类型
+     */
+    private Integer type;
+    /**
+     * 分享图片
+     */
+    @TableField("share_img_url")
+    private String shareImgUrl;
+    /**
+     * 分享文案
+     */
+    @TableField("share_title")
+    private String shareTitle;
     /**
      * 是否删除（0否，1是）
      */
@@ -92,9 +102,8 @@ public class Card extends Model<Card> {
      */
     @TableField("update_by")
     private Date updateBy;
-
     /**
-     * 预留字段
+     * 小程序码
      */
     private String flag2;
     /**
@@ -187,6 +196,30 @@ public class Card extends Model<Card> {
         this.userId = userId;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getShareImgUrl() {
+        return shareImgUrl;
+    }
+
+    public void setShareImgUrl(String shareImgUrl) {
+        this.shareImgUrl = shareImgUrl;
+    }
+
+    public String getShareTitle() {
+        return shareTitle;
+    }
+
+    public void setShareTitle(String shareTitle) {
+        this.shareTitle = shareTitle;
+    }
+
     public Integer getIsDeleted() {
         return isDeleted;
     }
@@ -225,14 +258,6 @@ public class Card extends Model<Card> {
 
     public void setUpdateBy(Date updateBy) {
         this.updateBy = updateBy;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public String getFlag2() {
@@ -277,12 +302,14 @@ public class Card extends Model<Card> {
         ", fax=" + fax +
         ", logo=" + logo +
         ", userId=" + userId +
+        ", type=" + type +
+        ", shareImgUrl=" + shareImgUrl +
+        ", shareTitle=" + shareTitle +
         ", isDeleted=" + isDeleted +
         ", createTime=" + createTime +
         ", createBy=" + createBy +
         ", updateTime=" + updateTime +
         ", updateBy=" + updateBy +
-        ", flag1=" + type +
         ", flag2=" + flag2 +
         ", flag3=" + flag3 +
         ", flag4=" + flag4 +

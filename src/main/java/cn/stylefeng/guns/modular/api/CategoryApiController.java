@@ -39,88 +39,88 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/api/category")
-@Api(tags = "类别")
+//@Api(tags = "类别")
 public class CategoryApiController extends BaseController {
 
     @Autowired
     private ICategoryService categoryService;
 
-    @Autowired
-    private IWxUserService wxUserService;
-
-    /**
-     * 获取列表
-     */
-    @PostMapping(value = "/pList")
-    @ApiOperation("获取分页列表")
-    @ResponseBody
-    public ResponseData pList(@RequestBody PageListDTO<Category> pageListDTO) {
-        Page<Category> page = new PageFactory<Category>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
-        PageUtils pageUtils = new PageUtils(categoryService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody())));
-        return new SuccessResponseData(pageUtils);
-    }
-    /**
-     * 新增
-     */
-    @PostMapping(value = "/add")
-    @ResponseBody
-    @ApiOperation("新增")
-    public Object add(@RequestBody @Valid CategoryAddDto addDto) {
-        Integer userId = JwtTokenUtil.getUserId();
-        WxUser wxUser = wxUserService.selectById(userId);
-        if (wxUser == null || wxUser.getIsvip() == 0) {
-            return new ErrorResponseData("用户异常或不是VIP，不可分类");
-        }
-        Category category = BeanMapperUtil.objConvert(addDto, Category.class);
-        category.setUserId(userId);
-        category.setPid(category.getPid() == null ? 0 : category.getPid());
-        category.setIsDeleted(0);//是否删除（0否，1是）
-        category.setCreateTime(new Date());
-        category.setUpdateTime(new Date());
-        categoryService.insert(category);
-        SuccessResponseData successTip = SUCCESS_TIP;
-        successTip.setData(category);
-        return successTip;
-    }
-
-
-
-
-    /**
-     * 删除
-     */
-    @GetMapping(value = "/delete")
-    @ResponseBody
-    @ApiOperation("删除")
-    public Object delete(@RequestParam Integer categoryId) {
-        categoryService.deleteById(categoryId);
-        return SUCCESS_TIP;
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping(value = "/update")
-    @ResponseBody
-    @ApiOperation("修改")
-    public Object update(@RequestBody Category category) {
-        categoryService.updateById(category);
-        return SUCCESS_TIP;
-    }
-
-    /**
-     * 详情
-     */
-    @GetMapping(value = "/detail/{categoryId}")
-    @ResponseBody
-    @ApiOperation("详情")
-    public Object detail(@PathVariable("categoryId") Integer categoryId) {
-        return categoryService.selectById(categoryId);
-    }
+//    @Autowired
+//    private IWxUserService wxUserService;
+//
+//    /**
+//     * 获取列表
+//     */
+//    @PostMapping(value = "/pList")
+//    @ApiOperation("获取分页列表")
+//    @ResponseBody
+//    public ResponseData pList(@RequestBody PageListDTO<Category> pageListDTO) {
+//        Page<Category> page = new PageFactory<Category>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
+//        PageUtils pageUtils = new PageUtils(categoryService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody())));
+//        return new SuccessResponseData(pageUtils);
+//    }
+//    /**
+//     * 新增
+//     */
+//    @PostMapping(value = "/add")
+//    @ResponseBody
+//    @ApiOperation("新增")
+//    public Object add(@RequestBody @Valid CategoryAddDto addDto) {
+//        Integer userId = JwtTokenUtil.getUserId();
+//        WxUser wxUser = wxUserService.selectById(userId);
+//        if (wxUser == null || wxUser.getIsvip() == 0) {
+//            return new ErrorResponseData("用户异常或不是VIP，不可分类");
+//        }
+//        Category category = BeanMapperUtil.objConvert(addDto, Category.class);
+//        category.setUserId(userId);
+//        category.setPid(category.getPid() == null ? 0 : category.getPid());
+//        category.setIsDeleted(0);//是否删除（0否，1是）
+//        category.setCreateTime(new Date());
+//        category.setUpdateTime(new Date());
+//        categoryService.insert(category);
+//        SuccessResponseData successTip = SUCCESS_TIP;
+//        successTip.setData(category);
+//        return successTip;
+//    }
+//
+//
+//
+//
+//    /**
+//     * 删除
+//     */
+//    @GetMapping(value = "/delete")
+//    @ResponseBody
+//    @ApiOperation("删除")
+//    public Object delete(@RequestParam Integer categoryId) {
+//        categoryService.deleteById(categoryId);
+//        return SUCCESS_TIP;
+//    }
+//
+//    /**
+//     * 修改
+//     */
+//    @PostMapping(value = "/update")
+//    @ResponseBody
+//    @ApiOperation("修改")
+//    public Object update(@RequestBody Category category) {
+//        categoryService.updateById(category);
+//        return SUCCESS_TIP;
+//    }
+//
+//    /**
+//     * 详情
+//     */
+//    @GetMapping(value = "/detail/{categoryId}")
+//    @ResponseBody
+//    @ApiOperation("详情")
+//    public Object detail(@PathVariable("categoryId") Integer categoryId) {
+//        return categoryService.selectById(categoryId);
+//    }
 
     @GetMapping("getTreeList")
     @ResponseBody
-    @ApiOperation("结构列表")
+//    @ApiOperation("结构列表")
     public Object getTreeList(@RequestParam("cardId") Integer cardId) {
         if (cardId == null) {
             return new ErrorResponseData("名片id不可为空");

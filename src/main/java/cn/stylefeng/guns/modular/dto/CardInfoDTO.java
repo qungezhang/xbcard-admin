@@ -60,6 +60,6 @@ public class CardInfoDTO implements Serializable {
      */
     private Integer isDeleted;
     private Integer isVip;
-    private List<Material> materialList;
-    private List<CategoryTreeDTO> categoryTrees;
+//    private List<Material> materialList;
+//    private List<CategoryTreeDTO> categoryTrees;
 }

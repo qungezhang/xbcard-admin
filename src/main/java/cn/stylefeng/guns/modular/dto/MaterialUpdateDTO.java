@@ -15,32 +15,31 @@ import java.io.Serializable;
  * @since 2019-11-04
  */
 @Data
-public class MaterialDTO implements Serializable {
+public class MaterialUpdateDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @NotNull(message = "id不可为空")
+    @ApiModelProperty(value = "商品图id", required = true)
+    private Integer id;
     /**
      * 图片地址
      */
-    @NotNull(message = "图片地址不可为空")
-    @ApiModelProperty(value = "图片地址", required = true)
+    @ApiModelProperty(value = "图片地址")
     private String imgUrl;
     /**
      * 描述
      */
-    @ApiModelProperty(value = "图片描述")
+    @ApiModelProperty(value = "描述")
     private String description;
     /**
      * 名片id
      */
-    @NotNull(message = "名片id不可为空")
-    @ApiModelProperty(value = "名片id", required = true)
+    @ApiModelProperty(value = "名片id")
      private Integer cardId;
     /**
      * 父级id
      */
-    @NotNull(message = "父级id不可为空默认为0")
-    @ApiModelProperty(value = "父级id不可为空默认为0", required = true)
+    @ApiModelProperty(value = "父级id")
     private Integer pid;
 
 
