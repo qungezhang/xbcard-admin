@@ -35,7 +35,8 @@ public class MaterialController extends BaseController {
      * 跳转到素材首页
      */
     @RequestMapping("")
-    public String index() {
+    public String index(Integer cardId, Model model) {
+        model.addAttribute("cardId", cardId);
         return PREFIX + "material.html";
     }
 

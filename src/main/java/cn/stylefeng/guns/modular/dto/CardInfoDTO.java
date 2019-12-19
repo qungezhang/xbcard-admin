@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.dto;
 
 import cn.stylefeng.guns.modular.system.model.Material;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -60,6 +61,16 @@ public class CardInfoDTO implements Serializable {
      */
     private Integer isDeleted;
     private Integer isVip;
+    /**
+     * 分享图片
+     */
+    @ApiModelProperty(value = "分享图片")
+    private String shareImgUrl;
+    /**
+     * 分享标题
+     */
+    @ApiModelProperty(value = "分享标题")
+    private String shareTitle;
 //    private List<Material> materialList;
 //    private List<CategoryTreeDTO> categoryTrees;
 }

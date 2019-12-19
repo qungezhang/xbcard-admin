@@ -9,6 +9,7 @@
         <result column="description" property="description" />
         <result column="user_id" property="userId" />
         <result column="card_id" property="cardId" />
+        <result column="default_img" property="defaultImg" />
         <result column="is_deleted" property="isDeleted" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
@@ -18,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, img_url, description, user_id, card_id, is_deleted, create_time, create_by, update_time, update_by
+        id, img_url, description, user_id, card_id,default_img, is_deleted, create_time, create_by, update_time, update_by
     </sql>
 
 </mapper>

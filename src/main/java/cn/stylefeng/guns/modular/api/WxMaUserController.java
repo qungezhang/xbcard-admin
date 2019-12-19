@@ -170,7 +170,7 @@ public class WxMaUserController extends BaseController {
         wxUser.setCity(userInfo.getCity());
         wxUser.setProvince(userInfo.getProvince());
         wxUser.setLastLoginTime(new Date());
-        wxUser.setUpdateTime(new Date());
+//        wxUser.setUpdateTime(new Date());
     }
     private void wxUserSetPids(WxUser wxUser) {
         Integer pid = wxUser.getEmpId();

@@ -28,6 +28,8 @@ public class BannerAddDto implements Serializable {
      * 描述
      */
     private String description;
+
+    private String defaultImg;
     /**
      * 名片id
      */

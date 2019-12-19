@@ -176,7 +176,7 @@ WxUser.openWxUserCardList = function () {
             maxmin: true,
             content: Feng.ctxPath + '/card?userId=' + WxUser.seItem.id,
         });
-        // layer.full(index);
+        layer.full(index);
     }
     this.layerIndex = index;
 };

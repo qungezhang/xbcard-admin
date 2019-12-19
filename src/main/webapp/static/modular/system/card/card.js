@@ -116,6 +116,25 @@ Card.openWxUserCardDetail = function () {
     this.layerIndex = index;
 };
 /**
+ * 名片商品图片列表详情
+ */
+Card.openMaterialList = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '名片商品图片列表详情',
+            area: ['1300px', '600px'], //宽高
+
+            maxmin: true,
+            scrollbar: false ,
+            content: Feng.ctxPath + '/material?cardId=' +  Card.seItem.id,
+        });
+        layer.full(index);
+    }
+    this.layerIndex = index;
+};
+
+/**
  * 删除
  */
 Card.delete = function () {

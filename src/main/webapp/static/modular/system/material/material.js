@@ -194,8 +194,12 @@ Material.resetSearch = function () {
     Material.search();
 };
 $(function () {
+    var queryData = {
+        "cardId": $("#cardId").val()
+    };
     var defaultColunms = Material.initColumn();
     var table = new BSTable(Material.id, "/material/list", defaultColunms);
     table.setPaginationType("client");
+    table.setQueryParams(queryData);
     Material.table = table.init();
 });

@@ -42,7 +42,7 @@ html,body,div,table,tr,td{
 .container .wrap>div{
     height:25%;
     /*border-bottom:1px solid #331512;*/
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
 }
 .container .wrap>img{

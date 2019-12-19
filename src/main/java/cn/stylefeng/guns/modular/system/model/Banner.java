@@ -60,6 +60,9 @@ public class Banner extends Model<Banner> {
      */
     @TableField("create_by")
     private String createBy;
+
+    @TableField("default_img")
+    private String defaultImg;
     /**
      * 修改时间
      */
@@ -71,6 +74,13 @@ public class Banner extends Model<Banner> {
     @TableField("update_by")
     private String updateBy;
 
+    public String getDefaultImg() {
+        return defaultImg;
+    }
+
+    public void setDefaultImg(String defaultImg) {
+        this.defaultImg = defaultImg;
+    }
 
     public Integer getId() {
         return id;
@@ -165,6 +175,7 @@ public class Banner extends Model<Banner> {
         ", description=" + description +
         ", userId=" + userId +
         ", cardId=" + cardId +
+        ", defaultImg=" + defaultImg +
         ", isDeleted=" + isDeleted +
         ", createTime=" + createTime +
         ", createBy=" + createBy +

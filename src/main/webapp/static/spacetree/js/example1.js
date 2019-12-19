@@ -67,8 +67,8 @@ function init(data) {
         //set overridable=true for styling individual
         //nodes or edges
         Node: {
-            height: 100,
-            width: 150,
+            height: 80,
+            width: 130,
             type: 'rectangle',
             // type: 'ellipse',
             color: '#aaaaaa',
@@ -95,17 +95,31 @@ function init(data) {
             label.id = node.id;
             var level = ['第一层','第二层','第三层','第四层','第五层','第六层'];
             var wrap =
-                '<div class="wrap">'+
-                '<img class="imgssss img-rounded" />'+
-                '<div class="secondLevel"></div>'+
-                '<div class="level"></div>'+
+                '<div class="wrap ">'+
+                '<div class="row">'+
+                '<div class="col-xs-4">'+
+                '<img class="imgssss img-rounded" style="height: 55px;width: 55px"/>'+
+                '</div>'+
+                '<div class="col-xs-8">'+
+                '<div class="All"></div>'+
+                '<div class="VIP"></div>'+
+                '<div class="OP"></div>'+
+
+                '</div>'+
+                '</div>'+
+                '<div class="row">'+
+                '<div class="col-xs-offset-3 mobile"></div>'+
+                '</div>'+
                 '</div>'
             var $wrap = $(wrap);
             $wrap.find('.imgssss').attr("src",node.data.headimgurl)
-            $wrap.find('.level').text(node.name)
-            $wrap.find('.secondLevel').text(
-                "All:"+node.data.childCount+"  VIP:"+node.data.vipNum+"  OP:"+node.data.opNum
-            );
+            $wrap.find('.mobile').text(node.name)
+            $wrap.find('.All').text("all: "+node.data.childCount)
+            $wrap.find('.VIP').text("vip: "+node.data.vipNum)
+            $wrap.find('.OP').text("op: "+node.data.opNum)
+            // $wrap.find('.secondLevel').text(
+            //     "All:"+node.data.childCount+"  VIP:"+node.data.vipNum+"  OP:"+node.data.opNum
+            // );
             $(label).append($wrap);
             label.onclick = function () {
                 if (normal.checked) {
@@ -117,7 +131,7 @@ function init(data) {
             //set label styles
 
             var style = label.style;
-            style.textAlign= 'center';
+            style.textAlign= 'left';
             style.fontWeight= 'bold';
             if (node.id== 0) {
                 style.color = '#f6faff';
