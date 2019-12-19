@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +13,8 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
+
+import java.util.Date;
 
 /**
  * 素材控制器
@@ -59,8 +63,16 @@ public class MaterialController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
-        return materialService.selectList(null);
+    public Object list(String mobile, Integer cardId) {
+        Material material = new Material();
+        if (ToolUtil.isNotEmpty(cardId)) {
+            material.setCardId(cardId);
+        }
+        if (ToolUtil.isNotEmpty(mobile)) {
+            material.setUpdateBy(mobile);
+        }
+//        material.setIsDeleted(0);
+        return materialService.selectList(new EntityWrapper<>(material).orderBy("create_time",false));
     }
 
     /**
@@ -80,6 +92,20 @@ public class MaterialController extends BaseController {
     @ResponseBody
     public Object delete(@RequestParam Integer materialId) {
         materialService.deleteById(materialId);
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping(value = "/updateStatus")
+    @ResponseBody
+    public Object updateStatus(@RequestParam Integer materialId,@RequestParam Integer isDeleted) {
+        Material entity = new Material();
+        entity.setId(materialId);
+        entity.setIsDeleted(isDeleted);
+        entity.setUpdateTime(new Date());
+        materialService.updateById(entity);
         return SUCCESS_TIP;
     }
 

@@ -97,7 +97,7 @@ public class MaterialCommentReply extends Model<MaterialCommentReply> {
      * 修改人
      */
     @TableField("update_by")
-    private Date updateBy;
+    private String updateBy;
     /**
      * 预留字段
      */
@@ -228,11 +228,11 @@ public class MaterialCommentReply extends Model<MaterialCommentReply> {
         this.updateTime = updateTime;
     }
 
-    public Date getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Date updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 

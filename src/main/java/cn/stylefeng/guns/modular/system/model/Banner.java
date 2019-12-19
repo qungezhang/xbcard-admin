@@ -69,7 +69,7 @@ public class Banner extends Model<Banner> {
      * 修改人
      */
     @TableField("update_by")
-    private Date updateBy;
+    private String updateBy;
 
 
     public Integer getId() {
@@ -144,11 +144,11 @@ public class Banner extends Model<Banner> {
         this.updateTime = updateTime;
     }
 
-    public Date getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Date updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 

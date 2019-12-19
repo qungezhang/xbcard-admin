@@ -69,7 +69,8 @@ function init(data) {
         Node: {
             height: 100,
             width: 150,
-            type: 'ellipse',
+            type: 'rectangle',
+            // type: 'ellipse',
             color: '#aaaaaa',
             overridable: true
         },

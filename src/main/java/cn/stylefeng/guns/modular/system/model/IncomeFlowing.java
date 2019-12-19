@@ -118,7 +118,7 @@ public class IncomeFlowing extends Model<IncomeFlowing> {
      * 修改人
      */
     @TableField("update_by")
-    private Date updateBy;
+    private String updateBy;
 
 
     public Integer getId() {
@@ -273,11 +273,11 @@ public class IncomeFlowing extends Model<IncomeFlowing> {
         this.updateTime = updateTime;
     }
 
-    public Date getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Date updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 

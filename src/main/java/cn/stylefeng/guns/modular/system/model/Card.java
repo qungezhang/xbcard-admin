@@ -101,7 +101,7 @@ public class Card extends Model<Card> {
      * 修改人
      */
     @TableField("update_by")
-    private Date updateBy;
+    private String updateBy;
     /**
      * 小程序码
      */
@@ -252,11 +252,11 @@ public class Card extends Model<Card> {
         this.updateTime = updateTime;
     }
 
-    public Date getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Date updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 

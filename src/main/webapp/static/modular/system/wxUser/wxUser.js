@@ -34,7 +34,7 @@ WxUser.initColumn = function () {
         // {title: '微信号', field: 'wechatNumber', visible: true, align: 'center', valign: 'middle'},
         // {title: '微信unionid', field: 'unionid', visible: true, align: 'center', valign: 'middle'},
         // {title: '微信二维码', field: 'qrcode', visible: true, align: 'center', valign: 'middle'},
-        {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        // {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle', width: '70px'},
         {title: '吸粉数', field: 'childCount', visible: true, align: 'center', valign: 'middle', width: '70px'},
         {title: 'VIP数', field: 'vipNum', visible: true, align: 'center', valign: 'middle', width: '70px'},
         {title: '免费数', field: 'notVipNum', visible: true, align: 'center', valign: 'middle', width: '70px'},
@@ -73,7 +73,7 @@ WxUser.initColumn = function () {
         // {title: '最后登录时间', field: 'lastLoginTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
         // {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
         // {title: '创建人', field: 'createBy', visible: true, align: 'center', valign: 'middle'},
-        // {title: '修改时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle'},
+        {title: '成为VIP时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
         // {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'},
         // {title: '预留字段', field: 'flag1', visible: true, align: 'center', valign: 'middle'},
         // {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'}
