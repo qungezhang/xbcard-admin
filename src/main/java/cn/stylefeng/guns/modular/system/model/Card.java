@@ -77,6 +77,8 @@ public class Card extends Model<Card> {
      */
     @TableField("share_title")
     private String shareTitle;
+    @TableField("share_type")
+    private Integer shareType;
     /**
      * 是否删除（0否，1是）
      */
@@ -115,6 +117,13 @@ public class Card extends Model<Card> {
      */
     private String flag4;
 
+    public Integer getShareType() {
+        return shareType;
+    }
+
+    public void setShareType(Integer shareType) {
+        this.shareType = shareType;
+    }
 
     public Integer getId() {
         return id;
@@ -305,6 +314,7 @@ public class Card extends Model<Card> {
         ", type=" + type +
         ", shareImgUrl=" + shareImgUrl +
         ", shareTitle=" + shareTitle +
+        ", shareType=" + shareType +
         ", isDeleted=" + isDeleted +
         ", createTime=" + createTime +
         ", createBy=" + createBy +

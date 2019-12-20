@@ -277,7 +277,7 @@ public class CardApiController extends BaseController {
         if (card != null) {
             SuccessResponseData responseData = new SuccessResponseData();
             WxUser user = wxUserService.getLoginWxUser();
-//            Integer isvip = user.getIsvip();
+            Integer isvip = user.getIsvip();
 //            boolean isMaterialList = false;
 //            if (isvip != null && isvip.equals(1)) {//是vip
 //                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
@@ -305,7 +305,7 @@ public class CardApiController extends BaseController {
 //            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
 //            List<Material> materials = materialService.selectList(wrapper);
 //            cardInfoDTO.setMaterialList(materials);
-//            cardInfoDTO.setIsVip(isvip);
+            cardInfoDTO.setIsVip(isvip);
             responseData.setData(cardInfoDTO);
             return responseData;
         } else {
