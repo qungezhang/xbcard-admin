@@ -17,6 +17,7 @@
         <result column="type" property="type" />
         <result column="share_img_url" property="shareImgUrl" />
         <result column="share_title" property="shareTitle" />
+        <result column="share_type" property="shareType" />
         <result column="is_deleted" property="isDeleted" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
@@ -29,7 +30,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, mobile, company, position, address, email, fax, logo, user_id, type, share_img_url, share_title, is_deleted, create_time, create_by, update_time, update_by, flag2, flag3, flag4
+        id, name, mobile, company, position, address, email, fax, logo, user_id, type, share_img_url, share_title, share_type, is_deleted, create_time, create_by, update_time, update_by, flag2, flag3, flag4
     </sql>
 
 </mapper>
