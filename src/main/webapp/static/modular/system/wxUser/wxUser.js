@@ -35,13 +35,42 @@ WxUser.initColumn = function () {
         // {title: '微信unionid', field: 'unionid', visible: true, align: 'center', valign: 'middle'},
         // {title: '微信二维码', field: 'qrcode', visible: true, align: 'center', valign: 'middle'},
         // {title: '性别', field: 'sexName', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: '吸粉数', field: 'childCount', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: 'VIP数', field: 'vipNum', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: '免费数', field: 'notVipNum', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: '总提成', field: 'inTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: '已提现', field: 'outTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: '预备金', field: 'preTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
-        {title: '可提现', field: 'validRestTotal', visible: true, align: 'center', valign: 'middle', width: '70px'},
+        {title: '吸粉数', field: 'childCount', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: black;display:inline-block" >'+row.childCount+'</span>';
+            }
+        },
+        {title: 'VIP数', field: 'vipNum', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: red;display:inline-block" >'+row.vipNum+'</span>';
+            }
+        },
+        {title: '免费数', field: 'notVipNum', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: black;display:inline-block" >'+row.notVipNum+'</span>';
+            }
+        },
+        {title: '总提成', field: 'inTotal', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: black;display:inline-block" >'+row.inTotal+'</span>';
+            }
+        },
+        {title: '已提现', field: 'outTotal', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: black;display:inline-block" >'+row.outTotal+'</span>';
+            }
+        },
+        {title: '预备金', field: 'preTotal', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: black;display:inline-block" >'+row.preTotal+'</span>';
+            }
+        },
+        {title: '可提现', field: 'validRestTotal', visible: true, align: 'center', valign: 'middle', width: '60px'
+            , formatter: function (value, row, index) {
+                return '<span style="font-weight: bold;font-size:large;color: black;display:inline-block" >'+row.validRestTotal+'</span>';
+        }
+
+        },
         // {title: '渠道（0自主 ）', field: 'channel', visible: true, align: 'center', valign: 'middle'},
         // {title: '地址', field: 'addressAll', visible: true, align: 'center', width: '200px', valign: 'middle'},
         // {title: '国家', field: 'country', visible: true, align: 'center', width:'60px', valign: 'middle'},
@@ -54,15 +83,15 @@ WxUser.initColumn = function () {
         // {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
         // {title: '是否删除（0否，1是）', field: 'isDeleted', visible: true, align: 'center', valign: 'middle'},
         {
-            title: '是否VIP', field: 'isvip', visible: true, align: 'center', width: '80px', valign: 'middle',
+            title: '是否VIP', field: 'isvip', visible: true, align: 'center', width: '80px',background:'red', valign: 'middle',
             formatter: function (value, row, index) {
                 var s;
                 if (row.isvip != null) {
                     var temp = row.isvip;
                     if (temp == 1) {
-                        s = '<div style="color: #f5ff78;background: #A60000"  >是 </div>';
+                        s = '<span style="font-weight: bold;font-size:large;color:yellow;background:red;"  >是</span>';
                     } else {
-                        s = '<div > 否</div>';
+                        s = '<span style="font-weight: bold;font-size:large;color:black;" >否</span>';
                     }
                 }
                 return s;

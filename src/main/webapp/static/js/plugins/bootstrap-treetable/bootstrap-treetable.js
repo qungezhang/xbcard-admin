@@ -138,6 +138,7 @@ function extracted($, item, target, globalCollapsedFlag, options) {
                     tr.append(td);
                 } else {
                     var td = $('<td title="' + item[column.field] + '" name="' + column.field + '" style="' + ((column.width) ? ('width:' + column.width) : '') + '"></td>');
+
                     // 增加formatter渲染
                     if (column.formatter) {
                         td.html(column.formatter.call(this, item[column.field], item, index));
