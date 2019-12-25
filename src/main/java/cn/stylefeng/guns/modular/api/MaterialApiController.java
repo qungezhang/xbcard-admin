@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -57,29 +58,29 @@ public class MaterialApiController extends BaseController {
     private QiniuService qiniuService;
     @Autowired
     private IWxUserService wxUserService;
-    /**
-     * 获取列表
-     */
-    @PostMapping(value = "/pList")
-    @ApiOperation("获取分页列表--------待废弃")
-    @ResponseBody
-    public ResponseData pList(@RequestBody PageListDTO<Material> pageListDTO) {
-        Page<Material> page = new PageFactory<Material>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
-        PageUtils pageUtils = new PageUtils(materialService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()).orderBy("create_time",false)));
-        return new SuccessResponseData(pageUtils);
-    }
-
-    /**
-     * 获取列表
-     */
-    @PostMapping(value = "/List")
-    @ApiOperation("获取列表--------待废弃")
-    @ResponseBody
-    public ResponseData List(@RequestBody Material material) {
-        material.setIsDeleted(0);
-        List<Material> materials = materialService.selectList(new EntityWrapper<>(material).orderBy("create_time",false));
-        return new SuccessResponseData(materials);
-    }
+//    /**
+//     * 获取列表
+//     */
+//    @PostMapping(value = "/pList")
+//    @ApiOperation("获取分页列表--------待废弃")
+//    @ResponseBody
+//    public ResponseData pList(@RequestBody PageListDTO<Material> pageListDTO) {
+//        Page<Material> page = new PageFactory<Material>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), null, null);
+//        PageUtils pageUtils = new PageUtils(materialService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()).orderBy("create_time",false)));
+//        return new SuccessResponseData(pageUtils);
+//    }
+//
+//    /**
+//     * 获取列表
+//     */
+//    @PostMapping(value = "/List")
+//    @ApiOperation("获取列表--------待废弃")
+//    @ResponseBody
+//    public ResponseData List(@RequestBody Material material) {
+//        material.setIsDeleted(0);
+//        List<Material> materials = materialService.selectList(new EntityWrapper<>(material).orderBy("create_time",false));
+//        return new SuccessResponseData(materials);
+//    }
 
     /**
      * 获取顶级列表
@@ -123,14 +124,19 @@ public class MaterialApiController extends BaseController {
         if (materialDTO.getPid() > 0 && wxUser.getIsvip() == 0) {//非vip
             return new ErrorResponseData("用户不是VIP，不可分类");
         }
-        Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
-        materialSetPcode(material);
-        material.setUserId(wxUser.getId());
-        material.setCreateBy(wxUser.getMobile());
-        material.setIsDeleted(0);//是否删除（0否，1是）
-        material.setCreateTime(new Date());
-        material.setUpdateTime(new Date());
-        materialService.insert(material);
+        String[] imgList = materialDTO.getImgUrls().split(",");
+        for (String img : imgList) {
+            Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
+            materialSetPcode(material);
+            material.setImgUrl(img);
+            material.setUserId(wxUser.getId());
+            material.setCreateBy(wxUser.getMobile());
+            material.setIsDeleted(0);//是否删除（0否，1是）
+            material.setCreateTime(new Date());
+            material.setUpdateTime(new Date());
+            materialService.insert(material);
+        }
+
         return SUCCESS_TIP;
     }
     private void materialSetPcode(Material material) {

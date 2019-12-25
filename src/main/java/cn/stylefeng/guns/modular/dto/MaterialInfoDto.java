@@ -33,6 +33,8 @@ public class MaterialInfoDto {
      */
     @ApiModelProperty(value = "图片地址")
     private String imgUrl;
+    @ApiModelProperty(value = "默认图片")
+    private String  defaultImg;
     /**
      * 简称
      */

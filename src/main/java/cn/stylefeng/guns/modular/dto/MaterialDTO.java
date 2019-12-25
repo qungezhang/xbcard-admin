@@ -23,8 +23,10 @@ public class MaterialDTO implements Serializable {
      * 图片地址
      */
     @NotNull(message = "图片地址不可为空")
-    @ApiModelProperty(value = "图片地址", required = true)
-    private String imgUrl;
+    @ApiModelProperty(value = "图片地址(多个,隔开)", required = true)
+    private String imgUrls;
+    @ApiModelProperty(value = "默认图片")
+    private String  defaultImg;
     /**
      * 描述
      */
