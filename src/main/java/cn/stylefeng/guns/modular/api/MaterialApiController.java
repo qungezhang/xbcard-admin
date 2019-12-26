@@ -116,7 +116,7 @@ public class MaterialApiController extends BaseController {
     @PostMapping(value = "/add")
     @ResponseBody
     @ApiOperation("新增")
-    public Object add(@RequestBody @Valid MaterialDTO materialDTO) {
+    public Object add(@RequestBody MaterialDTO materialDTO) {
         WxUser wxUser = wxUserService.getLoginWxUser();
         if (wxUser == null) {
             return new ErrorResponseData("用户授权登录异常");
@@ -124,11 +124,22 @@ public class MaterialApiController extends BaseController {
         if (materialDTO.getPid() > 0 && wxUser.getIsvip() == 0) {//非vip
             return new ErrorResponseData("用户不是VIP，不可分类");
         }
-        String[] imgList = materialDTO.getImgUrls().split(",");
-        for (String img : imgList) {
-            Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
+        if (ToolUtil.isEmpty(materialDTO.getPid()) || ToolUtil.isEmpty(materialDTO.getCardId()) || ToolUtil.isEmpty(materialDTO.getImgList())) {
+            return new ErrorResponseData("父级id、名片id、图片对象list 均不可为空");
+        }
+
+        List<MaterialAddListDTO> imgList = materialDTO.getImgList();
+        for (MaterialAddListDTO addListDTO : imgList) {
+            if (ToolUtil.isEmpty(addListDTO.getImgUrl())) {
+                return new ErrorResponseData("图片list对象中的imgUrl不可为空");
+            }
+            Material material = new Material();
+            material.setPid(materialDTO.getPid());
+            material.setCardId(materialDTO.getCardId());
             materialSetPcode(material);
-            material.setImgUrl(img);
+            material.setImgUrl(addListDTO.getImgUrl());
+            material.setDefaultImg(addListDTO.getDefaultImg());
+            material.setDescription(addListDTO.getDescription());
             material.setUserId(wxUser.getId());
             material.setCreateBy(wxUser.getMobile());
             material.setIsDeleted(0);//是否删除（0否，1是）
@@ -136,7 +147,6 @@ public class MaterialApiController extends BaseController {
             material.setUpdateTime(new Date());
             materialService.insert(material);
         }
-
         return SUCCESS_TIP;
     }
     private void materialSetPcode(Material material) {
