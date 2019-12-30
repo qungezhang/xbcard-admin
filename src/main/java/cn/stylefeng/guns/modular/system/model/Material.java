@@ -35,6 +35,8 @@ public class Material extends Model<Material> {
      */
     @TableField("img_url")
     private String imgUrl;
+    @TableField("default_img")
+    private String defaultImg;
     /**
      * 价格
      */
@@ -108,6 +110,13 @@ public class Material extends Model<Material> {
      */
     private String flag2;
 
+    public String getDefaultImg() {
+        return defaultImg;
+    }
+
+    public void setDefaultImg(String defaultImg) {
+        this.defaultImg = defaultImg;
+    }
 
     public Integer getId() {
         return id;

@@ -37,6 +37,8 @@ public class MaterialInfoDto {
     private String price;
     @ApiModelProperty(value = "标签(0正常 1新品)")
     private Integer label;
+    @ApiModelProperty(value = "默认图片")
+    private String  defaultImg;
     /**
      * 简称
      */
