@@ -7,6 +7,7 @@
         <id column="id" property="id" />
         <result column="pid" property="pid" />
         <result column="img_url" property="imgUrl" />
+        <result column="price" property="price" />
         <result column="simplename" property="simplename" />
         <result column="description" property="description" />
         <result column="num" property="num" />
@@ -26,13 +27,14 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, pid, img_url, simplename, description, num, user_id, card_id, category_id, code, pcode, is_deleted, create_time, create_by, update_time, update_by, flag1, flag2
+        id, pid, img_url, price, simplename, description, num, user_id, card_id, category_id, code, pcode, is_deleted, create_time, create_by, update_time, update_by, flag1, flag2
     </sql>
     <select id="getMaterialByPid" resultType="cn.stylefeng.guns.modular.dto.MaterialInfoDto">
         SELECT
             m1.id,
             m1.pid,
             m1.img_url imgUrl,
+            m1.price price,
             m1.simplename,
             m1.description,
             m1.card_id cardId,
@@ -43,6 +45,8 @@
             m1.update_by updateBy,
             m1.flag1,
             m1.flag2,
+        IF
+            ( DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(m1.create_time), 1, 0 ) label,
         IF
             ( COUNT( m2.id )> 0, 1, 0 ) hasChildren
         FROM

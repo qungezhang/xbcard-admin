@@ -26,6 +26,8 @@ public class MaterialUpdateDTO implements Serializable {
      */
     @ApiModelProperty(value = "图片地址")
     private String imgUrl;
+    @ApiModelProperty(value = "价格")
+    private String price;
     /**
      * 描述
      */

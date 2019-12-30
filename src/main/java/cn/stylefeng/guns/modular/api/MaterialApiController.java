@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.api;
 import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
+import cn.stylefeng.guns.core.util.DateUtils;
 import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.dto.MaterialChildPListDTO;
@@ -198,7 +199,11 @@ public class MaterialApiController extends BaseController {
     @ResponseBody
     @ApiOperation("详情")
     public Object detail(@PathVariable("materialId") Integer materialId) {
-        return materialService.selectById(materialId);
+        Material material = materialService.selectById(materialId);
+        MaterialInfoDto materialInfoDto = BeanMapperUtil.objConvert(material, MaterialInfoDto.class);
+        Integer days = DateUtils.days(material.getCreateTime(), new Date());
+        materialInfoDto.setLabel(days <= 7 ? 1 : 0);
+        return new SuccessResponseData(materialInfoDto);
     }
 
 //    /**

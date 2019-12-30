@@ -36,6 +36,10 @@ public class Material extends Model<Material> {
     @TableField("img_url")
     private String imgUrl;
     /**
+     * 价格
+     */
+    private String price;
+    /**
      * 简称
      */
     private String simplename;
@@ -111,6 +115,14 @@ public class Material extends Model<Material> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public Integer getPid() {
