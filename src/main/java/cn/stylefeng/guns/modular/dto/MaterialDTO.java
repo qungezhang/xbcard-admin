@@ -1,10 +1,8 @@
 package cn.stylefeng.guns.modular.dto;
 
-import cn.stylefeng.guns.modular.api.MaterialAddListDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,23 +20,8 @@ public class MaterialDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 图片地址
-     */
-    @NotNull(message = "图片地址不可为空")
-    @ApiModelProperty(value = "图片地址", required = true)
-    private String imgUrl;
-
-    @ApiModelProperty(value = "价格")
-    private String price;
-    /**
-     * 描述
-     */
-    @ApiModelProperty(value = "图片描述")
-    private String description;
-    /**
      * 名片id
      */
-    @NotNull(message = "名片id不可为空")
     @ApiModelProperty(value = "名片id", required = true)
     private Integer cardId;
     @ApiModelProperty(value = "父级id不可为空默认为0", required = true)

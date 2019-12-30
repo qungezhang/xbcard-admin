@@ -1,4 +1,4 @@
-package cn.stylefeng.guns.modular.api;
+package cn.stylefeng.guns.modular.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
