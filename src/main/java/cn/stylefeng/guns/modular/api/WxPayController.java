@@ -46,6 +46,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -182,7 +184,13 @@ public class WxPayController {
     }
     //将用户设为vip
     wxUser.setIsvip(1);
-    wxUser.setUpdateTime(new Date());
+    Date now = new Date();
+    wxUser.setUpdateTime(now);
+    wxUser.setVipStartTime(now);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(new Date());
+    cal.add(Calendar.YEAR, 1);  //在当前时间基础上加一年
+    wxUser.setVipEndTime(cal.getTime());
     wxUserService.updateById(wxUser);
     //记录收入表
     Integer empId = wxUser.getEmpId();
@@ -197,9 +205,9 @@ public class WxPayController {
     }
     flowing.setMerchantFee(Integer.valueOf(callbackDto.getTotalFee()));
     flowing.setPackageValue(callbackDto.getPackageValue());
-    flowing.setCreateTime(new Date());
+    flowing.setCreateTime(now);
     flowing.setCreateBy(wxUser.getMobile());
-    flowing.setUpdateTime(new Date());
+    flowing.setUpdateTime(now);
     incomeFlowingService.insert(flowing);
     return new SuccessResponseData(flowing);
   }

@@ -24,7 +24,7 @@ WxUser.initColumn = function () {
                     s = '<a class = "view"  href="javascript:void(0)"><img style="width:50px;height:50px;"   src="' + url + '" /></a>';
                 }
                 return s;
-            }, events: 'operateEvents', cellStyle: cellStylesales
+            }, events: 'operateEvents'
 
         },
         {title: '昵称', field: 'nickName', visible: true, align: 'center', valign: 'middle', width: '260px'},
@@ -102,31 +102,47 @@ WxUser.initColumn = function () {
         // {title: '最后登录时间', field: 'lastLoginTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
         // {title: '创建时间', field: 'createTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
         // {title: '创建人', field: 'createBy', visible: true, align: 'center', valign: 'middle'},
-        {title: '成为VIP时间', field: 'updateTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
+        {title: 'VIP开始时间', field: 'vipStartTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
+        {title: 'VIP结束时间', field: 'vipEndTime', visible: true, align: 'center', valign: 'middle', width: '150px'},
+        // {title: '操作VIP', field: 'Button', visible: true, align: 'center', valign: 'middle',
+        //     formatter: operateFormatter, events: 'operateEvents'
+        // },
         // {title: '修改人', field: 'updateBy', visible: true, align: 'center', valign: 'middle'},
         // {title: '预留字段', field: 'flag1', visible: true, align: 'center', valign: 'middle'},
         // {title: '预留字段', field: 'flag2', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
-function cellStylesales(value, row, index) {
-    var gmt_mondified = row.gmt_mondified ? row.gmt_mondified : '-';
-    var gmt_create = row.gmt_create;
-    if (gmt_mondified == '-') {
-        gmt_mondified = new Date();
-    }
-    var data_strat = Date.parse(gmt_create);
-    var data_end = Date.parse(gmt_mondified);
-    var times = Math.abs(data_end - data_strat);
-    var days = times / (1000 * 60 * 60 * 24);
-    if (days >= 3 && days < 6) {
-        return {css: {background: '#ffeb3b', color: '#000'}};
-    } else if (days >= 6) {
-        return {css: {background: '#f44336', color: '#000'}};
-    } else {
-        return {css: {background: '#8bc34a', color: '#000'}};
-    }
-}
+// function operateFormatter(value, row, index) {
+//     if (row.isvip == 1) {
+//         return [
+//             '<input type="button" value="关闭" id="closevip" class="btn btn-danger btn-sm"  >'
+//         ].join('');
+//     } else {
+//         return [
+//             '<input type="button" value="开启" id="openvip" class="btn btn-primary btn-sm" >'
+//         ].join('');
+//     }
+// }
+//
+// function cellStylesales(value, row, index) {
+//     var gmt_mondified = row.gmt_mondified ? row.gmt_mondified : '-';
+//     var gmt_create = row.gmt_create;
+//     if (gmt_mondified == '-') {
+//         gmt_mondified = new Date();
+//     }
+//     var data_strat = Date.parse(gmt_create);
+//     var data_end = Date.parse(gmt_mondified);
+//     var times = Math.abs(data_end - data_strat);
+//     var days = times / (1000 * 60 * 60 * 24);
+//     if (days >= 3 && days < 6) {
+//         return {css: {background: '#ffeb3b', color: '#000'}};
+//     } else if (days >= 6) {
+//         return {css: {background: '#f44336', color: '#000'}};
+//     } else {
+//         return {css: {background: '#8bc34a', color: '#000'}};
+//     }
+// }
 
 window.operateEvents = {
     'click .view': function (e, value, row, index) {
@@ -243,7 +259,39 @@ WxUser.delete = function () {
         ajax.start();
     }
 };
+/**
+ * 开启VIP
+ */
+WxUser.openVip = function () {
+    if (this.check()) {
+        var ajax = new $ax(Feng.ctxPath + "/wxUser/updateIsVip", function (data) {
+            Feng.success("开启成功!");
+            WxUser.table.refresh();
+        }, function (data) {
+            Feng.error("开启成功!" + data.responseJSON.message + "!");
+        });
+        ajax.set("userId", this.seItem.id);
+        ajax.set("isVip", 1);
+        ajax.start();
+    }
+};
 
+/**
+ * 关闭VIP
+ */
+WxUser.closeVip = function () {
+    if (this.check()) {
+        var ajax = new $ax(Feng.ctxPath + "/wxUser/updateIsVip", function (data) {
+            Feng.success("关闭成功!");
+            WxUser.table.refresh();
+        }, function (data) {
+            Feng.error("关闭失败!" + data.responseJSON.message + "!");
+        });
+        ajax.set("userId", this.seItem.id);
+        ajax.set("isVip", 0);
+        ajax.start();
+    }
+};
 /**
  * 查询小程序用户列表
  */

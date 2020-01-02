@@ -103,6 +103,16 @@ public class WxUser extends Model<WxUser> {
      */
     private Integer isvip;
     /**
+     * 成为vip时间
+     */
+    @TableField("vip_start_time")
+    private Date vipStartTime;
+    /**
+     * vip结束时间
+     */
+    @TableField("vip_end_time")
+    private Date vipEndTime;
+    /**
      * 冻结 0未冻结 1已冻结
      */
     private Integer freeze;
@@ -291,6 +301,22 @@ public class WxUser extends Model<WxUser> {
 
     public void setIsvip(Integer isvip) {
         this.isvip = isvip;
+    }
+
+    public Date getVipStartTime() {
+        return vipStartTime;
+    }
+
+    public void setVipStartTime(Date vipStartTime) {
+        this.vipStartTime = vipStartTime;
+    }
+
+    public Date getVipEndTime() {
+        return vipEndTime;
+    }
+
+    public void setVipEndTime(Date vipEndTime) {
+        this.vipEndTime = vipEndTime;
     }
 
     public Integer getFreeze() {

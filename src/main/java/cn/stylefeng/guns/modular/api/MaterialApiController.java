@@ -120,8 +120,12 @@ public class MaterialApiController extends BaseController {
         if (wxUser == null) {
             return new ErrorResponseData("用户授权登录异常");
         }
-        if (materialDTO.getPid() > 0 && wxUser.getIsvip() == 0) {//非vip
-            return new ErrorResponseData("用户不是VIP，不可分类");
+        if (materialDTO.getPid() > 0) {//非vip
+            if (wxUser.getIsvip() == 0) {
+                return new ErrorResponseData("用户不是VIP，不可分类");
+            } else if (wxUser.getIsvip() == 1 && System.currentTimeMillis() > wxUser.getVipEndTime().getTime()) {
+                return new ErrorResponseData("用户VIP已过期，不可分类");
+            }
         }
         if (ToolUtil.isEmpty(materialDTO.getPid()) || ToolUtil.isEmpty(materialDTO.getCardId()) || ToolUtil.isEmpty(materialDTO.getImgList())) {
             return new ErrorResponseData("父级id、名片id、图片对象list 均不可为空");

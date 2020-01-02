@@ -23,6 +23,8 @@ import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -167,6 +169,10 @@ public class WxUserController extends BaseController {
                 map.put("restTotal", restTotal);
                 map.put("preTotal", preTotal);
                 map.put("validRestTotal", validRestTotal);
+                if (Integer.parseInt(map.get("isvip") + "") == 0) {
+                    map.put("vipStartTime", null);
+                    map.put("vipEndTime", null);
+                }
             }
             return super.warpObject(new WxUserWarpper(resultMapList));
         } else {
@@ -204,6 +210,30 @@ public class WxUserController extends BaseController {
         return SUCCESS_TIP;
     }
 
+    /**
+     * 修改vip
+     */
+    @RequestMapping(value = "/updateIsVip")
+    @ResponseBody
+    public Object updateIsVip(@RequestParam Integer userId, @RequestParam Integer isVip) {
+        WxUser entity = new WxUser();
+        entity.setId(userId);
+        entity.setIsvip(isVip);
+
+        if (isVip.equals(1) ) {
+            WxUser oldWxUser = wxUserService.selectById(userId);
+            if (oldWxUser.getVipEndTime() != null && oldWxUser.getVipEndTime().getTime() < System.currentTimeMillis()) {
+                entity.setVipStartTime(new Date());
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date());
+                cal.add(Calendar.YEAR, 1);  //在当前时间基础上加一年
+                entity.setVipEndTime(cal.getTime());
+            }
+
+        }
+        wxUserService.updateById(entity);
+        return SUCCESS_TIP;
+    }
     /**
      * 小程序用户详情
      */

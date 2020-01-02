@@ -95,6 +95,14 @@ public class WxUserDto implements Serializable {
      */
     private Integer isvip;
     /**
+     * 成为vip时间
+     */
+    private Date vipStartTime;
+    /**
+     * vip结束时间
+     */
+    private Date vipEndTime;
+    /**
      * 冻结 0未冻结 1已冻结
      */
     private Integer freeze;
