@@ -5,9 +5,11 @@ import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.modular.dto.ForwardPageDTO;
 import cn.stylefeng.guns.modular.dto.PageListDTO;
+import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.model.CardForward;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.ICardForwardService;
+import cn.stylefeng.guns.modular.system.service.ICardService;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +47,8 @@ public class CardForwardApiController extends BaseController {
     private ICardForwardService cardForwardService;
     @Autowired
     private IWxUserService wxUserService;
+    @Autowired
+    private ICardService cardService;
     /**
      * 获取列表
      */
@@ -93,17 +98,22 @@ public class CardForwardApiController extends BaseController {
     @ApiOperation("新增")
     public Object add(@RequestBody CardForward cardForward) {
         Long userId = cardForward.getUserId();
-        if (cardForward.getCardId() == null ||cardForward.getCardLogo() == null || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
-            return new ErrorResponseData("名片ID,名片logo,当前者ID,转发者ID,类型 不可为空");
+        Long cardId = cardForward.getCardId();
+        if (cardId == null  || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
+            return new ErrorResponseData("名片ID,当前者ID,转发者ID,类型 不可为空");
         }
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        Card card = cardService.selectById(cardId);
+        if (card == null) {
+            return new ErrorResponseData("名片不存在");
+        }
         WxUser wxUser = wxUserService.selectById(userId);
         if (wxUser == null) {
             return new ErrorResponseData("当前用户不存在 请查看userId参数");
         }
         CardForward forward = new CardForward();
         forward.setUserId(userId);
-        forward.setCardId(cardForward.getCardId());
+        forward.setCardId(cardId);
         forward.setForwarderId(cardForward.getForwarderId());
         forward.setType(cardForward.getType());
         CardForward selectOne = cardForwardService.selectOne(new EntityWrapper<>(forward).orderBy("create_time", false).last("limit 1"));
@@ -114,6 +124,11 @@ public class CardForwardApiController extends BaseController {
             cardForward.setHeadImg(wxUser.getHeadimgurl());
             cardForward.setNickname(wxUser.getNickName());
             cardForward.setOpenid(wxUser.getOpenid());
+            cardForward.setCardLogo(card.getLogo());
+            cardForward.setCardCompany(card.getCompany());
+            cardForward.setCardName(card.getName());
+            cardForward.setCardPosition(card.getPosition());
+            cardForward.setCreateTime(new Date());
             cardForwardService.insert(cardForward);
         }
 

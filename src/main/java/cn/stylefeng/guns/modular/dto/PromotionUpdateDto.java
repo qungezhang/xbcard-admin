@@ -26,10 +26,6 @@ public class PromotionUpdateDto implements Serializable {
      */
     private String description;
     /**
-     * 用户id
-     */
-    private Integer userId;
-    /**
      * 名片id
      */
     private Integer cardId;

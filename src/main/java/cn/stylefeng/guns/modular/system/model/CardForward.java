@@ -33,6 +33,15 @@ public class CardForward extends Model<CardForward> {
     private Long cardId;
     @TableField("card_logo")
     private String cardLogo;
+
+    @TableField("card_position")
+    private String cardPosition;
+    @TableField("card_name")
+    private String cardName;
+    @TableField("card_company")
+    private String cardCompany;
+
+
     @TableField("forwarder_img")
     private String forwarderImg;
     /**
@@ -96,6 +105,30 @@ public class CardForward extends Model<CardForward> {
 
     public void setForwarderImg(String forwarderImg) {
         this.forwarderImg = forwarderImg;
+    }
+
+    public String getCardPosition() {
+        return cardPosition;
+    }
+
+    public void setCardPosition(String cardPosition) {
+        this.cardPosition = cardPosition;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public String getCardCompany() {
+        return cardCompany;
+    }
+
+    public void setCardCompany(String cardCompany) {
+        this.cardCompany = cardCompany;
     }
 
     public Long getCardId() {

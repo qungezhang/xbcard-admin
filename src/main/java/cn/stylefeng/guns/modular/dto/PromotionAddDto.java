@@ -24,11 +24,6 @@ public class PromotionAddDto implements Serializable {
     @NotBlank(message = "描述不可为空")
     private String description;
     /**
-     * 用户id
-     */
-    @NotNull(message = "用户id不可为空")
-    private Integer userId;
-    /**
      * 名片id
      */
     @NotNull(message = "名片id不可为空")

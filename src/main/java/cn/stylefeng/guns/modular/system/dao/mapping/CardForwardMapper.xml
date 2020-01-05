@@ -7,6 +7,9 @@
         <id column="id" property="id" />
         <result column="card_id" property="cardId" />
         <result column="card_logo" property="cardLogo" />
+        <result column="card_position" property="cardPosition" />
+        <result column="card_name" property="cardName" />
+        <result column="card_company" property="cardCompany" />
         <result column="type" property="type" />
         <result column="user_id" property="userId" />
         <result column="head_img" property="headImg" />
@@ -20,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, card_id,card_logo, type, user_id, head_img, nickname, forwarder_id,forwarder_img, openid, company_id, create_time
+        id, card_id,card_logo, card_position,card_name,card_company,type, user_id, head_img, nickname, forwarder_id,forwarder_img, openid, company_id, create_time
     </sql>
 
 </mapper>

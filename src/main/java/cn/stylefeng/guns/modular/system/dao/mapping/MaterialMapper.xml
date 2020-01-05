@@ -48,7 +48,7 @@
             m1.flag1,
             m1.flag2,
         IF
-            ( DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(m1.create_time), 1, 0 ) label,
+            ( DATE_SUB(CURDATE(), INTERVAL 3 DAY) &lt;= date(m1.create_time), 1, 0 ) label,
         IF
             ( COUNT( m2.id )> 0, 1, 0 ) hasChildren
         FROM
