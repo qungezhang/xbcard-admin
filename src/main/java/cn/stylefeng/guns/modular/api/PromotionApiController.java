@@ -9,6 +9,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,7 +58,7 @@ public class PromotionApiController extends BaseController {
      * 删除宣传文案
      */
     @ApiOperation("删除")
-    @RequestMapping(value = "/delete")
+    @GetMapping(value = "/delete")
     public Object delete(@RequestParam Integer id) {
         promotionService.deleteById(id);
         return SUCCESS_TIP;
@@ -66,7 +67,7 @@ public class PromotionApiController extends BaseController {
     /**
      * 修改宣传文案
      */
-    @RequestMapping(value = "/update")
+    @PostMapping(value = "/update")
     @ApiOperation("修改")
     public Object update(@RequestBody @Valid PromotionUpdateDto updateDto) {
         Promotion promotion = BeanMapperUtil.objConvert(updateDto, Promotion.class);
@@ -77,7 +78,7 @@ public class PromotionApiController extends BaseController {
     /**
      * 宣传文案详情
      */
-    @RequestMapping(value = "/detail/{id}")
+    @GetMapping(value = "/detail/{id}")
     @ApiOperation("详情")
     public Object detail(@PathVariable("id") Integer id) {
         return promotionService.selectById(id);
