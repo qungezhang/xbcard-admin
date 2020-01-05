@@ -92,14 +92,15 @@ public class CardForwardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增")
     public Object add(@RequestBody CardForward cardForward) {
-        if (cardForward.getCardId() == null || cardForward.getForwarderId() == null || cardForward.getType() == null) {
-            return new ErrorResponseData("名片ID,转发者ID,类型 不可为空");
+        Long userId = cardForward.getUserId();
+        if (cardForward.getCardId() == null || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
+            return new ErrorResponseData("名片ID,当前者ID,转发者ID,类型 不可为空");
         }
-        WxUser loginWxUser = wxUserService.getLoginWxUser();
-        if (loginWxUser == null) {
-            return new ErrorResponseData("请授权登录");
+//        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        WxUser wxUser = wxUserService.selectById(userId);
+        if (wxUser == null) {
+            return new ErrorResponseData("当前用户不存在 请查看userId参数");
         }
-        Long userId = Long.valueOf(loginWxUser.getId());
         CardForward forward = new CardForward();
         forward.setUserId(userId);
         forward.setCardId(cardForward.getCardId());
@@ -110,9 +111,9 @@ public class CardForwardApiController extends BaseController {
             log.info(String.format("浏览收藏记录已存在：%s。", selectOne));
         } else {
             cardForward.setUserId(userId);
-            cardForward.setHeadImg(loginWxUser.getHeadimgurl());
-            cardForward.setNickname(loginWxUser.getNickName());
-            cardForward.setOpenid(loginWxUser.getOpenid());
+            cardForward.setHeadImg(wxUser.getHeadimgurl());
+            cardForward.setNickname(wxUser.getNickName());
+            cardForward.setOpenid(wxUser.getOpenid());
             cardForwardService.insert(cardForward);
         }
 
