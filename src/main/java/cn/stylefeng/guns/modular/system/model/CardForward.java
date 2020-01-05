@@ -31,6 +31,10 @@ public class CardForward extends Model<CardForward> {
      */
     @TableField("card_id")
     private Long cardId;
+    @TableField("card_logo")
+    private String cardLogo;
+    @TableField("forwarder_img")
+    private String forwarderImg;
     /**
      * 类型 1转发 2进入 3收藏
      */
@@ -76,6 +80,22 @@ public class CardForward extends Model<CardForward> {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCardLogo() {
+        return cardLogo;
+    }
+
+    public void setCardLogo(String cardLogo) {
+        this.cardLogo = cardLogo;
+    }
+
+    public String getForwarderImg() {
+        return forwarderImg;
+    }
+
+    public void setForwarderImg(String forwarderImg) {
+        this.forwarderImg = forwarderImg;
     }
 
     public Long getCardId() {

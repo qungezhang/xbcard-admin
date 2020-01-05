@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2019-12-17
  */
 @Data
-public class MaterialCommentDto {
+public class MaterialCommentDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

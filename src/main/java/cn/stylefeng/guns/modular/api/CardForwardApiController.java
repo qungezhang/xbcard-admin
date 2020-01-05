@@ -93,8 +93,8 @@ public class CardForwardApiController extends BaseController {
     @ApiOperation("新增")
     public Object add(@RequestBody CardForward cardForward) {
         Long userId = cardForward.getUserId();
-        if (cardForward.getCardId() == null || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
-            return new ErrorResponseData("名片ID,当前者ID,转发者ID,类型 不可为空");
+        if (cardForward.getCardId() == null ||cardForward.getCardLogo() == null || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
+            return new ErrorResponseData("名片ID,名片logo,当前者ID,转发者ID,类型 不可为空");
         }
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
         WxUser wxUser = wxUserService.selectById(userId);

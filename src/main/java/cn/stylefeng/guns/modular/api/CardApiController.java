@@ -101,32 +101,32 @@ public class CardApiController extends BaseController {
         user.setCardId(cardId);
         return new SuccessResponseData(wxUserService.updateById(user));
     }
-
-    /**
-     * 首页名片
-     */
-    @GetMapping(value = "/indexCard")
-    @ApiOperation("首页名片")
-    public ResponseData indexCard() {
-        WxUser user = wxUserService.getLoginWxUser();
-        if (user == null) {
-            return new ErrorResponseData("未授权登录");
-        }
-        CardDTO cardDto = new CardDTO();
-        Integer cardId = user.getCardId();
-        if (ToolUtil.isNotEmpty(cardId)) {
-            Card card = cardService.getOneByCardId(cardId);
-//            if (card != null) {
-//                EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
-//                materialEntityWrapper.eq("card_id", card.getId());
-//                List<Material> materialList = materialService.selectList(materialEntityWrapper);
-//                cardDto.setMaterialList(materialList);
-//            }
-            cardDto.setCard(card);
-        }
-        cardDto.setIsVip(user.getIsvip());
-        return new SuccessResponseData(cardDto);
-    }
+//
+//    /**
+//     * 首页名片
+//     */
+//    @GetMapping(value = "/indexCard")
+//    @ApiOperation("首页名片")
+//    public ResponseData indexCard() {
+//        WxUser user = wxUserService.getLoginWxUser();
+//        if (user == null) {
+//            return new ErrorResponseData("未授权登录");
+//        }
+//        CardDTO cardDto = new CardDTO();
+//        Integer cardId = user.getCardId();
+//        if (ToolUtil.isNotEmpty(cardId)) {
+//            Card card = cardService.getOneByCardId(cardId);
+////            if (card != null) {
+////                EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>();
+////                materialEntityWrapper.eq("card_id", card.getId());
+////                List<Material> materialList = materialService.selectList(materialEntityWrapper);
+////                cardDto.setMaterialList(materialList);
+////            }
+//            cardDto.setCard(card);
+//        }
+//        cardDto.setIsVip(user.getIsvip());
+//        return new SuccessResponseData(cardDto);
+//    }
 
 //    /**
 //     * 新增
@@ -247,21 +247,7 @@ public class CardApiController extends BaseController {
         cardService.updateById(card);
         loginWxUser.setMobile(card.getMobile());
         wxUserService.updateById(loginWxUser);
-//        EntityWrapper<Material> wrapper = new EntityWrapper<>();
-//        wrapper.eq("card_id", cardId);
-//        materialService.delete(wrapper);//先删除
-//        List<MaterialDTO> materials = updateDTO.getMaterials();
-//        if (!CollectionUtils.isEmpty(materials)) {
-//            for (MaterialDTO materialDTO : materials) {
-//                Material material = BeanMapperUtil.objConvert(materialDTO, Material.class);
-//                material.setUserId(card.getUserId());
-//                material.setCardId(cardId);
-//                material.setIsDeleted(0);//是否删除（0否，1是）
-//                material.setCreateTime(new Date());
-//                material.setUpdateTime(new Date());
-//                materialService.insert(material);
-//            }
-//        }
+
 
         return new SuccessResponseData(card);
     }
@@ -269,104 +255,85 @@ public class CardApiController extends BaseController {
     /**
      * 详情
      */
-    @GetMapping(value = "/detail/{cardId}")
+    @GetMapping(value = "/detail")
     @ApiOperation("详情")
-    public Object detail(@PathVariable("cardId") Integer cardId) {
-        Card card = cardService.selectById(cardId);
-        CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
-        if (card != null) {
-            SuccessResponseData responseData = new SuccessResponseData();
-            WxUser user = wxUserService.getLoginWxUser();
-            Integer isvip = user.getIsvip();
-//            boolean isMaterialList = false;
-//            if (isvip != null && isvip.equals(1)) {//是vip
-//                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
-//                if (!CollectionUtils.isEmpty(treeList)) {
-//                    cardInfoDTO.setCategoryTrees(treeList);
-//                } else {
-//                    isMaterialList = true;
-//                }
-//            } else {
-//                isMaterialList = true;
-//            }
-//            if (isMaterialList) {
-//                EntityWrapper<Material> wrapper = new EntityWrapper<>();
-//                wrapper.eq("card_id", card.getId());
-//                List<Material> materials = materialService.selectList(wrapper);
-//                cardInfoDTO.setMaterialList(materials);
-//            }
-//            if (isvip != null && isvip.equals(1)) {//是vip
-//                List<CategoryTreeDTO> treeList = categoryService.getTreeList(cardId);
-//                if (!CollectionUtils.isEmpty(treeList)) {
-//                    cardInfoDTO.setCategoryTrees(treeList);
-//                }
-//            }
-//            EntityWrapper<Material> wrapper = new EntityWrapper<>();
-//            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
-//            List<Material> materials = materialService.selectList(wrapper);
-//            cardInfoDTO.setMaterialList(materials);
-            cardInfoDTO.setIsVip(isvip);
-            responseData.setData(cardInfoDTO);
-            return responseData;
+    public Object detail(@RequestParam(value = "cardId", required = false) Integer cardId, @RequestParam(value = "userId", required = false) Integer userId) {
+        Card card = null;
+        WxUser user = null;
+        if (ToolUtil.isNotEmpty(cardId)) {
+            card = cardService.selectById(cardId);
+            if (card == null) {
+                return new ErrorResponseData("未查到有效名片");
+            }
+            user = wxUserService.selectById(card.getUserId());
+            if (user == null) {
+                return new ErrorResponseData("未查到有效用户");
+            }
+        } else if (ToolUtil.isNotEmpty(userId)) {
+            user = wxUserService.selectById(userId);
+            if (user == null) {
+                return new ErrorResponseData("未查到有效用户");
+            }
+            card = cardService.selectById(user.getCardId());
+            if (card == null) {
+                return new ErrorResponseData("未查到有效名片");
+            }
         } else {
-            return new ErrorResponseData("未查到有效名片");
+            return new ErrorResponseData("userId或cardId二者必传一个");
         }
-    }
-    /**
-     * 根据用户id获取首页名片
-     */
-    @GetMapping(value = "/indexCardByCardId")
-    @ApiOperation("根据cardId获取首页名片")
-    public ResponseData indexCardByUserId(@RequestParam("cardId") Integer cardId) {
-        if (ToolUtil.isEmpty(cardId)) {
-            return new ErrorResponseData("名片id不可为空");
-        }
-//        WxUser wxUser = wxUserService.selectById(userId);
-//        if (ToolUtil.isEmpty(wxUser)) {
-//            return new ErrorResponseData("用户不存在");
-//        }
-        CardDTO cardDto = new CardDTO();
-        Card card = cardService.getOneByCardId(cardId);
-//        cardDto.setIsVip(wxUser.getIsvip());
-        cardDto.setCard(card);
-        return new SuccessResponseData(cardDto);
-    }
 
-    /**
-     * 根据用户id获取名片详情
-     */
-    @GetMapping(value = "/detailCardByCardId")
-    @ApiOperation("根据用户id获取名片详情")
-    public ResponseData detailCardByUserId(@RequestParam("cardId") Integer cardId) {
-        if (ToolUtil.isEmpty(cardId)) {
-            return new ErrorResponseData("名片id不可为空");
-        }
-//        WxUser wxUser = wxUserService.selectById(cardId);
-//        if (ToolUtil.isEmpty(wxUser)) {
-//            return new ErrorResponseData("用户不存在");
-//        }
-        Card card = cardService.getOneByCardId(cardId);
         CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
-        if (card != null) {
-            SuccessResponseData responseData = new SuccessResponseData();
-//            WxUser user = wxUserService.getLoginWxUser();
-//            Integer isvip = user.getIsvip();
-//            if (isvip != null && isvip.equals(1)) {//是vip
-//                List<CategoryTreeDTO> treeList = categoryService.getTreeList(card.getId());
-//                if (!CollectionUtils.isEmpty(treeList)) {
-//                    cardInfoDTO.setCategoryTrees(treeList);
-//                }
-//            }
-//            EntityWrapper<Material> wrapper = new EntityWrapper<>();
-//            wrapper.eq("card_id", card.getId()).eq("category_id", 0).orderBy("create_time", false);//未分类图片
-//            List<Material> materials = materialService.selectList(wrapper);
-//            cardInfoDTO.setMaterialList(materials);
-//            cardInfoDTO.setIsVip(isvip);
-            responseData.setData(cardInfoDTO);
-            return responseData;
-        } else {
-            return new ErrorResponseData("未查到有效名片");
+        SuccessResponseData responseData = new SuccessResponseData();
+        Integer isvip = user.getIsvip();
+        if (isvip == 1 && System.currentTimeMillis() > user.getVipEndTime().getTime()) {
+            isvip = 0;
         }
+        cardInfoDTO.setIsVip(isvip);
+        responseData.setData(cardInfoDTO);
+        return responseData;
     }
+//    /**
+//     * 根据用户id获取首页名片
+//     */
+//    @GetMapping(value = "/indexCardByCardId")
+//    @ApiOperation("根据cardId获取首页名片")
+//    public ResponseData indexCardByUserId(@RequestParam("cardId") Integer cardId) {
+//        if (ToolUtil.isEmpty(cardId)) {
+//            return new ErrorResponseData("名片id不可为空");
+//        }
+////        WxUser wxUser = wxUserService.selectById(userId);
+////        if (ToolUtil.isEmpty(wxUser)) {
+////            return new ErrorResponseData("用户不存在");
+////        }
+//        CardDTO cardDto = new CardDTO();
+//        Card card = cardService.getOneByCardId(cardId);
+////        cardDto.setIsVip(wxUser.getIsvip());
+//        cardDto.setCard(card);
+//        return new SuccessResponseData(cardDto);
+//    }
+
+//    /**
+//     * 根据用户id获取名片详情
+//     */
+//    @GetMapping(value = "/detailCardByCardId")
+//    @ApiOperation("根据用户id获取名片详情")
+//    public ResponseData detailCardByUserId(@RequestParam("cardId") Integer cardId) {
+//        if (ToolUtil.isEmpty(cardId)) {
+//            return new ErrorResponseData("名片id不可为空");
+//        }
+////        WxUser wxUser = wxUserService.selectById(cardId);
+////        if (ToolUtil.isEmpty(wxUser)) {
+////            return new ErrorResponseData("用户不存在");
+////        }
+//        Card card = cardService.getOneByCardId(cardId);
+//        CardInfoDTO cardInfoDTO = BeanMapperUtil.objConvert(card, CardInfoDTO.class);
+//        if (card != null) {
+//            SuccessResponseData responseData = new SuccessResponseData();
+//            responseData.setData(cardInfoDTO);
+//            return responseData;
+//        } else {
+//            return new ErrorResponseData("未查到有效名片");
+//        }
+//    }
 
 }
