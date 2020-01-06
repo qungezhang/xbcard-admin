@@ -14,6 +14,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
@@ -27,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 名片转发打开记录
@@ -95,26 +99,59 @@ public class CardForwardApiController extends BaseController {
     public Object add(@RequestBody CardForward cardForward) {
         Long userId = cardForward.getUserId();
         Long cardId = cardForward.getCardId();
-        if (cardId == null  || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
+        Integer type = cardForward.getType();
+        if (cardId == null  || userId ==null|| cardForward.getForwarderId() == null || type == null) {
             return new ErrorResponseData("名片ID,当前者ID,转发者ID,类型 不可为空");
         }
+        SuccessResponseData successTip = SUCCESS_TIP;
+        Map<String, Object> map = new HashMap<>();
+        int btnStatus = 0;// (0正常 1自己 2已收藏 )
         if ((String.valueOf(userId)).equals(String.valueOf(JwtTokenUtil.getUserId()))) {
-            return SUCCESS_TIP;
+            btnStatus = 1;
+            map.put("btnStatus", btnStatus);
+            successTip.setData(map);
+            log.info("++++++++++btnStatus============  " + btnStatus);
+            return successTip;
         }
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
         CardForward forward = new CardForward();
         forward.setUserId(userId);
-        forward.setCardId(cardId);
         forward.setForwarderId(cardForward.getForwarderId());
-        forward.setType(cardForward.getType());
-        CardForward selectOne = cardForwardService.selectOne(new EntityWrapper<>(forward).orderBy("create_time", false).last("limit 1"));
-        if (selectOne != null) {
-            log.info(String.format("浏览收藏记录已存在：%s。", selectOne));
-        } else {
-            Card card = cardService.selectById(cardId);
-            if (card == null) {
-                return new ErrorResponseData("名片不存在");
+        boolean isNull = true;
+        if (type.equals(2)) {//浏览
+            List<CardForward> cardForwards = cardForwardService.selectList(new EntityWrapper<>(forward).orderBy("create_time", false));
+            if (ToolUtil.isNotEmpty(cardForwards)) {
+                for (CardForward cardForward1 : cardForwards) {
+                    if (cardForward1.getType().equals(3) && cardForward1.getCardId().equals(cardId)) {//收藏
+                        btnStatus = 2;
+                        log.info("收藏标记++++++=====" + cardForward1);
+                    }
+                    if (cardForward1.getType().equals(type)) {
+                        log.info("已有浏览记录++++++=====" + cardForward1);
+                        isNull = false;
+                    }
+                }
             }
+        } else if (type.equals(3)) {//收藏
+            forward.setCardId(cardId);
+            forward.setType(type);
+            CardForward selectOne = cardForwardService.selectOne(new EntityWrapper<>(forward).orderBy("create_time", false).last("limit 1"));
+            if (selectOne != null) {
+                isNull = false;
+                log.info("已有收藏记录++++++=====" + selectOne);
+            } else {
+                Card card = cardService.selectById(cardId);
+                if (card == null) {
+                    return new ErrorResponseData("名片不存在");
+                }
+                cardForward.setCardLogo(card.getLogo());
+                cardForward.setCardCompany(card.getCompany());
+                cardForward.setCardName(card.getName());
+                cardForward.setCardPosition(card.getPosition());
+            }
+        }
+
+        if (isNull) {
             WxUser wxUser = wxUserService.selectById(userId);
             if (wxUser == null) {
                 return new ErrorResponseData("当前用户不存在 请查看userId参数");
@@ -123,15 +160,13 @@ public class CardForwardApiController extends BaseController {
             cardForward.setHeadImg(wxUser.getHeadimgurl());
             cardForward.setNickname(wxUser.getNickName());
             cardForward.setOpenid(wxUser.getOpenid());
-            cardForward.setCardLogo(card.getLogo());
-            cardForward.setCardCompany(card.getCompany());
-            cardForward.setCardName(card.getName());
-            cardForward.setCardPosition(card.getPosition());
             cardForward.setCreateTime(new Date());
             cardForwardService.insert(cardForward);
         }
-
-        return SUCCESS_TIP;
+        map.put("btnStatus", btnStatus);
+        log.info("++++++++++btnStatus============  " + btnStatus);
+        successTip.setData(map);
+        return successTip;
     }
 
 //    /**
