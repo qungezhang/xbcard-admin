@@ -55,13 +55,28 @@ public class PromotionApiController extends BaseController {
     @PostMapping(value = "/add")
     @ApiOperation("新增")
     public Object add(@RequestBody @Valid PromotionAddDto addDto) {
-        Promotion promotion = BeanMapperUtil.objConvert(addDto, Promotion.class);
-        promotion.setUserId(JwtTokenUtil.getUserId());
-        //是否删除（0否，1是）
-        promotion.setIsDeleted(0);
-        promotion.setCreateTime(new Date());
-        promotion.setUpdateTime(new Date());
-        promotionService.insert(promotion);
+        Integer userId = JwtTokenUtil.getUserId();
+        EntityWrapper<Promotion> wrapper = new EntityWrapper<>();
+
+        wrapper.eq("card_id", addDto.getCardId())
+                .eq("user_id", userId)
+                .eq("is_deleted", 0)
+                .orderBy("update_time", false)
+                .last("limit 1");
+        Promotion promotion = promotionService.selectOne(wrapper);
+        Promotion promotionAdd = BeanMapperUtil.objConvert(addDto, Promotion.class);
+        promotionAdd.setUpdateTime(new Date());
+        if (promotion != null) {
+            promotionAdd.setId(promotion.getId());
+            promotionService.updateById(promotionAdd);
+        } else {
+            promotionAdd.setUserId(userId);
+            //是否删除（0否，1是）
+            promotionAdd.setIsDeleted(0);
+            promotionAdd.setCreateTime(new Date());
+            promotionService.insert(promotionAdd);
+        }
+
         return SUCCESS_TIP;
     }
 

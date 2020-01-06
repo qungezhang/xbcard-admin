@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 17/12/2019 19:44:25
+ Date: 06/01/2020 11:34:31
 */
 
 SET NAMES utf8mb4;
@@ -114,7 +114,7 @@ CREATE TABLE `sys_login_log`  (
   `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '具体消息',
   `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 413 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 442 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_login_log
@@ -221,6 +221,35 @@ INSERT INTO `sys_login_log` VALUES (409, '退出日志', 1, '2019-12-12 04:10:17
 INSERT INTO `sys_login_log` VALUES (410, '登录日志', 45, '2019-12-12 04:10:20', '成功', NULL, '39.106.95.230');
 INSERT INTO `sys_login_log` VALUES (411, '登录日志', 45, '2019-12-13 12:34:46', '成功', NULL, '39.106.95.230');
 INSERT INTO `sys_login_log` VALUES (412, '登录日志', 45, '2019-12-13 12:36:01', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (413, '登录日志', 1, '2019-12-17 20:55:27', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (414, '登录日志', 1, '2019-12-18 10:57:18', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (415, '登录日志', 1, '2019-12-18 11:05:56', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (416, '登录日志', 1, '2019-12-18 11:38:06', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (417, '登录日志', 1, '2019-12-19 19:41:00', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (418, '登录日志', 1, '2019-12-19 23:46:52', '成功', NULL, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES (419, '登录日志', 1, '2019-12-20 00:24:33', '成功', NULL, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES (420, '登录日志', 1, '2019-12-20 01:08:45', '成功', NULL, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES (421, '登录日志', 1, '2019-12-20 02:38:47', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (422, '登录日志', 1, '2019-12-20 02:40:02', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (423, '退出日志', 1, '2019-12-20 02:40:32', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (424, '登录日志', 45, '2019-12-20 02:40:37', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (425, '登录日志', 1, '2019-12-20 10:51:29', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (426, '登录日志', 1, '2019-12-20 11:58:02', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (427, '登录日志', 1, '2019-12-20 12:52:25', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (428, '登录日志', 1, '2019-12-20 17:03:00', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (429, '登录日志', 1, '2019-12-23 21:08:29', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (430, '登录日志', 1, '2019-12-23 21:50:51', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (431, '登录日志', 1, '2020-01-02 11:29:50', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (432, '登录日志', 1, '2020-01-02 11:56:13', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (433, '登录日志', 1, '2020-01-02 11:58:48', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (434, '登录日志', 1, '2020-01-02 12:35:42', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (435, '登录日志', 1, '2020-01-02 12:39:31', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (436, '登录日志', 1, '2020-01-02 13:08:40', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (437, '登录日志', 1, '2020-01-02 13:13:55', '成功', NULL, '0:0:0:0:0:0:0:1');
+INSERT INTO `sys_login_log` VALUES (438, '登录日志', 1, '2020-01-02 13:42:18', '成功', NULL, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES (439, '登录日志', 1, '2020-01-02 14:02:17', '成功', NULL, '39.106.95.230');
+INSERT INTO `sys_login_log` VALUES (440, '登录日志', 1, '2020-01-02 14:59:56', '成功', NULL, '127.0.0.1');
+INSERT INTO `sys_login_log` VALUES (441, '登录日志', 1, '2020-01-05 20:26:12', '成功', NULL, '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -241,7 +270,7 @@ CREATE TABLE `sys_menu`  (
   `status` int(65) NULL DEFAULT NULL COMMENT '菜单状态 :  1:启用   0:不启用',
   `isopen` int(11) NULL DEFAULT NULL COMMENT '是否打开:    1:打开   0:不打开',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1202253396163579912 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1207143149412900868 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -281,8 +310,8 @@ INSERT INTO `sys_menu` VALUES (142, 'notice_add', 'notice', '[0],[system],[notic
 INSERT INTO `sys_menu` VALUES (143, 'notice_update', 'notice', '[0],[system],[notice],', '修改通知', NULL, '/notice/update', 2, 3, 0, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (144, 'notice_delete', 'notice', '[0],[system],[notice],', '删除通知', NULL, '/notice/delete', 3, 3, 0, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (145, 'hello', '0', '[0],', '用户树状结构', 'fa-sitemap', '/wxUser/spaceTreeUser', 1, 1, 1, NULL, 1, NULL);
-INSERT INTO `sys_menu` VALUES (148, 'code', '0', '[0],', '代码生成', 'fa-code', '/code', 8, 1, 1, NULL, 1, NULL);
-INSERT INTO `sys_menu` VALUES (149, 'api_mgr', '0', '[0],', '接口文档', 'fa-leaf', '/swagger-ui.html', 7, 1, 1, NULL, 1, NULL);
+INSERT INTO `sys_menu` VALUES (148, 'code', '0', '[0],', '代码生成', 'fa-code', '/code', 9, 1, 1, NULL, 1, NULL);
+INSERT INTO `sys_menu` VALUES (149, 'api_mgr', '0', '[0],', '接口文档', 'fa-leaf', '/swagger-ui.html', 8, 1, 1, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (150, 'to_menu_edit', 'menu', '[0],[system],[menu],', '菜单编辑跳转', '', '/menu/menu_edit', 4, 3, 0, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (151, 'menu_list', 'menu', '[0],[system],[menu],', '菜单列表', '', '/menu/list', 5, 3, 0, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (152, 'to_dept_update', 'dept', '[0],[system],[dept],', '修改部门跳转', '', '/dept/dept_update', 4, 3, 0, NULL, 1, NULL);
@@ -302,37 +331,43 @@ INSERT INTO `sys_menu` VALUES (165, 'to_assign_role', 'mgr', '[0],[system],[mgr]
 INSERT INTO `sys_menu` VALUES (166, 'to_user_edit', 'mgr', '[0],[system],[mgr],', '编辑用户跳转', '', '/mgr/user_edit', 9, 3, 0, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (167, 'mgr_list', 'mgr', '[0],[system],[mgr],', '用户列表', '', '/mgr/list', 10, 3, 0, NULL, 1, NULL);
 INSERT INTO `sys_menu` VALUES (168, 'qunge', '0', '[0],', '销帮', '', '/notice/hello', 99, 1, 1, NULL, 0, NULL);
-INSERT INTO `sys_menu` VALUES (1191268370864762882, 'card', '0', '[0],', '名片', 'fa-id-card', '/card', 3, 1, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1191268370864762882, 'card', '0', '[0],', '名片管理', 'fa-id-card', '/card', 3, 1, 1, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1191268370864762883, 'card_list', 'card', '[0],[card],', '列表', '', '/card/list', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1191268370864762884, 'card_add', 'card', '[0],[card],', '添加', '', '/card/add', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1191268370864762885, 'card_update', 'card', '[0],[card],', '更新', '', '/card/update', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1191268370864762886, 'card_delete', 'card', '[0],[card],', '删除', '', '/card/delete', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1191268370864762887, 'card_detail', 'card', '[0],[card],', '详情', '', '/card/detail', 99, 2, 0, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (1197772074778439681, 'incomeFlowing', '0', '[0],', '收入流水', 'fa-list-ul', '/incomeFlowing', 5, 1, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1197772074778439681, 'incomeFlowing', '0', '[0],', '收入流水管理', 'fa-list-ul', '/incomeFlowing', 6, 1, 1, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197772074778439682, 'incomeFlowing_list', 'incomeFlowing', '[0],[incomeFlowing],', '收入流水列表', '', '/incomeFlowing/list', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197772074778439683, 'incomeFlowing_add', 'incomeFlowing', '[0],[incomeFlowing],', '收入流水添加', '', '/incomeFlowing/add', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197772074778439684, 'incomeFlowing_update', 'incomeFlowing', '[0],[incomeFlowing],', '收入流水更新', '', '/incomeFlowing/update', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197772074778439685, 'incomeFlowing_delete', 'incomeFlowing', '[0],[incomeFlowing],', '收入流水删除', '', '/incomeFlowing/delete', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197772074778439686, 'incomeFlowing_detail', 'incomeFlowing', '[0],[incomeFlowing],', '收入流水详情', '', '/incomeFlowing/detail', 99, 2, 0, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (1197840048637984770, 'outFlowing', '0', '[0],', '客户提现流水', 'fa-list-ul', '/outFlowing', 6, 1, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1197840048637984770, 'outFlowing', '0', '[0],', '客户提现流水管理', 'fa-list-ul', '/outFlowing', 7, 1, 1, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197840048637984771, 'outFlowing_list', 'outFlowing', '[0],[outFlowing],', '平台支出流水列表', '', '/outFlowing/list', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197840048637984772, 'outFlowing_add', 'outFlowing', '[0],[outFlowing],', '平台支出流水添加', '', '/outFlowing/add', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197840048637984773, 'outFlowing_update', 'outFlowing', '[0],[outFlowing],', '平台支出流水更新', '', '/outFlowing/update', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197840048637984774, 'outFlowing_delete', 'outFlowing', '[0],[outFlowing],', '平台支出流水删除', '', '/outFlowing/delete', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1197840048637984775, 'outFlowing_detail', 'outFlowing', '[0],[outFlowing],', '平台支出流水详情', '', '/outFlowing/detail', 99, 2, 0, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (1198212272058929153, 'wxUser', '0', '[0],', '小程序用户', 'fa-users', '/wxUser', 2, 1, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1198212272058929153, 'wxUser', '0', '[0],', '小程序用户管理', 'fa-users', '/wxUser', 2, 1, 1, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1198212272058929154, 'wxUser_list', 'wxUser', '[0],[wxUser],', '小程序用户列表', '', '/wxUser/list', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1198212272058929155, 'wxUser_add', 'wxUser', '[0],[wxUser],', '小程序用户添加', '', '/wxUser/add', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1198212272058929156, 'wxUser_update', 'wxUser', '[0],[wxUser],', '小程序用户更新', '', '/wxUser/update', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1198212272058929157, 'wxUser_delete', 'wxUser', '[0],[wxUser],', '小程序用户删除', '', '/wxUser/delete', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1198212272058929158, 'wxUser_detail', 'wxUser', '[0],[wxUser],', '小程序用户详情', '', '/wxUser/detail', 99, 2, 0, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (1202253396163579905, 'callCenter', '0', '[0],', '客服中心记录', 'fa-volume-control-phone', '/callCenter', 4, 1, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1202253396163579905, 'callCenter', '0', '[0],', '客服中心管理', 'fa-volume-control-phone', '/callCenter', 5, 1, 1, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1202253396163579906, 'callCenter_list', 'callCenter', '[0],[callCenter],', '客服中心记录列表', '', '/callCenter/list', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1202253396163579907, 'callCenter_add', 'callCenter', '[0],[callCenter],', '客服中心记录添加', '', '/callCenter/add', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1202253396163579908, 'callCenter_update', 'callCenter', '[0],[callCenter],', '客服中心记录更新', '', '/callCenter/update', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1202253396163579909, 'callCenter_delete', 'callCenter', '[0],[callCenter],', '客服中心记录删除', '', '/callCenter/delete', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1202253396163579910, 'callCenter_detail', 'callCenter', '[0],[callCenter],', '客服中心记录详情', '', '/callCenter/detail', 99, 2, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (1202253396163579911, 'xxxx', 'mgr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1207143149404512257, 'material', '0', '[0],', '商品图片管理', 'fa-picture-o', '/material', 4, 1, 1, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1207143149404512258, 'material_list', 'material', '[0],[material],', '素材列表', '', '/material/list', 99, 2, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1207143149404512259, 'material_add', 'material', '[0],[material],', '素材添加', '', '/material/add', 99, 2, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1207143149412900865, 'material_update', 'material', '[0],[material],', '素材更新', '', '/material/update', 99, 2, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1207143149412900866, 'material_delete', 'material', '[0],[material],', '素材删除', '', '/material/delete', 99, 2, 0, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (1207143149412900867, 'material_detail', 'material', '[0],[material],', '素材详情', '', '/material/detail', 99, 2, 0, NULL, 1, 0);
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -435,161 +470,173 @@ CREATE TABLE `sys_relation`  (
   `menuid` bigint(11) NULL DEFAULT NULL COMMENT '菜单id',
   `roleid` int(11) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4703 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4865 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_relation
 -- ----------------------------
-INSERT INTO `sys_relation` VALUES (4385, 105, 1);
-INSERT INTO `sys_relation` VALUES (4386, 106, 1);
-INSERT INTO `sys_relation` VALUES (4387, 107, 1);
-INSERT INTO `sys_relation` VALUES (4388, 108, 1);
-INSERT INTO `sys_relation` VALUES (4389, 109, 1);
-INSERT INTO `sys_relation` VALUES (4390, 110, 1);
-INSERT INTO `sys_relation` VALUES (4391, 111, 1);
-INSERT INTO `sys_relation` VALUES (4392, 112, 1);
-INSERT INTO `sys_relation` VALUES (4393, 113, 1);
-INSERT INTO `sys_relation` VALUES (4394, 165, 1);
-INSERT INTO `sys_relation` VALUES (4395, 166, 1);
-INSERT INTO `sys_relation` VALUES (4396, 167, 1);
-INSERT INTO `sys_relation` VALUES (4397, 114, 1);
-INSERT INTO `sys_relation` VALUES (4398, 115, 1);
-INSERT INTO `sys_relation` VALUES (4399, 116, 1);
-INSERT INTO `sys_relation` VALUES (4400, 117, 1);
-INSERT INTO `sys_relation` VALUES (4401, 118, 1);
-INSERT INTO `sys_relation` VALUES (4402, 162, 1);
-INSERT INTO `sys_relation` VALUES (4403, 163, 1);
-INSERT INTO `sys_relation` VALUES (4404, 164, 1);
-INSERT INTO `sys_relation` VALUES (4405, 119, 1);
-INSERT INTO `sys_relation` VALUES (4406, 120, 1);
-INSERT INTO `sys_relation` VALUES (4407, 121, 1);
-INSERT INTO `sys_relation` VALUES (4408, 122, 1);
-INSERT INTO `sys_relation` VALUES (4409, 150, 1);
-INSERT INTO `sys_relation` VALUES (4410, 151, 1);
-INSERT INTO `sys_relation` VALUES (4411, 128, 1);
-INSERT INTO `sys_relation` VALUES (4412, 134, 1);
-INSERT INTO `sys_relation` VALUES (4413, 158, 1);
-INSERT INTO `sys_relation` VALUES (4414, 159, 1);
-INSERT INTO `sys_relation` VALUES (4415, 130, 1);
-INSERT INTO `sys_relation` VALUES (4416, 131, 1);
-INSERT INTO `sys_relation` VALUES (4417, 135, 1);
-INSERT INTO `sys_relation` VALUES (4418, 136, 1);
-INSERT INTO `sys_relation` VALUES (4419, 137, 1);
-INSERT INTO `sys_relation` VALUES (4420, 152, 1);
-INSERT INTO `sys_relation` VALUES (4421, 153, 1);
-INSERT INTO `sys_relation` VALUES (4422, 154, 1);
-INSERT INTO `sys_relation` VALUES (4423, 132, 1);
-INSERT INTO `sys_relation` VALUES (4424, 138, 1);
-INSERT INTO `sys_relation` VALUES (4425, 139, 1);
-INSERT INTO `sys_relation` VALUES (4426, 140, 1);
-INSERT INTO `sys_relation` VALUES (4427, 155, 1);
-INSERT INTO `sys_relation` VALUES (4428, 156, 1);
-INSERT INTO `sys_relation` VALUES (4429, 157, 1);
-INSERT INTO `sys_relation` VALUES (4430, 133, 1);
-INSERT INTO `sys_relation` VALUES (4431, 160, 1);
-INSERT INTO `sys_relation` VALUES (4432, 161, 1);
-INSERT INTO `sys_relation` VALUES (4433, 141, 1);
-INSERT INTO `sys_relation` VALUES (4434, 142, 1);
-INSERT INTO `sys_relation` VALUES (4435, 143, 1);
-INSERT INTO `sys_relation` VALUES (4436, 144, 1);
-INSERT INTO `sys_relation` VALUES (4437, 145, 1);
-INSERT INTO `sys_relation` VALUES (4438, 148, 1);
-INSERT INTO `sys_relation` VALUES (4439, 168, 1);
-INSERT INTO `sys_relation` VALUES (4440, 1191268370864762882, 1);
-INSERT INTO `sys_relation` VALUES (4441, 1191268370864762883, 1);
-INSERT INTO `sys_relation` VALUES (4442, 1191268370864762884, 1);
-INSERT INTO `sys_relation` VALUES (4443, 1191268370864762885, 1);
-INSERT INTO `sys_relation` VALUES (4444, 1191268370864762886, 1);
-INSERT INTO `sys_relation` VALUES (4445, 1191268370864762887, 1);
-INSERT INTO `sys_relation` VALUES (4446, 1197772074778439681, 1);
-INSERT INTO `sys_relation` VALUES (4447, 1197772074778439682, 1);
-INSERT INTO `sys_relation` VALUES (4448, 1197772074778439683, 1);
-INSERT INTO `sys_relation` VALUES (4449, 1197772074778439684, 1);
-INSERT INTO `sys_relation` VALUES (4450, 1197772074778439685, 1);
-INSERT INTO `sys_relation` VALUES (4451, 1197772074778439686, 1);
-INSERT INTO `sys_relation` VALUES (4452, 1197840048637984770, 1);
-INSERT INTO `sys_relation` VALUES (4453, 1197840048637984771, 1);
-INSERT INTO `sys_relation` VALUES (4454, 1197840048637984772, 1);
-INSERT INTO `sys_relation` VALUES (4455, 1197840048637984773, 1);
-INSERT INTO `sys_relation` VALUES (4456, 1197840048637984774, 1);
-INSERT INTO `sys_relation` VALUES (4457, 1197840048637984775, 1);
-INSERT INTO `sys_relation` VALUES (4458, 1202253396163579905, 1);
-INSERT INTO `sys_relation` VALUES (4459, 1202253396163579906, 1);
-INSERT INTO `sys_relation` VALUES (4460, 1202253396163579907, 1);
-INSERT INTO `sys_relation` VALUES (4461, 1202253396163579908, 1);
-INSERT INTO `sys_relation` VALUES (4462, 1202253396163579909, 1);
-INSERT INTO `sys_relation` VALUES (4463, 1202253396163579910, 1);
-INSERT INTO `sys_relation` VALUES (4464, 1198212272058929153, 1);
-INSERT INTO `sys_relation` VALUES (4465, 1198212272058929154, 1);
-INSERT INTO `sys_relation` VALUES (4466, 1198212272058929155, 1);
-INSERT INTO `sys_relation` VALUES (4467, 1198212272058929156, 1);
-INSERT INTO `sys_relation` VALUES (4468, 1198212272058929157, 1);
-INSERT INTO `sys_relation` VALUES (4469, 1198212272058929158, 1);
-INSERT INTO `sys_relation` VALUES (4638, 105, 5);
-INSERT INTO `sys_relation` VALUES (4639, 106, 5);
-INSERT INTO `sys_relation` VALUES (4640, 107, 5);
-INSERT INTO `sys_relation` VALUES (4641, 108, 5);
-INSERT INTO `sys_relation` VALUES (4642, 109, 5);
-INSERT INTO `sys_relation` VALUES (4643, 110, 5);
-INSERT INTO `sys_relation` VALUES (4644, 111, 5);
-INSERT INTO `sys_relation` VALUES (4645, 112, 5);
-INSERT INTO `sys_relation` VALUES (4646, 113, 5);
-INSERT INTO `sys_relation` VALUES (4647, 165, 5);
-INSERT INTO `sys_relation` VALUES (4648, 166, 5);
-INSERT INTO `sys_relation` VALUES (4649, 167, 5);
-INSERT INTO `sys_relation` VALUES (4650, 1202253396163579911, 5);
-INSERT INTO `sys_relation` VALUES (4651, 114, 5);
-INSERT INTO `sys_relation` VALUES (4652, 115, 5);
-INSERT INTO `sys_relation` VALUES (4653, 116, 5);
-INSERT INTO `sys_relation` VALUES (4654, 117, 5);
-INSERT INTO `sys_relation` VALUES (4655, 118, 5);
-INSERT INTO `sys_relation` VALUES (4656, 162, 5);
-INSERT INTO `sys_relation` VALUES (4657, 163, 5);
-INSERT INTO `sys_relation` VALUES (4658, 164, 5);
-INSERT INTO `sys_relation` VALUES (4659, 119, 5);
-INSERT INTO `sys_relation` VALUES (4660, 120, 5);
-INSERT INTO `sys_relation` VALUES (4661, 121, 5);
-INSERT INTO `sys_relation` VALUES (4662, 122, 5);
-INSERT INTO `sys_relation` VALUES (4663, 150, 5);
-INSERT INTO `sys_relation` VALUES (4664, 151, 5);
-INSERT INTO `sys_relation` VALUES (4665, 131, 5);
-INSERT INTO `sys_relation` VALUES (4666, 135, 5);
-INSERT INTO `sys_relation` VALUES (4667, 136, 5);
-INSERT INTO `sys_relation` VALUES (4668, 137, 5);
-INSERT INTO `sys_relation` VALUES (4669, 152, 5);
-INSERT INTO `sys_relation` VALUES (4670, 153, 5);
-INSERT INTO `sys_relation` VALUES (4671, 154, 5);
-INSERT INTO `sys_relation` VALUES (4672, 145, 5);
-INSERT INTO `sys_relation` VALUES (4673, 1191268370864762882, 5);
-INSERT INTO `sys_relation` VALUES (4674, 1191268370864762883, 5);
-INSERT INTO `sys_relation` VALUES (4675, 1191268370864762884, 5);
-INSERT INTO `sys_relation` VALUES (4676, 1191268370864762885, 5);
-INSERT INTO `sys_relation` VALUES (4677, 1191268370864762886, 5);
-INSERT INTO `sys_relation` VALUES (4678, 1191268370864762887, 5);
-INSERT INTO `sys_relation` VALUES (4679, 1197772074778439681, 5);
-INSERT INTO `sys_relation` VALUES (4680, 1197772074778439682, 5);
-INSERT INTO `sys_relation` VALUES (4681, 1197772074778439683, 5);
-INSERT INTO `sys_relation` VALUES (4682, 1197772074778439684, 5);
-INSERT INTO `sys_relation` VALUES (4683, 1197772074778439685, 5);
-INSERT INTO `sys_relation` VALUES (4684, 1197772074778439686, 5);
-INSERT INTO `sys_relation` VALUES (4685, 1197840048637984770, 5);
-INSERT INTO `sys_relation` VALUES (4686, 1197840048637984771, 5);
-INSERT INTO `sys_relation` VALUES (4687, 1197840048637984772, 5);
-INSERT INTO `sys_relation` VALUES (4688, 1197840048637984773, 5);
-INSERT INTO `sys_relation` VALUES (4689, 1197840048637984774, 5);
-INSERT INTO `sys_relation` VALUES (4690, 1197840048637984775, 5);
-INSERT INTO `sys_relation` VALUES (4691, 1198212272058929153, 5);
-INSERT INTO `sys_relation` VALUES (4692, 1198212272058929154, 5);
-INSERT INTO `sys_relation` VALUES (4693, 1198212272058929155, 5);
-INSERT INTO `sys_relation` VALUES (4694, 1198212272058929156, 5);
-INSERT INTO `sys_relation` VALUES (4695, 1198212272058929157, 5);
-INSERT INTO `sys_relation` VALUES (4696, 1198212272058929158, 5);
-INSERT INTO `sys_relation` VALUES (4697, 1202253396163579905, 5);
-INSERT INTO `sys_relation` VALUES (4698, 1202253396163579906, 5);
-INSERT INTO `sys_relation` VALUES (4699, 1202253396163579907, 5);
-INSERT INTO `sys_relation` VALUES (4700, 1202253396163579908, 5);
-INSERT INTO `sys_relation` VALUES (4701, 1202253396163579909, 5);
-INSERT INTO `sys_relation` VALUES (4702, 1202253396163579910, 5);
+INSERT INTO `sys_relation` VALUES (4703, 105, 1);
+INSERT INTO `sys_relation` VALUES (4704, 106, 1);
+INSERT INTO `sys_relation` VALUES (4705, 107, 1);
+INSERT INTO `sys_relation` VALUES (4706, 108, 1);
+INSERT INTO `sys_relation` VALUES (4707, 109, 1);
+INSERT INTO `sys_relation` VALUES (4708, 110, 1);
+INSERT INTO `sys_relation` VALUES (4709, 111, 1);
+INSERT INTO `sys_relation` VALUES (4710, 112, 1);
+INSERT INTO `sys_relation` VALUES (4711, 113, 1);
+INSERT INTO `sys_relation` VALUES (4712, 165, 1);
+INSERT INTO `sys_relation` VALUES (4713, 166, 1);
+INSERT INTO `sys_relation` VALUES (4714, 167, 1);
+INSERT INTO `sys_relation` VALUES (4715, 114, 1);
+INSERT INTO `sys_relation` VALUES (4716, 115, 1);
+INSERT INTO `sys_relation` VALUES (4717, 116, 1);
+INSERT INTO `sys_relation` VALUES (4718, 117, 1);
+INSERT INTO `sys_relation` VALUES (4719, 118, 1);
+INSERT INTO `sys_relation` VALUES (4720, 162, 1);
+INSERT INTO `sys_relation` VALUES (4721, 163, 1);
+INSERT INTO `sys_relation` VALUES (4722, 164, 1);
+INSERT INTO `sys_relation` VALUES (4723, 119, 1);
+INSERT INTO `sys_relation` VALUES (4724, 120, 1);
+INSERT INTO `sys_relation` VALUES (4725, 121, 1);
+INSERT INTO `sys_relation` VALUES (4726, 122, 1);
+INSERT INTO `sys_relation` VALUES (4727, 150, 1);
+INSERT INTO `sys_relation` VALUES (4728, 151, 1);
+INSERT INTO `sys_relation` VALUES (4729, 128, 1);
+INSERT INTO `sys_relation` VALUES (4730, 134, 1);
+INSERT INTO `sys_relation` VALUES (4731, 158, 1);
+INSERT INTO `sys_relation` VALUES (4732, 159, 1);
+INSERT INTO `sys_relation` VALUES (4733, 130, 1);
+INSERT INTO `sys_relation` VALUES (4734, 131, 1);
+INSERT INTO `sys_relation` VALUES (4735, 135, 1);
+INSERT INTO `sys_relation` VALUES (4736, 136, 1);
+INSERT INTO `sys_relation` VALUES (4737, 137, 1);
+INSERT INTO `sys_relation` VALUES (4738, 152, 1);
+INSERT INTO `sys_relation` VALUES (4739, 153, 1);
+INSERT INTO `sys_relation` VALUES (4740, 154, 1);
+INSERT INTO `sys_relation` VALUES (4741, 132, 1);
+INSERT INTO `sys_relation` VALUES (4742, 138, 1);
+INSERT INTO `sys_relation` VALUES (4743, 139, 1);
+INSERT INTO `sys_relation` VALUES (4744, 140, 1);
+INSERT INTO `sys_relation` VALUES (4745, 155, 1);
+INSERT INTO `sys_relation` VALUES (4746, 156, 1);
+INSERT INTO `sys_relation` VALUES (4747, 157, 1);
+INSERT INTO `sys_relation` VALUES (4748, 133, 1);
+INSERT INTO `sys_relation` VALUES (4749, 160, 1);
+INSERT INTO `sys_relation` VALUES (4750, 161, 1);
+INSERT INTO `sys_relation` VALUES (4751, 141, 1);
+INSERT INTO `sys_relation` VALUES (4752, 142, 1);
+INSERT INTO `sys_relation` VALUES (4753, 143, 1);
+INSERT INTO `sys_relation` VALUES (4754, 144, 1);
+INSERT INTO `sys_relation` VALUES (4755, 145, 1);
+INSERT INTO `sys_relation` VALUES (4756, 148, 1);
+INSERT INTO `sys_relation` VALUES (4757, 168, 1);
+INSERT INTO `sys_relation` VALUES (4758, 1191268370864762882, 1);
+INSERT INTO `sys_relation` VALUES (4759, 1191268370864762883, 1);
+INSERT INTO `sys_relation` VALUES (4760, 1191268370864762884, 1);
+INSERT INTO `sys_relation` VALUES (4761, 1191268370864762885, 1);
+INSERT INTO `sys_relation` VALUES (4762, 1191268370864762886, 1);
+INSERT INTO `sys_relation` VALUES (4763, 1191268370864762887, 1);
+INSERT INTO `sys_relation` VALUES (4764, 1197772074778439681, 1);
+INSERT INTO `sys_relation` VALUES (4765, 1197772074778439682, 1);
+INSERT INTO `sys_relation` VALUES (4766, 1197772074778439683, 1);
+INSERT INTO `sys_relation` VALUES (4767, 1197772074778439684, 1);
+INSERT INTO `sys_relation` VALUES (4768, 1197772074778439685, 1);
+INSERT INTO `sys_relation` VALUES (4769, 1197772074778439686, 1);
+INSERT INTO `sys_relation` VALUES (4770, 1197840048637984770, 1);
+INSERT INTO `sys_relation` VALUES (4771, 1197840048637984771, 1);
+INSERT INTO `sys_relation` VALUES (4772, 1197840048637984772, 1);
+INSERT INTO `sys_relation` VALUES (4773, 1197840048637984773, 1);
+INSERT INTO `sys_relation` VALUES (4774, 1197840048637984774, 1);
+INSERT INTO `sys_relation` VALUES (4775, 1197840048637984775, 1);
+INSERT INTO `sys_relation` VALUES (4776, 1198212272058929153, 1);
+INSERT INTO `sys_relation` VALUES (4777, 1198212272058929154, 1);
+INSERT INTO `sys_relation` VALUES (4778, 1198212272058929155, 1);
+INSERT INTO `sys_relation` VALUES (4779, 1198212272058929156, 1);
+INSERT INTO `sys_relation` VALUES (4780, 1198212272058929157, 1);
+INSERT INTO `sys_relation` VALUES (4781, 1198212272058929158, 1);
+INSERT INTO `sys_relation` VALUES (4782, 1202253396163579905, 1);
+INSERT INTO `sys_relation` VALUES (4783, 1202253396163579906, 1);
+INSERT INTO `sys_relation` VALUES (4784, 1202253396163579907, 1);
+INSERT INTO `sys_relation` VALUES (4785, 1202253396163579908, 1);
+INSERT INTO `sys_relation` VALUES (4786, 1202253396163579909, 1);
+INSERT INTO `sys_relation` VALUES (4787, 1202253396163579910, 1);
+INSERT INTO `sys_relation` VALUES (4788, 1207143149404512257, 1);
+INSERT INTO `sys_relation` VALUES (4789, 1207143149404512258, 1);
+INSERT INTO `sys_relation` VALUES (4790, 1207143149404512259, 1);
+INSERT INTO `sys_relation` VALUES (4791, 1207143149412900865, 1);
+INSERT INTO `sys_relation` VALUES (4792, 1207143149412900866, 1);
+INSERT INTO `sys_relation` VALUES (4793, 1207143149412900867, 1);
+INSERT INTO `sys_relation` VALUES (4794, 105, 5);
+INSERT INTO `sys_relation` VALUES (4795, 106, 5);
+INSERT INTO `sys_relation` VALUES (4796, 107, 5);
+INSERT INTO `sys_relation` VALUES (4797, 108, 5);
+INSERT INTO `sys_relation` VALUES (4798, 109, 5);
+INSERT INTO `sys_relation` VALUES (4799, 110, 5);
+INSERT INTO `sys_relation` VALUES (4800, 111, 5);
+INSERT INTO `sys_relation` VALUES (4801, 112, 5);
+INSERT INTO `sys_relation` VALUES (4802, 113, 5);
+INSERT INTO `sys_relation` VALUES (4803, 165, 5);
+INSERT INTO `sys_relation` VALUES (4804, 166, 5);
+INSERT INTO `sys_relation` VALUES (4805, 167, 5);
+INSERT INTO `sys_relation` VALUES (4806, 1202253396163579911, 5);
+INSERT INTO `sys_relation` VALUES (4807, 114, 5);
+INSERT INTO `sys_relation` VALUES (4808, 115, 5);
+INSERT INTO `sys_relation` VALUES (4809, 116, 5);
+INSERT INTO `sys_relation` VALUES (4810, 117, 5);
+INSERT INTO `sys_relation` VALUES (4811, 118, 5);
+INSERT INTO `sys_relation` VALUES (4812, 162, 5);
+INSERT INTO `sys_relation` VALUES (4813, 163, 5);
+INSERT INTO `sys_relation` VALUES (4814, 164, 5);
+INSERT INTO `sys_relation` VALUES (4815, 119, 5);
+INSERT INTO `sys_relation` VALUES (4816, 120, 5);
+INSERT INTO `sys_relation` VALUES (4817, 121, 5);
+INSERT INTO `sys_relation` VALUES (4818, 122, 5);
+INSERT INTO `sys_relation` VALUES (4819, 150, 5);
+INSERT INTO `sys_relation` VALUES (4820, 151, 5);
+INSERT INTO `sys_relation` VALUES (4821, 131, 5);
+INSERT INTO `sys_relation` VALUES (4822, 135, 5);
+INSERT INTO `sys_relation` VALUES (4823, 136, 5);
+INSERT INTO `sys_relation` VALUES (4824, 137, 5);
+INSERT INTO `sys_relation` VALUES (4825, 152, 5);
+INSERT INTO `sys_relation` VALUES (4826, 153, 5);
+INSERT INTO `sys_relation` VALUES (4827, 154, 5);
+INSERT INTO `sys_relation` VALUES (4828, 145, 5);
+INSERT INTO `sys_relation` VALUES (4829, 1191268370864762882, 5);
+INSERT INTO `sys_relation` VALUES (4830, 1191268370864762883, 5);
+INSERT INTO `sys_relation` VALUES (4831, 1191268370864762884, 5);
+INSERT INTO `sys_relation` VALUES (4832, 1191268370864762885, 5);
+INSERT INTO `sys_relation` VALUES (4833, 1191268370864762886, 5);
+INSERT INTO `sys_relation` VALUES (4834, 1191268370864762887, 5);
+INSERT INTO `sys_relation` VALUES (4835, 1197772074778439681, 5);
+INSERT INTO `sys_relation` VALUES (4836, 1197772074778439682, 5);
+INSERT INTO `sys_relation` VALUES (4837, 1197772074778439683, 5);
+INSERT INTO `sys_relation` VALUES (4838, 1197772074778439684, 5);
+INSERT INTO `sys_relation` VALUES (4839, 1197772074778439685, 5);
+INSERT INTO `sys_relation` VALUES (4840, 1197772074778439686, 5);
+INSERT INTO `sys_relation` VALUES (4841, 1197840048637984770, 5);
+INSERT INTO `sys_relation` VALUES (4842, 1197840048637984771, 5);
+INSERT INTO `sys_relation` VALUES (4843, 1197840048637984772, 5);
+INSERT INTO `sys_relation` VALUES (4844, 1197840048637984773, 5);
+INSERT INTO `sys_relation` VALUES (4845, 1197840048637984774, 5);
+INSERT INTO `sys_relation` VALUES (4846, 1197840048637984775, 5);
+INSERT INTO `sys_relation` VALUES (4847, 1198212272058929153, 5);
+INSERT INTO `sys_relation` VALUES (4848, 1198212272058929154, 5);
+INSERT INTO `sys_relation` VALUES (4849, 1198212272058929155, 5);
+INSERT INTO `sys_relation` VALUES (4850, 1198212272058929156, 5);
+INSERT INTO `sys_relation` VALUES (4851, 1198212272058929157, 5);
+INSERT INTO `sys_relation` VALUES (4852, 1198212272058929158, 5);
+INSERT INTO `sys_relation` VALUES (4853, 1202253396163579905, 5);
+INSERT INTO `sys_relation` VALUES (4854, 1202253396163579906, 5);
+INSERT INTO `sys_relation` VALUES (4855, 1202253396163579907, 5);
+INSERT INTO `sys_relation` VALUES (4856, 1202253396163579908, 5);
+INSERT INTO `sys_relation` VALUES (4857, 1202253396163579909, 5);
+INSERT INTO `sys_relation` VALUES (4858, 1202253396163579910, 5);
+INSERT INTO `sys_relation` VALUES (4859, 1207143149404512257, 5);
+INSERT INTO `sys_relation` VALUES (4860, 1207143149404512258, 5);
+INSERT INTO `sys_relation` VALUES (4861, 1207143149404512259, 5);
+INSERT INTO `sys_relation` VALUES (4862, 1207143149412900865, 5);
+INSERT INTO `sys_relation` VALUES (4863, 1207143149412900866, 5);
+INSERT INTO `sys_relation` VALUES (4864, 1207143149412900867, 5);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -661,33 +708,70 @@ CREATE TABLE `wx_banner`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片地址',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `default_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '默认图片',
   `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
   `card_id` int(11) NULL DEFAULT NULL COMMENT '名片id',
   `is_deleted` tinyint(3) NULL DEFAULT 0 COMMENT '是否删除（0否，1是）',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(225) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '轮播' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 123 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '轮播' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_banner
 -- ----------------------------
-INSERT INTO `wx_banner` VALUES (8, 'https://img.xbdzmp.com/2019112001143214666923e446.jpg', NULL, 3, 39, 0, '2019-11-20 13:14:45', NULL, '2019-11-20 13:14:45', NULL);
-INSERT INTO `wx_banner` VALUES (10, 'https://img.xbdzmp.com/20191120031024165af0d497b6.jpg', '测试2', 5, 40, 0, '2019-11-20 14:50:53', NULL, '2019-11-20 14:50:53', NULL);
-INSERT INTO `wx_banner` VALUES (11, 'https://img.xbdzmp.com/201911200251006206500a1ec9.jpg', '测试3', 5, 40, 0, '2019-11-20 14:51:09', NULL, '2019-11-20 14:51:09', NULL);
-INSERT INTO `wx_banner` VALUES (12, 'https://img.xbdzmp.com/20191122011159585a867dac0a.png', '屏幕设置', 5, 42, 0, '2019-11-22 13:12:09', NULL, '2019-11-22 13:12:09', NULL);
-INSERT INTO `wx_banner` VALUES (13, 'https://img.xbdzmp.com/20191122042818ff779080980e.jpg', '花瓶', 7, 50, 0, '2019-11-22 16:28:35', NULL, '2019-11-22 16:28:35', NULL);
-INSERT INTO `wx_banner` VALUES (14, 'https://img.xbdzmp.com/20191122042850d940a361f343.jpg', '丽颖', 7, 50, 0, '2019-11-22 16:29:13', NULL, '2019-11-22 16:29:13', NULL);
-INSERT INTO `wx_banner` VALUES (16, 'https://img.xbdzmp.com/2019112912523800197cbe3933.jpg', '测试', 10, 102, 0, '2019-11-29 00:52:47', NULL, '2019-11-29 00:52:47', NULL);
-INSERT INTO `wx_banner` VALUES (17, 'https://img.xbdzmp.com/20191203114352f09e16db335d.jpg', '哈哈哈哈啊', 11, 77, 0, '2019-12-03 11:44:03', NULL, '2019-12-03 11:44:03', NULL);
-INSERT INTO `wx_banner` VALUES (20, 'https://img.xbdzmp.com/20191215052118c74ac04c3ba0.jpg', NULL, 12, 120, 0, '2019-12-15 17:21:28', NULL, '2019-12-15 17:21:28', NULL);
-INSERT INTO `wx_banner` VALUES (33, 'https://img.xbdzmp.com/20191216121650865778db29c6.jpg', '秋天123', 10, 132, 0, '2019-12-16 00:16:56', NULL, '2019-12-16 00:16:56', NULL);
-INSERT INTO `wx_banner` VALUES (34, 'https://img.xbdzmp.com/2019121612210433420e9efa4b.jpg', '夏天', 10, 132, 0, '2019-12-16 00:21:07', NULL, '2019-12-16 00:21:07', NULL);
-INSERT INTO `wx_banner` VALUES (35, 'https://img.xbdzmp.com/20191216122150a00c13873e22.jpg', '秋天133', 10, 132, 0, '2019-12-16 00:21:58', NULL, '2019-12-16 00:21:58', NULL);
-INSERT INTO `wx_banner` VALUES (36, 'https://img.xbdzmp.com/20191216063747926a6fbb686a.jpg', '冬天', 12, 120, 0, '2019-12-16 06:38:04', NULL, '2019-12-16 06:38:04', NULL);
-INSERT INTO `wx_banner` VALUES (37, 'https://img.xbdzmp.com/2019121606411482b272addf8f.jpg', '茶杯', 12, 120, 0, '2019-12-16 06:41:24', NULL, '2019-12-16 06:41:24', NULL);
+INSERT INTO `wx_banner` VALUES (8, 'https://img.xbdzmp.com/2019112001143214666923e446.jpg', NULL, NULL, 3, 39, 0, '2019-11-20 13:14:45', NULL, '2019-11-20 13:14:45', NULL);
+INSERT INTO `wx_banner` VALUES (10, 'https://img.xbdzmp.com/20191120031024165af0d497b6.jpg', '测试2', NULL, 5, 40, 0, '2019-11-20 14:50:53', NULL, '2019-11-20 14:50:53', NULL);
+INSERT INTO `wx_banner` VALUES (11, 'https://img.xbdzmp.com/201911200251006206500a1ec9.jpg', '测试3', NULL, 5, 40, 0, '2019-11-20 14:51:09', NULL, '2019-11-20 14:51:09', NULL);
+INSERT INTO `wx_banner` VALUES (12, 'https://img.xbdzmp.com/20191122011159585a867dac0a.png', '屏幕设置', NULL, 5, 42, 0, '2019-11-22 13:12:09', NULL, '2019-11-22 13:12:09', NULL);
+INSERT INTO `wx_banner` VALUES (13, 'https://img.xbdzmp.com/20191122042818ff779080980e.jpg', '花瓶', NULL, 7, 50, 0, '2019-11-22 16:28:35', NULL, '2019-11-22 16:28:35', NULL);
+INSERT INTO `wx_banner` VALUES (14, 'https://img.xbdzmp.com/20191122042850d940a361f343.jpg', '丽颖', NULL, 7, 50, 0, '2019-11-22 16:29:13', NULL, '2019-11-22 16:29:13', NULL);
+INSERT INTO `wx_banner` VALUES (16, 'https://img.xbdzmp.com/2019112912523800197cbe3933.jpg', '测试', NULL, 10, 102, 0, '2019-11-29 00:52:47', NULL, '2019-11-29 00:52:47', NULL);
+INSERT INTO `wx_banner` VALUES (17, 'https://img.xbdzmp.com/20191203114352f09e16db335d.jpg', '哈哈哈哈啊', NULL, 11, 77, 0, '2019-12-03 11:44:03', NULL, '2019-12-03 11:44:03', NULL);
+INSERT INTO `wx_banner` VALUES (20, 'https://img.xbdzmp.com/20191215052118c74ac04c3ba0.jpg', NULL, NULL, 12, 120, 0, '2019-12-15 17:21:28', NULL, '2019-12-15 17:21:28', NULL);
+INSERT INTO `wx_banner` VALUES (36, 'https://img.xbdzmp.com/20191216063747926a6fbb686a.jpg', '冬天', NULL, 12, 120, 0, '2019-12-16 06:38:04', NULL, '2019-12-16 06:38:04', NULL);
+INSERT INTO `wx_banner` VALUES (37, 'https://img.xbdzmp.com/2019121606411482b272addf8f.jpg', '茶杯', NULL, 12, 120, 0, '2019-12-16 06:41:24', NULL, '2019-12-16 06:41:24', NULL);
+INSERT INTO `wx_banner` VALUES (58, 'https://img.xbdzmp.com/20191218082946de6ec8ee526a.jpg', '夏天', NULL, 12, 136, 0, '2019-12-18 20:30:38', NULL, '2019-12-18 20:30:38', NULL);
+INSERT INTO `wx_banner` VALUES (59, 'https://img.xbdzmp.com/20191218082946de6ec8ee526a.jpg', '夏天', NULL, 12, 136, 0, '2019-12-18 20:30:43', NULL, '2019-12-18 20:30:43', NULL);
+INSERT INTO `wx_banner` VALUES (60, 'https://img.xbdzmp.com/20191218082946de6ec8ee526a.jpg', '夏天', NULL, 12, 136, 0, '2019-12-18 20:30:44', NULL, '2019-12-18 20:30:44', NULL);
+INSERT INTO `wx_banner` VALUES (62, 'https://img.xbdzmp.com/20191218115139137e99b03d7e.jpg', '夏天', NULL, 12, 136, 0, '2019-12-18 20:30:50', NULL, '2019-12-18 20:30:50', NULL);
+INSERT INTO `wx_banner` VALUES (66, 'https://img.xbdzmp.com/201912180833235dc8edb8b16a.jpg', '春天', NULL, 11, 121, 0, '2019-12-18 20:33:39', NULL, '2019-12-18 20:33:39', NULL);
+INSERT INTO `wx_banner` VALUES (68, 'https://img.xbdzmp.com/201912180833235dc8edb8b16a.jpg', '春天', NULL, 11, 121, 0, '2019-12-18 20:34:12', NULL, '2019-12-18 20:34:12', NULL);
+INSERT INTO `wx_banner` VALUES (73, 'https://img.xbdzmp.com/201912180835297448025670d4.jpg', '秋天', NULL, 10, 138, 0, '2019-12-18 20:35:34', NULL, '2019-12-18 20:35:34', NULL);
+INSERT INTO `wx_banner` VALUES (75, 'https://img.xbdzmp.com/201912180835528dd834ab9305.jpg', '秋天', NULL, 10, 138, 0, '2019-12-18 20:37:02', NULL, '2019-12-18 20:37:02', NULL);
+INSERT INTO `wx_banner` VALUES (76, 'https://img.xbdzmp.com/201912180835528dd834ab9305.jpg', '秋天', NULL, 10, 138, 0, '2019-12-18 20:47:37', NULL, '2019-12-18 20:47:37', NULL);
+INSERT INTO `wx_banner` VALUES (83, 'https://img.xbdzmp.com/2019122012332271794e3e1cb2.jpg', '春天', '/img/cun.jpg', 10, 141, 0, '2019-12-20 00:33:26', NULL, '2019-12-20 00:33:26', NULL);
+INSERT INTO `wx_banner` VALUES (91, 'https://img.xbdzmp.com/20191220010358b04cd08f386a.jpg', '秋天', '/img/qiu.jpg', 10, 141, 0, '2019-12-20 01:04:01', NULL, '2019-12-20 01:04:01', NULL);
+INSERT INTO `wx_banner` VALUES (92, 'https://img.xbdzmp.com/20191220010409e5d0ce07c163.jpg', '夏天', '/img/xia.jpg', 10, 141, 0, '2019-12-20 01:04:12', NULL, '2019-12-20 01:04:12', NULL);
+INSERT INTO `wx_banner` VALUES (93, 'https://img.xbdzmp.com/20191220013030fd08ddaf1ab8.jpg', '夏天', '/img/xia.jpg', 10, 143, 0, '2019-12-20 01:30:34', NULL, '2019-12-20 01:30:34', NULL);
+INSERT INTO `wx_banner` VALUES (94, 'https://img.xbdzmp.com/201912200130545e3b0809bfe1.jpg', '冬天', '/img/dong.jpg', 10, 143, 0, '2019-12-20 01:30:56', NULL, '2019-12-20 01:30:56', NULL);
+INSERT INTO `wx_banner` VALUES (95, 'https://img.xbdzmp.com/20191227025931e14306ea5814.jpg', '麂皮绒', '/img/cun.jpg', 12, 136, 0, '2019-12-20 09:21:11', NULL, '2019-12-20 09:21:11', NULL);
+INSERT INTO `wx_banner` VALUES (96, 'https://img.xbdzmp.com/202001050327188b563087251a.jpg', '皮革', '/img/xia.jpg', 12, 136, 0, '2019-12-20 09:22:49', NULL, '2019-12-20 09:22:49', NULL);
+INSERT INTO `wx_banner` VALUES (97, 'https://img.xbdzmp.com/2019122009311950e7774b42b6.jpg', '烫金', '/img/qiu.jpg', 12, 136, 0, '2019-12-20 09:31:32', NULL, '2019-12-20 09:31:32', NULL);
+INSERT INTO `wx_banner` VALUES (98, 'https://img.xbdzmp.com/201912200933108271425f585c.jpg', '针织提花', '/img/dong.jpg', 12, 136, 0, '2019-12-20 09:33:24', NULL, '2019-12-20 09:33:24', NULL);
+INSERT INTO `wx_banner` VALUES (99, 'https://img.xbdzmp.com/20191221055447c8be3202ec3c.jpg', '敬请期待', NULL, 10, 143, 0, '2019-12-21 17:54:50', NULL, '2019-12-21 17:54:50', NULL);
+INSERT INTO `wx_banner` VALUES (100, 'https://img.xbdzmp.com/20191221085823c9a8c2b85b4e.jpg', '春天', '/img/cun.jpg', 10, 143, 0, '2019-12-21 20:58:27', NULL, '2019-12-21 20:58:27', NULL);
+INSERT INTO `wx_banner` VALUES (101, 'https://img.xbdzmp.com/20191221091334af9f70c2c7cb.jpg', '敬请期待', NULL, 10, 143, 0, '2019-12-21 21:13:38', NULL, '2019-12-21 21:13:38', NULL);
+INSERT INTO `wx_banner` VALUES (102, 'https://img.xbdzmp.com/201912210914013a06e5c45c23.jpg', '敬请期待', NULL, 12, 136, 0, '2019-12-21 21:14:05', NULL, '2019-12-21 21:14:05', NULL);
+INSERT INTO `wx_banner` VALUES (103, 'https://img.xbdzmp.com/20191221091458c72c5f872c99.jpg', '测试', NULL, 10, 143, 0, '2019-12-21 21:15:06', NULL, '2019-12-21 21:15:06', NULL);
+INSERT INTO `wx_banner` VALUES (104, 'https://img.xbdzmp.com/201912210915157c14f4e18d64.jpg', '敬请期待', NULL, 10, 143, 0, '2019-12-21 21:15:18', NULL, '2019-12-21 21:15:18', NULL);
+INSERT INTO `wx_banner` VALUES (105, 'https://img.xbdzmp.com/20191221091517decafde0325a.jpg', NULL, NULL, 12, 136, 0, '2019-12-21 21:15:27', NULL, '2019-12-21 21:15:27', NULL);
+INSERT INTO `wx_banner` VALUES (106, 'https://img.xbdzmp.com/20191221091547d2c4d04183a7.jpg', '敬请期待', NULL, 10, 143, 0, '2019-12-21 21:15:49', NULL, '2019-12-21 21:15:49', NULL);
+INSERT INTO `wx_banner` VALUES (107, 'https://img.xbdzmp.com/2019122110083630da2dfac963.jpg', '敬请期待', NULL, 12, 136, 0, '2019-12-21 22:08:40', NULL, '2019-12-21 22:08:40', NULL);
+INSERT INTO `wx_banner` VALUES (108, 'https://img.xbdzmp.com/201912211009151c7be3427ad4.jpg', '敬请期待', NULL, 12, 136, 0, '2019-12-21 22:09:18', NULL, '2019-12-21 22:09:18', NULL);
+INSERT INTO `wx_banner` VALUES (109, 'https://img.xbdzmp.com/20191221100948eb9a47b720c1.jpg', '敬请期待', NULL, 12, 136, 0, '2019-12-21 22:09:56', NULL, '2019-12-21 22:09:56', NULL);
+INSERT INTO `wx_banner` VALUES (110, 'https://img.xbdzmp.com/20191221102041e0d0ef5b7302.jpg', '敬请期待', NULL, 12, 136, 0, '2019-12-21 22:20:49', NULL, '2019-12-21 22:20:49', NULL);
+INSERT INTO `wx_banner` VALUES (111, 'https://img.xbdzmp.com/201912211021129812ac1bc08e.jpg', '牛骨头', NULL, 12, 136, 0, '2019-12-21 22:21:32', NULL, '2019-12-21 22:21:32', NULL);
+INSERT INTO `wx_banner` VALUES (112, 'https://img.xbdzmp.com/2019122110220806958e35916c.jpg', '5', NULL, 12, 136, 0, '2019-12-21 22:23:34', NULL, '2019-12-21 22:23:34', NULL);
+INSERT INTO `wx_banner` VALUES (116, 'https://img.xbdzmp.com/20191230095230fddbcb4cee42.jpg', '滑板', '/img/cun.jpg', 14, 133, 0, '2019-12-24 07:06:52', NULL, '2019-12-24 07:06:52', NULL);
+INSERT INTO `wx_banner` VALUES (117, 'https://img.xbdzmp.com/20191230101656942d221e821b.jpg', '看书', '/img/xia.jpg', 14, 133, 0, '2019-12-24 12:08:39', NULL, '2019-12-24 12:08:39', NULL);
+INSERT INTO `wx_banner` VALUES (118, 'https://img.xbdzmp.com/2020010407170845d3846bd881.jpg', '广场', '/img/dong.jpg', 14, 133, 0, '2019-12-24 12:09:20', NULL, '2019-12-24 12:09:20', NULL);
+INSERT INTO `wx_banner` VALUES (119, 'https://img.xbdzmp.com/20191230101758ea9eeeeb5b8b.jpg', '游戏', '/img/qiu.jpg', 14, 133, 0, '2019-12-24 12:09:22', NULL, '2019-12-24 12:09:22', NULL);
+INSERT INTO `wx_banner` VALUES (120, 'https://img.xbdzmp.com/201912250915359ed368fabf48.jpg', '印花', '/img/cun.jpg', 39, 147, 0, '2019-12-25 09:15:51', NULL, '2019-12-25 09:15:51', NULL);
+INSERT INTO `wx_banner` VALUES (121, 'https://img.xbdzmp.com/202001040942358f06bc4e3137.jpg', '星星', '/img/cun.jpg', 14, 153, 0, '2020-01-04 21:42:46', NULL, '2020-01-04 21:42:46', NULL);
+INSERT INTO `wx_banner` VALUES (122, 'https://img.xbdzmp.com/2020010409430638c5f551c7a3.jpg', '小朋友', '/img/xia.jpg', 14, 153, 0, '2020-01-04 21:43:22', NULL, '2020-01-04 21:43:22', NULL);
 
 -- ----------------------------
 -- Table structure for wx_call_center
@@ -707,7 +791,7 @@ CREATE TABLE `wx_call_center`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '客服中心记录' ROW_FORMAT = Dynamic;
 
@@ -717,7 +801,7 @@ CREATE TABLE `wx_call_center`  (
 INSERT INTO `wx_call_center` VALUES (8, 'xxxx', '18838214579', 'https://img.xbdzmp.com/20191120010422102baa383338.jpg', '哒哒哒哒哒哒多多', '2019-12-08 00:32:59', 10, 1, 5, 0, '2019-12-05 00:32:21', '18838214579', '2019-12-05 00:32:21', NULL);
 INSERT INTO `wx_call_center` VALUES (9, 'xxxx3333', '18838214579', '', '嘻嘻嘻嘻嘻嘻嘻嘻寻寻', '2019-12-08 00:33:23', 10, 1, 3, 0, '2019-12-05 00:33:56', '18838214579', '2019-12-05 00:33:56', NULL);
 INSERT INTO `wx_call_center` VALUES (10, 'xxxx8888', '18838214579', 'https://img.xbdzmp.com/2019112001143214666923e446.jpg', '惆怅长岑长擦擦擦', '2019-12-05 00:50:57', 10, 1, 5, 0, '2019-12-05 00:34:20', '18838214579', '2019-12-05 00:34:20', NULL);
-INSERT INTO `wx_call_center` VALUES (11, '123', '18838214579', 'https://img.xbdzmp.com/201912051031565d2f5fc4018f.jpg', 'ddddddd', '2019-12-08 00:34:28', 10, 1, 5, 0, '2019-12-05 22:32:09', '18838214579', '2019-12-05 22:32:09', NULL);
+INSERT INTO `wx_call_center` VALUES (11, '123', '18838214579', 'https://img.xbdzmp.com/201912051031565d2f5fc4018f.jpg', 'ddddddd', '2019-12-20 02:18:17', 10, 1, 5, 0, '2019-12-05 22:32:09', '18838214579', '2019-12-05 22:32:09', NULL);
 INSERT INTO `wx_call_center` VALUES (12, '3455', '18838214579', '', '嘻嘻嘻嘻嘻', '2019-12-08 00:33:31', 10, 1, 5, 0, '2019-12-05 22:33:23', '18838214579', '2019-12-05 22:33:23', NULL);
 INSERT INTO `wx_call_center` VALUES (13, '哦哦哦哦', '18321674488', 'https://img.xbdzmp.com/20191206114925df47f1b5a4c6.jpg', NULL, NULL, 11, 0, 5, 0, '2019-12-06 11:49:29', '18321674488', '2019-12-06 11:49:29', NULL);
 
@@ -737,36 +821,44 @@ CREATE TABLE `wx_card`  (
   `logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'logo',
   `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
   `type` tinyint(11) NULL DEFAULT 1 COMMENT '模版类型',
+  `share_img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分享图片',
+  `share_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分享文案',
+  `share_type` tinyint(3) NULL DEFAULT NULL COMMENT '分享类型',
   `is_deleted` tinyint(3) NULL DEFAULT 0 COMMENT '是否删除（0否，1是）',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '小程序码',
   `flag3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   `flag4` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 136 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '名片基础信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 156 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '名片基础信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_card
 -- ----------------------------
-INSERT INTO `wx_card` VALUES (77, 'qunge', '18321674488', '具志', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/20191125083356fe5d8f44bb7c.jpg', 11, 1, 0, '2019-11-25 20:34:37', NULL, '2019-11-25 20:34:37', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (80, '姚东良', '13486530088', '柯桥佩奇纺织', NULL, NULL, NULL, NULL, NULL, 12, 1, 0, '2019-11-25 20:55:24', NULL, '2019-11-25 20:55:24', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (81, '姚东良（业务经理）', '13486530088', '绍兴市柯桥区友送银纺织品有限公司', NULL, NULL, NULL, NULL, NULL, 12, 1, 0, '2019-11-25 20:55:49', NULL, '2019-12-02 13:41:43', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (101, '小林', '18838214579', '测试', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201911281136594befcfb451dd.jpg', 13, 1, 0, '2019-11-28 23:37:19', NULL, '2019-11-28 23:37:19', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (103, '付小林', '18838214579', '111', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/2019112912545185fe1ff402ec.jpg', 13, 1, 0, '2019-11-29 00:55:13', NULL, '2019-11-29 00:55:13', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (110, '李雅芬', '13758125460', '佩奇纺织', NULL, NULL, NULL, NULL, NULL, 12, 1, 0, '2019-12-04 22:28:00', NULL, '2019-12-04 22:28:00', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (120, '姚东良（业务经理）', '13486530088', '绍兴市柯桥区友送银纺织品有限公司', NULL, NULL, NULL, NULL, NULL, 12, 1, 0, '2019-12-06 22:15:30', NULL, '2019-12-17 12:15:10', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (121, 'qunge', '18321678888', '具志', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201912061016124caefd584f09.jpg', 11, 1, 0, '2019-12-06 22:17:19', NULL, '2019-12-06 22:17:19', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (123, '姚东良', '13486530088', '绍兴市柯桥区友送银纺织品有限公司', NULL, NULL, NULL, NULL, NULL, 12, 1, 0, '2019-12-07 09:26:32', NULL, '2019-12-07 09:26:32', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (126, '付小林', '13592389028', '测试', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201912071100098c04da284519.jpg', 13, 1, 0, '2019-12-07 23:00:28', NULL, '2019-12-07 23:00:28', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (129, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (132, '付123', '18838214579', '测试', '经理', NULL, NULL, NULL, 'https://img.xbdzmp.com/20191212102020084409455754.jpg', 10, 1, 0, '2019-12-11 20:44:02', NULL, '2019-12-16 18:06:59', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (133, '李雅芬', '13758125460', '绍兴市佩奇纺织品有限公司', NULL, NULL, NULL, NULL, NULL, 14, 1, 0, '2019-12-16 13:22:30', NULL, '2019-12-16 13:22:30', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (134, '123456', '18838214579', '1233', NULL, NULL, NULL, NULL, NULL, 10, 1, 0, '2019-12-16 16:32:07', NULL, '2019-12-16 16:32:07', NULL, NULL, NULL, NULL);
-INSERT INTO `wx_card` VALUES (135, 'hshshs', '18321678888', 'dddd', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201912170716537161404b2f2b.jpg', 11, 2, 0, '2019-12-17 19:17:36', NULL, '2019-12-17 19:17:36', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (77, 'qunge', '18321674488', '具志', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/20191125083356fe5d8f44bb7c.jpg', 11, 1, NULL, NULL, NULL, 0, '2019-11-25 20:34:37', NULL, '2019-11-25 20:34:37', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (101, '小林', '18838214579', '测试', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201911281136594befcfb451dd.jpg', 13, 1, NULL, NULL, NULL, 0, '2019-11-28 23:37:19', NULL, '2019-11-28 23:37:19', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (103, '付小林', '18838214579', '111', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/2019112912545185fe1ff402ec.jpg', 13, 1, NULL, NULL, NULL, 0, '2019-11-29 00:55:13', NULL, '2019-11-29 00:55:13', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (121, 'qunge', '18321678888', '具志', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201912061016124caefd584f09.jpg', 11, 1, 'https://img.xbdzmp.com/20191225060413d734615afcae.jpg', '哈哈', NULL, 0, '2019-12-06 22:17:19', NULL, '2019-12-25 18:04:18', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (123, '姚东良', '13486530088', '绍兴市柯桥区友送银纺织品有限公司', NULL, NULL, NULL, NULL, NULL, 12, 1, NULL, NULL, NULL, 0, '2019-12-07 09:26:32', NULL, '2019-12-07 09:26:32', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (126, '付小林', '13592389028', '测试', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201912071100098c04da284519.jpg', 13, 1, NULL, NULL, NULL, 0, '2019-12-07 23:00:28', NULL, '2019-12-07 23:00:28', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (128, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (129, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (133, '李雅芬', '13758125460', '绍兴市佩奇纺织品有限公司', NULL, '世贸中心A1-501', 'flosslee@vip.163.com', '0575-84135605', NULL, 14, 2, NULL, NULL, NULL, 0, '2019-12-16 13:22:30', NULL, '2020-01-04 21:40:14', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (135, 'hshshs', '18321678888', 'dddd', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/201912170716537161404b2f2b.jpg', 11, 2, NULL, NULL, NULL, 0, '2019-12-17 19:17:36', NULL, '2019-12-17 19:17:36', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (136, '姚东良（业务经理）', '13486530088', '绍兴市柯桥区友送银纺织品有限公司', NULL, '浙江省绍兴市柯桥区世贸中心A1-501', '13486530088@139.com', '0575-84135609', 'https://img.xbdzmp.com/20191217100821bd82e255b7cf.jpg', 12, 1, NULL, NULL, NULL, 0, '2019-12-17 22:08:29', NULL, '2020-01-05 18:35:56', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_card` VALUES (143, '富源', '18838214579', '测试', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/20191220012829bdf6b228eb75.jpg', 10, 1, 'https://img.xbdzmp.com/2019122001282262ea8d7ab198.jpg', '123', NULL, 0, '2019-12-20 01:28:55', NULL, '2019-12-25 01:54:34', NULL, 'https://img.xbdzmp.com/code201912200128549eeb90b6c54f.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (144, '王丽', '13588545490', '初芽服装有限公司', NULL, NULL, NULL, NULL, NULL, 34, 2, NULL, NULL, NULL, 0, '2019-12-22 20:01:04', NULL, '2019-12-22 20:01:04', NULL, 'https://img.xbdzmp.com/code201912220801033d63f2645fb2.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (145, '姚东良', '13116858811', '佩奇纺织', NULL, NULL, NULL, NULL, NULL, 35, 1, NULL, NULL, NULL, 0, '2019-12-23 10:32:16', NULL, '2019-12-23 10:32:16', NULL, 'https://img.xbdzmp.com/code2019122310321442b6ceadd03c.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (147, '孙发科', '18605757418', '绍兴博旗纺织品有限公司', NULL, NULL, NULL, NULL, NULL, 39, 1, NULL, NULL, NULL, 0, '2019-12-25 09:12:45', NULL, '2019-12-25 09:12:45', NULL, 'https://img.xbdzmp.com/code20191225091244ed974c2567dc.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (148, '许敏', '13807806927', '南京好女儿酒业有限公司', NULL, '南京市建邺区黄山路12号盛世公馆1137', '13807806927@qq.com', NULL, NULL, 40, 1, NULL, NULL, NULL, 0, '2020-01-01 09:11:48', NULL, '2020-01-01 09:11:48', NULL, 'https://img.xbdzmp.com/code202001010911461f06d3c9bba5.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (151, '小付', '18838214579', '测试公司', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/20200104084231c8a429f6c226.jpeg', 10, 1, NULL, NULL, NULL, 0, '2020-01-04 20:43:08', NULL, '2020-01-04 20:43:08', NULL, 'https://img.xbdzmp.com/code2020010408430747339a99f9ae.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (152, '小付', '18838214579', '测试公司', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/2020010408471875d9c1fd142c.jpg', 10, 1, NULL, NULL, NULL, 0, '2020-01-04 20:47:39', NULL, '2020-01-04 20:47:39', NULL, 'https://img.xbdzmp.com/code202001040847385fd8a6ba88c6.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (153, '李雅芬', '13758125460', '友送银纺织', NULL, NULL, NULL, NULL, NULL, 14, 2, NULL, NULL, NULL, 0, '2020-01-04 21:41:44', NULL, '2020-01-04 21:41:44', NULL, 'https://img.xbdzmp.com/code20200104094143e4e3107ee5c7.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (154, '刘勇', '13606281819', '海门每日鲜精品水果行', NULL, NULL, NULL, NULL, NULL, 12, 1, NULL, NULL, NULL, 0, '2020-01-04 22:43:58', NULL, '2020-01-04 22:43:58', NULL, 'https://img.xbdzmp.com/code202001041043573417eef3a57a.jpg', NULL, NULL);
+INSERT INTO `wx_card` VALUES (155, '带个好', '13116858811', '绍兴市柯桥区世贸', NULL, NULL, NULL, NULL, 'https://img.xbdzmp.com/20200105064816455b3098338d.jpg', 12, 1, NULL, NULL, NULL, 0, '2020-01-05 18:47:34', NULL, '2020-01-05 18:48:27', NULL, 'https://img.xbdzmp.com/code202001050647329415a419a46e.jpg', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wx_card_forward
@@ -775,10 +867,15 @@ DROP TABLE IF EXISTS `wx_card_forward`;
 CREATE TABLE `wx_card_forward`  (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `card_id` bigint(11) NULL DEFAULT NULL COMMENT '名片ID',
+  `card_logo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名片logo图',
+  `card_position` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名片职务',
+  `card_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名片名称',
+  `card_company` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名片公司',
   `type` tinyint(3) NULL DEFAULT 1 COMMENT '类型 1转发 2进入 3收藏',
   `user_id` bigint(11) NULL DEFAULT NULL COMMENT '转发/进入ID',
   `head_img` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参与人头像',
   `nickname` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参与人昵称',
+  `forwarder_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '转发者头像',
   `forwarder_id` bigint(11) NULL DEFAULT NULL COMMENT '转发者ID',
   `openid` varchar(225) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信openid',
   `company_id` bigint(11) NULL DEFAULT NULL COMMENT '公司ID',
@@ -786,31 +883,40 @@ CREATE TABLE `wx_card_forward`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_card_id`(`card_id`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '名片转发打开记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '名片转发打开记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_card_forward
 -- ----------------------------
-INSERT INTO `wx_card_forward` VALUES (1, 51, 2, 6, 'https://wx.qlogo.cn/mmopen/vi_32/4fZ9thib248ZjTa0cuBnlNt4fE83ljwNQJxr7iaKBbRNjCju4aS2tO4FrRYvr7ibeNpl6OwNFDMk6KAu6GvprNm9Q/132', '小林', 5, NULL, NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (2, 51, 2, 8, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epQyOWhRvettlLrkvP6XKFYweTd1gPDDvAbw3uVC6uIeexzfQ9fAibdF2Cz8mnnyxr0F68KqkLwmnw/132', 'xīn yǒu líng xī', 5, NULL, NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (5, 79, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (6, 89, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (7, 92, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (8, 94, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (9, 94, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 0, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (10, 96, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 0, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (11, 100, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (12, 100, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (13, 102, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (14, 101, 3, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (15, 81, 2, 14, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erUK9lcqSHMcRicsSpWIibseUibh1rUaiahKicaCSy6X8TI6aQ5w7ibuFjrdEwZql8RDWic0BMzGLBa5e3dA/132', 'Floss', 12, 'o1xq25EBSfk6eApV_n1O4Zgm0wUg', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (16, 102, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (17, 124, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (18, 124, 2, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 10, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (19, 101, 3, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', 13, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (20, 122, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (21, 120, 2, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', 12, 'o1xq25D43clThtHXHAbI992Y5VgM', NULL, NULL);
-INSERT INTO `wx_card_forward` VALUES (22, 132, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (1, 51, NULL, NULL, NULL, NULL, 2, 6, 'https://wx.qlogo.cn/mmopen/vi_32/4fZ9thib248ZjTa0cuBnlNt4fE83ljwNQJxr7iaKBbRNjCju4aS2tO4FrRYvr7ibeNpl6OwNFDMk6KAu6GvprNm9Q/132', '小林', NULL, 5, NULL, NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (2, 51, NULL, NULL, NULL, NULL, 2, 8, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epQyOWhRvettlLrkvP6XKFYweTd1gPDDvAbw3uVC6uIeexzfQ9fAibdF2Cz8mnnyxr0F68KqkLwmnw/132', 'xīn yǒu líng xī', NULL, 5, NULL, NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (15, 81, NULL, NULL, NULL, NULL, 2, 14, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erUK9lcqSHMcRicsSpWIibseUibh1rUaiahKicaCSy6X8TI6aQ5w7ibuFjrdEwZql8RDWic0BMzGLBa5e3dA/132', 'Floss', NULL, 12, 'o1xq25EBSfk6eApV_n1O4Zgm0wUg', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (19, 101, NULL, NULL, NULL, NULL, 3, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', NULL, 13, 'o1xq25OruDaAc-8P4huJJit0Etjo', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (21, 120, NULL, NULL, NULL, NULL, 2, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', NULL, 12, 'o1xq25D43clThtHXHAbI992Y5VgM', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (24, 133, NULL, NULL, NULL, NULL, 3, 14, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erUK9lcqSHMcRicsSpWIibseUibh1rUaiahKicaCSy6X8TI6aQ5w7ibuFjrdEwZql8RDWic0BMzGLBa5e3dA/132', 'Floss', NULL, 14, 'o1xq25EBSfk6eApV_n1O4Zgm0wUg', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (25, 136, NULL, NULL, NULL, NULL, 2, 34, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJGGZ9EnBISBGHCfmofiawTc2dymyg9CDj49dtJTt9YJSbqDGhGtDvB9W2YS7lROJa9iaBkGMicLV5vA/132', 'LiSa .', NULL, 12, 'o1xq25KaxwA3UTS1_021rddynOgo', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (26, 136, NULL, NULL, NULL, NULL, 2, 35, 'https://wx.qlogo.cn/mmopen/vi_32/536iaFZzYeJ5BfwFc380P7SFHSKPjNKpMUOpBZGkfoKscEnWTqEysYwVZyJ0CvmCjHhPyIV2XN5McWPSxqic6Y7g/132', '佩奇色纺', NULL, 12, 'o1xq25F_g3NvvYZtIq3Q0d7WbiSk', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (27, 136, NULL, NULL, NULL, NULL, 3, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', NULL, 12, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (28, 136, NULL, NULL, NULL, NULL, 2, 36, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTItB56hbSSicxAebFE5JEFn9MicyzcMLyTshDdibuduia2jzoibwAGFNw2VCKFjb1uGYrzky7AUX4KSZRg/132', '年年有余', NULL, 12, 'o1xq25N-mQ92by4u2JGXO71D9_rQ', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (29, 136, NULL, NULL, NULL, NULL, 2, 37, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJR4ibcVMzMz9r6rPpwJAMVo2Gl2Sz77P0KOBMoOSJLH7ddW1hLxnsqGFvLxEVRfZr1muicVb27Flwg/132', '程程', NULL, 12, 'o1xq25G7jl3l5WQfbM21yBZFtZhc', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (30, 136, NULL, NULL, NULL, NULL, 2, 38, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erl5ykT55F5rfXfjFIb7ZSfnBRibRHOoYibZCbo20xo2TzBktnNUth9P7PL4VHhicdicp3ECATEfE7k7A/132', 'livia', NULL, 12, 'o1xq25G-NHaeuBPkVUaoMjOmy3-Q', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (32, 136, NULL, NULL, NULL, NULL, 2, 39, 'https://wx.qlogo.cn/mmopen/vi_32/RtKa0MkvY7ksopEuOvY3VrngdK8CvJGhCL4Wgp9cialT1mcickVJm0ldBHZhsib38XK8jLFpgVUzTFXxzqHNMvOIA/132', 'sun-孙', NULL, 12, 'o1xq25DqnTin6JNtpVCujiIUa8MY', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (33, 136, NULL, NULL, NULL, NULL, 2, 40, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrjwowQB5WFPhDCib9WNkwpt9xicxOpnI0XKCiapo6yumISzPRpEgG340T8lI7iaPzSZg7rQe7L7MkcA/132', '乡酒', NULL, 12, 'o1xq25K5L-dWwKr7rh75zllWripA', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (34, 136, NULL, NULL, NULL, NULL, 2, 41, 'https://wx.qlogo.cn/mmopen/vi_32/2GCf7F9ANPIrTk0YicQ7NYPMhFiajrDr4PKB0vnnSdLG0zJHciaZb89tnGibjiaN91E4djNumib1CJrxIe9A4UNMmNhw/132', 'A书香年华', NULL, 12, 'o1xq25MqbssDKQC8Zmhmrx8k_E7o', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (35, 136, NULL, NULL, NULL, NULL, 3, 41, 'https://wx.qlogo.cn/mmopen/vi_32/2GCf7F9ANPIrTk0YicQ7NYPMhFiajrDr4PKB0vnnSdLG0zJHciaZb89tnGibjiaN91E4djNumib1CJrxIe9A4UNMmNhw/132', 'A书香年华', NULL, 12, 'o1xq25MqbssDKQC8Zmhmrx8k_E7o', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (37, 101, NULL, NULL, NULL, NULL, 3, 14, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erUK9lcqSHMcRicsSpWIibseUibh1rUaiahKicaCSy6X8TI6aQ5w7ibuFjrdEwZql8RDWic0BMzGLBa5e3dA/132', 'Floss', NULL, 14, 'o1xq25EBSfk6eApV_n1O4Zgm0wUg', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (38, 136, NULL, NULL, NULL, NULL, 2, 42, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJyJU9LlBwDmibondoYKK1OHZloeib3tX8oYjxjK2JtaKtaCMlrf1HraEaaNnMTzrwhXalfWmUzjictg/132', 'AAAA每日鲜精品水果批发零售行', NULL, 12, 'o1xq25OAKsDmctzQBDUyqDgnvOVU', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (64, 144, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJGGZ9EnBISBGHCfmofiawTc2dymyg9CDj49dtJTt9YJSbqDGhGtDvB9W2YS7lROJa9iaBkGMicLV5vA/132', NULL, NULL, NULL, 3, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', NULL, 34, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', NULL, NULL);
+INSERT INTO `wx_card_forward` VALUES (68, 151, 'https://img.xbdzmp.com/20200104084231c8a429f6c226.jpeg', NULL, '小付', '测试公司', 2, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, 10, 'o1xq25Eleed552v4FQ7FTliQV_ks', NULL, '2020-01-05 23:46:29');
+INSERT INTO `wx_card_forward` VALUES (69, 151, 'https://img.xbdzmp.com/20200104084231c8a429f6c226.jpeg', NULL, '小付', '测试公司', 2, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', NULL, 10, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', NULL, '2020-01-05 23:46:35');
+INSERT INTO `wx_card_forward` VALUES (70, 143, 'https://img.xbdzmp.com/20191220012829bdf6b228eb75.jpg', NULL, '富源', '测试', 3, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, 10, 'o1xq25Eleed552v4FQ7FTliQV_ks', NULL, '2020-01-05 23:46:49');
+INSERT INTO `wx_card_forward` VALUES (71, 136, 'https://img.xbdzmp.com/20191217100821bd82e255b7cf.jpg', NULL, '姚东良（业务经理）', '绍兴市柯桥区友送银纺织品有限公司', 2, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', NULL, 12, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, '2020-01-05 23:47:17');
+INSERT INTO `wx_card_forward` VALUES (72, 121, 'https://img.xbdzmp.com/201912061016124caefd584f09.jpg', NULL, 'qunge', '具志', 2, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', NULL, 11, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', NULL, '2020-01-05 23:47:58');
+INSERT INTO `wx_card_forward` VALUES (73, 136, 'https://img.xbdzmp.com/20191217100821bd82e255b7cf.jpg', NULL, '姚东良（业务经理）', '绍兴市柯桥区友送银纺织品有限公司', 2, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', NULL, 12, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', NULL, '2020-01-05 23:48:15');
+INSERT INTO `wx_card_forward` VALUES (74, 136, 'https://img.xbdzmp.com/20191217100821bd82e255b7cf.jpg', NULL, '姚东良（业务经理）', '绍兴市柯桥区友送银纺织品有限公司', 2, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, 12, 'o1xq25Eleed552v4FQ7FTliQV_ks', NULL, '2020-01-05 23:48:18');
+INSERT INTO `wx_card_forward` VALUES (75, 136, 'https://img.xbdzmp.com/20191217100821bd82e255b7cf.jpg', NULL, '姚东良（业务经理）', '绍兴市柯桥区友送银纺织品有限公司', 3, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, 12, 'o1xq25Eleed552v4FQ7FTliQV_ks', NULL, '2020-01-05 23:48:28');
+INSERT INTO `wx_card_forward` VALUES (76, 136, 'https://img.xbdzmp.com/20191217100821bd82e255b7cf.jpg', NULL, '姚东良（业务经理）', '绍兴市柯桥区友送银纺织品有限公司', 2, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', NULL, 11, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', NULL, '2020-01-05 23:48:52');
+INSERT INTO `wx_card_forward` VALUES (77, 121, 'https://img.xbdzmp.com/201912061016124caefd584f09.jpg', NULL, 'qunge', '具志', 2, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, 10, 'o1xq25Eleed552v4FQ7FTliQV_ks', NULL, '2020-01-05 23:48:52');
 
 -- ----------------------------
 -- Table structure for wx_category
@@ -831,11 +937,11 @@ CREATE TABLE `wx_category`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 117 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '类别' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 119 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '类别' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_category
@@ -862,6 +968,8 @@ INSERT INTO `wx_category` VALUES (113, NULL, 0, NULL, '麂皮绒', NULL, NULL, N
 INSERT INTO `wx_category` VALUES (114, NULL, 0, NULL, '123', NULL, NULL, NULL, 10, 132, 0, '2019-12-12 20:12:16', NULL, '2019-12-12 20:12:16', NULL, NULL, NULL);
 INSERT INTO `wx_category` VALUES (115, NULL, 0, NULL, '345', NULL, NULL, NULL, 10, 132, 0, '2019-12-12 20:14:53', NULL, '2019-12-12 20:14:53', NULL, NULL, NULL);
 INSERT INTO `wx_category` VALUES (116, NULL, 0, NULL, '12333444', NULL, NULL, NULL, 10, 132, 0, '2019-12-12 20:21:02', NULL, '2019-12-12 20:21:02', NULL, NULL, NULL);
+INSERT INTO `wx_category` VALUES (117, NULL, 0, NULL, '234', NULL, NULL, NULL, 10, 132, 0, '2019-12-17 21:33:59', NULL, '2019-12-17 21:33:59', NULL, NULL, NULL);
+INSERT INTO `wx_category` VALUES (118, NULL, 0, NULL, '11', NULL, NULL, NULL, 11, 135, 0, '2019-12-18 14:57:00', NULL, '2019-12-18 14:57:00', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wx_income_flowing
@@ -887,9 +995,9 @@ CREATE TABLE `wx_income_flowing`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收入流水' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收入流水' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_income_flowing
@@ -902,6 +1010,9 @@ INSERT INTO `wx_income_flowing` VALUES (8, 5, 0, 20, 10000, NULL, 0, 10, 'o1xq25
 INSERT INTO `wx_income_flowing` VALUES (9, 58, 0, 20, 20, NULL, 10, 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', '支付', '201912060112332841011712', '/pages/my/main', 'prepay_id=wx060124335433934568f16d701533260500', 1, 1, 0, '2019-11-20 01:24:54', '18838214579', '2019-12-06 01:24:54', NULL);
 INSERT INTO `wx_income_flowing` VALUES (10, 58, 0, 20, 20, NULL, 12, 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', '支付', '201912060912106821011712', '/pages/my/main', 'prepay_id=wx060919109617996df0d2b86e1134005500', 1, 1, 0, '2019-12-06 09:19:18', '18838214579', '2019-12-06 09:19:18', NULL);
 INSERT INTO `wx_income_flowing` VALUES (11, 58, 0, 20, 20, NULL, 0, 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', '支付', '201912071812149961011712', '/pages/my/main', 'prepay_id=wx071800153000953d6e9044351344730500', 1, 1, 0, '2019-12-07 18:00:24', '18838214579', '2019-12-07 18:00:24', NULL);
+INSERT INTO `wx_income_flowing` VALUES (12, 5, 0, 20, 40, NULL, 10, 12, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', '支付', '201912181712463321011712', '/pages/my/main', 'prepay_id=wx18173946798638f5e1891e521452206600', 1, 1, 0, '2019-12-18 17:39:58', '13486530088', '2019-12-18 17:39:58', NULL);
+INSERT INTO `wx_income_flowing` VALUES (13, 5, 0, 0, 0, NULL, 0, 10, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', '支付', '201912202212487141011712', '/pages/my/main', 'prepay_id=wx2022014929163321b292b3ad1271008700', 1, 1, 0, '2019-12-20 22:02:11', '18838214579', '2019-12-20 22:02:11', NULL);
+INSERT INTO `wx_income_flowing` VALUES (14, 58, 0, 20, 40, NULL, 12, 35, 'o1xq25F_g3NvvYZtIq3Q0d7WbiSk', '支付', '202001051801503401011712', '/pages/my/main', 'prepay_id=wx051852505830205a1f07b29d1082927100', 1, 1, 0, '2020-01-05 18:53:01', '13116858811', '2020-01-05 18:53:01', NULL);
 
 -- ----------------------------
 -- Table structure for wx_material
@@ -909,33 +1020,129 @@ INSERT INTO `wx_income_flowing` VALUES (11, 58, 0, 20, 20, NULL, 0, 10, 'o1xq25G
 DROP TABLE IF EXISTS `wx_material`;
 CREATE TABLE `wx_material`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `pid` int(11) NULL DEFAULT 0 COMMENT '父级id',
+  `pcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父级编码',
   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片地址',
+  `price` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '价格',
+  `default_img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '默认图片',
   `simplename` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '简称',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   `num` int(11) NULL DEFAULT NULL COMMENT '排序',
   `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
   `card_id` int(11) NULL DEFAULT NULL COMMENT '名片id',
   `category_id` int(11) NULL DEFAULT 0 COMMENT '类别id',
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '编码',
   `is_deleted` tinyint(3) NULL DEFAULT 0 COMMENT '是否删除（0否，1是）',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 544 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_material
 -- ----------------------------
-INSERT INTO `wx_material` VALUES (72, 'https://img.xbdzmp.com/2019112508343486d68b04af6e.jpg', NULL, '凄凄切切群群', NULL, 11, 77, 0, 0, '2019-11-25 20:34:37', NULL, '2019-11-25 20:34:37', NULL, NULL, NULL);
-INSERT INTO `wx_material` VALUES (87, 'https://img.xbdzmp.com/201912050817018a6e214bad1d.jpg', NULL, NULL, NULL, NULL, 111, 0, 0, '2019-12-05 20:17:11', NULL, '2019-12-05 20:17:11', NULL, NULL, NULL);
-INSERT INTO `wx_material` VALUES (88, 'https://img.xbdzmp.com/20191205081708bd1f41487142.jpeg', NULL, NULL, NULL, NULL, 111, 0, 0, '2019-12-05 20:17:11', NULL, '2019-12-05 20:17:11', NULL, NULL, NULL);
-INSERT INTO `wx_material` VALUES (92, 'https://img.xbdzmp.com/2019120610165804f816ab8790.jpg', NULL, NULL, NULL, 11, 121, 0, 0, '2019-12-06 22:17:19', NULL, '2019-12-06 22:17:19', NULL, NULL, NULL);
-INSERT INTO `wx_material` VALUES (93, 'https://img.xbdzmp.com/2019120610171486de4eb6305d.jpg', NULL, NULL, NULL, 11, 121, 0, 0, '2019-12-06 22:17:19', NULL, '2019-12-06 22:17:19', NULL, NULL, NULL);
-INSERT INTO `wx_material` VALUES (96, 'https://img.xbdzmp.com/20191207014442dc2bd365fd86.jpg', NULL, '', NULL, NULL, 122, 0, 0, '2019-12-08 21:20:17', NULL, '2019-12-08 21:20:17', NULL, NULL, NULL);
-INSERT INTO `wx_material` VALUES (110, 'https://img.xbdzmp.com/20191206101525dedf4a8663e2.jpg', NULL, '', NULL, NULL, 120, 0, 0, '2019-12-17 12:15:10', NULL, '2019-12-17 12:15:10', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (87, 72, '[0],[72],', 'https://img.xbdzmp.com/201912050817018a6e214bad1d.jpg', NULL, NULL, NULL, NULL, NULL, 11, 143, 0, NULL, 0, '2019-12-05 20:17:11', '55555555555', '2019-12-05 20:17:11', '55555555555', NULL, NULL);
+INSERT INTO `wx_material` VALUES (92, 88, '[0],[88],', 'https://img.xbdzmp.com/2019120610165804f816ab8790.jpg', NULL, NULL, NULL, NULL, NULL, 11, 143, 0, NULL, 0, '2019-12-06 22:17:19', '22222222222', '2019-12-06 22:17:19', '22222222222', NULL, NULL);
+INSERT INTO `wx_material` VALUES (93, 92, '[0],[88],[92],', 'https://img.xbdzmp.com/2019120610171486de4eb6305d.jpg', NULL, NULL, NULL, NULL, NULL, 11, 143, 0, NULL, 0, '2019-12-06 22:17:19', '33333333333', '2019-12-06 22:17:19', '33333333333', NULL, NULL);
+INSERT INTO `wx_material` VALUES (96, 88, '[0],[88],', 'https://img.xbdzmp.com/20191207014442dc2bd365fd86.jpg', NULL, NULL, NULL, '', NULL, 11, 143, 0, NULL, 0, '2019-12-08 21:20:17', '88888888888', '2019-12-20 00:25:37', '88888888888', NULL, NULL);
+INSERT INTO `wx_material` VALUES (113, 0, NULL, 'https://img.xbdzmp.com/20191218030055d7a96226b771.jpg', NULL, NULL, NULL, NULL, NULL, 11, 135, 118, NULL, 0, '2019-12-18 15:00:58', '44444444444', '2019-12-20 02:41:04', '44444444444', NULL, NULL);
+INSERT INTO `wx_material` VALUES (125, 124, '[0],[124],', 'https://img.xbdzmp.com/20191221110348c97285a3167b.jpg', NULL, NULL, NULL, '12333', NULL, 10, 143, 0, NULL, 0, '2019-12-21 22:46:39', '18838214579', '2019-12-21 22:46:39', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (126, 124, '[0],[124],', 'https://img.xbdzmp.com/20191221104817591e56739b3d.jpeg', NULL, NULL, NULL, '2222', NULL, 10, 143, 0, NULL, 0, '2019-12-21 22:48:20', '18838214579', '2019-12-21 22:48:20', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (127, 124, '[0],[124],', 'https://img.xbdzmp.com/201912211052349ab3914a93f8.jpg', NULL, NULL, NULL, '111', NULL, 10, 143, 0, NULL, 0, '2019-12-21 22:52:40', '18838214579', '2019-12-21 22:52:40', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (136, 135, '[0],[135],', 'https://img.xbdzmp.com/201912220900199599afe61ba6.jpg', NULL, NULL, NULL, NULL, NULL, 12, 136, 0, NULL, 0, '2019-12-22 09:00:28', '13486530088', '2019-12-22 09:00:28', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (137, 135, '[0],[135],', 'https://img.xbdzmp.com/20191222090049bad25ebbbb72.jpg', NULL, NULL, NULL, NULL, NULL, 12, 136, 0, NULL, 0, '2019-12-22 09:00:55', '13486530088', '2019-12-22 09:00:55', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (138, 0, '[0],', 'https://img.xbdzmp.com/20191222055602d2e86e23809c.jpg', NULL, NULL, NULL, NULL, NULL, 12, 136, 0, NULL, 0, '2019-12-22 17:56:11', '13486530088', '2019-12-22 17:56:11', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (140, 136, '[0],[135],[136],', 'https://img.xbdzmp.com/20191222055641957c64ab335a.jpg', NULL, NULL, NULL, NULL, NULL, 12, 136, 0, NULL, 0, '2019-12-22 17:56:44', '13486530088', '2019-12-22 17:56:44', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (141, 132, '[0],[132],', 'https://img.xbdzmp.com/201912220938053b7198b5c51a.jpg', NULL, NULL, NULL, '123', NULL, 10, 143, 0, NULL, 0, '2019-12-22 21:38:09', '18838214579', '2019-12-22 21:38:09', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (142, 141, '[0],[132],[141],', 'https://img.xbdzmp.com/20191222093824f0a92ee7f6b1.jpeg', NULL, NULL, NULL, '2222', NULL, 10, 143, 0, NULL, 0, '2019-12-22 21:38:29', '18838214579', '2019-12-22 21:38:29', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (145, 144, '[0],[144],', 'https://img.xbdzmp.com/2019122211563280ca08e78fb5.jpeg', NULL, NULL, NULL, NULL, NULL, 10, 143, 0, NULL, 0, '2019-12-22 23:56:36', '18838214579', '2019-12-22 23:56:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (146, 144, '[0],[144],', 'https://img.xbdzmp.com/20191222115642089647694ce2.jpg', NULL, NULL, NULL, NULL, NULL, 10, 143, 0, NULL, 0, '2019-12-22 23:56:44', '18838214579', '2019-12-22 23:56:44', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (147, 146, '[0],[144],[146],', 'https://img.xbdzmp.com/2019122211565423aa2abd95f3.jpeg', NULL, NULL, NULL, NULL, NULL, 10, 143, 0, NULL, 0, '2019-12-22 23:56:58', '18838214579', '2019-12-23 21:50:47', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (156, 152, '[0],[152],', 'https://img.xbdzmp.com/201912240928369f3e3044425f.jpeg', NULL, NULL, NULL, '111', NULL, 10, 143, 0, NULL, 0, '2019-12-24 21:27:07', '18838214579', '2019-12-24 21:27:07', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (157, 152, '[0],[152],', 'https://img.xbdzmp.com/20191224092817171b15228333.jpg', NULL, NULL, NULL, '123', NULL, 10, 143, 0, NULL, 0, '2019-12-24 21:28:25', '18838214579', '2019-12-24 21:28:25', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (158, 155, '[0],[153],[155],', 'https://img.xbdzmp.com/20191224094813eb79930e3765.jpg', NULL, NULL, NULL, NULL, NULL, 10, 143, 0, NULL, 0, '2019-12-24 21:48:15', '18838214579', '2019-12-24 21:48:15', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (160, 153, '[0],[153],', 'https://img.xbdzmp.com/20191224095045f384f0e4d47a.jpg', NULL, NULL, NULL, NULL, NULL, 10, 143, 0, NULL, 0, '2019-12-24 21:50:48', '18838214579', '2019-12-24 21:50:48', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (165, 165, '[0],', 'https://img.xbdzmp.com/201912250919395c66345932ce.jpg', NULL, NULL, NULL, '四川丽', NULL, 12, 136, 0, NULL, 0, '2019-12-25 09:20:10', '13112341234', '2019-12-25 09:20:10', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (172, 164, '[0],[164],', 'https://img.xbdzmp.com/2019122511213189d5600de7ea.jpg', NULL, NULL, NULL, NULL, NULL, 12, 136, 0, NULL, 0, '2019-12-25 23:21:35', '13112341234', '2019-12-25 23:21:35', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (181, 180, '[0],[180],', 'https://img.xbdzmp.com/20191227083709aa23e3617a5d.jpg', NULL, NULL, NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 20:37:12', '18838214579', '2019-12-27 20:37:12', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (193, 191, '[0],[182],[191],', 'https://img.xbdzmp.com/20191227095926393662fae23e.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 21:59:30', '18838214579', '2019-12-27 21:59:30', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (194, 191, '[0],[182],[191],', 'https://img.xbdzmp.com/20191227095926312479f5f615.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 21:59:30', '18838214579', '2019-12-27 21:59:30', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (195, 191, '[0],[182],[191],', 'https://img.xbdzmp.com/20191227095926cf040df1ec0f.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 21:59:30', '18838214579', '2019-12-27 21:59:30', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (196, 191, '[0],[182],[191],', 'https://img.xbdzmp.com/20191227095926393662fae23e.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 21:59:42', '18838214579', '2019-12-27 21:59:42', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (197, 191, '[0],[182],[191],', 'https://img.xbdzmp.com/20191227095926312479f5f615.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 21:59:42', '18838214579', '2019-12-27 21:59:42', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (198, 191, '[0],[182],[191],', 'https://img.xbdzmp.com/20191227095926cf040df1ec0f.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 21:59:42', '18838214579', '2019-12-27 21:59:42', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (199, 190, '[0],[182],[190],', 'https://img.xbdzmp.com/201912271002551b7d8255a933.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 22:02:58', '18838214579', '2019-12-27 22:02:58', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (200, 190, '[0],[182],[190],', 'https://img.xbdzmp.com/20191227100255697fee5883ed.jpeg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 22:02:58', '18838214579', '2019-12-27 22:02:58', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (202, 182, '[0],[182],', 'https://img.xbdzmp.com/20191227102322c5e28dd6e9ca.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 22:25:44', '18838214579', '2019-12-27 22:25:44', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (212, 202, '[0],[182],[202],', 'https://img.xbdzmp.com/201912271123443db12cd229c2.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:23:54', '18838214579', '2019-12-27 23:23:54', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (213, 202, '[0],[182],[202],', 'https://img.xbdzmp.com/20191227112344491240bd172e.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:23:54', '18838214579', '2019-12-27 23:23:54', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (214, 202, '[0],[182],[202],', 'https://img.xbdzmp.com/201912271123443db12cd229c2.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:23:56', '18838214579', '2019-12-27 23:23:56', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (215, 202, '[0],[182],[202],', 'https://img.xbdzmp.com/20191227112344491240bd172e.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:23:56', '18838214579', '2019-12-27 23:23:56', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (216, 202, '[0],[182],[202],', 'https://img.xbdzmp.com/20191227112344491240bd172e.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:23:58', '18838214579', '2019-12-27 23:23:58', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (217, 202, '[0],[182],[202],', 'https://img.xbdzmp.com/201912271123443db12cd229c2.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:24:01', '18838214579', '2019-12-27 23:24:01', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (218, 182, '[0],[182],', 'https://img.xbdzmp.com/20191227112430b5e53185ae86.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:24:36', '18838214579', '2019-12-27 23:24:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (220, 218, '[0],[182],[218],', 'https://img.xbdzmp.com/201912271132438d51e359d260.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:32:50', '18838214579', '2019-12-27 23:32:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (221, 218, '[0],[182],[218],', 'https://img.xbdzmp.com/20191227113243e8abbea2d8e6.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:32:50', '18838214579', '2019-12-27 23:32:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (222, 218, '[0],[182],[218],', 'https://img.xbdzmp.com/20191227113243ec0ce447aba9.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:32:50', '18838214579', '2019-12-27 23:32:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (223, 218, '[0],[182],[218],', 'https://img.xbdzmp.com/20191227113243f98006c4bf27.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:32:50', '18838214579', '2019-12-27 23:32:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (224, 218, '[0],[182],[218],', 'https://img.xbdzmp.com/2019122711324351311c50259a.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:32:50', '18838214579', '2019-12-27 23:32:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (225, 218, '[0],[182],[218],', 'https://img.xbdzmp.com/20191227113243cf5557fbe6aa.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2019-12-27 23:32:50', '18838214579', '2019-12-27 23:32:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (262, 0, '[0],', 'https://img.xbdzmp.com/20191228124557e483567bb3a8.jpg', NULL, '/img/pro1.jpg', NULL, '敬请期待', NULL, 12, 136, 0, NULL, 0, '2019-12-28 12:46:01', '13112341234', '2019-12-28 12:46:01', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (263, 262, '[0],[262],', 'https://img.xbdzmp.com/2019122801151513cfae90d370.jpg', NULL, '', NULL, '', NULL, 12, 136, 0, NULL, 0, '2019-12-28 13:15:30', '13112341234', '2019-12-28 13:15:30', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (264, 262, '[0],[262],', 'https://img.xbdzmp.com/201912280115159dd0be23f0d9.jpg', NULL, '', NULL, '', NULL, 12, 136, 0, NULL, 0, '2019-12-28 13:15:33', '13112341234', '2019-12-28 13:15:33', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (267, 262, '[0],[262],', 'https://img.xbdzmp.com/201912280115151bed24be04c1.jpg', NULL, '', NULL, '', NULL, 12, 136, 0, NULL, 0, '2019-12-28 13:15:38', '13112341234', '2019-12-28 13:15:38', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (270, 262, '[0],[262],', 'https://img.xbdzmp.com/2019122801151575f0ef0e9205.jpg', NULL, '', NULL, '', NULL, 12, 136, 0, NULL, 0, '2019-12-28 13:15:44', '13112341234', '2019-12-28 13:15:44', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (271, 262, '[0],[262],', 'https://img.xbdzmp.com/20191228011515e1982385af7d.jpg', NULL, '', NULL, '', NULL, 12, 136, 0, NULL, 0, '2019-12-28 13:15:44', '13112341234', '2019-12-28 13:15:44', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (306, 0, '[0],', 'https://img.xbdzmp.com/201912300706334ebebbbb285a.jpg', NULL, '/img/pro2.jpg', NULL, '敬请期待', NULL, 12, 136, 0, NULL, 0, '2019-12-30 07:06:37', '13112341234', '2019-12-30 07:06:37', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (327, 0, '[0],', 'https://img.xbdzmp.com/2020010110275015f29cfe0a61.jpg', NULL, NULL, NULL, '', NULL, 12, 136, 0, NULL, 0, '2020-01-01 10:27:54', '13112341234', '2020-01-01 10:27:54', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (490, 0, '[0],', 'https://img.xbdzmp.com/20200102084304b480ab41fcb4.jpg', NULL, '', NULL, '9', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (491, 0, '[0],', 'https://img.xbdzmp.com/202001020843042ec0c6a71a5f.jpg', NULL, '', NULL, '8', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (492, 0, '[0],', 'https://img.xbdzmp.com/20200102084304243f34c15976.jpg', NULL, '', NULL, '7', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (493, 0, '[0],', 'https://img.xbdzmp.com/20200102084304d87f34d0adf7.jpg', NULL, '', NULL, '6', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (494, 0, '[0],', 'https://img.xbdzmp.com/20200102084304d502f5092585.jpg', NULL, '', NULL, '5', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (495, 0, '[0],', 'https://img.xbdzmp.com/202001020843040cb6cf324af9.jpg', NULL, '', NULL, '4', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (496, 0, '[0],', 'https://img.xbdzmp.com/202001020843047c2b10dffa0e.jpg', NULL, '', NULL, '3', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (497, 0, '[0],', 'https://img.xbdzmp.com/20200102084303fd86dd28d74d.jpg', NULL, '', NULL, '2', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (498, 0, '[0],', 'https://img.xbdzmp.com/202001020843033c34d5e2a29d.jpg', NULL, '', NULL, '1', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:44:17', '18321678888', '2020-01-02 20:44:17', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (500, 490, '[0],[490],', 'https://img.xbdzmp.com/202001020845432e6b6b104268.jpg', NULL, '', NULL, '', NULL, 11, 121, 0, NULL, 0, '2020-01-02 20:45:57', '18321678888', '2020-01-02 20:45:57', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (507, 0, '[0],', 'https://img.xbdzmp.com/2020010208512524fdf1764bec.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-02 20:51:28', '18838214579', '2020-01-02 20:51:28', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (508, 0, '[0],', 'https://img.xbdzmp.com/2020010208515223322670a864.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-02 20:51:54', '18838214579', '2020-01-02 20:51:54', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (509, 0, '[0],', 'https://img.xbdzmp.com/20200102085152492dbdd211a9.jpeg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-02 20:51:54', '18838214579', '2020-01-02 20:51:54', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (510, 0, '[0],', 'https://img.xbdzmp.com/20200102085152727432e5e25b.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-02 20:51:54', '18838214579', '2020-01-02 20:51:54', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (511, 498, '[0],[498],', 'https://img.xbdzmp.com/2020010209095524f622bbcd2c.jpg', NULL, '', NULL, '', NULL, 11, 121, 0, NULL, 0, '2020-01-02 21:09:59', '18321678888', '2020-01-02 21:09:59', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (512, 498, '[0],[498],', 'https://img.xbdzmp.com/20200102090955c1e9df5be566.jpg', NULL, '', NULL, '', NULL, 11, 121, 0, NULL, 0, '2020-01-02 21:09:59', '18321678888', '2020-01-02 21:09:59', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (513, 498, '[0],[498],', 'https://img.xbdzmp.com/202001020909542be5230ecf1d.jpg', NULL, '', NULL, '', NULL, 11, 121, 0, NULL, 0, '2020-01-02 21:09:59', '18321678888', '2020-01-02 21:09:59', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (514, 510, '[0],[510],', 'https://img.xbdzmp.com/20200102091149c92c62f80643.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-02 21:11:52', '18838214579', '2020-01-02 21:11:52', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (515, 512, '[0],[498],[512],', 'https://img.xbdzmp.com/2020010302495529d406cc38bb.jpg', NULL, '', NULL, '', NULL, 11, 121, 0, NULL, 0, '2020-01-03 14:50:00', '18321678888', '2020-01-03 14:50:00', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (516, 512, '[0],[498],[512],', 'https://img.xbdzmp.com/20200103024955b382ce82ce05.jpg', NULL, '', NULL, '', NULL, 11, 121, 0, NULL, 0, '2020-01-03 14:50:00', '18321678888', '2020-01-03 14:50:00', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (517, 510, '[0],[510],', 'https://img.xbdzmp.com/20200104083034575d683c8ab4.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-04 20:30:36', '18838214579', '2020-01-04 20:30:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (518, 510, '[0],[510],', 'https://img.xbdzmp.com/20200104083033e0c0a80d1ca3.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-04 20:30:36', '18838214579', '2020-01-04 20:30:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (519, 510, '[0],[510],', 'https://img.xbdzmp.com/20200104083033a6a2afe9ed5f.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-04 20:30:36', '18838214579', '2020-01-04 20:30:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (520, 510, '[0],[510],', 'https://img.xbdzmp.com/202001040830339a4365769291.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-04 20:30:36', '18838214579', '2020-01-04 20:30:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (521, 510, '[0],[510],', 'https://img.xbdzmp.com/202001040830336bb34b3fc96e.jpeg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-04 20:30:36', '18838214579', '2020-01-04 20:30:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (522, 510, '[0],[510],', 'https://img.xbdzmp.com/202001040830334e2ffad60392.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-04 20:30:36', '18838214579', '2020-01-04 20:30:36', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (524, 262, '[0],[262],', 'https://img.xbdzmp.com/20200104102649c05d51330f73.jpg', NULL, '', NULL, '生日宴会', NULL, 12, 136, 0, NULL, 0, '2020-01-04 22:27:07', '13486530088', '2020-01-04 22:27:07', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (525, 0, '[0],', 'https://img.xbdzmp.com/202001051014333d16be8316b0.jpg', NULL, '', NULL, '0', NULL, 11, 121, 0, NULL, 0, '2020-01-05 10:14:47', '18321678888', '2020-01-05 10:14:47', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (526, 525, '[0],[525],', 'https://img.xbdzmp.com/202001051015181c52cf9757a0.jpg', NULL, '', NULL, '99', NULL, 11, 121, 0, NULL, 0, '2020-01-05 10:15:33', '18321678888', '2020-01-05 10:15:33', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (527, 525, '[0],[525],', 'https://img.xbdzmp.com/2020010510151831bdbeee5b62.jpg', NULL, '', NULL, '88', NULL, 11, 121, 0, NULL, 0, '2020-01-05 10:15:33', '18321678888', '2020-01-05 10:15:33', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (528, 0, '[0],', 'https://img.xbdzmp.com/20200105115747789579c36e3a.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:57:50', '18838214579', '2020-01-05 11:57:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (529, 0, '[0],', 'https://img.xbdzmp.com/2020010511574798e034660c9d.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:57:50', '18838214579', '2020-01-05 11:57:50', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (530, 529, '[0],[529],', 'https://img.xbdzmp.com/2020010511581501f0a205f7fe.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:58:19', '18838214579', '2020-01-05 11:58:19', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (531, 530, '[0],[529],[530],', 'https://img.xbdzmp.com/20200105115837bd1bf8386608.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:58:40', '18838214579', '2020-01-05 11:58:40', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (532, 530, '[0],[529],[530],', 'https://img.xbdzmp.com/202001051158373530de4dff23.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:58:40', '18838214579', '2020-01-05 11:58:40', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (533, 528, '[0],[528],', 'https://img.xbdzmp.com/2020010511593028033202620f.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:59:34', '18838214579', '2020-01-05 11:59:34', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (534, 528, '[0],[528],', 'https://img.xbdzmp.com/202001051159303a212ce81bcd.jpg', NULL, '', NULL, '', NULL, 10, 151, 0, NULL, 0, '2020-01-05 11:59:34', '18838214579', '2020-01-05 11:59:34', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (536, 0, '[0],', 'https://img.xbdzmp.com/20200105031834df4fee09e3f3.jpg', NULL, '', NULL, '', NULL, 12, 136, 0, NULL, 0, '2020-01-05 15:18:44', '13606281819', '2020-01-05 15:18:44', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (538, 522, '[0],[510],[522],', 'https://img.xbdzmp.com/20200105082306fc19d78293b4.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-05 20:23:09', '18838214579', '2020-01-05 20:23:09', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (539, 522, '[0],[510],[522],', 'https://img.xbdzmp.com/202001050823064a0098f62aaa.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-05 20:23:09', '18838214579', '2020-01-05 20:23:09', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (540, 522, '[0],[510],[522],', 'https://img.xbdzmp.com/202001050823065432c88a3c9f.jpeg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-05 20:23:09', '18838214579', '2020-01-05 20:23:09', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (541, 540, '[0],[510],[522],[540],', 'https://img.xbdzmp.com/2020010508231829e130cd0e43.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-05 20:23:19', '18838214579', '2020-01-05 20:23:19', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (542, 540, '[0],[510],[522],[540],', 'https://img.xbdzmp.com/2020010508231747c7651824b5.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-05 20:23:19', '18838214579', '2020-01-05 20:23:19', NULL, NULL, NULL);
+INSERT INTO `wx_material` VALUES (543, 540, '[0],[510],[522],[540],', 'https://img.xbdzmp.com/2020010508231772bc86afdce7.jpg', NULL, '', NULL, '', NULL, 10, 143, 0, NULL, 0, '2020-01-05 20:23:19', '18838214579', '2020-01-05 20:23:19', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wx_material_comment
@@ -955,11 +1162,31 @@ CREATE TABLE `wx_material_comment`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材评论' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材评论' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wx_material_comment
+-- ----------------------------
+INSERT INTO `wx_material_comment` VALUES (2, 110, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', '哒哒哒哒哒哒', NULL, 0, 0, 135, '2019-12-18 17:06:28', '18321678888', '2019-12-18 17:06:28', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (4, 151, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', '挺好的商品', NULL, 0, 0, 143, '2019-12-25 01:24:11', '18838214579', '2019-12-25 01:24:11', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (8, 150, 13, 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', '小林', '厉害', NULL, 0, 0, 143, '2019-12-25 02:07:31', '13592389028', '2019-12-25 02:07:31', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (11, 150, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', '你好', NULL, 0, 0, 143, '2019-12-25 02:15:16', '18838214579', '2019-12-25 02:15:16', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (12, 162, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', '你好\n', NULL, 0, 0, 136, '2019-12-25 08:38:49', '13112341234', '2019-12-25 08:38:49', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (13, 161, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', '3582', NULL, 0, 0, 121, '2019-12-25 17:40:24', '18321678888', '2019-12-25 17:40:24', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (14, 170, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', 'aa', NULL, 0, 0, 121, '2019-12-25 17:46:24', '18321678888', '2019-12-25 17:46:24', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (15, 162, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', '不错', NULL, 0, 0, 136, '2019-12-26 09:15:23', NULL, '2019-12-26 09:15:23', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (16, 163, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', '这个可以', NULL, 0, 0, 136, '2019-12-26 09:15:39', NULL, '2019-12-26 09:15:39', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (17, 140, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', 'OK', NULL, 0, 0, 136, '2019-12-26 09:16:06', NULL, '2019-12-26 09:16:06', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (18, 138, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', '休闲会所', NULL, 0, 0, 136, '2019-12-26 10:18:29', NULL, '2019-12-26 10:18:29', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (19, 256, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', '不错', NULL, 0, 0, 143, '2019-12-31 00:33:27', '18838214579', '2019-12-31 00:33:27', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (20, 263, 27, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', '杜金平', '可以', NULL, 0, 0, 136, '2019-12-31 16:59:15', NULL, '2019-12-31 16:59:15', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (21, 322, 12, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', '王子13116858811', '不错啊', NULL, 0, 0, 136, '2020-01-02 15:45:20', '13112341234', '2020-01-02 15:45:20', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (22, 497, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', '1', NULL, 0, 0, 121, '2020-01-04 19:23:48', '18321678888', '2020-01-04 19:23:48', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment` VALUES (23, 327, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', '你好', NULL, 0, 0, 136, '2020-01-04 20:53:13', '18838214579', '2020-01-04 20:53:13', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wx_material_comment_reply
@@ -981,11 +1208,20 @@ CREATE TABLE `wx_material_comment_reply`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材评论回复' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '素材评论回复' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wx_material_comment_reply
+-- ----------------------------
+INSERT INTO `wx_material_comment_reply` VALUES (1, 2, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, NULL, '哈哈哈', NULL, 0, 0, NULL, '2019-12-18 17:08:23', '18321678888', '2019-12-18 17:08:23', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment_reply` VALUES (2, 2, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, NULL, '啦啦啦啦', NULL, 0, 0, NULL, '2019-12-18 17:08:42', '18321678888', '2019-12-18 17:08:42', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment_reply` VALUES (3, 3, 10, 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', '算了吧！', NULL, NULL, '确实不错', NULL, 0, 0, NULL, '2019-12-25 01:18:05', '18838214579', '2019-12-25 01:18:05', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment_reply` VALUES (7, 14, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, NULL, 'YY', NULL, 0, 0, NULL, '2019-12-26 21:01:07', '18321678888', '2019-12-26 21:01:07', NULL, NULL, NULL);
+INSERT INTO `wx_material_comment_reply` VALUES (8, 22, 11, 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 'xīn yǒu líng xī', NULL, NULL, '2', NULL, 0, 0, NULL, '2020-01-04 19:23:55', '18321678888', '2020-01-04 19:23:55', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wx_out_flowing
@@ -1006,7 +1242,7 @@ CREATE TABLE `wx_out_flowing`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '平台支出流水' ROW_FORMAT = Dynamic;
 
@@ -1014,6 +1250,34 @@ CREATE TABLE `wx_out_flowing`  (
 -- Records of wx_out_flowing
 -- ----------------------------
 INSERT INTO `wx_out_flowing` VALUES (1, 15, NULL, 10, NULL, '提成提现', '201912071812149961011712', NULL, 1, 1, 0, '2019-12-07 12:02:10', '18321678888', NULL, NULL);
+
+-- ----------------------------
+-- Table structure for wx_promotion
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_promotion`;
+CREATE TABLE `wx_promotion`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
+  `card_id` int(11) NULL DEFAULT NULL COMMENT '名片id',
+  `is_deleted` tinyint(3) NULL DEFAULT 0 COMMENT '是否删除（0否，1是）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(225) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '宣传文案' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wx_promotion
+-- ----------------------------
+INSERT INTO `wx_promotion` VALUES (5, '测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告测试广告', 10, 143, 0, '2020-01-05 21:58:25', NULL, '2020-01-05 22:15:57', NULL);
+INSERT INTO `wx_promotion` VALUES (6, '感谢您使用销帮电子名片   您的需求永远是我们最大的追求 如有疑问请在客服留言', 12, 136, 0, '2020-01-05 23:07:17', NULL, '2020-01-05 23:07:17', NULL);
+INSERT INTO `wx_promotion` VALUES (7, '本公司主营：麂皮绒，tr色织布刚发的发挥好分手感觉到换个大的', 12, 136, 0, '2020-01-05 23:07:42', NULL, '2020-01-06 10:01:27', NULL);
+INSERT INTO `wx_promotion` VALUES (8, '感谢您使用销帮电子名片 1111', 11, 121, 0, '2020-01-05 23:51:49', NULL, '2020-01-06 10:30:34', NULL);
+INSERT INTO `wx_promotion` VALUES (9, '感谢您使用销帮电子名片   您的需求永远是我们最大的追求 如有疑问请在客服留言', 10, 151, 0, '2020-01-06 10:33:49', NULL, '2020-01-06 10:33:49', NULL);
+INSERT INTO `wx_promotion` VALUES (10, '感谢您使用销帮电子名片   您的需求永远是我们最大的追求 如有疑问请在客服留言', 10, 151, 0, '2020-01-06 10:34:01', NULL, '2020-01-06 10:35:20', NULL);
+INSERT INTO `wx_promotion` VALUES (11, '感谢您使用销帮电子名片   您的需求永远是我们最大的追求 如有疑问请在客服留言', 14, 153, 0, '2020-01-06 10:55:52', NULL, '2020-01-06 10:55:52', NULL);
 
 -- ----------------------------
 -- Table structure for wx_user
@@ -1025,6 +1289,8 @@ CREATE TABLE `wx_user`  (
   `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'pids',
   `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
   `isvip` tinyint(11) NULL DEFAULT NULL COMMENT '是否是会员（0否，1是）',
+  `vip_start_time` datetime(0) NULL DEFAULT NULL COMMENT '成为vip时间',
+  `vip_end_time` datetime(0) NULL DEFAULT NULL COMMENT 'vip结束时间',
   `openid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信openid',
   `card_id` int(11) NULL DEFAULT NULL COMMENT '当前绑定的名片id',
   `unionid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信unionid',
@@ -1044,22 +1310,31 @@ CREATE TABLE `wx_user`  (
   `last_login_time` datetime(0) NULL DEFAULT NULL COMMENT '最后登录时间',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  `update_by` datetime(0) NULL DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '成为vip时间',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '预留字段',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信用户' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wx_user
 -- ----------------------------
-INSERT INTO `wx_user` VALUES (10, 0, '[0],', '18838214579', 1, 'o1xq25GKRjOKaKPBB4YC5EaguvVI', 132, NULL, 'https://img.xbdzmp.com/code2019120911373725cdd25baffb.jpg', '算了吧！', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', 1, NULL, 'China', 'Henan', 'Shangqiu', NULL, NULL, 'zh_CN', 0, 0, '2019-12-16 13:14:48', '2019-11-25 20:32:25', NULL, '2019-12-17 13:15:29', NULL, '0');
-INSERT INTO `wx_user` VALUES (11, 12, '[0],[10],[12]', '18321678888', 1, 'o1xq25Eleed552v4FQ7FTliQV_ks', 135, NULL, 'https://img.xbdzmp.com/code201912101157026e6d72267a7e.jpg', 'xīn yǒu líng xī', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 1, NULL, 'China', 'Jiangsu', 'Xuzhou', NULL, NULL, 'zh_CN', 0, 0, '2019-12-06 22:11:23', '2019-11-25 20:33:38', NULL, '2019-12-17 19:17:36', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
-INSERT INTO `wx_user` VALUES (12, 10, '[0],[10],', '13486530088', 1, 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', 120, NULL, 'https://img.xbdzmp.com/code20191206085417c1987028b7b4.jpg', '王子13116858811', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', 1, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2019-12-07 09:25:59', '2019-11-25 20:54:45', NULL, '2019-12-17 12:15:10', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
-INSERT INTO `wx_user` VALUES (13, 10, '[0],[10]', '13592389028', 0, 'o1xq25OruDaAc-8P4huJJit0Etjo', 101, NULL, NULL, '小林', 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', 1, NULL, 'Andorra', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-07 22:08:12', '2019-11-25 20:57:07', NULL, '2019-12-07 23:04:52', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
-INSERT INTO `wx_user` VALUES (14, 0, '[0],', '13758125460', 0, 'o1xq25EBSfk6eApV_n1O4Zgm0wUg', 133, NULL, NULL, 'Floss', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erUK9lcqSHMcRicsSpWIibseUibh1rUaiahKicaCSy6X8TI6aQ5w7ibuFjrdEwZql8RDWic0BMzGLBa5e3dA/132', 2, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2019-12-04 22:25:19', '2019-12-04 22:25:19', NULL, '2019-12-16 13:22:30', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
-INSERT INTO `wx_user` VALUES (27, 12, '[0],[10],[12],', NULL, 0, 'o1xq25D43clThtHXHAbI992Y5VgM', NULL, NULL, NULL, '杜金平', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', 1, NULL, 'Congo(DRC)', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-10 15:19:44', '2019-12-10 15:19:44', NULL, '2019-12-10 15:19:44', NULL, NULL);
-INSERT INTO `wx_user` VALUES (33, 10, '[0],[10]', '13592389028', 1, 'o1xq25OruDaAc-8P4huJJit0Etjodddd', 101, NULL, NULL, '小林', 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', 1, NULL, 'Andorra', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-07 22:08:12', '2019-11-25 20:57:07', NULL, '2019-12-07 23:04:52', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
+INSERT INTO `wx_user` VALUES (10, 0, '[0],', '18838214579', 1, '2020-01-02 13:43:25', '2021-01-02 13:43:25', 'o1xq25GKRjOKaKPBB4YC5EaguvVI', 143, NULL, 'https://img.xbdzmp.com/code2019120911373725cdd25baffb.jpg', '算了吧！', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJDCzIXQRbicndLxBVXrFq4G9l6OicWRXiagsoFtiakJls0daMs4SBHTnAfkNWF4ucwHPW9icZwGOib2D2g/132', 1, NULL, 'China', 'Henan', 'Shangqiu', NULL, NULL, 'zh_CN', 0, 0, '2020-01-05 13:19:10', '2019-11-25 20:32:25', NULL, NULL, NULL, '0');
+INSERT INTO `wx_user` VALUES (11, 12, '[0],[10],[12]', '18321678888', 1, '2019-12-25 18:04:19', '2020-12-25 18:04:19', 'o1xq25Eleed552v4FQ7FTliQV_ks', 121, NULL, 'https://img.xbdzmp.com/code201912101157026e6d72267a7e.jpg', 'xīn yǒu líng xī', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erz7jYrZibUKCmRD7CuNLG14Rvdz4ABWcuj57vDgY2609zeUWpR6rjKevQB1Nf4FOcpmXPyDnzTe5A/132', 1, NULL, 'China', 'Jiangsu', 'Xuzhou', NULL, NULL, 'zh_CN', 0, 0, '2020-01-02 20:30:31', '2019-11-25 20:33:38', NULL, '2020-01-06 00:11:32', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
+INSERT INTO `wx_user` VALUES (12, 10, '[0],[10],', '13116858811', 1, '2019-12-24 11:02:12', '2020-12-24 11:02:12', 'o1xq25JpA8YQL8kzHcQMAeXU4Rrk', 136, NULL, 'https://img.xbdzmp.com/code20191206085417c1987028b7b4.jpg', '王子13116858811', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqYmZyqtXbpSKpTY5QxIG4cvicgcSOvcUzibKQTYar0s9rr4jh3Tq0iaiaq92U2m7GmsIhUaCfBMnicFKA/132', 1, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2020-01-05 18:47:03', '2019-11-25 20:54:45', NULL, '2020-01-05 19:18:38', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
+INSERT INTO `wx_user` VALUES (13, 10, '[0],[10]', '13592389028', 0, NULL, NULL, 'o1xq25OruDaAc-8P4huJJit0Etjo', 101, NULL, NULL, '小林', 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', 1, NULL, 'Andorra', '', '', NULL, NULL, 'zh_CN', 0, 0, '2020-01-02 23:23:57', '2019-11-25 20:57:07', NULL, NULL, NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
+INSERT INTO `wx_user` VALUES (14, 0, '[0],', '13758125460', 0, NULL, NULL, 'o1xq25EBSfk6eApV_n1O4Zgm0wUg', 133, NULL, NULL, 'Floss', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erUK9lcqSHMcRicsSpWIibseUibh1rUaiahKicaCSy6X8TI6aQ5w7ibuFjrdEwZql8RDWic0BMzGLBa5e3dA/132', 2, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2019-12-04 22:25:19', '2019-12-04 22:25:19', NULL, NULL, NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
+INSERT INTO `wx_user` VALUES (27, 12, '[0],[10],[12],', NULL, 0, NULL, NULL, 'o1xq25D43clThtHXHAbI992Y5VgM', NULL, NULL, NULL, '杜金平', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKCRlDJTayvA6KqIIia9iamkNiaBVOG92L668bUX8mAY5O8LicLgCcIYSEqHaWKJWqfNMLRKRmeYr18hw/132', 1, NULL, 'Congo(DRC)', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-10 15:19:44', '2019-12-10 15:19:44', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (33, 10, '[0],[10]', '13592389028', 1, '2019-12-07 23:04:52', '2020-12-07 23:04:52', 'o1xq25OruDaAc-8P4huJJit0Etjodddd', 101, NULL, NULL, '小林', 'https://wx.qlogo.cn/mmopen/vi_32/yK7HiabCicGCtpHGEQ3fNSibBsrA42XiaicrlDhyomkD9IF6lxlibiabUDVIea5BlmNRiaZBH0JxanMZnCAEzKXvIeqLpg/132', 1, NULL, 'Andorra', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-07 22:08:12', '2019-11-25 20:57:07', NULL, '2019-12-07 23:04:52', NULL, 'o1xq25GKRjOKaKPBB4YC5EaguvVI');
+INSERT INTO `wx_user` VALUES (34, 12, '[0],[10],[12],', '13588545490', 0, NULL, NULL, 'o1xq25KaxwA3UTS1_021rddynOgo', 144, NULL, NULL, 'LiSa .', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJGGZ9EnBISBGHCfmofiawTc2dymyg9CDj49dtJTt9YJSbqDGhGtDvB9W2YS7lROJa9iaBkGMicLV5vA/132', 2, NULL, 'Andorra', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-22 20:00:08', '2019-12-22 20:00:08', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (35, 12, '[0],[10],[12],', '13116858811', 1, '2020-01-05 18:53:01', '2021-01-05 18:53:01', 'o1xq25F_g3NvvYZtIq3Q0d7WbiSk', 145, NULL, NULL, '佩奇色纺', 'https://wx.qlogo.cn/mmopen/vi_32/536iaFZzYeJ5BfwFc380P7SFHSKPjNKpMUOpBZGkfoKscEnWTqEysYwVZyJ0CvmCjHhPyIV2XN5McWPSxqic6Y7g/132', 1, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2019-12-23 10:31:44', '2019-12-23 10:31:44', NULL, '2020-01-05 18:53:01', NULL, NULL);
+INSERT INTO `wx_user` VALUES (36, 12, '[0],[10],[12],', NULL, 0, NULL, NULL, 'o1xq25N-mQ92by4u2JGXO71D9_rQ', NULL, NULL, NULL, '年年有余', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTItB56hbSSicxAebFE5JEFn9MicyzcMLyTshDdibuduia2jzoibwAGFNw2VCKFjb1uGYrzky7AUX4KSZRg/132', 2, NULL, 'Jersey', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-23 13:17:59', '2019-12-23 13:17:59', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (37, 12, '[0],[10],[12],', NULL, 0, NULL, NULL, 'o1xq25G7jl3l5WQfbM21yBZFtZhc', NULL, NULL, NULL, '程程', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJR4ibcVMzMz9r6rPpwJAMVo2Gl2Sz77P0KOBMoOSJLH7ddW1hLxnsqGFvLxEVRfZr1muicVb27Flwg/132', 2, NULL, 'China', 'Hubei', 'Wuhan', NULL, NULL, 'zh_CN', 0, 0, '2019-12-23 20:30:09', '2019-12-23 20:30:09', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (38, 12, '[0],[10],[12],', NULL, 0, NULL, NULL, 'o1xq25G-NHaeuBPkVUaoMjOmy3-Q', NULL, NULL, NULL, 'livia', 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erl5ykT55F5rfXfjFIb7ZSfnBRibRHOoYibZCbo20xo2TzBktnNUth9P7PL4VHhicdicp3ECATEfE7k7A/132', 2, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2019-12-24 10:59:32', '2019-12-24 10:59:32', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (39, 12, '[0],[10],[12],', '18605757418', 0, NULL, NULL, 'o1xq25DqnTin6JNtpVCujiIUa8MY', 147, NULL, NULL, 'sun-孙', 'https://wx.qlogo.cn/mmopen/vi_32/RtKa0MkvY7ksopEuOvY3VrngdK8CvJGhCL4Wgp9cialT1mcickVJm0ldBHZhsib38XK8jLFpgVUzTFXxzqHNMvOIA/132', 1, NULL, 'Marshall Islands', '', '', NULL, NULL, 'zh_CN', 0, 0, '2019-12-25 09:11:02', '2019-12-25 09:11:02', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (40, 12, '[0],[10],[12],', '13807806927', 0, NULL, NULL, 'o1xq25K5L-dWwKr7rh75zllWripA', 148, NULL, NULL, '乡酒', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJrjwowQB5WFPhDCib9WNkwpt9xicxOpnI0XKCiapo6yumISzPRpEgG340T8lI7iaPzSZg7rQe7L7MkcA/132', 1, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2019-12-31 13:40:21', '2019-12-31 13:40:21', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (41, 12, '[0],[10],[12],', NULL, 0, NULL, NULL, 'o1xq25MqbssDKQC8Zmhmrx8k_E7o', NULL, NULL, NULL, 'A书香年华', 'https://wx.qlogo.cn/mmopen/vi_32/2GCf7F9ANPIrTk0YicQ7NYPMhFiajrDr4PKB0vnnSdLG0zJHciaZb89tnGibjiaN91E4djNumib1CJrxIe9A4UNMmNhw/132', 1, NULL, 'China', 'Zhejiang', 'Shaoxing', NULL, NULL, 'zh_CN', 0, 0, '2020-01-02 17:54:11', '2020-01-02 17:54:11', NULL, NULL, NULL, NULL);
+INSERT INTO `wx_user` VALUES (42, 12, '[0],[10],[12],', NULL, 0, NULL, NULL, 'o1xq25OAKsDmctzQBDUyqDgnvOVU', NULL, NULL, NULL, 'AAAA每日鲜精品水果批发零售行', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJyJU9LlBwDmibondoYKK1OHZloeib3tX8oYjxjK2JtaKtaCMlrf1HraEaaNnMTzrwhXalfWmUzjictg/132', 1, NULL, 'China', 'Jiangsu', 'Nantong', NULL, NULL, 'zh_CN', 0, 0, '2020-01-04 22:42:26', '2020-01-04 22:42:26', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wx_user_achievement
@@ -1083,7 +1358,7 @@ CREATE TABLE `wx_user_achievement`  (
   `date_time` date NULL DEFAULT NULL COMMENT '汇总日期',
   `puser_id` bigint(11) NULL DEFAULT NULL COMMENT '父级用户id',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uni_user_id_date_time`(`user_id`, `date_time`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE
