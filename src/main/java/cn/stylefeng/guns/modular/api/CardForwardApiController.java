@@ -4,7 +4,6 @@ import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.modular.dto.ForwardPageDTO;
-import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.model.CardForward;
 import cn.stylefeng.guns.modular.system.model.WxUser;
@@ -22,15 +21,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * 名片转发打开记录
@@ -102,15 +98,10 @@ public class CardForwardApiController extends BaseController {
         if (cardId == null  || userId ==null|| cardForward.getForwarderId() == null || cardForward.getType() == null) {
             return new ErrorResponseData("名片ID,当前者ID,转发者ID,类型 不可为空");
         }
+        if ((String.valueOf(userId)).equals(String.valueOf(JwtTokenUtil.getUserId()))) {
+            return SUCCESS_TIP;
+        }
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
-        Card card = cardService.selectById(cardId);
-        if (card == null) {
-            return new ErrorResponseData("名片不存在");
-        }
-        WxUser wxUser = wxUserService.selectById(userId);
-        if (wxUser == null) {
-            return new ErrorResponseData("当前用户不存在 请查看userId参数");
-        }
         CardForward forward = new CardForward();
         forward.setUserId(userId);
         forward.setCardId(cardId);
@@ -120,6 +111,14 @@ public class CardForwardApiController extends BaseController {
         if (selectOne != null) {
             log.info(String.format("浏览收藏记录已存在：%s。", selectOne));
         } else {
+            Card card = cardService.selectById(cardId);
+            if (card == null) {
+                return new ErrorResponseData("名片不存在");
+            }
+            WxUser wxUser = wxUserService.selectById(userId);
+            if (wxUser == null) {
+                return new ErrorResponseData("当前用户不存在 请查看userId参数");
+            }
             cardForward.setUserId(userId);
             cardForward.setHeadImg(wxUser.getHeadimgurl());
             cardForward.setNickname(wxUser.getNickName());
