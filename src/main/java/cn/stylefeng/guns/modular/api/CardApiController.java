@@ -267,7 +267,7 @@ public class CardApiController extends BaseController {
             }
             user = wxUserService.selectById(card.getUserId());
             if (user == null) {
-                return new ErrorResponseData("未查到有效用户");
+                return new ErrorResponseData(401,"未查到有效用户");
             }
         } else if (ToolUtil.isNotEmpty(userId)) {
             user = wxUserService.selectById(userId);
@@ -276,7 +276,7 @@ public class CardApiController extends BaseController {
             }
             card = cardService.selectById(user.getCardId());
             if (card == null) {
-                return new ErrorResponseData("未查到有效名片");
+                return new ErrorResponseData(401,"未查到有效名片");
             }
         } else {
             return new ErrorResponseData("userId或cardId二者必传一个");
