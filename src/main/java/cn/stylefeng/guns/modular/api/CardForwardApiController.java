@@ -63,10 +63,10 @@ public class CardForwardApiController extends BaseController {
         EntityWrapper<CardForward> wrapper = new EntityWrapper<>();
         switch (dto.getType()) {
             case 1 :
-                wrapper.eq("type",2).eq("forwarder_id", userId);
+                wrapper.eq("type",2).eq("forwarder_id", userId).groupBy("user_id");
                 break;
             case 2 :
-                wrapper.eq("type",3).eq("forwarder_id", userId);
+                wrapper.eq("type",3).eq("forwarder_id", userId).groupBy("user_id");
                 break;
             case 3 :
                 wrapper.eq("type",3).eq("user_id", userId);
@@ -74,8 +74,8 @@ public class CardForwardApiController extends BaseController {
             default: break;
         }
 
-        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), "create_time", "desc");
-        Page<CardForward> pageList = cardForwardService.selectPage(page, wrapper);
+        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), null, null);
+        Page<CardForward> pageList = cardForwardService.selectPage(page, wrapper.orderBy("create_time",false));
         PageUtils pageUtils = new PageUtils(pageList);
         return new SuccessResponseData(pageUtils);
     }
