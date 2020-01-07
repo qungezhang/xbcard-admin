@@ -21,10 +21,12 @@ import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +50,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/material")
 @Api(tags = "素材")
+@Slf4j
 public class MaterialApiController extends BaseController {
 
 
@@ -116,29 +119,37 @@ public class MaterialApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增")
     public Object add(@RequestBody MaterialDTO materialDTO) {
+        Integer cardId = materialDTO.getCardId();
+        List<MaterialAddListDTO> imgList = materialDTO.getImgList();
+        if (ToolUtil.isEmpty(materialDTO.getPid()) || ToolUtil.isEmpty(cardId) || ToolUtil.isEmpty(imgList)) {
+            return new ErrorResponseData("父级id、名片id、图片对象list 均不可为空");
+        }
         WxUser wxUser = wxUserService.getLoginWxUser();
         if (wxUser == null) {
             return new ErrorResponseData("用户授权登录异常");
         }
-        if (materialDTO.getPid() > 0) {//非vip
-            if (wxUser.getIsvip() == 0) {
-                return new ErrorResponseData("用户不是VIP，不可分类");
-            } else if (wxUser.getIsvip() == 1 && System.currentTimeMillis() > wxUser.getVipEndTime().getTime()) {
-                return new ErrorResponseData("用户VIP已过期，不可分类");
+        if (wxUser.getIsvip().equals(0) || (wxUser.getIsvip().equals(1) && System.currentTimeMillis() > wxUser.getVipEndTime().getTime())) {
+            EntityWrapper<Material> wrapper = new EntityWrapper<>();
+            wrapper.eq("card_id", cardId).eq("is_deleted", 0).eq("pid", 0);
+            int count = materialService.selectCount(wrapper);
+            int total = count + imgList.size();
+            if (total > 10) {
+                log.info("用户不是VIP或已过期，最多上传10张单独图片");
+                return new ErrorResponseData("用户不是VIP或已过期，最多上传10张单独图片");
+            }
+            if (materialDTO.getPid() > 0) {//非vip
+                log.info("用户不是VIP或已过期，不可分类");
+                return new ErrorResponseData("用户不是VIP或已过期，不可分类");
             }
         }
-        if (ToolUtil.isEmpty(materialDTO.getPid()) || ToolUtil.isEmpty(materialDTO.getCardId()) || ToolUtil.isEmpty(materialDTO.getImgList())) {
-            return new ErrorResponseData("父级id、名片id、图片对象list 均不可为空");
-        }
 
-        List<MaterialAddListDTO> imgList = materialDTO.getImgList();
         for (MaterialAddListDTO addListDTO : imgList) {
             if (ToolUtil.isEmpty(addListDTO.getImgUrl())) {
                 return new ErrorResponseData("图片list对象中的imgUrl不可为空");
             }
             Material material = new Material();
             material.setPid(materialDTO.getPid());
-            material.setCardId(materialDTO.getCardId());
+            material.setCardId(cardId);
             materialSetPcode(material);
             material.setImgUrl(addListDTO.getImgUrl());
             material.setDefaultImg(addListDTO.getDefaultImg());

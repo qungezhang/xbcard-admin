@@ -100,7 +100,7 @@ public class CardForwardApiController extends BaseController {
         Long userId = cardForward.getUserId();
         Long cardId = cardForward.getCardId();
         Integer type = cardForward.getType();
-        if (cardId == null  || userId ==null|| cardForward.getForwarderId() == null || type == null) {
+        if (cardId == null || userId == null || cardForward.getForwarderId() == null || type == null) {
             return new ErrorResponseData("名片ID,当前者ID,转发者ID,类型 不可为空");
         }
         SuccessResponseData successTip = SUCCESS_TIP;
@@ -124,10 +124,10 @@ public class CardForwardApiController extends BaseController {
                 for (CardForward cardForward1 : cardForwards) {
                     if (cardForward1.getType().equals(3) && cardForward1.getCardId().equals(cardId)) {//收藏
                         btnStatus = 2;
-                        log.info("收藏标记++++++=====" + cardForward1);
+//                        log.info("收藏标记++++++=====" + cardForward1);
                     }
                     if (cardForward1.getType().equals(type)) {
-                        log.info("已有浏览记录++++++=====" + cardForward1);
+//                        log.info("已有浏览记录++++++=====" + cardForward1);
                         isNull = false;
                     }
                 }
@@ -138,7 +138,7 @@ public class CardForwardApiController extends BaseController {
             CardForward selectOne = cardForwardService.selectOne(new EntityWrapper<>(forward).orderBy("create_time", false).last("limit 1"));
             if (selectOne != null) {
                 isNull = false;
-                log.info("已有收藏记录++++++=====" + selectOne);
+//                log.info("已有收藏记录++++++=====" + selectOne);
             } else {
                 Card card = cardService.selectById(cardId);
                 if (card == null) {
