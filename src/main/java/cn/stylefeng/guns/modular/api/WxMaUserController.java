@@ -9,9 +9,12 @@ import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import cn.stylefeng.guns.config.WxMaConfiguration;
 import cn.stylefeng.guns.config.properties.WxMaProperties;
 import cn.stylefeng.guns.core.common.constant.RedisConstant;
+import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.util.JsonUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.core.util.PageUtils;
 import cn.stylefeng.guns.core.util.RedisUtil;
+import cn.stylefeng.guns.modular.dto.PageDTO;
 import cn.stylefeng.guns.modular.dto.WXLoginDTO;
 import cn.stylefeng.guns.modular.dto.WXLoginResultDTO;
 import cn.stylefeng.guns.modular.system.model.WxUser;
@@ -22,6 +25,7 @@ import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -34,11 +38,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -155,6 +161,24 @@ public class WxMaUserController extends BaseController {
         return responseData;
     }
 
+    /**
+     * <pre>
+     * 我的吸粉
+     * </pre>
+     */
+    @PostMapping("/myFans")
+    @ApiOperation("我的吸粉")
+    public Object myFans(@RequestBody PageDTO pageDTO) {
+        EntityWrapper<WxUser> wrapper = new EntityWrapper<>();
+        wrapper.eq("emp_id", JwtTokenUtil.getUserId()).eq("is_deleted", 0);
+        wrapper.orderBy("create_time", false);
+        Page<WxUser> page = new PageFactory<WxUser>().defaultPage(pageDTO.getPageNum(), pageDTO.getPageSize(), null, null);
+        Page<WxUser> wxUserPage = wxUserService.selectPage(page, wrapper);
+        SuccessResponseData responseData = new SuccessResponseData();
+        PageUtils pageUtils = new PageUtils(wxUserPage);
+        responseData.setData(pageUtils);
+        return responseData;
+    }
 
     private void setUser(WxMaUserInfo userInfo, WxMaPhoneNumberInfo phoneNoInfo, WxUser wxUser) {
         if (phoneNoInfo != null) {
