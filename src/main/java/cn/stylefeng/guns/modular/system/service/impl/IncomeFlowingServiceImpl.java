@@ -35,12 +35,14 @@ public class IncomeFlowingServiceImpl extends ServiceImpl<IncomeFlowingMapper, I
 
     @Override
     public IncomeFlowingDto byUserId(Integer userId) {
-        IncomeFlowing flowingDesc = this.getOneIncomeFlowingDesc(userId);
-        Map<String, Object> daysAgoTotalFee = this.baseMapper.get7DaysAgoTotalFee(userId);
+//        IncomeFlowing flowingDesc = this.getOneIncomeFlowingDesc(userId);
+        Integer totalFee = this.baseMapper.getTotalFee(userId);
+        Integer daysAgoTotalFee = this.baseMapper.get7DaysAgoTotalFee(userId);
         Map<String, Object> totalOut = outFlowingService.getTotalOut(userId);
-        int outTotal = totalOut != null ? Integer.parseInt(String.valueOf(totalOut.get("outTotal"))) : 0;
-        int get7DaysAgoTotalFee = daysAgoTotalFee != null ? Integer.parseInt(String.valueOf(daysAgoTotalFee.get("totalFee"))) : 0;
-        int inTotal = flowingDesc != null ? flowingDesc.getMyselfTotalFee() : 0;
+        int inTotal = totalFee != null ? totalFee / 100 : 0;
+        int get7DaysAgoTotalFee = daysAgoTotalFee != null ? daysAgoTotalFee / 100 : 0;
+        int outTotal = totalOut != null ? (Integer.parseInt(String.valueOf(totalOut.get("outTotal")))) / 100 : 0;
+//        int inTotal = flowingDesc != null ? (flowingDesc.getMyselfTotalFee()) / 100 : 0;
         IncomeFlowingDto dto = new IncomeFlowingDto();
         dto.setInTotal(inTotal);
         dto.setOutTotal(outTotal);

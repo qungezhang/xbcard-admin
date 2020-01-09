@@ -30,16 +30,22 @@
     <sql id="Base_Column_List">
         id, merchant_fee, merchant_total_fee, myself_fee, myself_total_fee, card_id, user_id, customer_id, openid, body, out_trade_no, notify_url, package_value, pay_type, pay_status, is_deleted, create_time, create_by, update_time, update_by
     </sql>
-    <select id="get7DaysAgoTotalFee" resultType="java.util.Map">
+    <select id="get7DaysAgoTotalFee" resultType="java.lang.Integer">
         SELECT
         SUM( myself_fee ) AS totalFee
         FROM
         wx_income_flowing
-        WHERE
-        create_time &lt;= DATE_SUB( NOW(), INTERVAL 7 DAY )
+        WHERE pay_status =1 and is_deleted = 0
+        and create_time &lt;= DATE_SUB( NOW(), INTERVAL 7 DAY )
         and user_id=#{userId}
-        GROUP BY
-        user_id
+    </select>
+    <select id="getTotalFee" resultType="java.lang.Integer">
+        SELECT
+        SUM( myself_fee ) AS totalFee
+        FROM
+        wx_income_flowing
+        WHERE pay_status =1 and is_deleted = 0
+        and user_id=#{userId}
     </select>
 
 </mapper>

@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public interface IncomeFlowingMapper extends BaseMapper<IncomeFlowing> {
 
-    Map<String, Object> get7DaysAgoTotalFee(@Param("userId") Integer userId);
+    Integer get7DaysAgoTotalFee(@Param("userId") Integer userId);
+
+    Integer getTotalFee(@Param("userId") Integer userId);
 
 }
