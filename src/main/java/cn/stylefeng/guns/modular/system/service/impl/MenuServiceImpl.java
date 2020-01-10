@@ -72,8 +72,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<Map<String, Object>> selectMenus(String condition, String level) {
-        return this.baseMapper.selectMenus(condition, level);
+    public List<Map<String, Object>> selectMenus(String condition, String level,Integer isAdmin) {
+        return this.baseMapper.selectMenus(condition, level,isAdmin);
     }
 
     @Override
@@ -87,8 +87,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds) {
-        return this.baseMapper.menuTreeListByMenuIds(menuIds);
+    public List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds,Integer isAdmin) {
+        return this.baseMapper.menuTreeListByMenuIds(menuIds,isAdmin);
     }
 
     @Override

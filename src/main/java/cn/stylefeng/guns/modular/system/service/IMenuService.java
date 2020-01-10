@@ -53,7 +53,7 @@ public interface IMenuService extends IService<Menu> {
      * @return
      * @date 2017年2月12日 下午9:14:34
      */
-    List<Map<String, Object>> selectMenus(String condition, String level);
+    List<Map<String, Object>> selectMenus(String condition, String level,Integer isAdmin);
 
     /**
      * 根据条件查询菜单
@@ -77,7 +77,7 @@ public interface IMenuService extends IService<Menu> {
      * @return
      * @date 2017年2月19日 下午1:33:51
      */
-    List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds);
+    List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds,Integer isAdmin);
 
     /**
      * 删除menu关联的relation

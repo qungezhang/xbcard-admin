@@ -25,6 +25,7 @@ import cn.stylefeng.guns.core.common.constant.state.MenuStatus;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.node.ZTreeNode;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.system.model.Menu;
 import cn.stylefeng.guns.modular.system.service.IMenuService;
 import cn.stylefeng.guns.modular.system.warpper.MenuWarpper;
@@ -133,7 +134,8 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(@RequestParam(required = false) String menuName, @RequestParam(required = false) String level) {
-        List<Map<String, Object>> menus = this.menuService.selectMenus(menuName, level);
+        int isAdmin = ShiroKit.isAdmin() ? 1 : 0;
+        List<Map<String, Object>> menus = this.menuService.selectMenus(menuName, level,isAdmin);
         return super.warpObject(new MenuWarpper(menus));
     }
 
@@ -225,7 +227,8 @@ public class MenuController extends BaseController {
         if (ToolUtil.isEmpty(menuIds)) {
             return this.menuService.menuTreeList();
         } else {
-            return this.menuService.menuTreeListByMenuIds(menuIds);
+            int isAdmin = ShiroKit.isAdmin() ? 1 : 0;
+            return this.menuService.menuTreeListByMenuIds(menuIds,isAdmin);
         }
     }
 

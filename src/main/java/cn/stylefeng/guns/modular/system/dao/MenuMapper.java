@@ -40,7 +40,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月12日 下午9:14:34
      */
-    List<Map<String, Object>> selectMenus(@Param("condition") String condition, @Param("level") String level);
+    List<Map<String, Object>> selectMenus(@Param("condition") String condition, @Param("level") String level,@Param("isAdmin") Integer isAdmin);
 
     /**
      * 根据条件查询菜单
@@ -64,7 +64,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月19日 下午1:33:51
      */
-    List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds);
+    List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds,@Param("isAdmin") Integer isAdmin);
 
     /**
      * 删除menu关联的relation

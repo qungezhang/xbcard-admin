@@ -227,7 +227,9 @@ public class UserMgrController extends BaseController {
 
         User oldUser = userService.selectById(user.getId());
 
-        if (ShiroKit.hasRole(Const.ADMIN_NAME)) {
+        String adminName = Const.ADMIN_NAME;
+        String[] split = adminName.split(",");
+        if (ShiroKit.hasRole(split[0])||ShiroKit.hasRole(split[1])) {
             this.userService.updateById(UserFactory.editUser(user, oldUser));
             return SUCCESS_TIP;
         } else {
