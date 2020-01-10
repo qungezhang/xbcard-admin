@@ -156,12 +156,12 @@ public class ApiController extends BaseController {
 //        return o;
 //    }
 
-    @GetMapping("/userTreeDto")
-    @ApiOperation("userTreeDto")
-    public Object cache() {
-        WxUserTreeDto userTreeDto = iWxUserService.spacetreeUsers();
-        return userTreeDto;
-    }
+//    @GetMapping("/userTreeDto")
+//    @ApiOperation("userTreeDto")
+//    public Object cache() {
+//        WxUserTreeDto userTreeDto = iWxUserService.spacetreeUsers();
+//        return userTreeDto;
+//    }
 
 }
 
