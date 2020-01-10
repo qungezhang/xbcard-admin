@@ -2,6 +2,9 @@ package cn.stylefeng.guns.core.util;
 
 import cn.stylefeng.roses.core.util.ToolUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Description: xbcard-xbcard
  * Created by : qunge
@@ -16,4 +19,15 @@ public class StringUtil {
         }
         return null;
     }
+    public static Map<String, String> getDomainAndKeyByUrl(String url) {
+        if (ToolUtil.isNotEmpty(url)) {
+            Map<String, String> map = new HashMap<>();
+            String[] strings = url.split("/");
+            map.put("domain", strings[2]);
+            map.put("qiNiuKey", strings[strings.length - 1]);
+            return map;
+        }
+        return null;
+    }
+
 }

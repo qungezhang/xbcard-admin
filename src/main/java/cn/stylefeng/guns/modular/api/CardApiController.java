@@ -4,13 +4,9 @@ import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
 import cn.stylefeng.guns.core.util.StringUtil;
 import cn.stylefeng.guns.modular.dto.CardAddDTO;
-import cn.stylefeng.guns.modular.dto.CardDTO;
 import cn.stylefeng.guns.modular.dto.CardInfoDTO;
 import cn.stylefeng.guns.modular.dto.CardUpdateDTO;
-import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
-import cn.stylefeng.guns.modular.dto.MaterialDTO;
 import cn.stylefeng.guns.modular.system.model.Card;
-import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.service.ICardService;
 import cn.stylefeng.guns.modular.system.service.ICategoryService;
@@ -26,9 +22,7 @@ import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +30,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 控制器
@@ -226,18 +220,26 @@ public class CardApiController extends BaseController {
             return new ErrorResponseData("名片Id不可为空");
         }
         String logo = card.getLogo();
-        String shareImgUrl = card.getShareImgUrl();
-        if (ToolUtil.isNotEmpty(logo)||ToolUtil.isNotEmpty(shareImgUrl)) {
+//        String shareImgUrl = card.getShareImgUrl();
+//        if (ToolUtil.isNotEmpty(logo)||ToolUtil.isNotEmpty(shareImgUrl)) {
+        if (ToolUtil.isNotEmpty(logo)) {
             Card selectById = cardService.selectById(cardId);
             if (ToolUtil.isNotEmpty(selectById)) {
-                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getLogo());
-                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(logo))) {
-                    qiniuService.delete(qiniKeyByUrled);
+//                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getLogo());
+                Map<String, String> oldDomainAndKey = StringUtil.getDomainAndKeyByUrl(selectById.getLogo());
+                if (ToolUtil.isNotEmpty(oldDomainAndKey)) {
+                    final String qiniuDomain = "img.xbdzmp.com";//自己的七牛域名
+                    String oldDomain = oldDomainAndKey.get("domain");
+                    String oldKey = oldDomainAndKey.get("qiNiuKey");
+                    Map<String, String> newDomainAndKey = StringUtil.getDomainAndKeyByUrl(logo);
+                    if (oldDomain.equals(qiniuDomain) && ToolUtil.isNotEmpty(newDomainAndKey) && !oldKey.equals(newDomainAndKey.get("qiNiuKey"))) {
+                        qiniuService.delete(oldKey);
+                    }
                 }
-                String shareImgUrlKey = StringUtil.getQiniKeyByUrl(selectById.getShareImgUrl());
-                if (ToolUtil.isNotEmpty(shareImgUrlKey) && !shareImgUrlKey.equals(StringUtil.getQiniKeyByUrl(shareImgUrl))) {
-                    qiniuService.delete(shareImgUrlKey);
-                }
+//                String shareImgUrlKey = StringUtil.getQiniKeyByUrl(selectById.getShareImgUrl());
+//                if (ToolUtil.isNotEmpty(shareImgUrlKey) && !shareImgUrlKey.equals(StringUtil.getQiniKeyByUrl(shareImgUrl))) {
+//                    qiniuService.delete(shareImgUrlKey);
+//                }
             } else {
                 return new ErrorResponseData("信息不存在");
             }
