@@ -155,9 +155,12 @@ public class WxMaUserController extends BaseController {
      */
     @GetMapping("/getInfo")
     @ApiOperation("获取用户")
-    public Object getInfo() {
+    public Object getInfo(@RequestParam(value = "userId", required = false) Integer userId) {
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
         SuccessResponseData responseData = new SuccessResponseData();
-        responseData.setData(wxUserService.getLoginWxUser());
+        responseData.setData(wxUserService.selectById(userId));
         return responseData;
     }
 
@@ -170,7 +173,11 @@ public class WxMaUserController extends BaseController {
     @ApiOperation("我的吸粉")
     public Object myFans(@RequestBody PageDTO pageDTO) {
         EntityWrapper<WxUser> wrapper = new EntityWrapper<>();
-        wrapper.eq("emp_id", JwtTokenUtil.getUserId()).eq("is_deleted", 0);
+        Integer userId = pageDTO.getUserId();
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        wrapper.eq("emp_id", userId).eq("is_deleted", 0);
         wrapper.orderBy("create_time", false);
         Page<WxUser> page = new PageFactory<WxUser>().defaultPage(pageDTO.getPageNum(), pageDTO.getPageSize(), null, null);
         Page<WxUser> wxUserPage = wxUserService.selectPage(page, wrapper);

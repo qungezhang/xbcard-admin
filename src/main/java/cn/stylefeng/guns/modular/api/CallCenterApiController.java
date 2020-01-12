@@ -63,7 +63,7 @@ public class CallCenterApiController extends BaseController {
     @PostMapping(value = "/add")
     @ApiOperation("新增")
     public Object add(@RequestBody @Valid CallCenterAddDto dto) {
-        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        WxUser loginWxUser = wxUserService.selectById(dto.getUserId());
         CallCenter callCenter = new CallCenter();
         callCenter.setContent(dto.getContent());
         callCenter.setContentImg(dto.getContentImg());

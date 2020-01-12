@@ -56,26 +56,34 @@ public class CardForwardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("获取分页列表")
     public ResponseData pList(@RequestBody ForwardPageDTO dto) {
-        if (dto.getType() == null) {
+        Integer type = dto.getType();
+        Integer userId = dto.getUserId();
+        if (type == null) {
             return new ErrorResponseData("类型不可为空（1查看我 2收藏我 3我收藏）");
         }
-        Integer userId = JwtTokenUtil.getUserId();
+        if (userId == null) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        Page<CardForward> pageList = null;
         EntityWrapper<CardForward> wrapper = new EntityWrapper<>();
-        switch (dto.getType()) {
+        switch (type) {
             case 1 :
-                wrapper.eq("type",2).eq("forwarder_id", userId).groupBy("user_id");
+                wrapper.eq("type", 2).eq("forwarder_id", userId).groupBy("user_id");
+                Page<CardForward> page1 = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), null, null);
+                pageList = cardForwardService.selectPage(page1, wrapper.orderBy("create_time", false));
                 break;
             case 2 :
-                wrapper.eq("type",3).eq("forwarder_id", userId).groupBy("user_id");
+                wrapper.eq("type", 3).eq("forwarder_id", userId).groupBy("user_id");
+                Page<CardForward> page2 = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), null, null);
+                pageList = cardForwardService.selectPage(page2, wrapper.orderBy("create_time", false));
                 break;
             case 3 :
-                wrapper.eq("type",3).eq("user_id", userId);
+                pageList = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), null, null);
+                List<CardForward> cardForwards = cardForwardService.getByUserIdAndType(userId, 3, pageList);
+                pageList.setRecords(cardForwards);
                 break;
             default: break;
         }
-
-        Page<CardForward> page = new PageFactory<CardForward>().defaultPage(dto.getPageNum(), dto.getPageSize(), null, null);
-        Page<CardForward> pageList = cardForwardService.selectPage(page, wrapper.orderBy("create_time",false));
         PageUtils pageUtils = new PageUtils(pageList);
         return new SuccessResponseData(pageUtils);
     }
@@ -139,16 +147,17 @@ public class CardForwardApiController extends BaseController {
             if (selectOne != null) {
                 isNull = false;
 //                log.info("已有收藏记录++++++=====" + selectOne);
-            } else {
-                Card card = cardService.selectById(cardId);
-                if (card == null) {
-                    return new ErrorResponseData("名片不存在");
-                }
-                cardForward.setCardLogo(card.getLogo());
-                cardForward.setCardCompany(card.getCompany());
-                cardForward.setCardName(card.getName());
-                cardForward.setCardPosition(card.getPosition());
             }
+//            else {
+//                Card card = cardService.selectById(cardId);
+//                if (card == null) {
+//                    return new ErrorResponseData("名片不存在");
+//                }
+//                cardForward.setCardLogo(card.getLogo());
+//                cardForward.setCardCompany(card.getCompany());
+//                cardForward.setCardName(card.getName());
+//                cardForward.setCardPosition(card.getPosition());
+//            }
         }
 
         if (isNull) {

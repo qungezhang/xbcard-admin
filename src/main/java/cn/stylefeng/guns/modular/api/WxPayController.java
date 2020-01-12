@@ -6,6 +6,7 @@ import cn.stylefeng.guns.core.util.IPUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.core.util.OrderNumUtils;
 import cn.stylefeng.guns.modular.dto.IncomeFlowingCallbackDto;
+import cn.stylefeng.guns.modular.dto.OutFlowingDto;
 import cn.stylefeng.guns.modular.dto.WxPayOrderResultDto;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
 import cn.stylefeng.guns.modular.system.model.OutFlowing;
@@ -177,8 +178,8 @@ public class WxPayController {
   @PostMapping("/okPayCallback")
   @Transactional
   public ResponseData okPayCallback(@RequestBody @Valid IncomeFlowingCallbackDto callbackDto) {
-    Integer userId = JwtTokenUtil.getUserId();
-    WxUser wxUser = wxUserService.selectById(userId);
+//    Integer userId = JwtTokenUtil.getUserId();
+    WxUser wxUser = wxUserService.selectById(callbackDto.getUserId());
     if (wxUser == null) {
       return new ErrorResponseData("用户登录异常");
     }
@@ -227,15 +228,17 @@ public class WxPayController {
   @ApiOperation(value = "提现")
   @PostMapping("/entPay")
   @Transactional
-  public ResponseData entPay(@RequestBody EntPayRequest request, HttpServletRequest servletRequest) throws WxPayException {
+  public ResponseData entPay(@RequestBody OutFlowingDto request, HttpServletRequest servletRequest) throws WxPayException {
+    Integer userId = request.getUserId();
     try {
       Assert.notNull(request.getDescription(), "商品描述不能为空");
       Assert.notNull(request.getOpenid(), "openId不能为空");
+      Assert.notNull(userId, "当前登录用户id不能为空");
       Assert.isTrue((request.getAmount() != null && request.getAmount() > 0), "提取金额不能为空");
     } catch (Exception e) {
       throw new RuntimeException(String.format("异常信息：%s。", e.getMessage()));
     }
-    Integer userId = JwtTokenUtil.getUserId();
+//    Integer userId = JwtTokenUtil.getUserId();
     WxUser wxUser = wxUserService.selectById(userId);
     if (wxUser == null) {
       return new ErrorResponseData("用户登录异常");

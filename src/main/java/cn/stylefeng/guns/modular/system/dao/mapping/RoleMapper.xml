@@ -21,8 +21,12 @@
 		select
 		<include refid="Base_Column_List" />
 		from sys_role
+		where 1=1
 		<if test="condition != null">
-			where name like CONCAT('%',#{condition},'%')
+			 and name like CONCAT('%',#{condition},'%')
+		</if>
+		<if test="isAdmin == 0">
+			and id != 1
 		</if>
 	</select>
 
@@ -67,11 +71,14 @@
 		WHERE
 		ID IN
 
-		<foreach collection="array" index="index" item="i" open="(" separator="," close=")">
+		<foreach collection="roleId" index="index" item="i" open="(" separator="," close=")">
 			#{i}
 		</foreach>
 
 		) r1 ON r.ID = r1.ID
+		<if test="isAdmin == 0">
+			where r.id != 1
+		</if>
 		ORDER BY
 		pId,
 		num ASC

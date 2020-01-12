@@ -32,6 +32,7 @@ public interface Const {
      * 管理员角色的名字
      */
     String ADMIN_NAME = "administrator,boosadmin";
+    String ADMIN_NAME_T = "administrator";
 
     /**
      * 管理员id

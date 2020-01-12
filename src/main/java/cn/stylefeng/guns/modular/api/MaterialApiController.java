@@ -124,7 +124,11 @@ public class MaterialApiController extends BaseController {
         if (ToolUtil.isEmpty(materialDTO.getPid()) || ToolUtil.isEmpty(cardId) || ToolUtil.isEmpty(imgList)) {
             return new ErrorResponseData("父级id、名片id、图片对象list 均不可为空");
         }
-        WxUser wxUser = wxUserService.getLoginWxUser();
+        if (ToolUtil.isEmpty(materialDTO.getUserId())) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        WxUser wxUser = wxUserService.selectById(materialDTO.getUserId());
+
         if (wxUser == null) {
             return new ErrorResponseData("用户授权登录异常");
         }
@@ -199,7 +203,10 @@ public class MaterialApiController extends BaseController {
     @ApiOperation("修改")
     public Object update(@RequestBody @Valid MaterialUpdateDTO material) throws QiniuException {
         if (material.getPid() > 0) {//非vip
-            WxUser wxUser = wxUserService.getLoginWxUser();
+            if (ToolUtil.isEmpty(material.getUserId())) {
+                return new ErrorResponseData("当前登录用户id不可为空");
+            }
+            WxUser wxUser = wxUserService.selectById(material.getUserId());
             if (wxUser.getIsvip() == 0) {
                 return new ErrorResponseData("用户不是VIP，不可分类");
             }

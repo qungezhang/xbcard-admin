@@ -55,11 +55,11 @@ public class PromotionApiController extends BaseController {
     @PostMapping(value = "/add")
     @ApiOperation("新增")
     public Object add(@RequestBody @Valid PromotionAddDto addDto) {
-        Integer userId = JwtTokenUtil.getUserId();
+//        Integer userId = JwtTokenUtil.getUserId();
         EntityWrapper<Promotion> wrapper = new EntityWrapper<>();
 
         wrapper.eq("card_id", addDto.getCardId())
-                .eq("user_id", userId)
+//                .eq("user_id", userId)
                 .eq("is_deleted", 0)
                 .orderBy("update_time", false)
                 .last("limit 1");
@@ -70,7 +70,7 @@ public class PromotionApiController extends BaseController {
             promotionAdd.setId(promotion.getId());
             promotionService.updateById(promotionAdd);
         } else {
-            promotionAdd.setUserId(userId);
+//            promotionAdd.setUserId(userId);
             //是否删除（0否，1是）
             promotionAdd.setIsDeleted(0);
             promotionAdd.setCreateTime(new Date());
@@ -113,7 +113,7 @@ public class PromotionApiController extends BaseController {
         }
         EntityWrapper<Promotion> wrapper = new EntityWrapper<>();
         wrapper.eq("card_id", cardId)
-                .eq("user_id", JwtTokenUtil.getUserId())
+//                .eq("user_id", JwtTokenUtil.getUserId())
                 .eq("is_deleted", 0)
                 .orderBy("update_time", false)
                 .last("limit 1");

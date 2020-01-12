@@ -34,6 +34,7 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +56,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/menu")
+@Slf4j
 public class MenuController extends BaseController {
 
     private static String PREFIX = "/system/menu/";
@@ -228,6 +230,7 @@ public class MenuController extends BaseController {
             return this.menuService.menuTreeList();
         } else {
             int isAdmin = ShiroKit.isAdmin() ? 1 : 0;
+            log.info("isadmin====================" + ShiroKit.isAdmin() + isAdmin);
             return this.menuService.menuTreeListByMenuIds(menuIds,isAdmin);
         }
     }

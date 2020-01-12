@@ -28,7 +28,8 @@ public class MaterialDTO implements Serializable {
     private Integer pid;
     @ApiModelProperty(value = "图片对象list", required = true)
     private List<MaterialAddListDTO> imgList;
-
+    @ApiModelProperty(value = "当前登录用户id", required = true)
+    private Integer userId;
 //    /**
 //     * 简称
 //     */

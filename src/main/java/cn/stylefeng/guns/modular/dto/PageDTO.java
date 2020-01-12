@@ -12,5 +12,7 @@ public class PageDTO {
     private Integer pageNum;
     @ApiModelProperty(value = "条数")
     private Integer pageSize;
+    @ApiModelProperty(value = "当前登录用户id", required = true)
+    private Integer userId;
 
 }

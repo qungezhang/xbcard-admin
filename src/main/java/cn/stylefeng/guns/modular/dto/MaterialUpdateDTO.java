@@ -44,7 +44,9 @@ public class MaterialUpdateDTO implements Serializable {
     @ApiModelProperty(value = "父级id")
     private Integer pid;
 
-
+    @ApiModelProperty(value = "当前登录用户id", required = true)
+    @NotNull(message = "当前登录用户id不可为空")
+    private Integer userId;
 //    /**
 //     * 简称
 //     */

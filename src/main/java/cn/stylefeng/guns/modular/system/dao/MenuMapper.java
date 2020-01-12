@@ -64,7 +64,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月19日 下午1:33:51
      */
-    List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds,@Param("isAdmin") Integer isAdmin);
+    List<ZTreeNode> menuTreeListByMenuIds(@Param("menuIds") List<Long> menuIds,@Param("isAdmin") Integer isAdmin);
 
     /**
      * 删除menu关联的relation
@@ -91,5 +91,5 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      * @date 2017年2月19日 下午10:35:40
      */
-    List<MenuNode> getMenusByRoleIds(List<Integer> roleIds);
+    List<MenuNode> getMenusByRoleIds(@Param("roleIds")List<Integer> roleIds,@Param("isAdmin") Integer isAdmin);
 }

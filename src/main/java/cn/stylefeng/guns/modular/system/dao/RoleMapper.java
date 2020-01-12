@@ -39,7 +39,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return
      * @date 2017年2月12日 下午9:14:34
      */
-    List<Map<String, Object>> selectRoles(@Param("condition") String condition);
+    List<Map<String, Object>> selectRoles(@Param("condition") String condition,@Param("isAdmin") Integer isAdmin);
 
     /**
      * 删除某个角色的所有权限
@@ -64,5 +64,5 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return
      * @date 2017年2月18日 上午10:32:04
      */
-    List<ZTreeNode> roleTreeListByRoleId(String[] roleId);
+    List<ZTreeNode> roleTreeListByRoleId(@Param("roleId")String[] roleId,@Param("isAdmin") Integer isAdmin);
 }

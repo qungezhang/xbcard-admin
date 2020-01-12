@@ -1,8 +1,10 @@
 package cn.stylefeng.guns.modular.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -45,6 +47,10 @@ public class IncomeFlowingCallbackDto implements Serializable {
      */
     @NotBlank(message = "支付数据包不可为空")
     private String packageValue;
+
+    @ApiModelProperty(value = "当前登录用户id", required = true)
+    @NotNull(message = "当前登录用户id不可为空")
+    private Integer userId;
 
 }
 

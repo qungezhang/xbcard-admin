@@ -1,7 +1,10 @@
 package cn.stylefeng.guns.modular.system.service;
 
 import cn.stylefeng.guns.modular.system.model.CardForward;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2019-11-23
  */
 public interface ICardForwardService extends IService<CardForward> {
+
+    List<CardForward> getByUserIdAndType( Integer userId, Integer type, Page page);
+
 
 }

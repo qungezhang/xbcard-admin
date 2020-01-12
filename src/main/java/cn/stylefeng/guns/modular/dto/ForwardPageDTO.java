@@ -14,5 +14,7 @@ public class ForwardPageDTO {
     private Integer pageSize;
     @ApiModelProperty(value = "类型：1进入我 2收藏我 3我收藏", required = true)
     private Integer type;
+    @ApiModelProperty(value = "当前登录用户id", required = true)
+    private Integer userId;
 
 }

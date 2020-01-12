@@ -24,6 +24,7 @@ import cn.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.node.ZTreeNode;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.util.CacheUtil;
 import cn.stylefeng.guns.modular.system.model.Role;
 import cn.stylefeng.guns.modular.system.model.User;
@@ -119,7 +120,8 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(@RequestParam(required = false) String roleName) {
-        List<Map<String, Object>> roles = this.roleService.selectRoles(super.getPara("roleName"));
+        int isAdmin = ShiroKit.isAdmin() ? 1 : 0;
+        List<Map<String, Object>> roles = this.roleService.selectRoles(super.getPara("roleName"),isAdmin);
         return super.warpObject(new RoleWarpper(roles));
     }
 
@@ -235,7 +237,8 @@ public class RoleController extends BaseController {
             return this.roleService.roleTreeList();
         } else {
             String[] strArray = roleid.split(",");
-            return this.roleService.roleTreeListByRoleId(strArray);
+            int isAdmin = ShiroKit.isAdmin() ? 1 : 0;
+            return this.roleService.roleTreeListByRoleId(strArray,isAdmin);
         }
     }
 

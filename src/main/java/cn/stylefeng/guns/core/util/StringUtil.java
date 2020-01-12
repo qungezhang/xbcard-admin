@@ -23,6 +23,9 @@ public class StringUtil {
         if (ToolUtil.isNotEmpty(url)) {
             Map<String, String> map = new HashMap<>();
             String[] strings = url.split("/");
+            if (strings.length < 2) {
+                return null;
+            }
             map.put("domain", strings[2]);
             map.put("qiNiuKey", strings[strings.length - 1]);
             return map;

@@ -71,6 +71,8 @@ public class CardAddDTO implements Serializable {
     private String shareTitle;
     @ApiModelProperty(value = "分享类型")
     private Integer shareType;
+    @ApiModelProperty(value = "当前登录用户id", required = true)
+    private Integer userId;
 
 //    private List<MaterialDTO> materials;
 

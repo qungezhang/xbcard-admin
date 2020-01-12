@@ -115,7 +115,7 @@
         sys_menu
         WHERE
         ID IN
-        <foreach collection="list" index="index" item="i" open="("
+        <foreach collection="menuIds" index="index" item="i" open="("
                  separator="," close=")">
             #{i}
         </foreach>
@@ -123,6 +123,9 @@
             and status = 1
         </if>
         ) m3 on m1.id = m3.id
+        <if test="isAdmin == 0">
+            where m1.status = 1
+        </if>
         ORDER BY
         m1.id ASC
     </select>
@@ -171,13 +174,16 @@
         sys_relation rela
         WHERE
         rela.roleid IN
-        <foreach collection="list" index="index" item="i" open="(" separator="," close=")">
+        <foreach collection="roleIds" index="index" item="i" open="(" separator="," close=")">
             #{i}
         </foreach>
         )
         ) m3 ON m1.id = m3.id
         where m1.ismenu = 1
-        and m1.status=1
+
+        <if test="isAdmin == 0">
+            and m1.status = 1
+        </if>
         order by levels,num asc
     </select>
 

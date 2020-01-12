@@ -68,7 +68,8 @@ public class LoginController extends BaseController {
             model.addAttribute("tips", "该用户没有角色，无法登陆");
             return "/login.html";
         }
-        List<MenuNode> menus = menuService.getMenusByRoleIds(roleList);
+        int isAdmin = ShiroKit.isAdmin() ? 1 : 0;
+        List<MenuNode> menus = menuService.getMenusByRoleIds(roleList,isAdmin);
         List<MenuNode> titles = MenuNode.buildTitle(menus);
         titles = ApiMenuFilter.build(titles);
 

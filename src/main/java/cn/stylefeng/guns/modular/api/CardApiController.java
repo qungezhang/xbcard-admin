@@ -66,13 +66,17 @@ public class CardApiController extends BaseController {
 //        PageUtils pageUtils = new PageUtils(cardPage);
 //        return new SuccessResponseData(pageUtils);
 //    }
+
     /**
      * 获取列表
      */
     @GetMapping(value = "/list")
     @ApiOperation("获取列表")
-    public ResponseData list() {
-        WxUser user = wxUserService.getLoginWxUser();
+    public ResponseData list(@RequestParam(value = "userId", required = false) Integer userId) {
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        WxUser user = wxUserService.selectById(userId);
         if (user == null) {
             return new ErrorResponseData("未授权登录");
         }
@@ -87,8 +91,14 @@ public class CardApiController extends BaseController {
      */
     @GetMapping(value = "/bindingUser")
     @ApiOperation("选择名片")
-    public ResponseData bindingUser(@RequestParam("cardId") Integer cardId) {
-        WxUser user = wxUserService.getLoginWxUser();
+    public ResponseData bindingUser(@RequestParam(value = "cardId",required = false) Integer cardId,@RequestParam(value = "userId", required = false) Integer userId) {
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        if (ToolUtil.isEmpty(cardId)) {
+            return new ErrorResponseData("cardId不可为空");
+        }
+        WxUser user = wxUserService.selectById(userId);
         if (user == null) {
             return new ErrorResponseData("未授权登录");
         }
@@ -157,7 +167,13 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("新增全部")
     public Object addAll(@RequestBody CardAddDTO addDTO) {
-        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (ToolUtil.isEmpty(addDTO.getUserId())) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        if (ToolUtil.isEmpty(addDTO.getLogo())) {
+            return new ErrorResponseData("名片Logo不可为空");
+        }
+        WxUser loginWxUser = wxUserService.selectById(addDTO.getUserId());
         if (loginWxUser == null) {
             return new ErrorResponseData("用户授权异常");
         }
@@ -210,7 +226,10 @@ public class CardApiController extends BaseController {
     @ResponseBody
     @ApiOperation("修改")
     public Object update(@RequestBody CardUpdateDTO updateDTO) throws QiniuException {
-        WxUser loginWxUser = wxUserService.getLoginWxUser();
+        if (ToolUtil.isEmpty(updateDTO.getUserId())) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        WxUser loginWxUser = wxUserService.selectById(updateDTO.getUserId());
         if (loginWxUser == null) {
             return new ErrorResponseData("用户授权异常");
         }

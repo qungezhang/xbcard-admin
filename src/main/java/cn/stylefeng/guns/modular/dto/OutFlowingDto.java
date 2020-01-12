@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.dto;
 
+import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,27 +10,17 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 客服中心记录
+ * 提现流水
  * </p>
  *
  * @author qunge
- * @since 2019-11-13
+ * @since 2019-11-22
  */
 @Data
-public class CallCenterAddDto implements Serializable {
-    private static final long serialVersionUID = 1L;
-    /**
-     * 内容
-     */
-    @NotBlank(message = "内容不可为空")
-    private String content;
-    /**
-     * 内容图片
-     */
-    private String contentImg;
+public class OutFlowingDto extends EntPayRequest {
 
     @ApiModelProperty(value = "当前登录用户id", required = true)
-    @NotNull(message = "当前登录用户id不可为空")
     private Integer userId;
 
 }
+
