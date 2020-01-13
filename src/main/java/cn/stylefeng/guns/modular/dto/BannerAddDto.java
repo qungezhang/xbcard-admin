@@ -35,5 +35,10 @@ public class BannerAddDto implements Serializable {
      */
     @NotNull(message = "名片id不可为空")
     private Integer cardId;
+    /**
+     * userId
+     */
+    @NotNull(message = "userId不可为空")
+    private Integer userId;
 
 }

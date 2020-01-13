@@ -42,16 +42,24 @@ public class BannerApiController extends BaseController {
     private IBannerService bannerService;
     @Autowired
     private QiniuService qiniuService;
+
     /**
      * 获取首页轮播列表
      */
     @GetMapping(value = "/list")
     @ApiOperation("获取首页轮播列表")
-    public Object list(@RequestParam("cardId") Integer cardId) {
+    public Object list(@RequestParam(value = "cardId", required = false) Integer cardId, @RequestParam(value = "userId", required = false) Integer userId) {
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
+        if (ToolUtil.isEmpty(cardId)) {
+            return new ErrorResponseData("cardId不可为空");
+        }
+
         Banner banner = new Banner();
         banner.setIsDeleted(0);
         banner.setCardId(cardId);
-//        banner.setUserId(JwtTokenUtil.getUserId());
+        banner.setUserId(userId);
         SuccessResponseData responseData = new SuccessResponseData();
         responseData.setData(bannerService.selectList(new EntityWrapper<>(banner).orderBy("create_time", false)));
         return responseData;
@@ -64,7 +72,7 @@ public class BannerApiController extends BaseController {
     @ApiOperation("新增")
     public Object add(@RequestBody @Valid BannerAddDto addDto) {
         Banner banner = BeanMapperUtil.objConvert(addDto, Banner.class);
-//        banner.setUserId(JwtTokenUtil.getUserId());
+        banner.setUserId(addDto.getUserId());
         //是否删除（0否，1是）
         banner.setIsDeleted(0);
         banner.setCreateTime(new Date());

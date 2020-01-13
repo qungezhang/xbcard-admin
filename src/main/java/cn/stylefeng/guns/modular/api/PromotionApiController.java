@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -55,11 +56,10 @@ public class PromotionApiController extends BaseController {
     @PostMapping(value = "/add")
     @ApiOperation("新增")
     public Object add(@RequestBody @Valid PromotionAddDto addDto) {
-//        Integer userId = JwtTokenUtil.getUserId();
         EntityWrapper<Promotion> wrapper = new EntityWrapper<>();
-
+        Integer userId = addDto.getUserId();
         wrapper.eq("card_id", addDto.getCardId())
-//                .eq("user_id", userId)
+                .eq("user_id", userId)
                 .eq("is_deleted", 0)
                 .orderBy("update_time", false)
                 .last("limit 1");
@@ -70,7 +70,7 @@ public class PromotionApiController extends BaseController {
             promotionAdd.setId(promotion.getId());
             promotionService.updateById(promotionAdd);
         } else {
-//            promotionAdd.setUserId(userId);
+            promotionAdd.setUserId(userId);
             //是否删除（0否，1是）
             promotionAdd.setIsDeleted(0);
             promotionAdd.setCreateTime(new Date());
@@ -107,13 +107,16 @@ public class PromotionApiController extends BaseController {
      */
     @GetMapping(value = "/detailByCardId")
     @ApiOperation("详情")
-    public Object detail(@RequestParam("cardId") Integer cardId) {
+    public Object detail(@RequestParam(value = "cardId",required = false) Integer cardId, @RequestParam(value = "userId", required = false) Integer userId) {
         if (ToolUtil.isEmpty(cardId)) {
             return new ErrorResponseData("cardId 不可为空");
         }
+        if (ToolUtil.isEmpty(userId)) {
+            return new ErrorResponseData("当前登录用户id不可为空");
+        }
         EntityWrapper<Promotion> wrapper = new EntityWrapper<>();
         wrapper.eq("card_id", cardId)
-//                .eq("user_id", JwtTokenUtil.getUserId())
+                .eq("user_id", userId)
                 .eq("is_deleted", 0)
                 .orderBy("update_time", false)
                 .last("limit 1");
