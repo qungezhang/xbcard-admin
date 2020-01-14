@@ -218,11 +218,9 @@ public class WxUserController extends BaseController {
     public Object updateIsVip(@RequestParam Integer userId, @RequestParam Integer isVip) {
         WxUser entity = new WxUser();
         entity.setId(userId);
-        entity.setIsvip(isVip);
-
         if (isVip.equals(1) ) {
             WxUser oldWxUser = wxUserService.selectById(userId);
-            if (oldWxUser.getVipEndTime() != null && oldWxUser.getVipEndTime().getTime() < System.currentTimeMillis()) {
+            if (ToolUtil.isEmpty(oldWxUser.getVipStartTime())||(oldWxUser.getVipEndTime() != null && oldWxUser.getVipEndTime().getTime() < System.currentTimeMillis())) {
                 entity.setVipStartTime(new Date());
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
@@ -231,6 +229,7 @@ public class WxUserController extends BaseController {
             }
 
         }
+        entity.setIsvip(isVip);
         wxUserService.updateById(entity);
         return SUCCESS_TIP;
     }
