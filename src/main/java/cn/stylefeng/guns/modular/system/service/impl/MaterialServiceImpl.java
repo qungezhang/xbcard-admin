@@ -25,4 +25,10 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material> i
     public List<MaterialInfoDto> getMaterialByPid(Integer cardId, Integer pid, Page page) {
         return baseMapper.getMaterialByPid(cardId, pid, page);
     }
+
+    @Override
+    public List<MaterialInfoDto> getNewMaterialByCardId(Integer cardId, Page page) {
+
+        return baseMapper.getNewMaterialByCardId(cardId, page);
+    }
 }

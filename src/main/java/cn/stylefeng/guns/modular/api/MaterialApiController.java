@@ -10,6 +10,7 @@ import cn.stylefeng.guns.modular.dto.MaterialAddListDTO;
 import cn.stylefeng.guns.modular.dto.MaterialChildPListDTO;
 import cn.stylefeng.guns.modular.dto.MaterialDTO;
 import cn.stylefeng.guns.modular.dto.MaterialInfoDto;
+import cn.stylefeng.guns.modular.dto.MaterialNewPListDTO;
 import cn.stylefeng.guns.modular.dto.MaterialTopPlistDTO;
 import cn.stylefeng.guns.modular.dto.MaterialUpdateDTO;
 import cn.stylefeng.guns.modular.system.model.Material;
@@ -108,6 +109,19 @@ public class MaterialApiController extends BaseController {
         Page<MaterialInfoDto> infoDtoPage = new PageFactory<MaterialInfoDto>().defaultPage(childPListDTO.getPageNum(), childPListDTO.getPageSize(), null, null);
         List<MaterialInfoDto> materialByPid = materialService.getMaterialByPid(childPListDTO.getCardId(), childPListDTO.getPid(), infoDtoPage);
         infoDtoPage.setRecords(materialByPid);
+        PageUtils pageUtils = new PageUtils(infoDtoPage);
+        return new SuccessResponseData(pageUtils);
+    }
+    /**
+     * 最新动态 三天内的
+     */
+    @PostMapping(value = "/getNewMaterialByCardId")
+    @ApiOperation("最新动态 三天内的")
+    @ResponseBody
+    public ResponseData getNewMaterialByCardId(@RequestBody @Valid MaterialNewPListDTO newPListDTO) {
+        Page<MaterialInfoDto> infoDtoPage = new PageFactory<MaterialInfoDto>().defaultPage(newPListDTO.getPageNum(), newPListDTO.getPageSize(), null, null);
+        List<MaterialInfoDto> newMaterialByCardId = materialService.getNewMaterialByCardId(newPListDTO.getCardId(), infoDtoPage);
+        infoDtoPage.setRecords(newMaterialByCardId);
         PageUtils pageUtils = new PageUtils(infoDtoPage);
         return new SuccessResponseData(pageUtils);
     }

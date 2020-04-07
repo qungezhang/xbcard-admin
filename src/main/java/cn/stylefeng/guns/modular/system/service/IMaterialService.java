@@ -21,4 +21,13 @@ public interface IMaterialService extends IService<Material> {
 
     List<MaterialInfoDto> getMaterialByPid(Integer cardId, Integer pid, Page page);
 
+    /**
+     * 最新动态 三天内的
+     *
+     * @param cardId
+     * @param page
+     * @return
+     */
+    List<MaterialInfoDto> getNewMaterialByCardId(Integer cardId, Page page);
+
 }
