@@ -47,8 +47,6 @@ public class CardForwardApiController extends BaseController {
     private ICardForwardService cardForwardService;
     @Autowired
     private IWxUserService wxUserService;
-    @Autowired
-    private ICardService cardService;
     /**
      * 获取列表
      */

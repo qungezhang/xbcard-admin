@@ -73,6 +73,10 @@ public class CardInfoDTO implements Serializable {
     private String shareTitle;
     @ApiModelProperty(value = "分享类型")
     private Integer shareType;
+    @ApiModelProperty(value = "公司视频")
+    private String flag3;
+    @ApiModelProperty(value = "公司简介")
+    private String flag4;
 //    private List<Material> materialList;
 //    private List<CategoryTreeDTO> categoryTrees;
 }

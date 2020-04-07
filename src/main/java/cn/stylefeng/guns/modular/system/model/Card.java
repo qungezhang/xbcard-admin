@@ -109,11 +109,11 @@ public class Card extends Model<Card> {
      */
     private String flag2;
     /**
-     * 预留字段
+     * 公司视频
      */
     private String flag3;
     /**
-     * 预留字段
+     * 公司简介
      */
     private String flag4;
 
