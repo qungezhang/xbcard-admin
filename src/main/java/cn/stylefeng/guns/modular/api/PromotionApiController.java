@@ -1,21 +1,24 @@
 package cn.stylefeng.guns.modular.api;
 
+import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
 import cn.stylefeng.guns.core.util.BeanMapperUtil;
-import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.core.util.PageUtils;
+import cn.stylefeng.guns.modular.dto.PageListDTO;
 import cn.stylefeng.guns.modular.dto.PromotionAddDto;
 import cn.stylefeng.guns.modular.dto.PromotionUpdateDto;
 import cn.stylefeng.guns.modular.system.model.Promotion;
 import cn.stylefeng.guns.modular.system.service.IPromotionService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
+import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -49,6 +51,17 @@ public class PromotionApiController extends BaseController {
 //    public Object list(String condition) {
 //        return promotionService.selectList(null);
 //    }
+        /**
+     * 获取列表
+     */
+    @PostMapping(value = "/pList")
+    @ApiOperation("获取分页列表")
+    public ResponseData pList(@RequestBody PageListDTO<Promotion> pageListDTO) {
+        Page<Promotion> page = new PageFactory<Promotion>().defaultPage(pageListDTO.getPageNum(), pageListDTO.getPageSize(), "update_time", "desc");
+        Page<Promotion> promotionPage = promotionService.selectPage(page, new EntityWrapper<>(pageListDTO.getBody()));
+        PageUtils pageUtils = new PageUtils(promotionPage);
+        return new SuccessResponseData(pageUtils);
+    }
 
     /**
      * 新增宣传文案
@@ -58,24 +71,29 @@ public class PromotionApiController extends BaseController {
     public Object add(@RequestBody @Valid PromotionAddDto addDto) {
         EntityWrapper<Promotion> wrapper = new EntityWrapper<>();
         Integer userId = addDto.getUserId();
-        wrapper.eq("card_id", addDto.getCardId())
-                .eq("user_id", userId)
-                .eq("is_deleted", 0)
-                .orderBy("update_time", false)
-                .last("limit 1");
-        Promotion promotion = promotionService.selectOne(wrapper);
+//        wrapper.eq("card_id", addDto.getCardId())
+//                .eq("user_id", userId)
+//                .eq("is_deleted", 0)
+//                .orderBy("update_time", false)
+//                .last("limit 1");
+//        Promotion promotion = promotionService.selectOne(wrapper);
         Promotion promotionAdd = BeanMapperUtil.objConvert(addDto, Promotion.class);
         promotionAdd.setUpdateTime(new Date());
-        if (promotion != null) {
-            promotionAdd.setId(promotion.getId());
-            promotionService.updateById(promotionAdd);
-        } else {
-            promotionAdd.setUserId(userId);
-            //是否删除（0否，1是）
-            promotionAdd.setIsDeleted(0);
-            promotionAdd.setCreateTime(new Date());
-            promotionService.insert(promotionAdd);
-        }
+        promotionAdd.setUserId(userId);
+        //是否删除（0否，1是）
+        promotionAdd.setIsDeleted(0);
+        promotionAdd.setCreateTime(new Date());
+        promotionService.insert(promotionAdd);
+//        if (promotion != null) {
+//            promotionAdd.setId(promotion.getId());
+//            promotionService.updateById(promotionAdd);
+//        } else {
+//            promotionAdd.setUserId(userId);
+//            //是否删除（0否，1是）
+//            promotionAdd.setIsDeleted(0);
+//            promotionAdd.setCreateTime(new Date());
+//            promotionService.insert(promotionAdd);
+//        }
 
         return SUCCESS_TIP;
     }
