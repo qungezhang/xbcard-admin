@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -77,18 +78,22 @@ public class MaterialInfoDto {
 //     * 是否删除（0否，1是）
 //     */
 //    private Integer isDeleted;
-//    /**
-//     * 创建时间
-//     */
-//    private Date createTime;
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 //    /**
 //     * 创建人
 //     */
 //    private String createBy;
-//    /**
-//     * 修改时间
-//     */
-//    private Date updateTime;
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty(value = "修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 //    /**
 //     * 修改人
 //     */

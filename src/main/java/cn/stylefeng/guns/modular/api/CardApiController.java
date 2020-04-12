@@ -281,7 +281,7 @@ public class CardApiController extends BaseController {
         }
 
         card.setUpdateTime(new Date());
-        cardService.updateById(card);
+        cardService.updateAllColumnById(card);
 
 
         return new SuccessResponseData(card);
