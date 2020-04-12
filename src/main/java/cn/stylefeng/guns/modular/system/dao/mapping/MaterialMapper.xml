@@ -53,7 +53,7 @@
             ( COUNT( m2.id )> 0, 1, 0 ) hasChildren
         FROM
             wx_material m1
-            LEFT JOIN wx_material m2 ON m2.pcode LIKE CONCAT( "%[", m1.id, "]%" )
+            LEFT JOIN wx_material m2 ON m2.pid =m1.id
         WHERE
             m1.is_deleted = 0
             AND m1.card_id = #{cardId}
