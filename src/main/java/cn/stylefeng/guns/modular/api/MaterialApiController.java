@@ -230,10 +230,11 @@ public class MaterialApiController extends BaseController {
         if (ToolUtil.isNotEmpty(materialImgUrl)) {
             Material selectById = materialService.selectById(id);
             if (ToolUtil.isNotEmpty(selectById)) {
-                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getImgUrl());
-                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(materialImgUrl))) {
-                    qiniuService.delete(qiniKeyByUrled);
-                }
+                qiniuService.deleteOldQiniuByUrl(selectById.getImgUrl(),materialImgUrl);
+//                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getImgUrl());
+//                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(materialImgUrl))) {
+//                    qiniuService.delete(qiniKeyByUrled);
+//                }
             } else {
             }
         }

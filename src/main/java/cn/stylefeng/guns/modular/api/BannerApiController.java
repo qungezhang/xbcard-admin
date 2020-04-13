@@ -100,10 +100,11 @@ public class BannerApiController extends BaseController {
         if (ToolUtil.isNotEmpty(imgUrl)) {
             Banner selectById = bannerService.selectById(id);
             if (ToolUtil.isNotEmpty(selectById)) {
-                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getImgUrl());
-                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(imgUrl))) {
-                    qiniuService.delete(qiniKeyByUrled);
-                }
+                qiniuService.deleteOldQiniuByUrl(selectById.getImgUrl(),imgUrl);
+//                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getImgUrl());
+//                if (ToolUtil.isNotEmpty(qiniKeyByUrled) && !qiniKeyByUrled.equals(StringUtil.getQiniKeyByUrl(imgUrl))) {
+//                    qiniuService.delete(qiniKeyByUrled);
+//                }
             } else {
                 return new ErrorResponseData("信息不存在");
             }

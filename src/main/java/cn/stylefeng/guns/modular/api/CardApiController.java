@@ -245,32 +245,8 @@ public class CardApiController extends BaseController {
         Card selectById = cardService.selectById(cardId);
         if (ToolUtil.isNotEmpty(logo)||ToolUtil.isNotEmpty(flag3)) {
             if (ToolUtil.isNotEmpty(selectById)) {
-//                String qiniKeyByUrled = StringUtil.getQiniKeyByUrl(selectById.getLogo());
-                Map<String, String> oldDomainAndKey = StringUtil.getDomainAndKeyByUrl(selectById.getLogo());
-                if (ToolUtil.isNotEmpty(oldDomainAndKey)) {
-                    final String qiniuDomain = "img.xbdzmp.com";//自己的七牛域名
-                    String oldDomain = oldDomainAndKey.get("domain");
-                    String oldKey = oldDomainAndKey.get("qiNiuKey");
-                    Map<String, String> newDomainAndKey = StringUtil.getDomainAndKeyByUrl(logo);
-                    if (oldDomain.equals(qiniuDomain) && ToolUtil.isNotEmpty(newDomainAndKey) && !oldKey.equals(newDomainAndKey.get("qiNiuKey"))) {
-                        qiniuService.delete(oldKey);
-                    }
-                }
-
-                Map<String, String> oldFlag3 = StringUtil.getDomainAndKeyByUrl(selectById.getFlag3());
-                if (ToolUtil.isNotEmpty(oldFlag3)) {
-                    final String qiniuDomain = "img.xbdzmp.com";//自己的七牛域名
-                    String oldDomain = oldFlag3.get("domain");
-                    String oldKey = oldFlag3.get("qiNiuKey");
-                    Map<String, String> newDomainAndKey = StringUtil.getDomainAndKeyByUrl(flag3);
-                    if (oldDomain.equals(qiniuDomain) && ToolUtil.isNotEmpty(newDomainAndKey) && !oldKey.equals(newDomainAndKey.get("qiNiuKey"))) {
-                        qiniuService.delete(oldKey);
-                    }
-                }
-//                String shareImgUrlKey = StringUtil.getQiniKeyByUrl(selectById.getShareImgUrl());
-//                if (ToolUtil.isNotEmpty(shareImgUrlKey) && !shareImgUrlKey.equals(StringUtil.getQiniKeyByUrl(shareImgUrl))) {
-//                    qiniuService.delete(shareImgUrlKey);
-//                }
+                qiniuService.deleteOldQiniuByUrl(selectById.getLogo(),logo);
+                qiniuService.deleteOldQiniuByUrl(selectById.getFlag3(),flag3);
                 if (ToolUtil.isNotEmpty(card.getMobile()) && !card.getMobile().equals(selectById.getMobile())) {
                     loginWxUser.setMobile(card.getMobile());
                     wxUserService.updateById(loginWxUser);

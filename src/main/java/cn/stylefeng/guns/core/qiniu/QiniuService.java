@@ -13,4 +13,6 @@ public interface QiniuService {
     String uploadFile(InputStream inputStream, String key) throws QiniuException;
 
     Response delete(String key) throws QiniuException;
+
+    void deleteOldQiniuByUrl(String oldUrl, String newUrl) throws QiniuException;
 }
