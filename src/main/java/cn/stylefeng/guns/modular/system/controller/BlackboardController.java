@@ -46,6 +46,6 @@ public class BlackboardController extends BaseController {
 //        List<Map<String, Object>> notices = noticeService.list(null);
 //        model.addAttribute("noticeList", notices);
 //        return "/blackboard.html";
-        return "/system/wxUser/spacetreeUser.html";
+        return "/system/wxUser/spacetreeUser2.html";
     }
 }

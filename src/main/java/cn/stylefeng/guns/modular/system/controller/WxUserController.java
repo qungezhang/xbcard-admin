@@ -61,7 +61,7 @@ public class WxUserController extends BaseController {
 //        String o = JSONObject.toJSONString(userTreeDto);
 //        model.addAttribute("userTree", o);
 //        LogObjectHolder.me().set(userTreeDto);
-        return PREFIX + "spacetreeUser.html";
+        return PREFIX + "spacetreeUser2.html";
     }
     /**
      * 跳转到添加小程序用户

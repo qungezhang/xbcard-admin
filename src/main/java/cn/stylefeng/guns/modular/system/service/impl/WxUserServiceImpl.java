@@ -44,7 +44,8 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
     }
 
     @Override
-    public WxUserTreeDto spacetreeUsers() {
+    public List<WxUserTreeDto> spacetreeUsers() {
+        List<WxUserTreeDto> treeDtos = new ArrayList<>();
         WxUserTreeDto treeDto = new WxUserTreeDto();
         treeDto.setId(0);
         treeDto.setName("销帮总部");
@@ -92,7 +93,8 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
             List<WxUserTreeDto> userTreeDtos = treeList(wxUserTreeDtos, 0);
             treeDto.setChildren(userTreeDtos);
         }
-        return treeDto;
+        treeDtos.add(treeDto);
+        return treeDtos;
     }
 
 

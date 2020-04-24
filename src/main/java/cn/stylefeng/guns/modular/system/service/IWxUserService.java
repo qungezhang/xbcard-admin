@@ -33,6 +33,6 @@ public interface IWxUserService extends IService<WxUser> {
 
     List<WxUserDto> selectUsersObj();
 
-    WxUserTreeDto spacetreeUsers();
+    List<WxUserTreeDto> spacetreeUsers();
 
 }
