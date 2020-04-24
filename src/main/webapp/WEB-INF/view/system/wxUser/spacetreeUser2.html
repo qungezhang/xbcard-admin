@@ -7,8 +7,8 @@
 
     .node circle {
         fill: #fff;
-        stroke: steelblue;
-        stroke-width: 1.5px;
+        stroke: blue;
+        stroke-width: 1px;
     }
 
     .node text {
@@ -22,7 +22,7 @@
     }
 
     .tree {
-        width: 1400px;
+        width: 1600px;
         height: 800px;
         margin: 0 auto;
         /*background: #E0E0E0;*/
@@ -135,14 +135,18 @@
                 //     .attr("text-anchor", function (d) {
                 //         return d.children || d._children ? "end" : "start";
                 //     })
-                //     .text(function (d) {
-                //         return d.name;
+                //     .html(function (d) {
+                //
+                //         return   '<div>'+
+                //             '<img class="imgssss img-rounded" src="' + d.data.headimgurl + '" style="height: 55px;width: 55px"/>'+
+                //             '</div>';
+                //         // return d.data.headimgurl ;
                 //     })
                 //     .style("fill-opacity", 1)
                 //     .style("font-size", "12px");
                 nodeEnter.append("text")
                     .attr("x", function (d) {
-                        return d.children || d._children ? -10 : 10;
+                        return d.children || d._children ? -10 : 5;
                     })
                     .attr("dy", ".35em")
                     .attr("text-anchor", function (d) {
@@ -151,10 +155,11 @@
                     .text(function (d) {
                         // return d.data.nickName+"("+d.data.vipNum+
                         //     "-"+d.data.childCount+")";
-                        return d.name+"("+d.data.vipNum+
-                            "-"+d.data.childCount+")";
+                        return "【"+d.data.vipNum+
+                            ":"+d.data.childCount+"】"+d.data.nickName;
                     })
-                    .style("fill-opacity", 1);
+                    .style("fill-opacity", 1)
+                    .style("font-size", "10px");
 
                 var nodeUpdate = node.transition()
                     .duration(duration)
@@ -166,7 +171,7 @@
                     .attr("r", 4.5)
                     // .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
                     .style("fill", function (d) {
-                        return d._children ? "#f00" : "#f90";
+                        return d._children ? "#f00" : "#fff";
                     });
                 nodeUpdate.select("text")
                     .style("fill-opacity", 1);

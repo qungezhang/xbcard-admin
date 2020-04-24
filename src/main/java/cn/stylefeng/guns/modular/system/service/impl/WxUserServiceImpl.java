@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.service.impl;
 
+import cn.stylefeng.guns.core.util.JsonUtils;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.WxUserDto;
@@ -9,12 +10,17 @@ import cn.stylefeng.guns.modular.system.dao.WxUserMapper;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static cn.stylefeng.guns.core.util.EmojiFilter.filterEmoji;
 
 /**
  * <p>
@@ -67,6 +73,7 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
         userDto.setVipNum(vipNumP);
         userDto.setOpNum(total - vipNumP);
         userDto.setHeadimgurl("https://img.xbdzmp.com/201912120156008d2a5bbcdba1.jpg");
+        userDto.setNickName("销帮总部");
         treeDto.setData(userDto);
 
         List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj();
@@ -83,6 +90,15 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
                         }
                     }
                 }
+                String nickName = wxUserDto.getNickName();
+                if (ToolUtil.isNotEmpty(nickName)) {
+                    String filterEmoji = filterEmoji(nickName);
+                    if (filterEmoji.length() > 4) {
+                        String name = StringUtils.substring(filterEmoji, 0, 4);
+                        wxUserDto.setNickName(name);
+                    }
+
+                }
                 wxUserDto.setVipNum(vipNum);
                 wxUserDto.setOpNum(wxUserDto.getChildCount()-vipNum);
                 WxUserTreeDto userTreeDto = new WxUserTreeDto();
@@ -98,6 +114,12 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
         return treeDtos;
     }
 
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        String abcd = "ShïnīŃg\uD83D\uDC8E";
+        abcd = new String(abcd.getBytes("gbk"),"utf-8");
+        System.out.println(abcd);
+        System.out.println(abcd.substring(0,4));
+    }
 
     /**
      * explain: 遍历递归
