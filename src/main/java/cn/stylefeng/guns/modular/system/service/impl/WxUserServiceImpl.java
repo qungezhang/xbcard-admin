@@ -10,6 +10,7 @@ import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,12 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
         }
         List<WxUserTreeDto> result = new ArrayList<>();
         for(WxUserTreeDto treeDTO :pList) {//循环遍历归属一级集合的子集
-            treeDTO.setChildren(treeList(otherList,treeDTO.getId()));//通过反复调用自身方法循环输出归属上级集合的下级集合
+            List<WxUserTreeDto> children = treeList(otherList, treeDTO.getId());
+            if (!CollectionUtils.isEmpty(children)) {
+                treeDTO.setChildren(children);//通过反复调用自身方法循环输出归属上级集合的下级集合
+            } else {
+                treeDTO.setChildren(null);
+            }
             result.add(treeDTO);
         }
         return result;

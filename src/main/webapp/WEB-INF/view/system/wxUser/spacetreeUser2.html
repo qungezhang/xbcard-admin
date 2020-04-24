@@ -22,10 +22,10 @@
     }
 
     .tree {
-        width: 800px;
+        width: 1400px;
         height: 800px;
         margin: 0 auto;
-        background: #E0E0E0;
+        /*background: #E0E0E0;*/
     }
 
     .tree svg {
@@ -149,7 +149,10 @@
                         return d.children || d._children ? "end" : "start";
                     })
                     .text(function (d) {
-                        return d.name;
+                        // return d.data.nickName+"("+d.data.vipNum+
+                        //     "-"+d.data.childCount+")";
+                        return d.name+"("+d.data.vipNum+
+                            "-"+d.data.childCount+")";
                     })
                     .style("fill-opacity", 1);
 
