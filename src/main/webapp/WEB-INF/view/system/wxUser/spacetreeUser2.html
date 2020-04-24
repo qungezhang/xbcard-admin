@@ -45,7 +45,7 @@
         var ajax = new $ax(Feng.ctxPath + "/wxUser/spaceTreeUsersData", function (data) {
             json=data;
             // alert(JSON.stringify(data));
-            alert(JSON.stringify(json));
+            // alert(JSON.stringify(json));
             var margin = [20, 120, 20, 120],
                 width = document.getElementById("tree").offsetWidth,
                 height = document.getElementById("tree").offsetHeight;
@@ -127,19 +127,19 @@
                         return d._children ? "#f00" : "#fff";
                     });
                 //文字 1
-                nodeEnter.append("text")
-                    .attr("x", function (d) {
-                        return d.children || d._children ? 50 : 30;
-                    })
-                    .attr("dy", ".35em")
-                    .attr("text-anchor", function (d) {
-                        return d.children || d._children ? "end" : "start";
-                    })
-                    .text(function (d) {
-                        return d.name;
-                    })
-                    .style("fill-opacity", 1)
-                    .style("font-size", "12px");
+                // nodeEnter.append("text")
+                //     .attr("x", function (d) {
+                //         return d.children || d._children ? 50 : 30;
+                //     })
+                //     .attr("dy", ".35em")
+                //     .attr("text-anchor", function (d) {
+                //         return d.children || d._children ? "end" : "start";
+                //     })
+                //     .text(function (d) {
+                //         return d.name;
+                //     })
+                //     .style("fill-opacity", 1)
+                //     .style("font-size", "12px");
                 nodeEnter.append("text")
                     .attr("x", function (d) {
                         return d.children || d._children ? -10 : 10;
