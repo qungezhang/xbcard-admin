@@ -78,7 +78,7 @@ public class WxCodeUnilimitController extends BaseController {
      */
     @GetMapping("/unlimitCreate")
     @ApiOperation("接口B: 获取小程序码")
-    public Object createWxaCodeUnlimitQiniu(@RequestParam("scene") String scene, @RequestParam("page") String page, @RequestParam("width") Integer width, @RequestParam(value = "cardId", required = false) Integer cardId) throws WxErrorException, QiniuException {
+    public Object createWxaCodeUnlimitQiniu(String scene, String page, Integer width, Integer cardId) throws WxErrorException, QiniuException {
 //        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
 //        if (ToolUtil.isNotEmpty(loginWxUser)) {
@@ -91,6 +91,9 @@ public class WxCodeUnilimitController extends BaseController {
 //        } else {
 //            return new ErrorResponseData("用户登录异常");
 //        }
+//        log.info("获取小程序码scene:" + scene);
+//        log.info("获取小程序码page:" + page);
+//        log.info("获取小程序码width:" + width);
         log.info("获取小程序码cardId:" + cardId);
         if (ToolUtil.isNotEmpty(cardId)) {
             SuccessResponseData successResponseData = new SuccessResponseData();
@@ -112,7 +115,7 @@ public class WxCodeUnilimitController extends BaseController {
 //              wxUserService.updateById(loginWxUser);
                 }
                 return successResponseData;
-            }else {
+            } else {
                 return new ErrorResponseData("名片不存在");
             }
         } else {
