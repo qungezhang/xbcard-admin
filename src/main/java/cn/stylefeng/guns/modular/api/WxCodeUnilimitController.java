@@ -17,6 +17,7 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/WxCode")
 @Api(tags = "微信小程序二维码")
+@Slf4j
 public class WxCodeUnilimitController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -77,7 +79,6 @@ public class WxCodeUnilimitController extends BaseController {
     @GetMapping("/unlimitCreate")
     @ApiOperation("接口B: 获取小程序码")
     public Object createWxaCodeUnlimitQiniu(@RequestParam("scene") String scene, @RequestParam("page") String page, @RequestParam("width") Integer width, @RequestParam(value = "cardId", required = false) Integer cardId) throws WxErrorException, QiniuException {
-        final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
 //        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
 //        if (ToolUtil.isNotEmpty(loginWxUser)) {
@@ -90,6 +91,7 @@ public class WxCodeUnilimitController extends BaseController {
 //        } else {
 //            return new ErrorResponseData("用户登录异常");
 //        }
+        log.info("获取小程序码cardId:" + cardId);
         if (ToolUtil.isNotEmpty(cardId)) {
             SuccessResponseData successResponseData = new SuccessResponseData();
             Card card = cardService.selectById(cardId);
@@ -97,6 +99,7 @@ public class WxCodeUnilimitController extends BaseController {
                 if (ToolUtil.isNotEmpty(card.getFlag2())) {
                     successResponseData.setData(card.getFlag2());
                 } else {
+                    final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
                     InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
                     String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
                     String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
