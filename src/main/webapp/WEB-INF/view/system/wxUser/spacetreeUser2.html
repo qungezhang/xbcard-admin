@@ -124,7 +124,16 @@
                     .attr("r", 1e-6)
                     // .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
                     .style("fill", function (d) {
-                        return d._children ? "#f00" : "#fff";
+                        var result;
+                        if (d._children) {
+                            result = "#22ff2b";
+                        } else if (d.data.isvip === 1) {
+                            result = "#f00";
+                        } else {
+                            result = "#fff";
+                        }
+                        return result;
+                        // return d._children ? "#22ff2b" : "#fff";
                     });
                 //文字 1
                 // nodeEnter.append("text")
@@ -171,7 +180,16 @@
                     .attr("r", 4.5)
                     // .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
                     .style("fill", function (d) {
-                        return d._children ? "#f00" : "#fff";
+                        var result;
+                        if (d._children) {
+                            result = "#22ff2b";
+                        } else if (d.data.isvip === 1) {
+                            result = "#f00";
+                        } else {
+                            result = "#fff";
+                        }
+                        return result;
+                        // return d._children ? "#22ff2b" : "#fff";
                     });
                 nodeUpdate.select("text")
                     .style("fill-opacity", 1);
