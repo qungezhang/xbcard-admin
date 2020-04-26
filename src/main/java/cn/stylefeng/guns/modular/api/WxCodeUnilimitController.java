@@ -7,31 +7,26 @@ import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.config.properties.WxMaProperties;
 import cn.stylefeng.guns.core.qiniu.QiniuService;
 import cn.stylefeng.guns.core.util.DateUtils;
-import cn.stylefeng.guns.core.util.StringUtil;
-import cn.stylefeng.guns.modular.system.model.WxUser;
+import cn.stylefeng.guns.modular.system.model.Card;
+import cn.stylefeng.guns.modular.system.service.ICardService;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.qiniu.common.QiniuException;
-import com.qiniu.http.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.UUID;
@@ -52,13 +47,15 @@ public class WxCodeUnilimitController extends BaseController {
     private IWxUserService wxUserService;
     @Autowired
     private GunsProperties gunsProperties;
+    @Autowired
+    private ICardService cardService;
     private String appid;
     @Autowired
     public WxCodeUnilimitController(WxMaProperties properties) {
         this.appid = properties.getConfigs().get(0).getAppid();
     }
 
-     /**
+    /**
      * 接口B: 获取小程序码（永久有效、数量暂无限制）.
      * <pre>
      * 通过该接口生成的小程序码，永久有效，数量暂无限制。
@@ -67,19 +64,19 @@ public class WxCodeUnilimitController extends BaseController {
      * 调试阶段可以使用开发工具的条件编译自定义参数 scene=xxxx 进行模拟，开发工具模拟时的 scene 的参数值需要进行 urlencode
      * </pre>
      *
-     * @param scene     最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，
-     *                  其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）
-     * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
-     * @param width     默认false 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-//     * @param autoColor 默认true 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
-//     * @param lineColor auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}
-//     * @param isHyaline 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
+     * @param scene 最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，
+     *              其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）
+     * @param page  必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
+     * @param width 默认false 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+     *              //     * @param autoColor 默认true 自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调
+     *              //     * @param lineColor auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}
+     *              //     * @param isHyaline 是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码
      * @return 文件对象
      * @throws WxErrorException 异常
      */
     @GetMapping("/unlimitCreate")
     @ApiOperation("接口B: 获取小程序码")
-    public Object createWxaCodeUnlimitQiniu(String scene, String page, int width) throws WxErrorException, QiniuException {
+    public Object createWxaCodeUnlimitQiniu(@RequestParam("scene") String scene, @RequestParam("page") String page, @RequestParam("width") Integer width, @RequestParam(value = "cardId", required = false) Integer cardId) throws WxErrorException, QiniuException {
         final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
 //        File codeUnlimit = qrcodeService.createWxaCodeUnlimit(scene, page, width,true, (WxMaCodeLineColor)null, false);
 //        WxUser loginWxUser = wxUserService.getLoginWxUser();
@@ -93,15 +90,32 @@ public class WxCodeUnilimitController extends BaseController {
 //        } else {
 //            return new ErrorResponseData("用户登录异常");
 //        }
-        InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
-        SuccessResponseData successResponseData = new SuccessResponseData();
-        String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
-        String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
-        String qrcodeUrl = qiniuService.uploadFile(inputStream, pictureName);
-        successResponseData.setData(qrcodeUrl);
-//        loginWxUser.setQrcode(qrcodeUrl);
-//        wxUserService.updateById(loginWxUser);
-        return successResponseData;
+        if (ToolUtil.isNotEmpty(cardId)) {
+            SuccessResponseData successResponseData = new SuccessResponseData();
+            Card card = cardService.selectById(cardId);
+            if (ToolUtil.isNotEmpty(card)) {
+                if (ToolUtil.isNotEmpty(card.getFlag2())) {
+                    successResponseData.setData(card.getFlag2());
+                } else {
+                    InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
+                    String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
+                    String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
+                    String qrcodeUrl = qiniuService.uploadFile(inputStream, pictureName);
+                    successResponseData.setData(qrcodeUrl);
+                    //将得到的二维码更新到名片
+                    card.setFlag2(qrcodeUrl);
+                    cardService.updateById(card);
+//              loginWxUser.setQrcode(qrcodeUrl);
+//              wxUserService.updateById(loginWxUser);
+                }
+                return successResponseData;
+            }else {
+                return new ErrorResponseData("名片不存在");
+            }
+        } else {
+            return new ErrorResponseData("cardId不可为空");
+        }
+
     }
 
 //    @GetMapping("/unlimitCreate")
