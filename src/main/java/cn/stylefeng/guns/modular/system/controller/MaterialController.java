@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -15,6 +16,7 @@ import cn.stylefeng.guns.modular.system.model.Material;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 素材控制器
@@ -30,7 +32,8 @@ public class MaterialController extends BaseController {
 
     @Autowired
     private IMaterialService materialService;
-
+    @Autowired
+    private IWxUserService iWxUserService;
     /**
      * 跳转到素材首页
      */
@@ -73,7 +76,11 @@ public class MaterialController extends BaseController {
             material.setUpdateBy(mobile);
         }
 //        material.setIsDeleted(0);
-        return materialService.selectList(new EntityWrapper<>(material).orderBy("create_time",false));
+        List<Integer> userIdBySysUser = iWxUserService.getWxChildUserIdBySysUser();
+        EntityWrapper<Material> materialEntityWrapper = new EntityWrapper<>(material);
+        materialEntityWrapper.in(ToolUtil.isNotEmpty(userIdBySysUser), "user_id", userIdBySysUser);
+        materialEntityWrapper.orderBy("create_time", false);
+        return materialService.selectList(materialEntityWrapper);
     }
 
     /**

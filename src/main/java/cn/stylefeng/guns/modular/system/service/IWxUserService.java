@@ -35,4 +35,7 @@ public interface IWxUserService extends IService<WxUser> {
 
     List<WxUserTreeDto> spacetreeUsers();
 
+    List<Integer> getWxChildUserIdBySysUser();
+
+
 }

@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -13,6 +14,8 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.IncomeFlowing;
 import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
+
+import java.util.List;
 
 /**
  * 收入流水控制器
@@ -28,7 +31,8 @@ public class IncomeFlowingController extends BaseController {
 
     @Autowired
     private IIncomeFlowingService incomeFlowingService;
-
+    @Autowired
+    private IWxUserService iWxUserService;
     /**
      * 跳转到收入流水首页
      */
@@ -62,7 +66,9 @@ public class IncomeFlowingController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
+        List<Integer> userIdBySysUser = iWxUserService.getWxChildUserIdBySysUser();
         EntityWrapper<IncomeFlowing> wrapper = new EntityWrapper<>();
+        wrapper.in(ToolUtil.isNotEmpty(userIdBySysUser), "customer_id", userIdBySysUser);
         wrapper.eq(ToolUtil.isNotEmpty(condition), "create_by", condition);
         return incomeFlowingService.selectList(wrapper);
     }

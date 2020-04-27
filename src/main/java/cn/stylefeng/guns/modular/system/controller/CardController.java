@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -13,6 +14,8 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.Card;
 import cn.stylefeng.guns.modular.system.service.ICardService;
+
+import java.util.List;
 
 /**
  * 控制器
@@ -29,6 +32,8 @@ public class CardController extends BaseController {
 
     @Autowired
     private ICardService cardService;
+    @Autowired
+    private IWxUserService iWxUserService;
 
     /**
      * 跳转到首页
@@ -83,7 +88,11 @@ public class CardController extends BaseController {
         if (ToolUtil.isNotEmpty(mobile)) {
             card.setMobile(mobile);
         }
-        return cardService.selectList(new EntityWrapper<>(card).orderBy("create_time",false));
+        List<Integer> userIdBySysUser = iWxUserService.getWxChildUserIdBySysUser();
+        EntityWrapper<Card> cardEntityWrapper = new EntityWrapper<>(card);
+        cardEntityWrapper.in(ToolUtil.isNotEmpty(userIdBySysUser), "user_id", userIdBySysUser);
+        cardEntityWrapper.orderBy("create_time", false);
+        return cardService.selectList(cardEntityWrapper);
     }
 
     /**

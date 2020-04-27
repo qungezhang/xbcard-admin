@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -13,6 +14,8 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.OutFlowing;
 import cn.stylefeng.guns.modular.system.service.IOutFlowingService;
+
+import java.util.List;
 
 /**
  * 平台支出流水控制器
@@ -28,7 +31,8 @@ public class OutFlowingController extends BaseController {
 
     @Autowired
     private IOutFlowingService outFlowingService;
-
+    @Autowired
+    private IWxUserService iWxUserService;
     /**
      * 跳转到平台支出流水首页
      */
@@ -62,7 +66,9 @@ public class OutFlowingController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
+        List<Integer> userIdBySysUser = iWxUserService.getWxChildUserIdBySysUser();
         EntityWrapper<OutFlowing> wrapper = new EntityWrapper<>();
+        wrapper.in(ToolUtil.isNotEmpty(userIdBySysUser), "user_id", userIdBySysUser);
         wrapper.eq(ToolUtil.isNotEmpty(condition), "create_by", condition);
         return outFlowingService.selectList(wrapper);
     }

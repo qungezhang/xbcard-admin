@@ -1,21 +1,21 @@
 package cn.stylefeng.guns.modular.system.service.impl;
 
-import cn.stylefeng.guns.core.util.JsonUtils;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
-import cn.stylefeng.guns.modular.dto.CategoryTreeDTO;
 import cn.stylefeng.guns.modular.dto.WxUserDto;
 import cn.stylefeng.guns.modular.dto.WxUserTreeDto;
-import cn.stylefeng.guns.modular.system.model.WxUser;
 import cn.stylefeng.guns.modular.system.dao.WxUserMapper;
+import cn.stylefeng.guns.modular.system.model.User;
+import cn.stylefeng.guns.modular.system.model.WxUser;
+import cn.stylefeng.guns.modular.system.service.IUserService;
 import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,8 @@ import static cn.stylefeng.guns.core.util.EmojiFilter.filterEmoji;
  */
 @Service
 public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> implements IWxUserService {
-
+    @Autowired
+    private IUserService userService;
 
     @Override
     public WxUser getLoginWxUser() {
@@ -47,36 +48,47 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
 
     @Override
     public List<WxUserDto> selectUsersObj() {
-        return this.baseMapper.selectUsersObj();
+        return this.baseMapper.selectUsersObj(null,null);
     }
 
     @Override
     public List<WxUserTreeDto> spacetreeUsers() {
-        List<WxUserTreeDto> treeDtos = new ArrayList<>();
-        WxUserTreeDto treeDto = new WxUserTreeDto();
-        treeDto.setId(0);
-        treeDto.setName("销帮总部");
-        WxUserDto userDto = new WxUserDto();
-        Map<String, Object> statistics = this.baseMapper.selectStatistics();
-        Object concatIsVipP = statistics.get("concatIsVip");
-        Integer vipNumP =0;
-        if (ToolUtil.isNotEmpty(concatIsVipP)) {
-            String[] isVips = String.valueOf(concatIsVipP).split(",");
-            for (String s : isVips) {
-                if (s.equals("1")) {
-                    vipNumP++;
+        Integer sysUserId = ShiroKit.getUser().getId();
+        User user = userService.selectById(sysUserId);
+        Integer wxUserId = user.getVersion();
+        String pCode = null;
+        boolean isAll = false;
+        WxUserTreeDto treeMainDto = new WxUserTreeDto();
+        if (ToolUtil.isNotEmpty(wxUserId)) {
+            pCode = "[" + wxUserId + "]";
+        } else {
+            treeMainDto.setId(0);
+            treeMainDto.setName("销帮总部");
+            WxUserDto userMainDto = new WxUserDto();
+            Map<String, Object> statistics = this.baseMapper.selectStatistics();
+            Object concatIsVipP = statistics.get("concatIsVip");
+            Integer vipNumP =0;
+            if (ToolUtil.isNotEmpty(concatIsVipP)) {
+                String[] isVips = String.valueOf(concatIsVipP).split(",");
+                for (String s : isVips) {
+                    if (s.equals("1")) {
+                        vipNumP++;
+                    }
                 }
             }
+            Integer total = Integer.valueOf(statistics.get("total") + "");
+            userMainDto.setChildCount(total);
+            userMainDto.setVipNum(vipNumP);
+            userMainDto.setOpNum(total - vipNumP);
+            userMainDto.setHeadimgurl("https://img.xbdzmp.com/201912120156008d2a5bbcdba1.jpg");
+            userMainDto.setNickName("销帮总部");
+            treeMainDto.setData(userMainDto);
+            isAll = true;
         }
-        Integer total = Integer.valueOf(statistics.get("total") + "");
-        userDto.setChildCount(total);
-        userDto.setVipNum(vipNumP);
-        userDto.setOpNum(total - vipNumP);
-        userDto.setHeadimgurl("https://img.xbdzmp.com/201912120156008d2a5bbcdba1.jpg");
-        userDto.setNickName("销帮总部");
-        treeDto.setData(userDto);
 
-        List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj();
+
+        List<WxUserTreeDto> treeDtos = new ArrayList<>();
+        List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj(pCode,wxUserId);
         if (ToolUtil.isNotEmpty(wxUserDtos)) {
             List<WxUserTreeDto> wxUserTreeDtos = new ArrayList<>();
             for (WxUserDto wxUserDto : wxUserDtos) {
@@ -106,20 +118,33 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
                 userTreeDto.setName(wxUserDto.getMobile());
                 userTreeDto.setData(wxUserDto);
                 wxUserTreeDtos.add(userTreeDto);
+                if (!isAll && wxUserDto.getId().equals(wxUserId)) {
+                    wxUserDto.setEmpId(0);
+                }
             }
             List<WxUserTreeDto> userTreeDtos = treeList(wxUserTreeDtos, 0);
-            treeDto.setChildren(userTreeDtos);
+            if (isAll) {
+                treeMainDto.setChildren(userTreeDtos);
+                treeDtos.add(treeMainDto);
+            } else {
+                treeDtos=userTreeDtos;
+            }
         }
-        treeDtos.add(treeDto);
         return treeDtos;
     }
 
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        String abcd = "ShïnīŃg\uD83D\uDC8E";
-        abcd = new String(abcd.getBytes("gbk"),"utf-8");
-        System.out.println(abcd);
-        System.out.println(abcd.substring(0,4));
+    @Override
+    public List<Integer> getWxChildUserIdBySysUser() {
+        Integer sysUserId = ShiroKit.getUser().getId();
+        User user = userService.selectById(sysUserId);
+        Integer wxUserId = user.getVersion();
+        if (ToolUtil.isNotEmpty(wxUserId)) {
+            String pCode = "[" + wxUserId + "]";
+            return this.baseMapper.selectChildId(pCode, wxUserId);
+        }
+        return null;
     }
+
 
     /**
      * explain: 遍历递归

@@ -1,10 +1,13 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.dto.IncomeFlowingDto;
 import cn.stylefeng.guns.modular.dto.WxUserTreeDto;
 import cn.stylefeng.guns.modular.system.model.Material;
+import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.guns.modular.system.service.IIncomeFlowingService;
 import cn.stylefeng.guns.modular.system.service.IMaterialService;
+import cn.stylefeng.guns.modular.system.service.IUserService;
 import cn.stylefeng.guns.modular.system.warpper.MenuWarpper;
 import cn.stylefeng.guns.modular.system.warpper.WxUserWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -46,7 +49,8 @@ public class WxUserController extends BaseController {
     private IMaterialService materialService;
     @Autowired
     private IIncomeFlowingService incomeFlowingService;
-
+    @Autowired
+    private IUserService userService;
     /**
      * 跳转到小程序用户首页
      */
@@ -106,6 +110,7 @@ public class WxUserController extends BaseController {
     public Object list(String mobile,String nickName) {
 //        WxUserWarpper wrap = null;
         List<Map<String, Object>> resultMapList = new ArrayList<>();
+        Integer wxUserId = null;
         if (ToolUtil.isNotEmpty(mobile) || ToolUtil.isNotEmpty(nickName)) {
             EntityWrapper<WxUser> wrapper = new EntityWrapper<>();
             wrapper.eq(ToolUtil.isNotEmpty(mobile), "mobile", mobile);
@@ -116,20 +121,27 @@ public class WxUserController extends BaseController {
 //
 //                map.put("empId", 0);
 //                mapList.add(map);
-                Integer id = selectOne.getId();
-                String pCode = "[" + id + "]";
+                wxUserId = selectOne.getId();
+
+            }
+        }else {
+            Integer sysUserId = ShiroKit.getUser().getId();
+            User user = userService.selectById(sysUserId);
+            wxUserId = user.getVersion();
+        }
+        if(ToolUtil.isNotEmpty(wxUserId)){
+            String pCode = "[" + wxUserId + "]";
 //                EntityWrapper<WxUser> entityWrapper = new EntityWrapper<>();
 //                entityWrapper.like(ToolUtil.isNotEmpty(pCode), "flag1", pCode);
 //                entityWrapper.orderBy("update_time",false);
 //                List<Map<String, Object>> maps = wxUserService.selectMaps(entityWrapper);
-                resultMapList= wxUserService.selectUsers(pCode, id);
-                for (Map<String, Object> map : resultMapList) {
-                    if (map.get("id").equals(id)) {
-                        map.put("empId", 0);
-                    }
+            resultMapList= wxUserService.selectUsers(pCode, wxUserId);
+            for (Map<String, Object> map : resultMapList) {
+                if (map.get("id").equals(wxUserId)) {
+                    map.put("empId", 0);
                 }
-//                wrap = new WxUserWarpper(mapList);
             }
+//                wrap = new WxUserWarpper(mapList);
         } else {
 //            List<Map<String, Object>> selectMaps = wxUserService.selectMaps(new EntityWrapper<WxUser>());
             resultMapList= wxUserService.selectUsers(null, null);

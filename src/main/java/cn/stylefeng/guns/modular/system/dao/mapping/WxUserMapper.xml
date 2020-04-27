@@ -88,7 +88,7 @@
             WHERE  u1.flag1 like CONCAT('%',#{pCode},'%') OR u1.id =#{id}
         </if>
         GROUP BY
-        u1.id;
+        u1.id
     </select>
     <select id="selectUsersObj" resultType="cn.stylefeng.guns.modular.dto.WxUserDto">
         SELECT
@@ -117,6 +117,9 @@
         FROM
         wx_user u1
         LEFT JOIN wx_user u2 ON u2.flag1 LIKE CONCAT( "%[", u1.id, "]%" )
+        <if test="pCode != null and pCode != ''">
+            WHERE  u1.flag1 like CONCAT('%',#{pCode},'%') OR u1.id =#{id}
+        </if>
         GROUP BY
         u1.id;
     </select>
@@ -126,6 +129,13 @@
             group_concat( isvip ) concatIsVip
         FROM
             wx_user
+    </select>
+    <select id="selectChildId" resultType="java.lang.Integer">
+        SELECT
+        u1.id
+        FROM
+        wx_user u1
+        WHERE  u1.flag1 like CONCAT('%',#{pCode},'%') OR u1.id =#{id}
     </select>
 
 </mapper>

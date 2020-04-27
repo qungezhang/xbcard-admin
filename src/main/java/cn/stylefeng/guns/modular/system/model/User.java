@@ -79,7 +79,7 @@ public class User extends Model<User> {
      */
     private Date createtime;
     /**
-     * 保留字段
+     * 微信用户id
      */
     private Integer version;
 
