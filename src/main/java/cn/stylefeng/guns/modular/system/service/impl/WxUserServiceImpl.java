@@ -140,7 +140,11 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
         Integer wxUserId = user.getVersion();
         if (ToolUtil.isNotEmpty(wxUserId)) {
             String pCode = "[" + wxUserId + "]";
-            return this.baseMapper.selectChildId(pCode, wxUserId);
+            List<Integer> list = this.baseMapper.selectChildId(pCode, wxUserId);
+//            if (list.isEmpty()) {
+//                list.add(-100);
+//            }
+            return list;
         }
         return null;
     }

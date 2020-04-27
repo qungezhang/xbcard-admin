@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
+import cn.stylefeng.guns.modular.system.service.IWxUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -15,6 +16,7 @@ import cn.stylefeng.guns.modular.system.model.CallCenter;
 import cn.stylefeng.guns.modular.system.service.ICallCenterService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +33,8 @@ public class CallCenterController extends BaseController {
 
     @Autowired
     private ICallCenterService callCenterService;
-
+    @Autowired
+    private IWxUserService iWxUserService;
     /**
      * 跳转到客服中心记录首页
      */
@@ -82,7 +85,10 @@ public class CallCenterController extends BaseController {
         if (ToolUtil.isNotEmpty(condition)) {
             callCenter.setMobile(condition);
         }
-        return callCenterService.selectList(new EntityWrapper<>(callCenter));
+        List<Integer> userIdBySysUser = iWxUserService.getWxChildUserIdBySysUser();
+        EntityWrapper<CallCenter> wrapper = new EntityWrapper<>(callCenter);
+        wrapper.in(ToolUtil.isNotEmpty(userIdBySysUser), "user_id", userIdBySysUser);
+        return callCenterService.selectList(wrapper);
     }
 
     /**
