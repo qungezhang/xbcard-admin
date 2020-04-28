@@ -43,13 +43,14 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
     @Override
     public List<Map<String, Object>> selectUsers(String pCode ,Integer id) {
 
-        return this.baseMapper.selectUsers(pCode,id);
+//        return this.baseMapper.selectUsers(pCode,id);
+        return this.baseMapper.selectUsersNew(ToolUtil.isEmpty(id) ? 0 : id);
     }
 
-    @Override
-    public List<WxUserDto> selectUsersObj() {
-        return this.baseMapper.selectUsersObj(null,null);
-    }
+//    @Override
+//    public List<WxUserDto> selectUsersObj() {
+//        return this.baseMapper.selectUsersObj(null,null);
+//    }
 
     @Override
     public List<WxUserTreeDto> spacetreeUsers() {
@@ -88,7 +89,8 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
 
 
         List<WxUserTreeDto> treeDtos = new ArrayList<>();
-        List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj(pCode,wxUserId);
+//        List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj(pCode,wxUserId);
+        List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObjNew(ToolUtil.isEmpty(wxUserId) ? 0 : wxUserId);
         if (ToolUtil.isNotEmpty(wxUserDtos)) {
             List<WxUserTreeDto> wxUserTreeDtos = new ArrayList<>();
             for (WxUserDto wxUserDto : wxUserDtos) {
@@ -140,7 +142,8 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
         Integer wxUserId = user.getVersion();
         if (ToolUtil.isNotEmpty(wxUserId)) {
             String pCode = "[" + wxUserId + "]";
-            List<Integer> list = this.baseMapper.selectChildId(pCode, wxUserId);
+//            List<Integer> list = this.baseMapper.selectChildId(pCode, wxUserId);
+            List<Integer> list = this.baseMapper.selectChildIdNew(ToolUtil.isEmpty(wxUserId) ? 0 : wxUserId);
 //            if (list.isEmpty()) {
 //                list.add(-100);
 //            }

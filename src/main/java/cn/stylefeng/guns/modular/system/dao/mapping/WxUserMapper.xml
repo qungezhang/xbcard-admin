@@ -137,5 +137,14 @@
         wx_user u1
         WHERE  u1.flag1 like CONCAT('%',#{pCode},'%') OR u1.id =#{id}
     </select>
+    <select id="selectUsersNew" resultType="map" statementType="CALLABLE">
+		{call showChildLst(#{pid,mode=IN})}
+    </select>
+    <select id="selectUsersObjNew" resultType="cn.stylefeng.guns.modular.dto.WxUserDto" statementType="CALLABLE">
+		{call showChildLst(#{pid,mode=IN})}
+    </select>
+    <select id="selectChildIdNew" resultType="java.lang.Integer" statementType="CALLABLE">
+        {call showChildIdLst(#{pid,mode=IN})}
+    </select>
 
 </mapper>
