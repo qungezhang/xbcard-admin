@@ -31,7 +31,7 @@ public interface IWxUserService extends IService<WxUser> {
      */
     List<Map<String, Object>> selectUsers(String pCode,Integer id);
 
-    List<WxUserDto> selectUsersObj();
+//    List<WxUserDto> selectUsersObj();
 
     List<WxUserTreeDto> spacetreeUsers();
 
