@@ -87,6 +87,7 @@ public class WxUserServiceImpl extends ServiceImpl<WxUserMapper, WxUser> impleme
         }
 
 
+
         List<WxUserTreeDto> treeDtos = new ArrayList<>();
         List<WxUserDto> wxUserDtos = this.baseMapper.selectUsersObj(pCode,wxUserId);
         if (ToolUtil.isNotEmpty(wxUserDtos)) {
