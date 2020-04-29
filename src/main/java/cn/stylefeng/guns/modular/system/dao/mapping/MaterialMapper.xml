@@ -49,8 +49,7 @@
             m1.flag2,
         IF
             ( DATE_SUB(CURDATE(), INTERVAL 3 DAY) &lt;= date(m1.create_time), 1, 0 ) label,
-        IF
-            ( COUNT( m2.id )> 0, 1, 0 ) hasChildren
+            COUNT( m2.id ) hasChildren
         FROM
             wx_material m1
             LEFT JOIN wx_material m2 ON m2.pid =m1.id

@@ -65,10 +65,10 @@ public class MaterialInfoDto {
     @ApiModelProperty(value = "名片id")
     private Integer cardId;
     /**
-     * 是否有下一级（0没有  1有）
+     * 下级数量
      */
-    @ApiModelProperty(value = "是否有下一级（0没有  1有）")
-    private Integer hasChildren;
+    @ApiModelProperty(value = "下级数量")
+    private Integer hasChildren=0;
 
 //    /**
 //     * 父级编码
