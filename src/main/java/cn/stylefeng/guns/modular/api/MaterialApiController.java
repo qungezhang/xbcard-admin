@@ -199,13 +199,20 @@ public class MaterialApiController extends BaseController {
     @GetMapping(value = "/delete")
     @ResponseBody
     @ApiOperation("删除")
-    public Object delete(@RequestParam Integer materialId) throws QiniuException {
-        Material selectById = materialService.selectById(materialId);
-        if (ToolUtil.isEmpty(selectById)) {
-            return new ErrorResponseData("素材信息不存在");
+    public Object delete(@RequestParam(value = "materialId",required = false) Integer materialId) throws QiniuException {
+//        Material selectById = materialService.selectById(materialId);
+        if (ToolUtil.isEmpty(materialId)) {
+            return new ErrorResponseData("materialId不可为空");
         }
-        qiniuService.delete(StringUtil.getQiniKeyByUrl(selectById.getImgUrl()));
-        materialService.deleteById(materialId);
+        List<Material> childIdAndAll = materialService.selectChildIdNew(materialId);
+        if (ToolUtil.isEmpty(childIdAndAll)) {
+            return new ErrorResponseData("产品不存在");
+        }
+        for (Material material : childIdAndAll) {
+            qiniuService.delete(StringUtil.getQiniKeyByUrl(material.getImgUrl()));
+            materialService.deleteById(material.getId());
+        }
+
         return SUCCESS_TIP;
     }
 

@@ -29,4 +29,6 @@ public interface MaterialMapper extends BaseMapper<Material> {
      */
     List<MaterialInfoDto> getNewMaterialByCardId(@Param("cardId") Integer cardId, Page page);
 
+    List<Material> selectChildIdNew(@Param("pid") Integer pid);
+
 }

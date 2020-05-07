@@ -30,4 +30,9 @@ public interface IMaterialService extends IService<Material> {
      */
     List<MaterialInfoDto> getNewMaterialByCardId(Integer cardId, Page page);
 
+    List<Material> selectChildIdNew(Integer pid);
+
+
+
+
 }

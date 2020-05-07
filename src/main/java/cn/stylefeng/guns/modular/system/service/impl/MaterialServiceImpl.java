@@ -31,4 +31,9 @@ public class MaterialServiceImpl extends ServiceImpl<MaterialMapper, Material> i
 
         return baseMapper.getNewMaterialByCardId(cardId, page);
     }
+
+    @Override
+    public List<Material> selectChildIdNew(Integer pid) {
+        return baseMapper.selectChildIdNew(pid);
+    }
 }
