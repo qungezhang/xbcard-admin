@@ -90,7 +90,7 @@
         ORDER BY
         m1.id DESC
     </select>
-    <select id="selectChildIdNew" resultMap="BaseResultMap"> statementType="CALLABLE">
+    <select id="selectChildIdNew" resultMap="BaseResultMap" statementType="CALLABLE">
         {call showMaterialChildIdLst(#{pid,mode=IN})}
     </select>
 </mapper>
