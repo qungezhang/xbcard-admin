@@ -34,6 +34,8 @@ public class MaterialInfoDto {
      */
     @ApiModelProperty(value = "图片地址")
     private String imgUrl;
+    @ApiModelProperty(value = "缩略图片地址")
+    private String smallImgUrl;
     @ApiModelProperty(value = "价格")
     private String price;
     @ApiModelProperty(value = "标签(0正常 1新品)")

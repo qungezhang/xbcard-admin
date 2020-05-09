@@ -30,6 +30,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,6 +95,12 @@ public class MaterialApiController extends BaseController {
     public ResponseData getTopPList(@RequestBody @Valid MaterialTopPlistDTO plistDTO) {
         Page<MaterialInfoDto> infoDtoPage = new PageFactory<MaterialInfoDto>().defaultPage(plistDTO.getPageNum(), plistDTO.getPageSize(), null, null);
         List<MaterialInfoDto> materialByPid = materialService.getMaterialByPid(plistDTO.getCardId(), 0, infoDtoPage);
+        if (!CollectionUtils.isEmpty(materialByPid)) {
+            for (MaterialInfoDto materialInfoDto : materialByPid) {
+                String imgUrl = materialInfoDto.getImgUrl();
+                materialInfoDto.setSimplename(imgUrl == null ? null : imgUrl + "?imageView/1/w/300");
+            }
+        }
         infoDtoPage.setRecords(materialByPid);
         PageUtils pageUtils = new PageUtils(infoDtoPage);
         return new SuccessResponseData(pageUtils);
@@ -108,6 +115,12 @@ public class MaterialApiController extends BaseController {
     public ResponseData getChildPList(@RequestBody @Valid MaterialChildPListDTO childPListDTO) {
         Page<MaterialInfoDto> infoDtoPage = new PageFactory<MaterialInfoDto>().defaultPage(childPListDTO.getPageNum(), childPListDTO.getPageSize(), null, null);
         List<MaterialInfoDto> materialByPid = materialService.getMaterialByPid(childPListDTO.getCardId(), childPListDTO.getPid(), infoDtoPage);
+        if (!CollectionUtils.isEmpty(materialByPid)) {
+            for (MaterialInfoDto materialInfoDto : materialByPid) {
+                String imgUrl = materialInfoDto.getImgUrl();
+                materialInfoDto.setSimplename(imgUrl == null ? null : imgUrl + "?imageView/1/w/300");
+            }
+        }
         infoDtoPage.setRecords(materialByPid);
         PageUtils pageUtils = new PageUtils(infoDtoPage);
         return new SuccessResponseData(pageUtils);
