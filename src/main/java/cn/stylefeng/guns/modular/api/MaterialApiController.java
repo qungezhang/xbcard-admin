@@ -98,7 +98,7 @@ public class MaterialApiController extends BaseController {
         if (!CollectionUtils.isEmpty(materialByPid)) {
             for (MaterialInfoDto materialInfoDto : materialByPid) {
                 String imgUrl = materialInfoDto.getImgUrl();
-                materialInfoDto.setSimplename(imgUrl == null ? null : imgUrl + "?imageView/1/w/300");
+                materialInfoDto.setSimplename(imgUrl == null ? null : imgUrl + "?imageView2/1/w/300");
             }
         }
         infoDtoPage.setRecords(materialByPid);
@@ -118,7 +118,7 @@ public class MaterialApiController extends BaseController {
         if (!CollectionUtils.isEmpty(materialByPid)) {
             for (MaterialInfoDto materialInfoDto : materialByPid) {
                 String imgUrl = materialInfoDto.getImgUrl();
-                materialInfoDto.setSimplename(imgUrl == null ? null : imgUrl + "?imageView/1/w/300");
+                materialInfoDto.setSimplename(imgUrl == null ? null : imgUrl + "?imageView2/1/w/300");
             }
         }
         infoDtoPage.setRecords(materialByPid);
