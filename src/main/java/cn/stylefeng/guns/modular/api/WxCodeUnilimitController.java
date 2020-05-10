@@ -110,7 +110,8 @@ public class WxCodeUnilimitController extends BaseController {
                     successResponseData.setData(qrcodeUrl);
                     //将得到的二维码更新到名片
                     card.setFlag2(qrcodeUrl);
-                    cardService.updateById(card);
+                    // TODO: 2020/5/10 临时注掉
+//                    cardService.updateById(card);
 //              loginWxUser.setQrcode(qrcodeUrl);
 //              wxUserService.updateById(loginWxUser);
                 }
