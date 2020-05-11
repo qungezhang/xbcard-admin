@@ -48,7 +48,7 @@
             m1.flag1,
             m1.flag2,
         IF
-            ( DATE_SUB(CURDATE(), INTERVAL 3 DAY) &lt;= date(m1.create_time), 1, 0 ) label,
+            ( DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(m1.create_time), 1, 0 ) label,
             COUNT( m2.id ) hasChildren
         FROM
             wx_material m1
@@ -85,7 +85,7 @@
         wx_material m1
         WHERE
         m1.is_deleted = 0
-        AND DATE_SUB(CURDATE(), INTERVAL 3 DAY) &lt;= date(m1.create_time)
+        AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(m1.create_time)
         AND m1.card_id = #{cardId}
         ORDER BY
         m1.id DESC
