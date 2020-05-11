@@ -104,6 +104,9 @@ public class WxCodeUnilimitController extends BaseController {
                 } else {
                     final WxMaQrcodeService qrcodeService = WxMaConfiguration.getMaService(appid).getQrcodeService();
                     InputStream inputStream = new ByteArrayInputStream(qrcodeService.createWxaCodeUnlimitBytes(scene, page, width, true, (WxMaCodeLineColor) null, false));
+                    log.info("获取小程序码scene:" + scene);
+                    log.info("获取小程序码page:" + page);
+                    log.info("获取小程序码width:" + width);
                     String dateToStr = DateUtils.dateToStr(new Date(), "yyyyMMddhhmmss");
                     String pictureName = "code" + dateToStr + UUID.randomUUID().toString().split("-")[4] + ".jpg";
                     String qrcodeUrl = qiniuService.uploadFile(inputStream, pictureName);
