@@ -90,27 +90,32 @@ public class FileController extends BaseController{
         List<Map<String, Object>> list = new ArrayList<>(5);
         Map<String, Object> map1 = new HashMap<>();
         map1.put("number", 1);
-        map1.put("url", "https://.....");
+        map1.put("url", "https://img.xbdzmp.com/20200514104623cb622b806ab3.mp4");
+        map1.put("mark", "创建名片功能演示");
         list.add(map1);
 
         Map<String, Object> map2 = new HashMap<>();
         map2.put("number", 2);
-        map2.put("url", "https://.....");
+        map2.put("url", "https://img.xbdzmp.com/20200514105809a90d079aecf6.mp4");
+        map2.put("mark", "名片切换功能演示");
         list.add(map2);
 
         Map<String, Object> map3 = new HashMap<>();
         map3.put("number", 3);
-        map3.put("url", "https://.....");
+        map3.put("url", "https://img.xbdzmp.com/2020051411044874f0115ec8ec.mp4");
+        map3.put("mark", "上传产品功能演示");
         list.add(map3);
 
         Map<String, Object> map4 = new HashMap<>();
         map4.put("number", 4);
-        map4.put("url", "https://.....");
+        map4.put("url", "https://img.xbdzmp.com/202005141110518ec917650672.mp4");
+        map4.put("mark", "查看产品功能演示");
         list.add(map4);
 
         Map<String, Object> map5 = new HashMap<>();
         map5.put("number", 5);
-        map5.put("url", "https://.....");
+        map5.put("url", "https://img.xbdzmp.com/20200514111244bcadc2c309e9.mp4");
+        map5.put("mark", "发送名片功能演示");
         list.add(map5);
 
         return new SuccessResponseData(list);
