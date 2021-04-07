@@ -106,7 +106,7 @@ guns:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://39.106.95.230:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://39.97.186.174:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
     password: xbcard20208888~`
     filters: wall,mergeStat
@@ -116,7 +116,7 @@ spring:
 spring:
   profiles: test
   datasource:
-    url: jdbc:mysql://172.24.34.247:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://172.25.120.86:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
     password: xbcard20208888~`
     filters: wall,mergeStat
@@ -126,7 +126,7 @@ spring:
 spring:
   profiles: produce
   datasource:
-    url: jdbc:mysql://172.24.34.247:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://172.25.120.86:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
     password: xbcard20208888~`
     filters: wall,mergeStat
