@@ -67,6 +67,7 @@ public class ApiController extends BaseController {
     @Autowired
     IWxUserService iWxUserService;
 
+
 //    @Autowired
 //    private UserMapper userMapper;
 //    @Autowired
